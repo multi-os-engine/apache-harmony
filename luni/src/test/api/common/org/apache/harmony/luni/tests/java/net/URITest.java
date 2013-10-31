@@ -32,7 +32,7 @@ public class URITest extends TestCase {
             return uris;
         }
 
-        uris = new URI[] {
+        uris = new URI[]{
                 // single arg constructor
                 new URI(
                         "http://user%60%20info@host/a%20path?qu%60%20ery#fr%5E%20ag"),
@@ -76,7 +76,7 @@ public class URITest extends TestCase {
                 // malformed hostname, therefore registry-based,
                 // with query
                 new URI("file:///c:/temp/calculate.pl?"),
-        // empty authority, non empty path, empty query
+                // empty authority, non empty path, empty query
         };
         return uris;
     }
@@ -87,7 +87,7 @@ public class URITest extends TestCase {
     public void test_ConstructorLjava_lang_String() throws URISyntaxException {
         // tests for public URI(String uri) throws URISyntaxException
 
-        String[] constructorTests = new String[] {
+        String[] constructorTests = new String[]{
                 "http://user@www.google.com:45/search?q=helpinfo#somefragment",
                 // http with authority, query and fragment
                 "ftp://ftp.is.co.za/rfc/rfc1808.txt", // ftp
@@ -134,7 +134,7 @@ public class URITest extends TestCase {
             }
         }
 
-        String[] constructorTestsInvalid = new String[] {
+        String[] constructorTestsInvalid = new String[]{
                 "http:///a path#frag", // space char in path, not in escaped
                 // octet form, with no host
                 "http://host/a[path#frag", // an illegal char, not in escaped
@@ -159,11 +159,11 @@ public class URITest extends TestCase {
                 // with no host
 
                 "mailto:user^name@fklkf.com" // invalid char in scheme
-        // specific part
+                // specific part
         };
 
-        int[] constructorTestsInvalidIndices = new int[] { 9, 13, 13, 13, 13,
-                16, 15, 21, 18, 17, 18, 11 };
+        int[] constructorTestsInvalidIndices = new int[]{9, 13, 13, 13, 13,
+                16, 15, 21, 18, 17, 18, 11};
 
         for (int i = 0; i < constructorTestsInvalid.length; i++) {
             try {
@@ -280,7 +280,7 @@ public class URITest extends TestCase {
 
     /**
      * @tests java.net.URI#URI(java.lang.String, java.lang.String,
-     *        java.lang.String)
+     *java.lang.String)
      */
     public void test_ConstructorLjava_lang_StringLjava_lang_StringLjava_lang_String()
             throws URISyntaxException {
@@ -322,8 +322,8 @@ public class URITest extends TestCase {
 
     /**
      * @tests java.net.URI#URI(java.lang.String, java.lang.String,
-     *        java.lang.String, int, java.lang.String, java.lang.String,
-     *        java.lang.String)
+     *java.lang.String, int, java.lang.String, java.lang.String,
+     *java.lang.String)
      */
     public void test_ConstructorLjava_lang_StringLjava_lang_StringLjava_lang_StringILjava_lang_StringLjava_lang_StringLjava_lang_String() {
         // check for URISyntaxException for invalid Server Authority
@@ -387,7 +387,7 @@ public class URITest extends TestCase {
             assertEquals("wrong fragment", "frag#me?nt", uri.getFragment());
             assertEquals("wrong SchemeSpecificPart",
                     "//us:e@r@hostname:85/file/dir#/qu?e/?qu?er#y", uri
-                            .getSchemeSpecificPart());
+                    .getSchemeSpecificPart());
         } catch (URISyntaxException e) {
             fail("Unexpected Exception: " + e);
         }
@@ -413,7 +413,7 @@ public class URITest extends TestCase {
     /**
      * @throws URISyntaxException
      * @tests java.net.URI#URI(java.lang.String, java.lang.String,
-     *        java.lang.String, java.lang.String)
+     *java.lang.String, java.lang.String)
      */
     public void test_ConstructorLjava_lang_StringLjava_lang_StringLjava_lang_StringLjava_lang_String()
             throws URISyntaxException {
@@ -459,7 +459,7 @@ public class URITest extends TestCase {
     /**
      * @throws URISyntaxException
      * @tests java.net.URI#URI(java.lang.String, java.lang.String,
-     *        java.lang.String, java.lang.String, java.lang.String)
+     *java.lang.String, java.lang.String, java.lang.String)
      */
     public void test_ConstructorLjava_lang_StringLjava_lang_StringLjava_lang_StringLjava_lang_StringLjava_lang_String()
             throws URISyntaxException {
@@ -492,21 +492,21 @@ public class URITest extends TestCase {
                 uri.getSchemeSpecificPart());
         assertEquals("wrong RawSchemeSpecificPart",
                 "///p%23a%25E2%2582%25ACth?q%5Eu%2525ery", uri
-                        .getRawSchemeSpecificPart());
+                .getRawSchemeSpecificPart());
         assertEquals(
                 "incorrect toString()",
                 "ht12-3+tp:///p%23a%25E2%2582%25ACth?q%5Eu%2525ery#f/r\u00dfag",
                 uri.toString());
         assertEquals("incorrect toASCIIString()",
 
-        "ht12-3+tp:///p%23a%25E2%2582%25ACth?q%5Eu%2525ery#f/r%C3%9Fag", uri
+                "ht12-3+tp:///p%23a%25E2%2582%25ACth?q%5Eu%2525ery#f/r%C3%9Fag", uri
                 .toASCIIString());
     }
 
     /**
      * @throws URISyntaxException
      * @tests java.net.URI#URI(java.lang.String, java.lang.String,
-     *        java.lang.String, java.lang.String, java.lang.String)
+     *java.lang.String, java.lang.String, java.lang.String)
      */
     public void test_fiveArgConstructor() throws URISyntaxException {
         // accept [] as part of valid ipv6 host name
@@ -538,62 +538,62 @@ public class URITest extends TestCase {
     public void test_compareToLjava_lang_Object() throws Exception {
         // compareTo tests
 
-        String[][] compareToData = new String[][] {
+        String[][] compareToData = new String[][]{
                 // scheme tests
-                { "http:test", "" }, // scheme null, scheme not null
-                { "", "http:test" }, // reverse
-                { "http:test", "ftp:test" }, // schemes different
-                { "/test", "/test" }, // schemes null
-                { "http://joe", "http://joe" }, // schemes same
-                { "http://joe", "hTTp://joe" }, // schemes same ignoring case
+                {"http:test", ""}, // scheme null, scheme not null
+                {"", "http:test"}, // reverse
+                {"http:test", "ftp:test"}, // schemes different
+                {"/test", "/test"}, // schemes null
+                {"http://joe", "http://joe"}, // schemes same
+                {"http://joe", "hTTp://joe"}, // schemes same ignoring case
 
                 // opacity : one opaque, the other not
-                { "http:opaque", "http://nonopaque" },
-                { "http://nonopaque", "http:opaque" },
-                { "mailto:abc", "mailto:abc" }, // same ssp
-                { "mailto:abC", "mailto:Abc" }, // different, by case
-                { "mailto:abc", "mailto:def" }, // different by letter
-                { "mailto:abc#ABC", "mailto:abc#DEF" },
-                { "mailto:abc#ABC", "mailto:abc#ABC" },
-                { "mailto:abc#DEF", "mailto:abc#ABC" },
+                {"http:opaque", "http://nonopaque"},
+                {"http://nonopaque", "http:opaque"},
+                {"mailto:abc", "mailto:abc"}, // same ssp
+                {"mailto:abC", "mailto:Abc"}, // different, by case
+                {"mailto:abc", "mailto:def"}, // different by letter
+                {"mailto:abc#ABC", "mailto:abc#DEF"},
+                {"mailto:abc#ABC", "mailto:abc#ABC"},
+                {"mailto:abc#DEF", "mailto:abc#ABC"},
 
                 // hierarchical tests..
 
                 // different authorities
-                { "//www.test.com/test", "//www.test2.com/test" },
+                {"//www.test.com/test", "//www.test2.com/test"},
 
-                { "/nullauth", "//nonnullauth/test" }, // one null authority
-                { "//nonnull", "/null" },
-                { "/hello", "/hello" }, // both authorities null
+                {"/nullauth", "//nonnullauth/test"}, // one null authority
+                {"//nonnull", "/null"},
+                {"/hello", "/hello"}, // both authorities null
                 // different userinfo
-                { "http://joe@test.com:80", "http://test.com" },
-                { "http://jim@test.com", "http://james@test.com" },
+                {"http://joe@test.com:80", "http://test.com"},
+                {"http://jim@test.com", "http://james@test.com"},
                 // different hostnames
-                { "http://test.com", "http://toast.com" },
-                { "http://test.com:80", "test.com:87" }, // different ports
-                { "http://test.com", "http://test.com:80" },
+                {"http://test.com", "http://toast.com"},
+                {"http://test.com:80", "test.com:87"}, // different ports
+                {"http://test.com", "http://test.com:80"},
                 // different paths
-                { "http://test.com:91/dir1", "http://test.com:91/dir2" },
+                {"http://test.com:91/dir1", "http://test.com:91/dir2"},
                 // one null host
-                { "http:/hostless", "http://hostfilled.com/hostless" },
+                {"http:/hostless", "http://hostfilled.com/hostless"},
 
                 // queries
-                { "http://test.com/dir?query", "http://test.com/dir?koory" },
-                { "/test?query", "/test" },
-                { "/test", "/test?query" },
-                { "/test", "/test" },
+                {"http://test.com/dir?query", "http://test.com/dir?koory"},
+                {"/test?query", "/test"},
+                {"/test", "/test?query"},
+                {"/test", "/test"},
 
                 // fragments
-                { "ftp://test.com/path?query#frag", "ftp://test.com/path?query" },
-                { "ftp://test.com/path?query", "ftp://test.com/path?query#frag" },
-                { "#frag", "#frag" }, { "p", "" },
+                {"ftp://test.com/path?query#frag", "ftp://test.com/path?query"},
+                {"ftp://test.com/path?query", "ftp://test.com/path?query#frag"},
+                {"#frag", "#frag"}, {"p", ""},
 
-                { "http://www.google.com", "#test" } // miscellaneous
+                {"http://www.google.com", "#test"} // miscellaneous
         };
 
-        int[] compareToResults = { 1, -1, 2, 0, 0, 0, 1, -1, 0, 32, -3, -3, 0,
+        int[] compareToResults = {1, -1, 2, 0, 0, 0, 1, -1, 0, 32, -3, -3, 0,
                 3, -4, -1, 1, 0, 1, 8, -10, -12, -81, -1, -1, 6, 1, -1, 0, 1,
-                -1, 0, 1, 1, };
+                -1, 0, 1, 1,};
 
         // test compareTo functionality
         for (int i = 0; i < compareToResults.length; i++) {
@@ -649,61 +649,61 @@ public class URITest extends TestCase {
      * @tests java.net.URI#equals(java.lang.Object)
      */
     public void test_equalsLjava_lang_Object() throws Exception {
-        String[][] equalsData = new String[][] {
-                { "", "" }, // null frags
-                { "/path", "/path#frag" },
-                { "#frag", "#frag2" },
-                { "#frag", "#FRag" },
+        String[][] equalsData = new String[][]{
+                {"", ""}, // null frags
+                {"/path", "/path#frag"},
+                {"#frag", "#frag2"},
+                {"#frag", "#FRag"},
 
                 // case insensitive on hex escapes
-                { "#fr%4F", "#fr%4f" },
+                {"#fr%4F", "#fr%4f"},
 
-                { "scheme:test", "scheme2:test" }, // scheme stuff
-                { "test", "http:test" },
-                { "http:test", "test" },
-                { "SCheme:test", "schEMe:test" },
+                {"scheme:test", "scheme2:test"}, // scheme stuff
+                {"test", "http:test"},
+                {"http:test", "test"},
+                {"SCheme:test", "schEMe:test"},
 
                 // hierarchical/opaque mismatch
-                { "mailto:jim", "mailto://jim" },
-                { "mailto://test", "mailto:test" },
+                {"mailto:jim", "mailto://jim"},
+                {"mailto://test", "mailto:test"},
 
                 // opaque
-                { "mailto:name", "mailto:name" },
-                { "mailtO:john", "mailto:jim" },
+                {"mailto:name", "mailto:name"},
+                {"mailtO:john", "mailto:jim"},
 
                 // test hex case insensitivity on ssp
-                { "mailto:te%4Fst", "mailto:te%4fst" },
+                {"mailto:te%4Fst", "mailto:te%4fst"},
 
-                { "mailto:john#frag", "mailto:john#frag2" },
+                {"mailto:john#frag", "mailto:john#frag2"},
 
                 // hierarchical
-                { "/test", "/test" }, // paths
-                { "/te%F4st", "/te%f4st" },
-                { "/TEst", "/teSt" },
-                { "", "/test" },
+                {"/test", "/test"}, // paths
+                {"/te%F4st", "/te%f4st"},
+                {"/TEst", "/teSt"},
+                {"", "/test"},
 
                 // registry based because they don't resolve properly to
                 // server-based add more tests here
-                { "//host.com:80err", "//host.com:80e" },
-                { "//host.com:81e%Abrr", "//host.com:81e%abrr" },
+                {"//host.com:80err", "//host.com:80e"},
+                {"//host.com:81e%Abrr", "//host.com:81e%abrr"},
 
-                { "/test", "//auth.com/test" },
-                { "//test.com", "/test" },
+                {"/test", "//auth.com/test"},
+                {"//test.com", "/test"},
 
-                { "//test.com", "//test.com" }, // hosts
+                {"//test.com", "//test.com"}, // hosts
 
                 // case insensitivity for hosts
-                { "//HoSt.coM/", "//hOsT.cOm/" },
-                { "//te%ae.com", "//te%aE.com" },
-                { "//test.com:80", "//test.com:81" },
-                { "//joe@test.com:80", "//test.com:80" },
-                { "//jo%3E@test.com:82", "//jo%3E@test.com:82" },
-                { "//test@test.com:85", "//test@test.com" }, };
+                {"//HoSt.coM/", "//hOsT.cOm/"},
+                {"//te%ae.com", "//te%aE.com"},
+                {"//test.com:80", "//test.com:81"},
+                {"//joe@test.com:80", "//test.com:80"},
+                {"//jo%3E@test.com:82", "//jo%3E@test.com:82"},
+                {"//test@test.com:85", "//test@test.com"},};
 
-        boolean[] equalsResults = new boolean[] { true, false, false, false,
+        boolean[] equalsResults = new boolean[]{true, false, false, false,
                 true, false, false, false, true, false, false, true, false,
                 true, false, true, true, false, false, false, true, false,
-                false, true, true, true, false, false, true, false, };
+                false, true, true, true, false, false, true, false,};
 
         // test equals functionality
         for (int i = 0; i < equalsResults.length; i++) {
@@ -759,7 +759,7 @@ public class URITest extends TestCase {
                 "user\u00DF\u00A3info@host:80", // =
                 // "user\u00df\u00a3info@host:80",
                 "user` info@host:81", "user%info@host:0", null, null, null,
-                null, "server.org", "reg:istry", null, };
+                null, "server.org", "reg:istry", null,};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getAuthority();
@@ -826,12 +826,12 @@ public class URITest extends TestCase {
     public void test_getFragment() throws Exception {
         URI[] uris = getUris();
 
-        String[] getFragmentResults = { "fr^ ag", "fr\u00E4\u00E8g", // =
+        String[] getFragmentResults = {"fr^ ag", "fr\u00E4\u00E8g", // =
                 // "fr\u00e4\u00e8g",
                 "fr\u00E4\u00E8g", // = "fr\u00e4\u00e8g",
                 "fr%5E%20ag", "fr%C3%A4%C3%A8g", "fr\u00E4\u00E8g", // =
                 // "fr\u00e4\u00e8g",
-                "fr^ ag", "f%rag", null, "", null, "fragment", null, null, null };
+                "fr^ ag", "f%rag", null, "", null, "fragment", null, null, null};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getFragment();
@@ -850,9 +850,9 @@ public class URITest extends TestCase {
     public void test_getHost() throws Exception {
         URI[] uris = getUris();
 
-        String[] getHostResults = { "host", "host", "host", "host", "host",
+        String[] getHostResults = {"host", "host", "host", "host", "host",
                 "host", "host", "host", null, null, null, null, "server.org",
-                null, null };
+                null, null};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getHost();
@@ -871,13 +871,13 @@ public class URITest extends TestCase {
     public void test_getPath() throws Exception {
         URI[] uris = getUris();
 
-        String[] getPathResults = { "/a path",
+        String[] getPathResults = {"/a path",
                 "/a\u20ACpath", // = "/a\u0080path",
                 "/a\u20ACpath", // = "/a\u0080path",
                 "/a%20path", "/a%E2%82%ACpath",
                 "/a\u20ACpath", // = "/a\u0080path",
                 "/a path", "/a%path", null, "../adirectory/file.html", null,
-                "", "", "", "/c:/temp/calculate.pl" };
+                "", "", "", "/c:/temp/calculate.pl"};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getPath();
@@ -896,8 +896,8 @@ public class URITest extends TestCase {
     public void test_getPort() throws Exception {
         URI[] uris = getUris();
 
-        int[] getPortResults = { -1, 80, 0, 80, -1, 80, 81, 0, -1, -1, -1, -1,
-                -1, -1, -1 };
+        int[] getPortResults = {-1, 80, 0, 80, -1, 80, 81, 0, -1, -1, -1, -1,
+                -1, -1, -1};
 
         for (int i = 0; i < uris.length; i++) {
             int result = uris[i].getPort();
@@ -941,12 +941,12 @@ public class URITest extends TestCase {
     public void test_getQuery() throws Exception {
         URI[] uris = getUris();
 
-        String[] getQueryResults = { "qu` ery", "qu\u00A9\u00AEery", // =
+        String[] getQueryResults = {"qu` ery", "qu\u00A9\u00AEery", // =
                 // "qu\u00a9\u00aeery",
                 "qu\u00A9\u00AEery", // = "qu\u00a9\u00aeery",
                 "qu%60%20ery", "qu%C2%A9%C2%AEery", "qu\u00A9\u00AEery", // =
                 // "qu\u00a9\u00aeery",
-                "qu` ery", "que%ry", null, null, null, null, null, "query", "" };
+                "qu` ery", "que%ry", null, null, null, null, null, "query", ""};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getQuery();
@@ -975,7 +975,7 @@ public class URITest extends TestCase {
                 "user\u00DF\u00A3info@host:80", // =
                 // "user\u00df\u00a3info@host:80",
                 "user%60%20info@host:81", "user%25info@host:0", null, null,
-                null, null, "server.org", "reg:istry", null };
+                null, null, "server.org", "reg:istry", null};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getRawAuthority();
@@ -994,14 +994,14 @@ public class URITest extends TestCase {
     public void test_getRawFragment() throws Exception {
         URI[] uris = getUris();
 
-        String[] getRawFragmentResults = { "fr%5E%20ag",
+        String[] getRawFragmentResults = {"fr%5E%20ag",
                 "fr%C3%A4%C3%A8g",
                 "fr\u00E4\u00E8g", // = "fr\u00e4\u00e8g",
                 "fr%255E%2520ag", "fr%25C3%25A4%25C3%25A8g",
                 "fr\u00E4\u00E8g", // =
                 // "fr\u00e4\u00e8g",
                 "fr%5E%20ag", "f%25rag", null, "", null, "fragment", null,
-                null, null };
+                null, null};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getRawFragment();
@@ -1020,14 +1020,14 @@ public class URITest extends TestCase {
     public void test_getRawPath() throws Exception {
         URI[] uris = getUris();
 
-        String[] getRawPathResults = { "/a%20path",
+        String[] getRawPathResults = {"/a%20path",
                 "/a%E2%82%ACpath",
                 "/a\u20ACpath", // = "/a\u0080path",
                 "/a%2520path", "/a%25E2%2582%25ACpath",
                 "/a\u20ACpath", // =
                 // "/a\u0080path",
                 "/a%20path", "/a%25path", null, "../adirectory/file.html",
-                null, "", "", "", "/c:/temp/calculate.pl" };
+                null, "", "", "", "/c:/temp/calculate.pl"};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getRawPath();
@@ -1054,7 +1054,7 @@ public class URITest extends TestCase {
                 "qu%25C2%25A9%25C2%25AEery",
                 "qu\u00A9\u00AEery", // = "qu\u00a9\u00aeery",
                 "qu%60%20ery", "que%25ry", null, null, null, null, null,
-                "query", "" };
+                "query", ""};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getRawQuery();
@@ -1087,7 +1087,7 @@ public class URITest extends TestCase {
                 "//user%25info@host:0/a%25path?que%25ry", "user@domain.com",
                 "../adirectory/file.html", "comp.infosystems.www.servers.unix",
                 "", "//server.org", "//reg:istry?query",
-                "///c:/temp/calculate.pl?" };
+                "///c:/temp/calculate.pl?"};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getRawSchemeSpecificPart();
@@ -1113,7 +1113,7 @@ public class URITest extends TestCase {
                 "user%25C3%259F%25C2%25A3info",
                 "user\u00DF\u00A3info", // = "user\u00df\u00a3info",
                 "user%60%20info", "user%25info", null, null, null, null, null,
-                null, null };
+                null, null};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getRawUserInfo();
@@ -1132,9 +1132,9 @@ public class URITest extends TestCase {
     public void test_getScheme() throws Exception {
         URI[] uris = getUris();
 
-        String[] getSchemeResults = { "http", "http", "ascheme", "http",
+        String[] getSchemeResults = {"http", "http", "ascheme", "http",
                 "http", "ascheme", "http", "http", "mailto", null, "news",
-                null, "telnet", "http", "file" };
+                null, "telnet", "http", "file"};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getScheme();
@@ -1167,7 +1167,7 @@ public class URITest extends TestCase {
                 "//user%info@host:0/a%path?que%ry", "user@domain.com",
                 "../adirectory/file.html", "comp.infosystems.www.servers.unix",
                 "", "//server.org", "//reg:istry?query",
-                "///c:/temp/calculate.pl?" };
+                "///c:/temp/calculate.pl?"};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getSchemeSpecificPart();
@@ -1195,7 +1195,7 @@ public class URITest extends TestCase {
                 "user%C3%9F%C2%A3info",
                 "user\u00DF\u00A3info", // = "user\u00df\u00a3info",
                 "user` info", "user%info", null, null, null, null, null, null,
-                null };
+                null};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].getUserInfo();
@@ -1212,61 +1212,61 @@ public class URITest extends TestCase {
      * @tests java.net.URI#hashCode()
      */
     public void test_hashCode() throws Exception {
-        String[][] hashCodeData = new String[][] {
-                { "", "" }, // null frags
-                { "/path", "/path#frag" },
-                { "#frag", "#frag2" },
-                { "#frag", "#FRag" },
+        String[][] hashCodeData = new String[][]{
+                {"", ""}, // null frags
+                {"/path", "/path#frag"},
+                {"#frag", "#frag2"},
+                {"#frag", "#FRag"},
 
-                { "#fr%4F", "#fr%4F" }, // case insensitive on hex escapes
+                {"#fr%4F", "#fr%4F"}, // case insensitive on hex escapes
 
-                { "scheme:test", "scheme2:test" }, // scheme
-                { "test", "http:test" },
-                { "http:test", "test" },
+                {"scheme:test", "scheme2:test"}, // scheme
+                {"test", "http:test"},
+                {"http:test", "test"},
 
                 // case insensitivity for scheme
-                { "SCheme:test", "schEMe:test" },
+                {"SCheme:test", "schEMe:test"},
 
                 // hierarchical/opaque mismatch
-                { "mailto:jim", "mailto://jim" },
-                { "mailto://test", "mailto:test" },
+                {"mailto:jim", "mailto://jim"},
+                {"mailto://test", "mailto:test"},
 
                 // opaque
-                { "mailto:name", "mailto:name" },
-                { "mailtO:john", "mailto:jim" },
-                { "mailto:te%4Fst", "mailto:te%4Fst" },
-                { "mailto:john#frag", "mailto:john#frag2" },
+                {"mailto:name", "mailto:name"},
+                {"mailtO:john", "mailto:jim"},
+                {"mailto:te%4Fst", "mailto:te%4Fst"},
+                {"mailto:john#frag", "mailto:john#frag2"},
 
                 // hierarchical
-                { "/test/", "/test/" }, // paths
-                { "/te%F4st", "/te%F4st" },
-                { "/TEst", "/teSt" },
-                { "", "/test" },
+                {"/test/", "/test/"}, // paths
+                {"/te%F4st", "/te%F4st"},
+                {"/TEst", "/teSt"},
+                {"", "/test"},
 
                 // registry based because they don't resolve properly to
                 // server-based
                 // add more tests here
-                { "//host.com:80err", "//host.com:80e" },
-                { "//host.com:81e%Abrr", "//host.com:81e%Abrr" },
-                { "//Host.com:80e", "//hoSt.com:80e" },
+                {"//host.com:80err", "//host.com:80e"},
+                {"//host.com:81e%Abrr", "//host.com:81e%Abrr"},
+                {"//Host.com:80e", "//hoSt.com:80e"},
 
-                { "/test", "//auth.com/test" },
-                { "//test.com", "/test" },
+                {"/test", "//auth.com/test"},
+                {"//test.com", "/test"},
 
-                { "//test.com", "//test.com" }, // server based
+                {"//test.com", "//test.com"}, // server based
 
                 // case insensitivity for host
-                { "//HoSt.coM/", "//hOsT.cOm/" },
-                { "//te%aE.com", "//te%aE.com" },
-                { "//test.com:80", "//test.com:81" },
-                { "//joe@test.com:80", "//test.com:80" },
-                { "//jo%3E@test.com:82", "//jo%3E@test.com:82" },
-                { "//test@test.com:85", "//test@test.com" }, };
+                {"//HoSt.coM/", "//hOsT.cOm/"},
+                {"//te%aE.com", "//te%aE.com"},
+                {"//test.com:80", "//test.com:81"},
+                {"//joe@test.com:80", "//test.com:80"},
+                {"//jo%3E@test.com:82", "//jo%3E@test.com:82"},
+                {"//test@test.com:85", "//test@test.com"},};
 
-        boolean[] hashCodeResults = new boolean[] { true, false, false, false,
+        boolean[] hashCodeResults = new boolean[]{true, false, false, false,
                 true, false, false, false, true, false, false, true, false,
                 true, false, true, true, false, false, false, true, false,
-                false, false, true, true, true, false, false, true, false, };
+                false, false, true, true, true, false, false, true, false,};
 
         for (int i = 0; i < hashCodeResults.length; i++) {
             URI b = new URI(hashCodeData[i][0]);
@@ -1282,15 +1282,15 @@ public class URITest extends TestCase {
      * @tests java.net.URI#isAbsolute()
      */
     public void test_isAbsolute() throws URISyntaxException {
-        String[] isAbsoluteData = new String[] { "mailto:user@ca.ibm.com",
+        String[] isAbsoluteData = new String[]{"mailto:user@ca.ibm.com",
                 "urn:isbn:123498989h", "news:software.ibm.com",
                 "http://www.amazon.ca", "file:///d:/temp/results.txt",
                 "scheme:ssp", "calculate.pl?isbn=123498989h",
                 "?isbn=123498989h", "//www.amazon.ca", "a.html", "#top",
-                "//pc1/", "//user@host/path/file" };
+                "//pc1/", "//user@host/path/file"};
 
-        boolean results[] = new boolean[] { true, true, true, true, true, true,
-                false, false, false, false, false, false, false };
+        boolean results[] = new boolean[]{true, true, true, true, true, true,
+                false, false, false, false, false, false, false};
 
         for (int i = 0; i < isAbsoluteData.length; i++) {
             boolean result = new URI(isAbsoluteData[i]).isAbsolute();
@@ -1303,15 +1303,15 @@ public class URITest extends TestCase {
      * @tests java.net.URI#isOpaque()
      */
     public void test_isOpaque() throws URISyntaxException {
-        String[] isOpaqueData = new String[] { "mailto:user@ca.ibm.com",
+        String[] isOpaqueData = new String[]{"mailto:user@ca.ibm.com",
                 "urn:isbn:123498989h", "news:software.ibm.com",
                 "http://www.amazon.ca", "file:///d:/temp/results.txt",
                 "scheme:ssp", "calculate.pl?isbn=123498989h",
                 "?isbn=123498989h", "//www.amazon.ca", "a.html", "#top",
-                "//pc1/", "//user@host/path/file" };
+                "//pc1/", "//user@host/path/file"};
 
-        boolean results[] = new boolean[] { true, true, true, false, false,
-                true, false, false, false, false, false, false, false };
+        boolean results[] = new boolean[]{true, true, true, false, false,
+                true, false, false, false, false, false, false, false};
 
         for (int i = 0; i < isOpaqueData.length; i++) {
             boolean result = new URI(isOpaqueData[i]).isOpaque();
@@ -1431,7 +1431,7 @@ public class URITest extends TestCase {
     public void test_parseServerAuthority() throws URISyntaxException {
         // registry based uris
         URI[] uris = null;
-        uris = new URI[] {
+        uris = new URI[]{
                 // port number not digits
                 new URI("http://foo:bar/file#fragment"),
                 new URI("http", "//foo:bar/file", "fragment"),
@@ -1485,7 +1485,7 @@ public class URITest extends TestCase {
                 new URI("http", "34::56:78", "/path", "query", "fragment"),
 
                 // expected host
-                new URI("http", "user@", "/path", "query", "fragment") };
+                new URI("http", "user@", "/path", "query", "fragment")};
         // these URIs do not have valid server based authorities,
         // but single arg, 3 and 5 arg constructors
         // parse them as valid registry based authorities
@@ -1665,34 +1665,34 @@ public class URITest extends TestCase {
      */
     public void test_resolveLjava_net_URI() {
         // resolution tests
-        String[][] resolveData = new String[][] {
+        String[][] resolveData = new String[][]{
                 // authority in given URI
-                { "http://www.test.com/dir",
-                        "//www.test.com/hello?query#fragment" },
+                {"http://www.test.com/dir",
+                        "//www.test.com/hello?query#fragment"},
                 // no authority, absolute path
-                { "http://www.test.com/dir", "/abspath/file.txt" },
+                {"http://www.test.com/dir", "/abspath/file.txt"},
                 // no authority, relative paths
-                { "/", "dir1/file.txt" }, { "/dir1", "dir2/file.txt" },
-                { "/dir1/", "dir2/file.txt" }, { "", "dir1/file.txt" },
-                { "dir1", "dir2/file.txt" }, { "dir1/", "dir2/file.txt" },
+                {"/", "dir1/file.txt"}, {"/dir1", "dir2/file.txt"},
+                {"/dir1/", "dir2/file.txt"}, {"", "dir1/file.txt"},
+                {"dir1", "dir2/file.txt"}, {"dir1/", "dir2/file.txt"},
                 // normalization required
-                { "/dir1/dir2/../dir3/./", "dir4/./file.txt" },
+                {"/dir1/dir2/../dir3/./", "dir4/./file.txt"},
                 // allow a standalone fragment to be resolved
-                { "http://www.google.com/hey/joe?query#fragment", "#frag2" },
+                {"http://www.google.com/hey/joe?query#fragment", "#frag2"},
                 // return given when base is opaque
-                { "mailto:idontexist@uk.ibm.com", "dir1/dir2" },
+                {"mailto:idontexist@uk.ibm.com", "dir1/dir2"},
                 // return given when given is absolute
-                { "http://www.google.com/hi/joe", "http://www.oogle.com" }, };
+                {"http://www.google.com/hi/joe", "http://www.oogle.com"},};
 
         // expected results
-        String[] resolveResults = new String[] {
+        String[] resolveResults = new String[]{
                 "http://www.test.com/hello?query#fragment",
                 "http://www.test.com/abspath/file.txt", "/dir1/file.txt",
                 "/dir2/file.txt", "/dir1/dir2/file.txt", "dir1/file.txt",
                 "dir2/file.txt", "dir1/dir2/file.txt",
                 "/dir1/dir3/dir4/file.txt",
                 "http://www.google.com/hey/joe?query#frag2", "dir1/dir2",
-                "http://www.oogle.com", };
+                "http://www.oogle.com",};
 
         for (int i = 0; i < resolveResults.length; i++) {
             try {
@@ -1722,7 +1722,7 @@ public class URITest extends TestCase {
     public void test_toASCIIString() throws Exception {
         URI[] uris = getUris();
 
-        String[] toASCIIStringResults0 = new String[] {
+        String[] toASCIIStringResults0 = new String[]{
                 "http://user%60%20info@host/a%20path?qu%60%20ery#fr%5E%20ag",
                 "http://user%C3%9F%C2%A3info@host:80/a%E2%82%ACpath?qu%C2%A9%C2%AEery#fr%C3%A4%C3%A8g",
                 "ascheme://user%C3%9F%C2%A3info@host:0/a%E2%82%ACpath?qu%C2%A9%C2%AEery#fr%C3%A4%C3%A8g",
@@ -1734,7 +1734,7 @@ public class URITest extends TestCase {
                 "mailto:user@domain.com", "../adirectory/file.html#",
                 "news:comp.infosystems.www.servers.unix", "#fragment",
                 "telnet://server.org", "http://reg:istry?query",
-                "file:///c:/temp/calculate.pl?" };
+                "file:///c:/temp/calculate.pl?"};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].toASCIIString();
@@ -1744,18 +1744,18 @@ public class URITest extends TestCase {
                     .equals(toASCIIStringResults0[i]));
         }
 
-        String[] toASCIIStringData = new String[] {
+        String[] toASCIIStringData = new String[]{
                 "http://www.test.com/\u00DF/dir/",
                 "http://www.test.com/\u20AC/dir", "http://www.\u20AC.com/dir",
                 "http://www.test.com/\u20AC/dir/file#fragment",
-                "mailto://user@domain.com", "mailto://user\u00DF@domain.com", };
+                "mailto://user@domain.com", "mailto://user\u00DF@domain.com",};
 
-        String[] toASCIIStringResults = new String[] {
+        String[] toASCIIStringResults = new String[]{
                 "http://www.test.com/%C3%9F/dir/",
                 "http://www.test.com/%E2%82%AC/dir",
                 "http://www.%E2%82%AC.com/dir",
                 "http://www.test.com/%E2%82%AC/dir/file#fragment",
-                "mailto://user@domain.com", "mailto://user%C3%9F@domain.com", };
+                "mailto://user@domain.com", "mailto://user%C3%9F@domain.com",};
 
         for (int i = 0; i < toASCIIStringData.length; i++) {
             URI test = new URI(toASCIIStringData[i]);
@@ -1789,7 +1789,7 @@ public class URITest extends TestCase {
                 "mailto:user@domain.com", "../adirectory/file.html#",
                 "news:comp.infosystems.www.servers.unix", "#fragment",
                 "telnet://server.org", "http://reg:istry?query",
-                "file:///c:/temp/calculate.pl?" };
+                "file:///c:/temp/calculate.pl?"};
 
         for (int i = 0; i < uris.length; i++) {
             String result = uris[i].toString();
@@ -1803,14 +1803,14 @@ public class URITest extends TestCase {
      * @tests java.net.URI#toURL()
      */
     public void test_toURL() throws Exception {
-        String absoluteuris[] = new String[] { "mailto:noreply@apache.org",
+        String absoluteuris[] = new String[]{"mailto:noreply@apache.org",
                 "urn:isbn:123498989h", "news:software.ibm.com",
                 "http://www.apache.org", "file:///d:/temp/results.txt",
-                "scheme:ssp", };
+                "scheme:ssp",};
 
-        String relativeuris[] = new String[] { "calculate.pl?isbn=123498989h",
+        String relativeuris[] = new String[]{"calculate.pl?isbn=123498989h",
                 "?isbn=123498989h", "//www.apache.org", "a.html", "#top",
-                "//pc1/", "//user@host/path/file" };
+                "//pc1/", "//user@host/path/file"};
 
         for (int i = 0; i < absoluteuris.length; i++) {
             try {

@@ -25,6 +25,6 @@ public class LevelTestResource extends ListResourceBundle {
     }
 
     @SuppressWarnings("nls")
-    static final Object[][] contents = { { "Level_error", "Name" },
-            { "Localized", "Localized message" }, };
+    static final Object[][] contents = {{"Level_error", "Name"},
+            {"Localized", "Localized message"},};
 }

@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexander V. Astapchuk
-*/
+ * @author Alexander V. Astapchuk
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -37,10 +37,10 @@ public class PrivilegedActionExceptionTest extends SerializationTest implements
     protected Object[] getData() {
         Exception ex = new Exception();
         PrivilegedActionException ex1 = new PrivilegedActionException(ex);
-        return new PrivilegedActionException[] {
-              new PrivilegedActionException(null),
-              new PrivilegedActionException(ex),
-              new PrivilegedActionException(ex1)
+        return new PrivilegedActionException[]{
+                new PrivilegedActionException(null),
+                new PrivilegedActionException(ex),
+                new PrivilegedActionException(ex1)
         };
     }
 
@@ -50,10 +50,10 @@ public class PrivilegedActionExceptionTest extends SerializationTest implements
         THROWABLE_COMPARATOR.assertDeserialized(reference, otest);
 
         // class specific checks
-        PrivilegedActionException ref = (PrivilegedActionException)reference;
-        PrivilegedActionException test = (PrivilegedActionException)otest;
-        if( ref.getException() == null ) {
-            assertNull( test.getException() );
+        PrivilegedActionException ref = (PrivilegedActionException) reference;
+        PrivilegedActionException test = (PrivilegedActionException) otest;
+        if (ref.getException() == null) {
+            assertNull(test.getException());
         } else {
             THROWABLE_COMPARATOR.assertDeserialized(ref.getException(), test
                     .getException());

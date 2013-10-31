@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>ClientKeyExchange</code> constructor and methods
- *  
  */
 public class ClientKeyExchangeTest extends TestCase {
 
@@ -33,10 +32,10 @@ public class ClientKeyExchangeTest extends TestCase {
      * Test for void ClientKeyExchange(byte[], boolean)
      */
     public void testClientKeyExchangebyteArrayboolean() throws Exception {
-        byte[] encrypted_pre_master_secret = new byte[] {
+        byte[] encrypted_pre_master_secret = new byte[]{
                 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
-                1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-        boolean[] isTLS = new boolean[] { true, false };
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+        boolean[] isTLS = new boolean[]{true, false};
 
         for (int i = 0; i < isTLS.length; i++) {
             ClientKeyExchange message = new ClientKeyExchange(
@@ -77,7 +76,7 @@ public class ClientKeyExchangeTest extends TestCase {
             }
 
             in.append(encoded);
-            in.append(new byte[] { 1, 2, 3 });
+            in.append(new byte[]{1, 2, 3});
             try {
                 message_2 = new ClientKeyExchange(in, message.length() + 3,
                         isTLS[i], true);
@@ -97,7 +96,7 @@ public class ClientKeyExchangeTest extends TestCase {
      */
     public void testClientKeyExchangeBigInteger() throws Exception {
         BigInteger dh_Yc = new BigInteger("1234567890");
-        boolean[] isTLS = new boolean[] { true, false };
+        boolean[] isTLS = new boolean[]{true, false};
 
         for (int i = 0; i < isTLS.length; i++) {
             ClientKeyExchange message = new ClientKeyExchange(dh_Yc);
@@ -131,7 +130,7 @@ public class ClientKeyExchangeTest extends TestCase {
             }
 
             in.append(encoded);
-            in.append(new byte[] { 1, 2, 3 });
+            in.append(new byte[]{1, 2, 3});
             try {
                 message_2 = new ClientKeyExchange(in, message.length() + 3,
                         isTLS[i], false);
@@ -180,7 +179,7 @@ public class ClientKeyExchangeTest extends TestCase {
         }
 
         in.append(encoded);
-        in.append(new byte[] { 1, 2, 3 });
+        in.append(new byte[]{1, 2, 3});
         try {
             message_2 = new ClientKeyExchange(in, message.length() + 3, true,
                     false);

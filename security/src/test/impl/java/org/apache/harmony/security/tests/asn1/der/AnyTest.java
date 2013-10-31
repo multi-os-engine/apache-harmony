@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Stepan M. Mishura
-*/
+ * @author Stepan M. Mishura
+ */
 
 package org.apache.harmony.security.tests.asn1.der;
 
@@ -39,7 +39,7 @@ import junit.framework.TestCase;
 
 public class AnyTest extends TestCase {
 
-    private static byte[] encoded = new byte[] { 0x01, 0x03, 0x11, 0x13, 0x15 };
+    private static byte[] encoded = new byte[]{0x01, 0x03, 0x11, 0x13, 0x15};
 
     public void testDecode() throws IOException {
         DerInputStream in = new DerInputStream(encoded);

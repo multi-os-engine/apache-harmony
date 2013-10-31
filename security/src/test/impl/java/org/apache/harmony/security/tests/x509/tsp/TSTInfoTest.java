@@ -35,7 +35,7 @@ import org.apache.harmony.security.x509.tsp.TSTInfo;
 public class TSTInfoTest extends TestCase {
 
     /**
-     * @throws IOException 
+     * @throws IOException
      * @tests 'org.apache.harmony.security.x509.tsp.TSTInfo.getEncoded()'
      */
     public void testGetEncoded() throws IOException {
@@ -47,12 +47,12 @@ public class TSTInfoTest extends TestCase {
                 sha1), new byte[20]);
         Date genTime = new Date();
         BigInteger nonce = BigInteger.valueOf(1234567890L);
-        int[] accuracy = new int[] { 1, 0, 0 };
+        int[] accuracy = new int[]{1, 0, 0};
         GeneralName tsa = new GeneralName(new Name("CN=AnAuthority"));
         Extensions exts = new Extensions();
         // Time-Stamping extension OID: as defined in RFC 3161
-        int[] timeStampingExtOID = new int[] { 1, 3, 6, 1, 5, 5, 7, 3, 8 };
-        byte[] timeStampingExtValue = new byte[] { (byte) 1, (byte) 2, (byte) 3 };
+        int[] timeStampingExtOID = new int[]{1, 3, 6, 1, 5, 5, 7, 3, 8};
+        byte[] timeStampingExtValue = new byte[]{(byte) 1, (byte) 2, (byte) 3};
         Extension ext = new Extension(timeStampingExtOID, true,
                 timeStampingExtValue);
         exts.addExtension(ext);
@@ -68,7 +68,7 @@ public class TSTInfoTest extends TestCase {
         assertEquals("Decoded policy is incorrect", policy, decoded.getPolicy());
         assertTrue("Decoded messageImprint is incorrect", Arrays.equals(
                 MessageImprint.ASN1.encode(msgImprint), MessageImprint.ASN1
-                        .encode(decoded.getMessageImprint())));
+                .encode(decoded.getMessageImprint())));
         assertEquals("Decoded serialNumber is incorrect", BigInteger.TEN,
                 decoded.getSerialNumber());
         assertEquals("Decoded genTime is incorrect", genTime, decoded

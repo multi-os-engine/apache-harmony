@@ -31,28 +31,28 @@ public class DataTruncationTest extends TestCase {
      */
     public void testDataTruncationintbooleanbooleanintint() {
 
-        int[] init1 = { -2147483648, 2147483647, 0, 329751502, 318587557,
-                -1217247045, 329474146 };
-        boolean[] init2 = { false, true, false, false, false, true, false };
-        boolean[] init3 = { false, true, false, false, false, false, true };
-        int[] init4 = { -2147483648, 2147483647, 0, 1761409290, -1331044048,
-                -576231606, 661635011 };
-        int[] init5 = { -2147483648, 2147483647, 0, 540816689, -1890783845,
-                -105552912, -85923935 };
+        int[] init1 = {-2147483648, 2147483647, 0, 329751502, 318587557,
+                -1217247045, 329474146};
+        boolean[] init2 = {false, true, false, false, false, true, false};
+        boolean[] init3 = {false, true, false, false, false, false, true};
+        int[] init4 = {-2147483648, 2147483647, 0, 1761409290, -1331044048,
+                -576231606, 661635011};
+        int[] init5 = {-2147483648, 2147483647, 0, 540816689, -1890783845,
+                -105552912, -85923935};
 
-        String[] theFinalStates1 = { "22001", "01004", "22001", "22001",
-                "22001", "22001", "01004" };
+        String[] theFinalStates1 = {"22001", "01004", "22001", "22001",
+                "22001", "22001", "01004"};
         String state2 = "Data truncation";
-        String[] theFinalStates2 = { state2, state2, state2, state2, state2,
-                state2, state2 };
-        int[] theFinalStates3 = { 0, 0, 0, 0, 0, 0, 0 };
+        String[] theFinalStates2 = {state2, state2, state2, state2, state2,
+                state2, state2};
+        int[] theFinalStates3 = {0, 0, 0, 0, 0, 0, 0};
         int[] theFinalStates4 = init1;
         int[] theFinalStates5 = init4;
         int[] theFinalStates6 = init5;
         boolean[] theFinalStates7 = init2;
         boolean[] theFinalStates8 = init3;
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null};
 
         DataTruncation aDataTruncation;
         int loopCount = init1.length;
@@ -95,7 +95,6 @@ public class DataTruncationTest extends TestCase {
 
     /**
      * @tests {@link java.sql.DataTruncation#DataTruncation(int, boolean, boolean, int, int, Throwable)}
-     * 
      * @since 1.6
      */
     public void testConstructor_IBBIILjava_lang_Throwable() {
@@ -113,30 +112,30 @@ public class DataTruncationTest extends TestCase {
     public void testGetIndex() {
 
         DataTruncation aDataTruncation;
-        int[] init1 = { -2147483648, 2147483647, 0, -2045829673, 1977156911,
-                478985827, 1687271915 };
-        boolean[] init2 = { false, true, false, false, true, true, true };
-        boolean[] init3 = { false, true, false, false, true, true, true };
-        int[] init4 = { -2147483648, 2147483647, 0, -631377748, 21025030,
-                1215194589, 1064137121 };
-        int[] init5 = { -2147483648, 2147483647, 0, -897998505, 997578180,
-                735015866, 264619424 };
+        int[] init1 = {-2147483648, 2147483647, 0, -2045829673, 1977156911,
+                478985827, 1687271915};
+        boolean[] init2 = {false, true, false, false, true, true, true};
+        boolean[] init3 = {false, true, false, false, true, true, true};
+        int[] init4 = {-2147483648, 2147483647, 0, -631377748, 21025030,
+                1215194589, 1064137121};
+        int[] init5 = {-2147483648, 2147483647, 0, -897998505, 997578180,
+                735015866, 264619424};
 
         int theReturn;
         int[] theReturns = init1;
-        String[] theFinalStates1 = { "22001", "01004", "22001", "22001",
-                "01004", "01004", "01004" };
+        String[] theFinalStates1 = {"22001", "01004", "22001", "22001",
+                "01004", "01004", "01004"};
         String state2 = "Data truncation";
-        String[] theFinalStates2 = { state2, state2, state2, state2, state2,
-                state2, state2 };
-        int[] theFinalStates3 = { 0, 0, 0, 0, 0, 0, 0 };
+        String[] theFinalStates2 = {state2, state2, state2, state2, state2,
+                state2, state2};
+        int[] theFinalStates3 = {0, 0, 0, 0, 0, 0, 0};
         int[] theFinalStates4 = init1;
         int[] theFinalStates5 = init4;
         int[] theFinalStates6 = init5;
         boolean[] theFinalStates7 = init2;
         boolean[] theFinalStates8 = init3;
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null};
 
         int loopCount = 1;
         for (int i = 0; i < loopCount; i++) {
@@ -185,30 +184,30 @@ public class DataTruncationTest extends TestCase {
     public void testGetParameter() {
 
         DataTruncation aDataTruncation;
-        int[] init1 = { -2147483648, 2147483647, 0, -492314242, 1637665948,
-                -305785075, 258819883 };
-        boolean[] init2 = { false, true, false, true, true, false, true };
-        boolean[] init3 = { false, true, false, false, false, true, true };
-        int[] init4 = { -2147483648, 2147483647, 0, 1134512579, 533874007,
-                1709608139, 990656593 };
-        int[] init5 = { -2147483648, 2147483647, 0, -1566784226, -744009101,
-                -444614454, 356465980 };
+        int[] init1 = {-2147483648, 2147483647, 0, -492314242, 1637665948,
+                -305785075, 258819883};
+        boolean[] init2 = {false, true, false, true, true, false, true};
+        boolean[] init3 = {false, true, false, false, false, true, true};
+        int[] init4 = {-2147483648, 2147483647, 0, 1134512579, 533874007,
+                1709608139, 990656593};
+        int[] init5 = {-2147483648, 2147483647, 0, -1566784226, -744009101,
+                -444614454, 356465980};
 
         boolean theReturn;
         boolean[] theReturns = init2;
-        String[] theFinalStates1 = { "22001", "01004", "22001", "22001",
-                "22001", "01004", "01004" };
+        String[] theFinalStates1 = {"22001", "01004", "22001", "22001",
+                "22001", "01004", "01004"};
         String state2 = "Data truncation";
-        String[] theFinalStates2 = { state2, state2, state2, state2, state2,
-                state2, state2 };
-        int[] theFinalStates3 = { 0, 0, 0, 0, 0, 0, 0 };
+        String[] theFinalStates2 = {state2, state2, state2, state2, state2,
+                state2, state2};
+        int[] theFinalStates3 = {0, 0, 0, 0, 0, 0, 0};
         int[] theFinalStates4 = init1;
         int[] theFinalStates5 = init4;
         int[] theFinalStates6 = init5;
         boolean[] theFinalStates7 = init2;
         boolean[] theFinalStates8 = init3;
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null};
 
         int loopCount = 1;
         for (int i = 0; i < loopCount; i++) {
@@ -257,30 +256,30 @@ public class DataTruncationTest extends TestCase {
     public void testGetRead() {
 
         DataTruncation aDataTruncation;
-        int[] init1 = { -2147483648, 2147483647, 0, 2092420209, -1695764964,
-                1832837995, -80199594 };
-        boolean[] init2 = { false, true, false, false, false, true, true };
-        boolean[] init3 = { false, true, false, false, true, true, false };
-        int[] init4 = { -2147483648, 2147483647, 0, 1762375167, -604897453,
-                1362491587, 1007466498 };
-        int[] init5 = { -2147483648, 2147483647, 0, 1494407222, -1696982311,
-                -940493360, -1777579868 };
+        int[] init1 = {-2147483648, 2147483647, 0, 2092420209, -1695764964,
+                1832837995, -80199594};
+        boolean[] init2 = {false, true, false, false, false, true, true};
+        boolean[] init3 = {false, true, false, false, true, true, false};
+        int[] init4 = {-2147483648, 2147483647, 0, 1762375167, -604897453,
+                1362491587, 1007466498};
+        int[] init5 = {-2147483648, 2147483647, 0, 1494407222, -1696982311,
+                -940493360, -1777579868};
 
         boolean theReturn;
         boolean[] theReturns = init3;
-        String[] theFinalStates1 = { "22001", "01004", "22001", "22001",
-                "01004", "01004", "22001" };
+        String[] theFinalStates1 = {"22001", "01004", "22001", "22001",
+                "01004", "01004", "22001"};
         String state2 = "Data truncation";
-        String[] theFinalStates2 = { state2, state2, state2, state2, state2,
-                state2, state2 };
-        int[] theFinalStates3 = { 0, 0, 0, 0, 0, 0, 0 };
+        String[] theFinalStates2 = {state2, state2, state2, state2, state2,
+                state2, state2};
+        int[] theFinalStates3 = {0, 0, 0, 0, 0, 0, 0};
         int[] theFinalStates4 = init1;
         int[] theFinalStates5 = init4;
         int[] theFinalStates6 = init5;
         boolean[] theFinalStates7 = init2;
         boolean[] theFinalStates8 = init3;
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null};
 
         int loopCount = 1;
         for (int i = 0; i < loopCount; i++) {
@@ -329,30 +328,30 @@ public class DataTruncationTest extends TestCase {
     public void testGetDataSize() {
 
         DataTruncation aDataTruncation;
-        int[] init1 = { -2147483648, 2147483647, 0, 1146707040, -2020665632,
-                1268632617, -1595624039 };
-        boolean[] init2 = { false, true, false, true, false, true, true };
-        boolean[] init3 = { false, true, false, true, true, false, false };
-        int[] init4 = { -2147483648, 2147483647, 0, -367493363, 328996907,
-                -1581326731, 835022052 };
-        int[] init5 = { -2147483648, 2147483647, 0, -886134194, 908213800,
-                1123419516, -429606389 };
+        int[] init1 = {-2147483648, 2147483647, 0, 1146707040, -2020665632,
+                1268632617, -1595624039};
+        boolean[] init2 = {false, true, false, true, false, true, true};
+        boolean[] init3 = {false, true, false, true, true, false, false};
+        int[] init4 = {-2147483648, 2147483647, 0, -367493363, 328996907,
+                -1581326731, 835022052};
+        int[] init5 = {-2147483648, 2147483647, 0, -886134194, 908213800,
+                1123419516, -429606389};
 
         int theReturn;
         int[] theReturns = init4;
-        String[] theFinalStates1 = { "22001", "01004", "22001", "01004",
-                "01004", "22001", "22001" };
+        String[] theFinalStates1 = {"22001", "01004", "22001", "01004",
+                "01004", "22001", "22001"};
         String state2 = "Data truncation";
-        String[] theFinalStates2 = { state2, state2, state2, state2, state2,
-                state2, state2 };
-        int[] theFinalStates3 = { 0, 0, 0, 0, 0, 0, 0 };
+        String[] theFinalStates2 = {state2, state2, state2, state2, state2,
+                state2, state2};
+        int[] theFinalStates3 = {0, 0, 0, 0, 0, 0, 0};
         int[] theFinalStates4 = init1;
         int[] theFinalStates5 = init4;
         int[] theFinalStates6 = init5;
         boolean[] theFinalStates7 = init2;
         boolean[] theFinalStates8 = init3;
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null};
 
         int loopCount = 1;
         for (int i = 0; i < loopCount; i++) {
@@ -401,30 +400,30 @@ public class DataTruncationTest extends TestCase {
     public void testGetTransferSize() {
 
         DataTruncation aDataTruncation;
-        int[] init1 = { -2147483648, 2147483647, 0, 78096124, 1719192600,
-                -1661234694, -1205825753 };
-        boolean[] init2 = { false, true, false, false, true, false, true };
-        boolean[] init3 = { false, true, false, false, false, false, false };
-        int[] init4 = { -2147483648, 2147483647, 0, -493779295, -2042560243,
-                -217347438, 1357818664 };
-        int[] init5 = { -2147483648, 2147483647, 0, -1647009002, -717544563,
-                -1368171905, -918209633 };
+        int[] init1 = {-2147483648, 2147483647, 0, 78096124, 1719192600,
+                -1661234694, -1205825753};
+        boolean[] init2 = {false, true, false, false, true, false, true};
+        boolean[] init3 = {false, true, false, false, false, false, false};
+        int[] init4 = {-2147483648, 2147483647, 0, -493779295, -2042560243,
+                -217347438, 1357818664};
+        int[] init5 = {-2147483648, 2147483647, 0, -1647009002, -717544563,
+                -1368171905, -918209633};
 
         int theReturn;
         int[] theReturns = init5;
-        String[] theFinalStates1 = { "22001", "01004", "22001", "22001",
-                "22001", "22001", "22001" };
+        String[] theFinalStates1 = {"22001", "01004", "22001", "22001",
+                "22001", "22001", "22001"};
         String state2 = "Data truncation";
-        String[] theFinalStates2 = { state2, state2, state2, state2, state2,
-                state2, state2 };
-        int[] theFinalStates3 = { 0, 0, 0, 0, 0, 0, 0 };
+        String[] theFinalStates2 = {state2, state2, state2, state2, state2,
+                state2, state2};
+        int[] theFinalStates3 = {0, 0, 0, 0, 0, 0, 0};
         int[] theFinalStates4 = init1;
         int[] theFinalStates5 = init4;
         int[] theFinalStates6 = init5;
         boolean[] theFinalStates7 = init2;
         boolean[] theFinalStates8 = init3;
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null};
 
         int loopCount = 1;
         for (int i = 0; i < loopCount; i++) {

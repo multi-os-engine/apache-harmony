@@ -40,7 +40,7 @@ public class KerberosTicketTest extends TestCase {
     private static final String ENV_REALM = "java.security.krb5.realm";
 
     // ticket's ASN.1 encoding  
-    private static final byte[] ticket = { 0x01, 0x02, 0x03, 0x04 };
+    private static final byte[] ticket = {0x01, 0x02, 0x03, 0x04};
 
     // client's principal 
     private static final KerberosPrincipal pClient = new KerberosPrincipal(
@@ -51,15 +51,15 @@ public class KerberosTicketTest extends TestCase {
             "server@apache.org");
 
     // session key
-    private static final byte[] sessionKey = { 0x01, 0x04, 0x03, 0x02 };
+    private static final byte[] sessionKey = {0x01, 0x04, 0x03, 0x02};
 
     private static final int KEY_TYPE = 1;
 
     // number of flags used by Kerberos protocol
     private static final int FLAGS_NUM = 32;
 
-    private static final boolean[] flags = { true, false, true, false, true,
-            false, true, false, true, false, true, false, };
+    private static final boolean[] flags = {true, false, true, false, true,
+            false, true, false, true, false, true, false,};
 
     private static final int AUTH_TIME = 0;
 
@@ -79,14 +79,14 @@ public class KerberosTicketTest extends TestCase {
 
     static {
         try {
-            addesses = new InetAddress[] { InetAddress.getLocalHost() };
+            addesses = new InetAddress[]{InetAddress.getLocalHost()};
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }
     }
 
     /**
-     * @tests javax.security.auth.kerberos.KerberosTicket#getAuthTime() 
+     * @tests javax.security.auth.kerberos.KerberosTicket#getAuthTime()
      */
     public void test_getAuthTime() throws Exception {
 
@@ -113,7 +113,7 @@ public class KerberosTicketTest extends TestCase {
     }
 
     /**
-     * @tests javax.security.auth.kerberos.KerberosTicket#getClient() 
+     * @tests javax.security.auth.kerberos.KerberosTicket#getClient()
      */
     public void test_getClient() throws Exception {
 
@@ -133,7 +133,7 @@ public class KerberosTicketTest extends TestCase {
     }
 
     /**
-     * @tests javax.security.auth.kerberos.KerberosTicket#getClientAddresses() 
+     * @tests javax.security.auth.kerberos.KerberosTicket#getClientAddresses()
      */
     public void test_getClientAddresses() throws Exception {
 
@@ -157,7 +157,7 @@ public class KerberosTicketTest extends TestCase {
     }
 
     /**
-     * @tests javax.security.auth.kerberos.KerberosTicket#getEncoded() 
+     * @tests javax.security.auth.kerberos.KerberosTicket#getEncoded()
      */
     public void test_getEncoded() throws Exception {
 
@@ -183,7 +183,7 @@ public class KerberosTicketTest extends TestCase {
     }
 
     /**
-     * @tests javax.security.auth.kerberos.KerberosTicket#getEndTime() 
+     * @tests javax.security.auth.kerberos.KerberosTicket#getEndTime()
      */
     public void test_getEndTime() throws Exception {
 
@@ -214,7 +214,7 @@ public class KerberosTicketTest extends TestCase {
      */
     public void test_getFlags() {
 
-        boolean[] myFlags = new boolean[] { true, //reserved
+        boolean[] myFlags = new boolean[]{true, //reserved
                 true, // forwardable
                 true, // forwarded
                 true, // proxiable
@@ -290,7 +290,7 @@ public class KerberosTicketTest extends TestCase {
     }
 
     /**
-     * @tests javax.security.auth.kerberos.KerberosTicket#getServer() 
+     * @tests javax.security.auth.kerberos.KerberosTicket#getServer()
      */
     public void test_getServer() throws Exception {
 
@@ -310,7 +310,7 @@ public class KerberosTicketTest extends TestCase {
     }
 
     /**
-     * @tests javax.security.auth.kerberos.KerberosTicket#getSessionKey() 
+     * @tests javax.security.auth.kerberos.KerberosTicket#getSessionKey()
      */
     public void test_getSessionKey() throws Exception {
 
@@ -355,7 +355,7 @@ public class KerberosTicketTest extends TestCase {
     }
 
     /**
-     * @tests javax.security.auth.kerberos.KerberosTicket#getStartTime() 
+     * @tests javax.security.auth.kerberos.KerberosTicket#getStartTime()
      */
     public void test_getStartTime() throws Exception {
 
@@ -436,7 +436,7 @@ public class KerberosTicketTest extends TestCase {
      */
     public void test_refresh() throws Exception {
 
-        boolean[] myFlags = new boolean[] { true, //reserved
+        boolean[] myFlags = new boolean[]{true, //reserved
                 true, // forwardable
                 true, // forwarded
                 true, // proxiable
@@ -521,7 +521,7 @@ public class KerberosTicketTest extends TestCase {
 
         // TODO test: ticket refreshing 
     }
-    
+
     /**
      * @tests javax.security.auth.kerberos.KerberosTicket#equals(java.lang.Object)
      */
@@ -533,7 +533,7 @@ public class KerberosTicketTest extends TestCase {
                 pServer, sessionKey, KEY_TYPE, flags, authTime, startTime,
                 endTime, renewTill, addesses);
         KerberosTicket krbTicket3 = new KerberosTicket(ticket, pClient,
-                pServer, sessionKey, KEY_TYPE, new boolean[] { true, false },
+                pServer, sessionKey, KEY_TYPE, new boolean[]{true, false},
                 authTime, startTime, endTime, renewTill, addesses);
         assertEquals("krbTicket1 and krbTicket2 should be equivalent ",
                 krbTicket1, krbTicket2);
@@ -546,7 +546,7 @@ public class KerberosTicketTest extends TestCase {
         }
         assertFalse("Destroyed krbTicket sholudn't be equivalent ", krbTicket1
                 .equals(krbTicket2));
-        
+
         //Regression test for KerberosTicket.equals().
         final KerberosPrincipal clientPrincipal = new KerberosPrincipal(
                 "leo@EXAMPLE.COM");
@@ -563,7 +563,7 @@ public class KerberosTicketTest extends TestCase {
                 null, null);
         assertEquals(tgt, tgt1);
         assertEquals(tgt1, tgt);
-        
+
     }
 
     /**
@@ -636,5 +636,5 @@ public class KerberosTicketTest extends TestCase {
             // kvno
             (byte) 0xa1, (byte) 0x03, (byte) 0x02, (byte) 0x01, (byte) 0x01,
             // cipher  
-            (byte) 0xa2, (byte) 0x03, (byte) 0x04, (byte) 0x01, (byte) 0x00 };
+            (byte) 0xa2, (byte) 0x03, (byte) 0x04, (byte) 0x01, (byte) 0x00};
 }

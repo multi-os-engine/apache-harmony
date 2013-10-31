@@ -43,18 +43,18 @@ public class KerberosErrorMessageTest extends TestCase {
 
         assertEquals("crealm", "MY.REALM", message.getCrealm());
         assertEquals("cname", new PrincipalName(PrincipalName.NT_PRINCIPAL,
-                new String[] { "no_such_user" }), message.getCname());
+                new String[]{"no_such_user"}), message.getCname());
 
         assertEquals("realm", "MY.REALM", message.getRealm());
         assertEquals("sname", new PrincipalName(PrincipalName.NT_UNKNOWN,
-                new String[] { "krbtgt", "MY.REALM" }), message.getSname());
+                new String[]{"krbtgt", "MY.REALM"}), message.getSname());
 
         assertEquals("etext", "e_text_string", message.getEtext());
     }
 
     // testing array was created by hands according to RFC4120
-    public static byte[] err_resp = new byte[] {
-    // KRB-ERROR ::= [APPLICATION 30]
+    public static byte[] err_resp = new byte[]{
+            // KRB-ERROR ::= [APPLICATION 30]
             (byte) 0x7e,
             (byte) 0x81,
             (byte) 0xA9,
@@ -276,7 +276,7 @@ public class KerberosErrorMessageTest extends TestCase {
             (byte) 0x6e,
             (byte) 0x67,
 
-    // e-data [12] OCTET STRING OPTIONAL: TODO add me for testing
+            // e-data [12] OCTET STRING OPTIONAL: TODO add me for testing
     };
 
 }

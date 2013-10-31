@@ -119,7 +119,7 @@ public class URLConnectionTest extends junit.framework.TestCase {
         list.add("value2");
         list.add("value");
 
-        Map<String,List<String>> propertyMap = u.getRequestProperties();
+        Map<String, List<String>> propertyMap = u.getRequestProperties();
         // Check this map is unmodifiable
         try {
             propertyMap.put("test", null);
@@ -150,7 +150,7 @@ public class URLConnectionTest extends junit.framework.TestCase {
     }
 
     /**
-     * @tests java.net.URLConnection#addRequestProperty(java.lang.String,java.lang.String)
+     * @tests java.net.URLConnection#addRequestProperty(java.lang.String, java.lang.String)
      */
     public void test_addRequestPropertyLjava_lang_StringLjava_lang_String()
             throws IOException {
@@ -163,7 +163,7 @@ public class URLConnectionTest extends junit.framework.TestCase {
 
         try {
             // the map should be unmodifiable
-            map.put("hi", Arrays.asList(new String[] { "bye" }));
+            map.put("hi", Arrays.asList(new String[]{"bye"}));
             fail("could modify map");
         } catch (UnsupportedOperationException e) {
             // Expected
@@ -186,7 +186,7 @@ public class URLConnectionTest extends junit.framework.TestCase {
         assertEquals(0, map.size());
         try {
             // the map should be unmodifiable
-            map.put("hi", Arrays.asList(new String[] { "bye" }));
+            map.put("hi", Arrays.asList(new String[]{"bye"}));
             fail();
         } catch (UnsupportedOperationException e) {
             // Expected
@@ -575,14 +575,14 @@ public class URLConnectionTest extends junit.framework.TestCase {
      */
     public void test_guessContentTypeFromStreamLjava_io_InputStream()
             throws IOException {
-        String[] headers = new String[] { "<html>", "<head>", " <head ",
-                "<body", "<BODY ", "<!DOCTYPE html", "<?xml " };
-        String[] expected = new String[] { "text/html", "text/html",
+        String[] headers = new String[]{"<html>", "<head>", " <head ",
+                "<body", "<BODY ", "<!DOCTYPE html", "<?xml "};
+        String[] expected = new String[]{"text/html", "text/html",
                 "text/html", "text/html", "text/html", "text/html",
-                "application/xml" };
+                "application/xml"};
 
-        String[] encodings = new String[] { "ASCII", "UTF-8", "UTF-16BE",
-                "UTF-16LE", "UTF-32BE", "UTF-32LE" };
+        String[] encodings = new String[]{"ASCII", "UTF-8", "UTF-16BE",
+                "UTF-16LE", "UTF-32BE", "UTF-32LE"};
         for (int i = 0; i < headers.length; i++) {
             for (String enc : encodings) {
                 InputStream is = new ByteArrayInputStream(toBOMBytes(
@@ -602,8 +602,8 @@ public class URLConnectionTest extends junit.framework.TestCase {
         }
 
         // Test magic bytes
-        byte[][] bytes = new byte[][] { { 'P', 'K' }, { 'G', 'I' } };
-        expected = new String[] { "application/zip", "image/gif" };
+        byte[][] bytes = new byte[][]{{'P', 'K'}, {'G', 'I'}};
+        expected = new String[]{"application/zip", "image/gif"};
 
         for (int i = 0; i < bytes.length; i++) {
             InputStream is = new ByteArrayInputStream(bytes[i]);
@@ -668,7 +668,7 @@ public class URLConnectionTest extends junit.framework.TestCase {
 
     /**
      * @tests java.net.URLConnection#setDefaultRequestProperty(java.lang.String,
-     *        java.lang.String)
+     *java.lang.String)
      */
     public void test_setDefaultRequestPropertyLjava_lang_StringLjava_lang_String() {
         assertTrue("Used to test", true);
@@ -763,10 +763,10 @@ public class URLConnectionTest extends junit.framework.TestCase {
 
     /**
      * @tests java.net.URLConnection#setRequestProperty(java.lang.String,
-     *        java.lang.String)
+     *java.lang.String)
      */
     public void test_setRequestPropertyLjava_lang_StringLjava_lang_String()
-                throws MalformedURLException{
+            throws MalformedURLException {
         MockURLConnection u = new MockURLConnection(new URL(
                 "http://www.apache.org"));
 
@@ -805,21 +805,21 @@ public class URLConnectionTest extends junit.framework.TestCase {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
         if (enc.equals("UTF-8")) {
-            bos.write(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF });
+            bos.write(new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF});
         }
         if (enc.equals("UTF-16BE")) {
-            bos.write(new byte[] { (byte) 0xFE, (byte) 0xFF });
+            bos.write(new byte[]{(byte) 0xFE, (byte) 0xFF});
         }
         if (enc.equals("UTF-16LE")) {
-            bos.write(new byte[] { (byte) 0xFF, (byte) 0xFE });
+            bos.write(new byte[]{(byte) 0xFF, (byte) 0xFE});
         }
         if (enc.equals("UTF-32BE")) {
-            bos.write(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0xFE,
-                    (byte) 0xFF });
+            bos.write(new byte[]{(byte) 0x00, (byte) 0x00, (byte) 0xFE,
+                    (byte) 0xFF});
         }
         if (enc.equals("UTF-32LE")) {
-            bos.write(new byte[] { (byte) 0xFF, (byte) 0xFE, (byte) 0x00,
-                    (byte) 0x00 });
+            bos.write(new byte[]{(byte) 0xFF, (byte) 0xFE, (byte) 0x00,
+                    (byte) 0x00});
         }
 
         bos.write(text.getBytes(enc));

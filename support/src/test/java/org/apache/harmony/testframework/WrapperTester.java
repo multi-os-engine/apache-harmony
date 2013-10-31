@@ -73,23 +73,27 @@ public abstract class WrapperTester {
         return result;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return getClass().getName();
     }
 
     private class WrapperSinkTester extends SinkTester {
         private ClosableByteArrayOutputStream delegate;
 
-        @Override public OutputStream create() throws Exception {
+        @Override
+        public OutputStream create() throws Exception {
             delegate = new ClosableByteArrayOutputStream();
             return WrapperTester.this.create(delegate);
         }
 
-        @Override public byte[] getBytes() throws Exception {
+        @Override
+        public byte[] getBytes() throws Exception {
             return WrapperTester.this.decode(delegate.bytesOut.toByteArray());
         }
 
-        @Override public String toString() {
+        @Override
+        public String toString() {
             return WrapperTester.this.toString();
         }
     }
@@ -100,15 +104,16 @@ public abstract class WrapperTester {
             super(name);
         }
 
-        @Override public String getName() {
+        @Override
+        public String getName() {
             return WrapperTester.this.toString() + ":" + super.getName();
         }
 
         public void wrapperTestFlushThrowsViaFlushSuppressed() throws Exception {
             FailOnFlushOutputStream delegate = new FailOnFlushOutputStream();
             OutputStream o = create(delegate);
-            o.write(new byte[] { 8, 6, 7, 5 });
-            o.write(new byte[] { 3, 0, 9 });
+            o.write(new byte[]{8, 6, 7, 5});
+            o.write(new byte[]{3, 0, 9});
             o.flush();
             assertTrue(delegate.flushed);
         }
@@ -116,8 +121,8 @@ public abstract class WrapperTester {
         public void wrapperTestFlushThrowsViaCloseSuppressed() throws Exception {
             FailOnFlushOutputStream delegate = new FailOnFlushOutputStream();
             OutputStream o = create(delegate);
-            o.write(new byte[] { 8, 6, 7, 5 });
-            o.write(new byte[] { 3, 0, 9 });
+            o.write(new byte[]{8, 6, 7, 5});
+            o.write(new byte[]{3, 0, 9});
             o.close();
             assertTrue(delegate.flushed);
         }
@@ -128,13 +133,13 @@ public abstract class WrapperTester {
             OutputStream o = create(delegate);
             try {
                 // any of these is permitted to flush
-                o.write(new byte[] { 8, 6, 7, 5 });
-                o.write(new byte[] { 3, 0, 9 });
+                o.write(new byte[]{8, 6, 7, 5});
+                o.write(new byte[]{3, 0, 9});
                 o.flush();
                 assertTrue(delegate.flushed);
                 fail("flush exception ignored");
             } catch (IOException expected) {
-                assertEquals("Flush failed" , expected.getMessage());
+                assertEquals("Flush failed", expected.getMessage());
             }
         }
 
@@ -144,17 +149,17 @@ public abstract class WrapperTester {
             OutputStream o = create(delegate);
             try {
                 // any of these is permitted to flush
-                o.write(new byte[] { 8, 6, 7, 5 });
-                o.write(new byte[] { 3, 0, 9 });
+                o.write(new byte[]{8, 6, 7, 5});
+                o.write(new byte[]{3, 0, 9});
                 o.close();
                 assertTrue(delegate.flushed);
                 fail("flush exception ignored");
             } catch (IOException expected) {
-                assertEquals("Flush failed" , expected.getMessage());
+                assertEquals("Flush failed", expected.getMessage());
             }
 
             try {
-                o.write(new byte[] { 4, 4, 5 });
+                o.write(new byte[]{4, 4, 5});
                 fail("expected already closed exception");
             } catch (IOException expected) {
             }
@@ -168,7 +173,7 @@ public abstract class WrapperTester {
                 assertTrue(delegate.closed);
                 fail("close exception ignored");
             } catch (IOException expected) {
-                assertEquals("Close failed" , expected.getMessage());
+                assertEquals("Close failed", expected.getMessage());
             }
         }
 
@@ -186,11 +191,13 @@ public abstract class WrapperTester {
         private final ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
         private boolean closed = false;
 
-        @Override public void close() throws IOException {
+        @Override
+        public void close() throws IOException {
             closed = true;
         }
 
-        @Override public void write(int oneByte) throws IOException {
+        @Override
+        public void write(int oneByte) throws IOException {
             if (closed) {
                 throw new IOException();
             }
@@ -202,18 +209,21 @@ public abstract class WrapperTester {
         boolean flushed = false;
         boolean closed = false;
 
-        @Override public void write(int oneByte) throws IOException {
+        @Override
+        public void write(int oneByte) throws IOException {
             if (closed) {
                 throw new IOException("Already closed");
             }
         }
 
-        @Override public void close() throws IOException {
+        @Override
+        public void close() throws IOException {
             closed = true;
             flush();
         }
 
-        @Override public void flush() throws IOException {
+        @Override
+        public void flush() throws IOException {
             if (!flushed) {
                 flushed = true;
                 throw new IOException("Flush failed");
@@ -224,7 +234,8 @@ public abstract class WrapperTester {
     private static class FailOnCloseOutputStream extends ByteArrayOutputStream {
         boolean closed = false;
 
-        @Override public void close() throws IOException {
+        @Override
+        public void close() throws IOException {
             closed = true;
             throw new IOException("Close failed");
         }

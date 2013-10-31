@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public class CharArrayReaderTest extends junit.framework.TestCase {
 
-    char[] hw = { 'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd' };
+    char[] hw = {'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd'};
 
     CharArrayReader cr;
 
@@ -89,7 +89,7 @@ public class CharArrayReaderTest extends junit.framework.TestCase {
     public void test_read() throws IOException {
         cr = new CharArrayReader(hw);
         assertEquals("Read returned incorrect char", 'H', cr.read());
-        cr = new CharArrayReader(new char[] { '\u8765' });
+        cr = new CharArrayReader(new char[]{'\u8765'});
         assertTrue("Incorrect double byte char", cr.read() == '\u8765');
     }
 

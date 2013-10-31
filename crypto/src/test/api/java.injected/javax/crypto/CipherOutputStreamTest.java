@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexander Y. Kleymenov
-*/
+ * @author Alexander Y. Kleymenov
+ */
 
 package javax.crypto;
 
@@ -52,7 +52,7 @@ public class CipherOutputStreamTest extends TestCase {
      * in the constructor.
      */
     public void testCipherOutputStream() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestOutputStream tos = new TestOutputStream();
         CipherOutputStream cos = new CipherOutputStream(tos);
         cos.write(data);
@@ -68,7 +68,7 @@ public class CipherOutputStreamTest extends TestCase {
      * the underlying output stream.
      */
     public void testWrite1() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestOutputStream tos = new TestOutputStream();
         CipherOutputStream cos = new CipherOutputStream(tos, new NullCipher());
         for (int i = 0; i < data.length; i++) {
@@ -86,7 +86,7 @@ public class CipherOutputStreamTest extends TestCase {
      * to the underlying output stream.
      */
     public void testWrite2() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestOutputStream tos = new TestOutputStream();
         CipherOutputStream cos = new CipherOutputStream(tos, new NullCipher());
         cos.write(data);
@@ -101,7 +101,7 @@ public class CipherOutputStreamTest extends TestCase {
      * write(byte[] b, int off, int len) method testing.
      */
     public void testWrite3() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestOutputStream tos = new TestOutputStream();
         CipherOutputStream cos = new CipherOutputStream(tos, new NullCipher());
         for (int i = 0; i < data.length; i++) {
@@ -118,25 +118,25 @@ public class CipherOutputStreamTest extends TestCase {
      * @tests write(byte[] b, int off, int len)
      */
     public void testWrite4() throws Exception {
-	    //Regression for HARMONY-758
-    	try {
-    		new CipherOutputStream(new BufferedOutputStream((OutputStream) null), new NullCipher()).write(new byte[] {0}, 1, Integer.MAX_VALUE);
-    	} catch (IllegalArgumentException e) {
-    	}
+        //Regression for HARMONY-758
+        try {
+            new CipherOutputStream(new BufferedOutputStream((OutputStream) null), new NullCipher()).write(new byte[]{0}, 1, Integer.MAX_VALUE);
+        } catch (IllegalArgumentException e) {
+        }
     }
 
     /**
      * @tests write(byte[] b, int off, int len)
      */
     public void testWrite5() throws Exception {
-	    //Regression for HARMONY-758
+        //Regression for HARMONY-758
         Cipher cf = Cipher.getInstance("DES/CBC/PKCS5Padding");
         NullCipher nc = new NullCipher();
         CipherOutputStream stream1 = new CipherOutputStream(new BufferedOutputStream((OutputStream) null), nc);
         CipherOutputStream stream2 = new CipherOutputStream(stream1, cf);
         CipherOutputStream stream3 = new CipherOutputStream(stream2, nc);
-        stream3.write(new byte[] {0}, 0, 0);
-   		//no exception expected
+        stream3.write(new byte[]{0}, 0, 0);
+        //no exception expected
     }
 
     /**
@@ -144,7 +144,7 @@ public class CipherOutputStreamTest extends TestCase {
      * underlying output stream.
      */
     public void testFlush() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestOutputStream tos = new TestOutputStream();
         CipherOutputStream cos = new CipherOutputStream(tos);
         cos.write(data);
@@ -160,7 +160,7 @@ public class CipherOutputStreamTest extends TestCase {
      * the underlying input stream.
      */
     public void testClose() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestOutputStream tos = new TestOutputStream();
         CipherOutputStream cos = new CipherOutputStream(tos);
         cos.write(data);

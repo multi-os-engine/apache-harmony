@@ -46,16 +46,16 @@ public class InputStreamReaderTest extends TestCase {
         public LimitedByteArrayInputStream(int type) {
             super(new byte[0]);
             switch (type) {
-            case 0:
-                bytes = new byte[] { 0x61, 0x72 };
-                break;
-            case 1:
-                bytes = new byte[] { (byte) 0xff, (byte) 0xfe, 0x61, 0x72 };
-                break;
-            case 2:
-                bytes = new byte[] { '\u001b', '$', 'B', '6', 'e', 'B', 'h',
-                        '\u001b', '(', 'B' };
-                break;
+                case 0:
+                    bytes = new byte[]{0x61, 0x72};
+                    break;
+                case 1:
+                    bytes = new byte[]{(byte) 0xff, (byte) 0xfe, 0x61, 0x72};
+                    break;
+                case 2:
+                    bytes = new byte[]{'\u001b', '$', 'B', '6', 'e', 'B', 'h',
+                            '\u001b', '(', 'B'};
+                    break;
             }
             count = bytes.length;
         }
@@ -202,7 +202,7 @@ public class InputStreamReaderTest extends TestCase {
 
     /**
      * @tests java.io.InputStreamReader#InputStreamReader(java.io.InputStream,
-     *        java.lang.String)
+     *java.lang.String)
      */
     public void test_ConstructorLjava_io_InputStreamLjava_lang_String()
             throws IOException {
@@ -251,7 +251,7 @@ public class InputStreamReaderTest extends TestCase {
 
     /**
      * @tests java.io.InputStreamReader(java.io.InputStream,
-     *        java.nio.charset.Charset)
+     *java.nio.charset.Charset)
      */
     public void test_ConstructorLjava_io_InputStreamLjava_nio_charset_Charset()
             throws IOException {
@@ -275,7 +275,7 @@ public class InputStreamReaderTest extends TestCase {
 
     /**
      * @tests java.io.InputStreamReader(java.io.InputStream,
-     *        java.nio.charset.CharsetDecoder)
+     *java.nio.charset.CharsetDecoder)
      */
     public void test_ConstructorLjava_io_InputStreamLjava_nio_charset_CharsetDecoder()
             throws IOException {
@@ -337,8 +337,8 @@ public class InputStreamReaderTest extends TestCase {
         int c = is.read();
         assertTrue("returned incorrect char", (char) c == fileString.charAt(0));
         InputStreamReader reader = new InputStreamReader(
-                new ByteArrayInputStream(new byte[] { (byte) 0xe8, (byte) 0x9d,
-                        (byte) 0xa5 }), "UTF8");
+                new ByteArrayInputStream(new byte[]{(byte) 0xe8, (byte) 0x9d,
+                        (byte) 0xa5}), "UTF8");
         assertTrue("wrong double byte char", reader.read() == '\u8765');
 
         // Regression for HARMONY-166
@@ -372,19 +372,19 @@ public class InputStreamReaderTest extends TestCase {
         // if the decoder is constructed by InputStreamReader itself, the
         // decoder's default error action is REPLACE
         InputStreamReader isr = new InputStreamReader(new ByteArrayInputStream(
-                new byte[] { -32, -96 }), "UTF-8");
+                new byte[]{-32, -96}), "UTF-8");
         assertEquals("read() return incorrect value", 65533, isr.read());
 
         InputStreamReader isr2 = new InputStreamReader(
-                new ByteArrayInputStream(new byte[] { -32, -96 }), Charset
-                        .forName("UTF-8"));
+                new ByteArrayInputStream(new byte[]{-32, -96}), Charset
+                .forName("UTF-8"));
         assertEquals("read() return incorrect value", 65533, isr2.read());
 
         // if the decoder is passed in, keep its status intact
         CharsetDecoder decoder = Charset.forName("UTF-8").newDecoder();
         decoder.onMalformedInput(CodingErrorAction.REPORT);
         InputStreamReader isr3 = new InputStreamReader(
-                new ByteArrayInputStream(new byte[] { -32, -96 }), decoder);
+                new ByteArrayInputStream(new byte[]{-32, -96}), decoder);
         try {
             isr3.read();
             fail("Should throw MalformedInputException");
@@ -395,13 +395,13 @@ public class InputStreamReaderTest extends TestCase {
         CharsetDecoder decoder2 = Charset.forName("UTF-8").newDecoder();
         decoder2.onMalformedInput(CodingErrorAction.IGNORE);
         InputStreamReader isr4 = new InputStreamReader(
-                new ByteArrayInputStream(new byte[] { -32, -96 }), decoder2);
+                new ByteArrayInputStream(new byte[]{-32, -96}), decoder2);
         assertEquals("read() return incorrect value", -1, isr4.read());
 
         CharsetDecoder decoder3 = Charset.forName("UTF-8").newDecoder();
         decoder3.onMalformedInput(CodingErrorAction.REPLACE);
         InputStreamReader isr5 = new InputStreamReader(
-                new ByteArrayInputStream(new byte[] { -32, -96 }), decoder3);
+                new ByteArrayInputStream(new byte[]{-32, -96}), decoder3);
         assertEquals("read() return incorrect value", 65533, isr5.read());
     }
 

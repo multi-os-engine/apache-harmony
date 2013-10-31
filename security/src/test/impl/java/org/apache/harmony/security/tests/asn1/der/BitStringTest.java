@@ -42,17 +42,17 @@ import org.apache.harmony.security.asn1.ASN1BitString.ASN1NamedBitList;
 
 public class BitStringTest extends TestCase {
 
-    private static Object[][] validBitstring = new Object[][] {
-    //bitstring array format: bitstring object/ byte array
+    private static Object[][] validBitstring = new Object[][]{
+            //bitstring array format: bitstring object/ byte array
             //
-            { new BitString(new byte[] {}, 0), // object
-                    new byte[] { 0x03, 0x01, 0x00 } },
+            {new BitString(new byte[]{}, 0), // object
+                    new byte[]{0x03, 0x01, 0x00}},
             //
-            { new BitString(new byte[] { 0x05 }, 0), // object
-                    new byte[] { 0x03, 0x02, 0x00, 0x05 } },
+            {new BitString(new byte[]{0x05}, 0), // object
+                    new byte[]{0x03, 0x02, 0x00, 0x05}},
             //
-            { new BitString(new byte[] { (byte) 0x80 }, 7), // object
-                    new byte[] { 0x03, 0x02, 0x07, (byte) 0x80 } } };
+            {new BitString(new byte[]{(byte) 0x80}, 7), // object
+                    new byte[]{0x03, 0x02, 0x07, (byte) 0x80}}};
 
     public void testDecode_Encode() throws IOException {
 
@@ -99,19 +99,19 @@ public class BitStringTest extends TestCase {
     }
 
     public void testDecode_Invalid() throws IOException {
-        byte[][] invalid = new byte[][] {
-        // wrong tag: tag is not 0x03
-                new byte[] { 0x02, 0x01, 0x00 },
+        byte[][] invalid = new byte[][]{
+                // wrong tag: tag is not 0x03
+                new byte[]{0x02, 0x01, 0x00},
                 // wrong length: length is 0
-                new byte[] { 0x03, 0x00 },
+                new byte[]{0x03, 0x00},
                 // wrong content: unused bits value > 7
-                new byte[] { 0x03, 0x03, 0x09, 0x0F, 0x0F },
+                new byte[]{0x03, 0x03, 0x09, 0x0F, 0x0F},
                 // wrong content: not 0 unused bits for empty string
-                new byte[] { 0x03, 0x01, 0x01 },
+                new byte[]{0x03, 0x01, 0x01},
                 // wrong content: unused bits in final octet are not 0
-                new byte[] { 0x03, 0x02, 0x01, 0x01 },
+                new byte[]{0x03, 0x02, 0x01, 0x01},
                 // wrong content: constructed encoding
-                new byte[] { 0x23, 0x03, 0x03, 0x01, 0x00 } };
+                new byte[]{0x23, 0x03, 0x03, 0x01, 0x00}};
 
         for (int i = 0; i < invalid.length; i++) {
             try {
@@ -131,27 +131,27 @@ public class BitStringTest extends TestCase {
 
     public void testDecodeNamedBitList() throws IOException {
 
-        Object[][] testcaseBoolean = new Object[][] {
+        Object[][] testcaseBoolean = new Object[][]{
                 // bitstring array format: bitstring object/ byte array
                 //
-                { new boolean[] {}, // object
-                        new byte[] { 0x03, 0x01, 0x00 } },
+                {new boolean[]{}, // object
+                        new byte[]{0x03, 0x01, 0x00}},
                 //
-                { new boolean[] { true }, // object
-                        new byte[] { 0x03, 0x02, 0x07, (byte) 0x80 } },
+                {new boolean[]{true}, // object
+                        new byte[]{0x03, 0x02, 0x07, (byte) 0x80}},
                 //
-                { new boolean[] { true, false, true }, // object
-                        new byte[] { 0x03, 0x02, 0x05, (byte) 0xA0 } },
-                //
-                {
-                        new boolean[] { true, true, true, true, true, true,
-                                true, true }, // object
-                        new byte[] { 0x03, 0x02, 0x00, (byte) 0xFF } },
+                {new boolean[]{true, false, true}, // object
+                        new byte[]{0x03, 0x02, 0x05, (byte) 0xA0}},
                 //
                 {
-                        new boolean[] { false, false, false, false, false,
-                                false, false, false, true }, // object
-                        new byte[] { 0x03, 0x03, 0x07, 0x00, (byte) 0x80 } } };
+                        new boolean[]{true, true, true, true, true, true,
+                                true, true}, // object
+                        new byte[]{0x03, 0x02, 0x00, (byte) 0xFF}},
+                //
+                {
+                        new boolean[]{false, false, false, false, false,
+                                false, false, false, true}, // object
+                        new byte[]{0x03, 0x03, 0x07, 0x00, (byte) 0x80}}};
 
         ASN1NamedBitList decoder = new ASN1NamedBitList();
 
@@ -161,39 +161,39 @@ public class BitStringTest extends TestCase {
 
             assertTrue("Testcase: " + i, Arrays.equals(
                     (boolean[]) testcaseBoolean[i][0], (boolean[]) decoder
-                            .decode(in)));
+                    .decode(in)));
         }
     }
 
     public void testDecodeNamedBitList_SizeConstraints() throws IOException {
 
-        Object[][] testcaseBoolean = new Object[][] {
+        Object[][] testcaseBoolean = new Object[][]{
                 //bitstring array format: bitstring object/ byte array
                 //
                 {
-                        new boolean[] { false, false, false, false, false,
-                                false, false, false }, // object
-                        new byte[] { 0x03, 0x01, 0x00 } },
+                        new boolean[]{false, false, false, false, false,
+                                false, false, false}, // object
+                        new byte[]{0x03, 0x01, 0x00}},
                 //
                 {
-                        new boolean[] { true, false, false, false, false,
-                                false, false, false }, // object
-                        new byte[] { 0x03, 0x02, 0x07, (byte) 0x80 } },
+                        new boolean[]{true, false, false, false, false,
+                                false, false, false}, // object
+                        new byte[]{0x03, 0x02, 0x07, (byte) 0x80}},
                 //
                 {
-                        new boolean[] { true, false, true, false, false, false,
-                                false, false }, // object
-                        new byte[] { 0x03, 0x02, 0x05, (byte) 0xA0 } },
+                        new boolean[]{true, false, true, false, false, false,
+                                false, false}, // object
+                        new byte[]{0x03, 0x02, 0x05, (byte) 0xA0}},
                 //
                 {
-                        new boolean[] { true, true, true, true, true, true,
-                                true, true }, // object
-                        new byte[] { 0x03, 0x02, 0x00, (byte) 0xFF } },
+                        new boolean[]{true, true, true, true, true, true,
+                                true, true}, // object
+                        new byte[]{0x03, 0x02, 0x00, (byte) 0xFF}},
                 //
                 {
-                        new boolean[] { false, false, false, false, false,
-                                false, false, false, true }, // object
-                        new byte[] { 0x03, 0x03, 0x07, 0x00, (byte) 0x80 } } };
+                        new boolean[]{false, false, false, false, false,
+                                false, false, false, true}, // object
+                        new byte[]{0x03, 0x03, 0x07, 0x00, (byte) 0x80}}};
 
         ASN1NamedBitList decoder = new ASN1NamedBitList(8);
 
@@ -203,36 +203,36 @@ public class BitStringTest extends TestCase {
 
             assertTrue("Testcase: " + i, Arrays.equals(
                     (boolean[]) testcaseBoolean[i][0], (boolean[]) decoder
-                            .decode(in)));
+                    .decode(in)));
         }
     }
 
     public void testEncodeNamedBitList() throws IOException {
 
-        Object[][] testcaseBoolean = new Object[][] {
+        Object[][] testcaseBoolean = new Object[][]{
                 //bitstring array format: bitstring object/ byte array
                 //
-                { new boolean[] {}, // object
-                        new byte[] { 0x03, 0x01, 0x00 } },
+                {new boolean[]{}, // object
+                        new byte[]{0x03, 0x01, 0x00}},
                 //
-                { new boolean[] { false }, // object
-                        new byte[] { 0x03, 0x01, 0x00 } },
+                {new boolean[]{false}, // object
+                        new byte[]{0x03, 0x01, 0x00}},
                 //
-                { new boolean[] { true }, // object
-                        new byte[] { 0x03, 0x02, 0x07, (byte) 0x80 } },
+                {new boolean[]{true}, // object
+                        new byte[]{0x03, 0x02, 0x07, (byte) 0x80}},
                 //
-                { new boolean[] { true, false, true }, // object
-                        new byte[] { 0x03, 0x02, 0x05, (byte) 0xA0 } },
-                //
-                {
-                        new boolean[] { true, true, true, true, true, true,
-                                true, true }, // object
-                        new byte[] { 0x03, 0x02, 0x00, (byte) 0xFF } },
+                {new boolean[]{true, false, true}, // object
+                        new byte[]{0x03, 0x02, 0x05, (byte) 0xA0}},
                 //
                 {
-                        new boolean[] { false, false, false, false, false,
-                                false, false, false, true }, // object
-                        new byte[] { 0x03, 0x03, 0x07, 0x00, (byte) 0x80 } } };
+                        new boolean[]{true, true, true, true, true, true,
+                                true, true}, // object
+                        new byte[]{0x03, 0x02, 0x00, (byte) 0xFF}},
+                //
+                {
+                        new boolean[]{false, false, false, false, false,
+                                false, false, false, true}, // object
+                        new byte[]{0x03, 0x03, 0x07, 0x00, (byte) 0x80}}};
 
         ASN1NamedBitList encoder = new ASN1NamedBitList();
 

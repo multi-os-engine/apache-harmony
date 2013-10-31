@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -28,21 +28,20 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for InvalidParameterException serialization
- *
  */
 
 public class InvalidParameterExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
-        return new Object[] {
+        return new Object[]{
                 new InvalidParameterException(),
                 new InvalidParameterException(null),
                 new InvalidParameterException(msgs[1])
-                };
+        };
     }
 
 }

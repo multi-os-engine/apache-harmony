@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -28,24 +28,23 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for KeyStoreException serialization
- *
  */
 
 public class KeyStoreExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
         Exception cause = new Exception(msgs[1]);
         KeyStoreException dExc = new KeyStoreException(msgs[0], cause);
         String msg = null;
         Throwable th = null;
-        return new Object[] { new KeyStoreException(), new KeyStoreException(msg),
+        return new Object[]{new KeyStoreException(), new KeyStoreException(msg),
                 new KeyStoreException(msgs[1]),
                 new KeyStoreException(new Throwable()), new KeyStoreException(th),
-                new KeyStoreException(msgs[1], dExc) };
+                new KeyStoreException(msgs[1], dExc)};
     }
 
 }

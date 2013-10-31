@@ -25,10 +25,10 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 public class KerberosPrincipalTest extends TestCase {
 
-    private static final KerberosPrincipal[] data = new KerberosPrincipal[] {
+    private static final KerberosPrincipal[] data = new KerberosPrincipal[]{
             new KerberosPrincipal("aaa@somehost.net"),
             new KerberosPrincipal("aaa/bbb/ccc/ddd/eee@anotherHost.org",
-                    KerberosPrincipal.KRB_NT_SRV_INST) };
+                    KerberosPrincipal.KRB_NT_SRV_INST)};
 
     /**
      * @tests serialization/deserialization compatibility.

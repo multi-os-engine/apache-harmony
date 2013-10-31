@@ -51,37 +51,37 @@ public class GeneralizedTimeTest extends TestCase {
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.US);
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-        validGeneralizedTimes = new Object[][] {
+        validGeneralizedTimes = new Object[][]{
                 // YYYYMMDD-HHMMSS = "19000101000000Z"
                 {
                         "1 Jan 1900 00:00:00",
-                        new byte[] { 0x18, 0x0F, 0x31, 0x39, 0x30, 0x30, 0x30,
+                        new byte[]{0x18, 0x0F, 0x31, 0x39, 0x30, 0x30, 0x30,
                                 0x31, 0x30, 0x31, 0x30, 0x30, 0x30, 0x30, 0x30,
-                                0x30, 0x5A }, null },
+                                0x30, 0x5A}, null},
                 // YYYYMMDD-HHMMSS = "19490203040506Z"
                 {
                         "3 Feb 1949 04:05:06",
-                        new byte[] { 0x18, 0x0F, 0x31, 0x39, 0x34, 0x39, 0x30,
+                        new byte[]{0x18, 0x0F, 0x31, 0x39, 0x34, 0x39, 0x30,
                                 0x32, 0x30, 0x33, 0x30, 0x34, 0x30, 0x35, 0x30,
-                                0x36, 0x5A }, null },
+                                0x36, 0x5A}, null},
                 // YYYYMMDD-HHMMSS = "2000708091011Z"
                 {
                         "8 Jul 2000 09:10:11",
-                        new byte[] { 0x18, 0x0F, 0x32, 0x30, 0x30, 0x30, 0x30,
+                        new byte[]{0x18, 0x0F, 0x32, 0x30, 0x30, 0x30, 0x30,
                                 0x37, 0x30, 0x38, 0x30, 0x39, 0x31, 0x30, 0x31,
-                                0x31, 0x5A }, null },
+                                0x31, 0x5A}, null},
                 // YYYYMMDD-HHMMSS = "20501213141516Z"
                 {
                         "13 Dec 2050 14:15:16",
-                        new byte[] { 0x18, 0x0F, 0x32, 0x30, 0x35, 0x30, 0x31,
+                        new byte[]{0x18, 0x0F, 0x32, 0x30, 0x35, 0x30, 0x31,
                                 0x32, 0x31, 0x33, 0x31, 0x34, 0x31, 0x35, 0x31,
-                                0x36, 0x5A }, null },
+                                0x36, 0x5A}, null},
                 // YYYYMMDD-HHMMSS = "20501213141516Z"
                 {
                         "29 Mar 2332 06:56:40",
-                        new byte[] { 0x18, 0x0F, 0x32, 0x33, 0x33, 0x32, 0x30,
+                        new byte[]{0x18, 0x0F, 0x32, 0x33, 0x33, 0x32, 0x30,
                                 0x33, 0x32, 0x39, 0x30, 0x36, 0x35, 0x36, 0x34,
-                                0x30, 0x5A }, null },
+                                0x30, 0x5A}, null},
         };
 
         try {
@@ -133,7 +133,7 @@ public class GeneralizedTimeTest extends TestCase {
     /**
      * Tests milliseconds result of encoding/decoding on the date after 2050.
      */
-    public void test_Milliseconds() throws IOException{
+    public void test_Milliseconds() throws IOException {
         // Regression test for HARMONY-1252
         long old_date = 11431151800000L;
         long new_date = ((Date) gtime.decode(gtime.encode(new Date(old_date))))
@@ -141,7 +141,7 @@ public class GeneralizedTimeTest extends TestCase {
         assertEquals(old_date, new_date);
     }
 
-    public void test_EncodeMilliseconds() throws IOException{
+    public void test_EncodeMilliseconds() throws IOException {
         //cRegression for HARMONY-2302
         long old_date = 1164358741071L;
         long new_date = ((Date) gtime.decode(gtime.encode(new Date(old_date))))

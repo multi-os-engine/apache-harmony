@@ -27,7 +27,6 @@ import java.util.Properties;
 /**
  * A simple implementation of a class implementing a JDBC Driver, for use in the
  * testing of the java.sql.DriverManager class
- * 
  */
 public class TestHelper_Driver1 implements Driver {
     int majorVersion = 1;
@@ -36,9 +35,10 @@ public class TestHelper_Driver1 implements Driver {
 
     String baseURL = "jdbc:mikes1";
 
-    String[] dataSources = { "data1", "data2", "data3" };
+    String[] dataSources = {"data1", "data2", "data3"};
 
     static Driver theDriver;
+
     static {
         theDriver = new TestHelper_Driver1();
         try {
@@ -106,7 +106,7 @@ public class TestHelper_Driver1 implements Driver {
             throws SQLException {
         DriverPropertyInfo[] theInfos = {
                 new DriverPropertyInfo(userProperty, "*"),
-                new DriverPropertyInfo(passwordProperty, "*"), };
+                new DriverPropertyInfo(passwordProperty, "*"),};
         return theInfos;
     }
 

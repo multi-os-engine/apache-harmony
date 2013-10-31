@@ -56,22 +56,22 @@ public class SQLExceptionTest extends TestCase {
      */
     public void testSQLExceptionStringStringint() {
 
-        String[] init1 = { "a", "1", "valid1", "----", "&valid*", "1", "a",
-                null, "", "\0", "a", "a", "a" };
-        String[] init2 = { "a", "1", "valid1", "----", "&valid*", "a",
-                "&valid*", "a", "a", "a", null, "", "\0" };
-        int[] init3 = { -2147483648, 2147483647, 0, 48429456, 1770127344,
+        String[] init1 = {"a", "1", "valid1", "----", "&valid*", "1", "a",
+                null, "", "\0", "a", "a", "a"};
+        String[] init2 = {"a", "1", "valid1", "----", "&valid*", "a",
+                "&valid*", "a", "a", "a", null, "", "\0"};
+        int[] init3 = {-2147483648, 2147483647, 0, 48429456, 1770127344,
                 1047282235, -545472907, -2147483648, -2147483648, -2147483648,
-                -2147483648, -2147483648, -2147483648 };
+                -2147483648, -2147483648, -2147483648};
 
         String[] theFinalStates1 = init1;
         String[] theFinalStates2 = init2;
         int[] theFinalStates3 = init3;
-        SQLException[] theFinalStates4 = { null, null, null, null, null, null,
-                null, null, null, null, null, null, null };
+        SQLException[] theFinalStates4 = {null, null, null, null, null, null,
+                null, null, null, null, null, null, null};
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null,
-                null, null, null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null,
+                null, null, null, null, null, null};
 
         SQLException aSQLException;
         int loopCount = init1.length;
@@ -108,19 +108,19 @@ public class SQLExceptionTest extends TestCase {
      */
     public void testSQLExceptionStringString() {
 
-        String[] init1 = { "a", "1", "valid1", "----", "&valid*", null, "",
-                "\0", "a", "a", "a" };
-        String[] init2 = { "a", "1", "valid1", "----", "&valid*", "a", "a",
-                "a", null, "", "\0" };
+        String[] init1 = {"a", "1", "valid1", "----", "&valid*", null, "",
+                "\0", "a", "a", "a"};
+        String[] init2 = {"a", "1", "valid1", "----", "&valid*", "a", "a",
+                "a", null, "", "\0"};
 
         String[] theFinalStates1 = init1;
         String[] theFinalStates2 = init2;
-        int[] theFinalStates3 = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        SQLException[] theFinalStates4 = { null, null, null, null, null, null,
-                null, null, null, null, null };
+        int[] theFinalStates3 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        SQLException[] theFinalStates4 = {null, null, null, null, null, null,
+                null, null, null, null, null};
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null,
-                null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null,
+                null, null, null, null};
 
         SQLException aSQLException;
         int loopCount = init1.length;
@@ -157,17 +157,17 @@ public class SQLExceptionTest extends TestCase {
      */
     public void testSQLExceptionString() {
 
-        String[] init1 = { "a", "1", "valid1", "----", "&valid*", null, "", "\0" };
+        String[] init1 = {"a", "1", "valid1", "----", "&valid*", null, "", "\0"};
 
         String[] theFinalStates1 = init1;
-        String[] theFinalStates2 = { null, null, null, null, null, null, null,
-                null };
-        int[] theFinalStates3 = { 0, 0, 0, 0, 0, 0, 0, 0 };
-        SQLException[] theFinalStates4 = { null, null, null, null, null, null,
-                null, null };
+        String[] theFinalStates2 = {null, null, null, null, null, null, null,
+                null};
+        int[] theFinalStates3 = {0, 0, 0, 0, 0, 0, 0, 0};
+        SQLException[] theFinalStates4 = {null, null, null, null, null, null,
+                null, null};
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null,
-                null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null,
+                null};
 
         SQLException aSQLException;
         int loopCount = init1.length;
@@ -204,12 +204,12 @@ public class SQLExceptionTest extends TestCase {
      */
     public void testSQLException() {
 
-        String[] theFinalStates1 = { null };
-        String[] theFinalStates2 = { null };
-        int[] theFinalStates3 = { 0 };
-        SQLException[] theFinalStates4 = { null };
+        String[] theFinalStates1 = {null};
+        String[] theFinalStates2 = {null};
+        int[] theFinalStates3 = {0};
+        SQLException[] theFinalStates4 = {null};
 
-        Exception[] theExceptions = { null };
+        Exception[] theExceptions = {null};
 
         SQLException aSQLException;
         int loopCount = 1;
@@ -247,20 +247,20 @@ public class SQLExceptionTest extends TestCase {
     public void testGetErrorCode() {
 
         SQLException aSQLException;
-        String[] init1 = { "a", "1", "valid1", "----", null, "&valid*", "1" };
-        String[] init2 = { "a", "1", "valid1", "----", "&valid*", null, "a" };
-        int[] init3 = { -2147483648, 2147483647, 0, 48429456, 1770127344,
-                1047282235, -545472907 };
+        String[] init1 = {"a", "1", "valid1", "----", null, "&valid*", "1"};
+        String[] init2 = {"a", "1", "valid1", "----", "&valid*", null, "a"};
+        int[] init3 = {-2147483648, 2147483647, 0, 48429456, 1770127344,
+                1047282235, -545472907};
 
         int theReturn;
         int[] theReturns = init3;
         String[] theFinalStates1 = init1;
         String[] theFinalStates2 = init2;
         int[] theFinalStates3 = init3;
-        SQLException[] theFinalStates4 = { null, null, null, null, null, null,
-                null };
+        SQLException[] theFinalStates4 = {null, null, null, null, null, null,
+                null};
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null};
 
         int loopCount = 1;
         for (int i = 0; i < loopCount; i++) {
@@ -300,13 +300,13 @@ public class SQLExceptionTest extends TestCase {
     public void testGetNextException() {
 
         SQLException aSQLException;
-        String[] init1 = { "a", "1", "valid1", "----", null, "&valid*", "1" };
-        String[] init2 = { "a", "1", "valid1", "----", "&valid*", null, "a" };
-        int[] init3 = { -2147483648, 2147483647, 0, 48429456, 1770127344,
-                1047282235, -545472907 };
-        SQLException[] init4 = { new SQLException(), null, new SQLException(),
+        String[] init1 = {"a", "1", "valid1", "----", null, "&valid*", "1"};
+        String[] init2 = {"a", "1", "valid1", "----", "&valid*", null, "a"};
+        int[] init3 = {-2147483648, 2147483647, 0, 48429456, 1770127344,
+                1047282235, -545472907};
+        SQLException[] init4 = {new SQLException(), null, new SQLException(),
                 new SQLException(), new SQLException(), null,
-                new SQLException() };
+                new SQLException()};
 
         SQLException theReturn;
         SQLException[] theReturns = init4;
@@ -315,7 +315,7 @@ public class SQLExceptionTest extends TestCase {
         int[] theFinalStates3 = init3;
         SQLException[] theFinalStates4 = init4;
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null};
 
         int loopCount = init1.length;
         for (int i = 0; i < loopCount; i++) {
@@ -356,20 +356,20 @@ public class SQLExceptionTest extends TestCase {
     public void testGetSQLState() {
 
         SQLException aSQLException;
-        String[] init1 = { "a", "1", "valid1", "----", null, "&valid*", "1" };
-        String[] init2 = { "a", "1", "valid1", "----", "&valid*", null, "a" };
-        int[] init3 = { -2147483648, 2147483647, 0, 48429456, 1770127344,
-                1047282235, -545472907 };
+        String[] init1 = {"a", "1", "valid1", "----", null, "&valid*", "1"};
+        String[] init2 = {"a", "1", "valid1", "----", "&valid*", null, "a"};
+        int[] init3 = {-2147483648, 2147483647, 0, 48429456, 1770127344,
+                1047282235, -545472907};
 
         String theReturn;
         String[] theReturns = init2;
         String[] theFinalStates1 = init1;
         String[] theFinalStates2 = init2;
         int[] theFinalStates3 = init3;
-        SQLException[] theFinalStates4 = { null, null, null, null, null, null,
-                null };
+        SQLException[] theFinalStates4 = {null, null, null, null, null, null,
+                null};
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null};
 
         int loopCount = 1;
         for (int i = 0; i < loopCount; i++) {
@@ -408,24 +408,24 @@ public class SQLExceptionTest extends TestCase {
      */
     public void testSetNextExceptionSQLException() {
 
-        SQLException[] parm1 = { new SQLException(), null, new SQLException(),
+        SQLException[] parm1 = {new SQLException(), null, new SQLException(),
                 new SQLException(), new SQLException(), null,
-                new SQLException() };
+                new SQLException()};
 
         SQLException aSQLException;
 
-        String[] init1 = { "a", "1", "valid1", "----", null, "&valid*", "1" };
-        String[] init2 = { "a", "1", "valid1", "----", "&valid*", null, "a" };
-        int[] init3 = { -2147483648, 2147483647, 0, 48429456, 1770127344,
-                1047282235, -545472907 };
+        String[] init1 = {"a", "1", "valid1", "----", null, "&valid*", "1"};
+        String[] init2 = {"a", "1", "valid1", "----", "&valid*", null, "a"};
+        int[] init3 = {-2147483648, 2147483647, 0, 48429456, 1770127344,
+                1047282235, -545472907};
 
         String[] theFinalStates1 = init1;
         String[] theFinalStates2 = init2;
         int[] theFinalStates3 = init3;
         SQLException[] theFinalStates4 = parm1;
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null,
-                null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null,
+                null, null, null, null};
 
         int loopCount = parm1.length;
         for (int i = 0; i < loopCount; i++) {
@@ -538,7 +538,6 @@ public class SQLExceptionTest extends TestCase {
 
     /**
      * @tests {@link java.sql.SQLException#SQLException(Throwable)}
-     * 
      * @since 1.6
      */
     public void testConstructor_Ljava_lang_Throwable() {
@@ -550,7 +549,6 @@ public class SQLExceptionTest extends TestCase {
 
     /**
      * @tests {@link java.sql.SQLException#SQLException(String, Throwable)}
-     * 
      * @since 1.6
      */
     public void testConstructor_LString_Throwable() {
@@ -563,7 +561,6 @@ public class SQLExceptionTest extends TestCase {
 
     /**
      * @tests {@link java.sql.SQLException#SQLException(String, String, Throwable)}
-     * 
      * @since 1.6
      */
     public void testConstructor_LString_String_Throwable() {
@@ -577,7 +574,6 @@ public class SQLExceptionTest extends TestCase {
 
     /**
      * @tests {@link java.sql.SQLException#SQLException(String, String, int, Throwable)}
-     * 
      * @since 1.6
      */
     public void testConstructor_LString_String_I_Throwable() {
@@ -592,7 +588,6 @@ public class SQLExceptionTest extends TestCase {
 
     /**
      * @tests {@link java.sql.SQLException#iterator()}
-     * 
      * @since 1.6
      */
     public void test_iterator() throws Exception {

@@ -31,7 +31,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for SSLEngine class
- *
  */
 
 public class SSLEngineTest extends TestCase {
@@ -44,7 +43,7 @@ public class SSLEngineTest extends TestCase {
         SSLEngine e = new mySSLEngine();
         assertNull(e.getPeerHost());
         assertEquals(-1, e.getPeerPort());
-        String[] suites = { "a", "b", "c" };
+        String[] suites = {"a", "b", "c"};
         e.setEnabledCipherSuites(suites);
         assertEquals(e.getEnabledCipherSuites().length, suites.length);
     }
@@ -72,7 +71,7 @@ public class SSLEngineTest extends TestCase {
         SSLEngine e = new mySSLEngine(host, port);
         assertEquals(e.getPeerHost(), host);
         assertEquals(e.getPeerPort(), port);
-        String[] suites = { "a", "b", "c" };
+        String[] suites = {"a", "b", "c"};
         e.setEnabledCipherSuites(suites);
         assertEquals(e.getEnabledCipherSuites().length, suites.length);
         e.setUseClientMode(true);
@@ -84,7 +83,7 @@ public class SSLEngineTest extends TestCase {
      * Assertions:
      * throws IllegalArgumentException when src or dst is null
      * throws ReadOnlyBufferException when dst is ReadOnly byte buffer
-     *
+     * <p/>
      * Check that implementation behavior follows RI:
      * jdk 1.5 does not throw IllegalArgumentException when parameters are null
      * and does not throw ReadOnlyBufferException if dst is read only byte buffer
@@ -107,11 +106,11 @@ public class SSLEngineTest extends TestCase {
 
     /**
      * Test for <code>wrap(ByteBuffer[] srcs, ByteBuffer dst)</code> method
-     *
+     * <p/>
      * Assertions: throws IllegalArgumentException when srcs or dst is null or
      * srcs contains null byte buffer; throws ReadOnlyBufferException when dst
      * is read only byte buffer
-     *
+     * <p/>
      * Check that implementation behavior follows RI:
      * jdk 1.5 does not throw IllegalArgumentException when dst is null or
      * if srcs contains null elements It does not throw ReadOnlyBufferException
@@ -121,7 +120,7 @@ public class SSLEngineTest extends TestCase {
         String host = "new host";
         int port = 8080;
         ByteBuffer[] bbNA = null;
-        ByteBuffer[] bbA = { null, ByteBuffer.allocate(10), null };
+        ByteBuffer[] bbA = {null, ByteBuffer.allocate(10), null};
 
         ByteBuffer bb = ByteBuffer.allocate(10);
         ByteBuffer bbN = null;
@@ -147,7 +146,7 @@ public class SSLEngineTest extends TestCase {
     /**
      * Test for <code>wrap(ByteBuffer src, ByteBuffer dst)</code> and
      * <code>wrap(ByteBuffer[] srcs, ByteBuffer dst)</code> methods
-     *
+     * <p/>
      * Assertion: these methods throw SSLException
      */
     public void testWrap03() throws SSLException {
@@ -166,20 +165,19 @@ public class SSLEngineTest extends TestCase {
         assertEquals(20, res.bytesProduced());
 
         try {
-            e.wrap(new ByteBuffer[] { bbs }, bbd);
+            e.wrap(new ByteBuffer[]{bbs}, bbd);
             fail("SSLException must be thrown");
         } catch (SSLException ex) {
         }
-        res = e.wrap(new ByteBuffer[] { bbd }, bbs);
+        res = e.wrap(new ByteBuffer[]{bbd}, bbs);
         assertEquals(10, res.bytesConsumed());
         assertEquals(20, res.bytesProduced());
     }
 
     /**
      * Test for <code>wrap(ByteBuffer src, ByteBuffer dst)</code> method
-     *
+     * <p/>
      * Assertion: encodes a buffer data into network data.
-     *
      */
     public void testWrap04() throws SSLException {
         String host = "new host";
@@ -194,7 +192,7 @@ public class SSLEngineTest extends TestCase {
 
     /**
      * Test for <code>wrap(ByteBuffer[] srcs, ByteBuffer dst)</code> method
-     *
+     * <p/>
      * Assertion: encodes datas from buffers into network data.
      */
     public void testWrap05() throws SSLException {
@@ -202,7 +200,7 @@ public class SSLEngineTest extends TestCase {
         int port = 8080;
 
         ByteBuffer bb = ByteBuffer.allocate(10);
-        ByteBuffer[] bbA = { ByteBuffer.allocate(5), ByteBuffer.allocate(10), ByteBuffer.allocate(5) };
+        ByteBuffer[] bbA = {ByteBuffer.allocate(5), ByteBuffer.allocate(10), ByteBuffer.allocate(5)};
 
         SSLEngine e = new mySSLEngine(host, port);
 
@@ -213,11 +211,11 @@ public class SSLEngineTest extends TestCase {
 
     /**
      * Test for <code>unwrap(ByteBuffer src, ByteBuffer dst)</code> method
-     *
+     * <p/>
      * Assertions:
      * throws IllegalArgumentException when src or dst is null
      * throws ReadOnlyBufferException when dst is read only byte buffer
-     *
+     * <p/>
      * Check that implementation behavior follows RI:
      * jdk 1.5 does not throw IllegalArgumentException when parameters are null
      * and does not throw ReadOnlyBufferException if dst is read only byte buffer
@@ -240,11 +238,11 @@ public class SSLEngineTest extends TestCase {
 
     /**
      * Test for <code>unwrap(ByteBuffer src, ByteBuffer[] dsts)</code> method
-     *
+     * <p/>
      * Assertions: throws IllegalArgumentException if parameters are null or
      * when dsts contains null elements throws ReadOnlyBufferException when dsts
      * contains read only elements
-     *
+     * <p/>
      * Check that implementation behavior follows RI:
      * jdk 1.5 does not throw IllegalArgumentException when src is null or
      * if dsts contains null elements It does not throw ReadOnlyBufferException
@@ -254,7 +252,7 @@ public class SSLEngineTest extends TestCase {
         String host = "new host";
         int port = 8080;
         ByteBuffer[] bbNA = null;
-        ByteBuffer[] bbA = { null, ByteBuffer.allocate(10), null };
+        ByteBuffer[] bbA = {null, ByteBuffer.allocate(10), null};
 
         ByteBuffer bb = ByteBuffer.allocate(10);
         ByteBuffer bbN = null;
@@ -281,7 +279,7 @@ public class SSLEngineTest extends TestCase {
     /**
      * Test for <code>unwrap(ByteBuffersrc, ByteBuffer dst)</code> and
      * <code>unwrap(ByteBuffer src, ByteBuffer[] dsts)</code> methods
-     *
+     * <p/>
      * Assertion: these methods throw SSLException
      */
     public void testUnwrap03() throws SSLException {
@@ -298,18 +296,18 @@ public class SSLEngineTest extends TestCase {
         assertEquals(2, res.bytesProduced());
 
         try {
-            e.unwrap(bbs, new ByteBuffer[] { bbd });
+            e.unwrap(bbs, new ByteBuffer[]{bbd});
             fail("SSLException must be thrown");
         } catch (SSLException ex) {
         }
-        res = e.unwrap(bbd, new ByteBuffer[] { bbs });
+        res = e.unwrap(bbd, new ByteBuffer[]{bbs});
         assertEquals(1, res.bytesConsumed());
         assertEquals(2, res.bytesProduced());
     }
 
     /**
      * Test for <code>unwrap(ByteBuffer src, ByteBuffer dst)</code> method
-     *
+     * <p/>
      * Assertion: decodes  network data into a data buffer.
      */
     public void testUnwrap04() throws SSLException {
@@ -325,14 +323,14 @@ public class SSLEngineTest extends TestCase {
 
     /**
      * Test for <code>unwrap(ByteBuffer src, ByteBuffer[] dsts)</code> method
-     *
+     * <p/>
      * Assertion:
      * decode network data into data buffers.
      */
     public void testUnwrap05() throws SSLException {
         String host = "new host";
         int port = 8080;
-        ByteBuffer[] bbA = { ByteBuffer.allocate(100), ByteBuffer.allocate(10), ByteBuffer.allocate(100) };
+        ByteBuffer[] bbA = {ByteBuffer.allocate(100), ByteBuffer.allocate(10), ByteBuffer.allocate(100)};
 
         ByteBuffer bb = ByteBuffer.allocate(10);
         SSLEngine e = new mySSLEngine(host, port);

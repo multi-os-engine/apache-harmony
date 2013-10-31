@@ -39,7 +39,7 @@ public class String2Test extends junit.framework.TestCase {
 
     Object obj = new Object();
 
-    char[] buf = { 'W', 'o', 'r', 'l', 'd' };
+    char[] buf = {'W', 'o', 'r', 'l', 'd'};
 
     char[] rbuf = new char[5];
 
@@ -66,9 +66,9 @@ public class String2Test extends junit.framework.TestCase {
     @SuppressWarnings("deprecation")
     public void test_Constructor$BI() {
         // Test for method java.lang.String(byte [], int)
-        String s = new String(new byte[] { 65, 66, 67, 68, 69 }, 0);
+        String s = new String(new byte[]{65, 66, 67, 68, 69}, 0);
         assertTrue("Incorrect string returned: " + s, s.equals("ABCDE"));
-        s = new String(new byte[] { 65, 66, 67, 68, 69 }, 1);
+        s = new String(new byte[]{65, 66, 67, 68, 69}, 1);
         assertTrue("Did not use nonzero hibyte", !s.equals("ABCDE"));
     }
 
@@ -95,9 +95,9 @@ public class String2Test extends junit.framework.TestCase {
     @SuppressWarnings("deprecation")
     public void test_Constructor$BIII() {
         // Test for method java.lang.String(byte [], int, int, int)
-        String s = new String(new byte[] { 65, 66, 67, 68, 69 }, 0, 1, 3);
+        String s = new String(new byte[]{65, 66, 67, 68, 69}, 0, 1, 3);
         assertTrue("Incorrect string returned: " + s, s.equals("BCD"));
-        s = new String(new byte[] { 65, 66, 67, 68, 69 }, 1, 0, 5);
+        s = new String(new byte[]{65, 66, 67, 68, 69}, 1, 0, 5);
         assertTrue("Did not use nonzero hibyte", !s.equals("ABCDE"));
     }
 
@@ -107,10 +107,10 @@ public class String2Test extends junit.framework.TestCase {
     public void test_Constructor$BIILjava_lang_String() throws Exception {
         // Test for method java.lang.String(byte [], int, int, java.lang.String)
         String s = null;
-        s = new String(new byte[] { 65, 66, 67, 68, 69 }, 0, 5, "8859_1");
+        s = new String(new byte[]{65, 66, 67, 68, 69}, 0, 5, "8859_1");
         assertTrue("Incorrect string returned: " + s, s.equals("ABCDE"));
         // Regression for HARMONY-1111
-        assertNotNull(new String(new byte[] { (byte) 0xC0 }, 0, 1, "UTF-8"));
+        assertNotNull(new String(new byte[]{(byte) 0xC0}, 0, 1, "UTF-8"));
     }
 
     /**
@@ -119,7 +119,7 @@ public class String2Test extends junit.framework.TestCase {
     public void test_Constructor$BLjava_lang_String() throws Exception {
         // Test for method java.lang.String(byte [], java.lang.String)
         String s = null;
-        s = new String(new byte[] { 65, 66, 67, 68, 69 }, "8859_1");
+        s = new String(new byte[]{65, 66, 67, 68, 69}, "8859_1");
         assertTrue("Incorrect string returned: " + s, s.equals("ABCDE"));
     }
 
@@ -136,7 +136,7 @@ public class String2Test extends junit.framework.TestCase {
      */
     public void test_Constructor$CII() {
         // Test for method java.lang.String(char [], int, int)
-        char[] buf = { 'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd' };
+        char[] buf = {'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd'};
         String s = new String(buf, 0, buf.length);
         assertTrue("Incorrect string created", hw1.equals(s));
 
@@ -299,7 +299,7 @@ public class String2Test extends junit.framework.TestCase {
     public void test_copyValueOf$C() {
         // Test for method java.lang.String java.lang.String.copyValueOf(char
         // [])
-        char[] t = { 'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd' };
+        char[] t = {'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd'};
         assertEquals("copyValueOf returned incorrect String", "HelloWorld",
                 String.copyValueOf(t));
     }
@@ -310,7 +310,7 @@ public class String2Test extends junit.framework.TestCase {
     public void test_copyValueOf$CII() {
         // Test for method java.lang.String java.lang.String.copyValueOf(char
         // [], int, int)
-        char[] t = { 'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd' };
+        char[] t = {'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd'};
         assertEquals("copyValueOf returned incorrect String", "World", String
                 .copyValueOf(t, 5, 5));
     }
@@ -329,10 +329,10 @@ public class String2Test extends junit.framework.TestCase {
     public void test_equalsLjava_lang_Object() {
         assertEquals("String not equal", hw1, hw2);
         assertEquals("Empty string equals check", "", "");
-        assertEquals("Null string equals check", (String)null, (String)null);
+        assertEquals("Null string equals check", (String) null, (String) null);
 
         assertFalse("Unequal strings reports as equal", hw1.equals(comp11));
-        assertFalse("Null string comparison failed", hw1.equals((String)null));
+        assertFalse("Null string comparison failed", hw1.equals((String) null));
     }
 
     /**
@@ -387,11 +387,11 @@ public class String2Test extends junit.framework.TestCase {
                         "Wrong bytes UTF8: " + Integer.toHexString(i),
                         (i < 0x80 && result[0] == i)
                                 || (i >= 0x80
-                                        && i < 0x800
-                                        && result[0] == (byte) (0xc0 | ((i & 0x7c0) >> 6)) && result[1] == (byte) (0x80 | (i & 0x3f)))
+                                && i < 0x800
+                                && result[0] == (byte) (0xc0 | ((i & 0x7c0) >> 6)) && result[1] == (byte) (0x80 | (i & 0x3f)))
                                 || (i >= 0x800
-                                        && result[0] == (byte) (0xe0 | (i >> 12))
-                                        && result[1] == (byte) (0x80 | ((i & 0xfc0) >> 6)) && result[2] == (byte) (0x80 | (i & 0x3f))));
+                                && result[0] == (byte) (0xe0 | (i >> 12))
+                                && result[1] == (byte) (0x80 | ((i & 0xfc0) >> 6)) && result[2] == (byte) (0x80 | (i & 0x3f))));
             } catch (java.io.UnsupportedEncodingException e) {
             }
 
@@ -456,7 +456,7 @@ public class String2Test extends junit.framework.TestCase {
         }
 
         byte[] bytes = "\u3048".getBytes("UTF-8");
-        byte[] expected = new byte[] { (byte) 0xE3, (byte) 0x81, (byte) 0x88 };
+        byte[] expected = new byte[]{(byte) 0xE3, (byte) 0x81, (byte) 0x88};
         assertEquals(expected[0], bytes[0]);
         assertEquals(expected[1], bytes[1]);
         assertEquals(expected[2], bytes[2]);
@@ -471,7 +471,7 @@ public class String2Test extends junit.framework.TestCase {
 
         // Regression for HARMONY-4135
         bytes = "-".getBytes("UTF-16");
-        expected = new byte[] { -2, -1 };
+        expected = new byte[]{-2, -1};
         assertEquals(expected[0], bytes[0]);
         assertEquals(expected[1], bytes[1]);
     }
@@ -648,7 +648,7 @@ public class String2Test extends junit.framework.TestCase {
 
     /**
      * @tests java.lang.String#regionMatches(boolean, int, java.lang.String,
-     *        int, int)
+     *int, int)
      */
     public void test_regionMatchesZILjava_lang_StringII() {
         // Test for method boolean java.lang.String.regionMatches(boolean, int,
@@ -731,32 +731,32 @@ public class String2Test extends junit.framework.TestCase {
         assertTrue("not identical", hw1.substring(0, hw1.length()) == hw1);
     }
 
-	/**
-	 * @tests java.lang.String#substring(int, int)
-	 */
-	public void test_substringErrorMessage() {
-		try {
-			hw1.substring(-1, 1);
-		} catch (StringIndexOutOfBoundsException ex) {
-			String msg = ex.getMessage();
-			assertTrue("Expected message to contain -1: " + msg, msg
-			        .indexOf("-1") != -1);
-		}
-		try {
-			hw1.substring(4, 1);
-		} catch (StringIndexOutOfBoundsException ex) {
-			String msg = ex.getMessage();
-			assertTrue("Expected message to contain -3: " + msg, msg
-			        .indexOf("-3") != -1);
-		}
-		try {
-			hw1.substring(0, 100);
-		} catch (StringIndexOutOfBoundsException ex) {
-			String msg = ex.getMessage();
-			assertTrue("Expected message to contain 100: " + msg, msg
-			        .indexOf("100") != -1);
-		}
-	}
+    /**
+     * @tests java.lang.String#substring(int, int)
+     */
+    public void test_substringErrorMessage() {
+        try {
+            hw1.substring(-1, 1);
+        } catch (StringIndexOutOfBoundsException ex) {
+            String msg = ex.getMessage();
+            assertTrue("Expected message to contain -1: " + msg, msg
+                    .indexOf("-1") != -1);
+        }
+        try {
+            hw1.substring(4, 1);
+        } catch (StringIndexOutOfBoundsException ex) {
+            String msg = ex.getMessage();
+            assertTrue("Expected message to contain -3: " + msg, msg
+                    .indexOf("-3") != -1);
+        }
+        try {
+            hw1.substring(0, 100);
+        } catch (StringIndexOutOfBoundsException ex) {
+            String msg = ex.getMessage();
+            assertTrue("Expected message to contain 100: " + msg, msg
+                    .indexOf("100") != -1);
+        }
+    }
 
     /**
      * @tests java.lang.String#toCharArray()
@@ -786,7 +786,7 @@ public class String2Test extends junit.framework.TestCase {
                 "a\u03c2", "a\u03a3".toLowerCase());
 
         assertEquals("toLowerCase case conversion did not succeed",
-        		"\uD801\uDC44", "\uD801\uDC1C".toLowerCase());
+                "\uD801\uDC44", "\uD801\uDC1C".toLowerCase());
     }
 
     /**
@@ -825,7 +825,7 @@ public class String2Test extends junit.framework.TestCase {
         assertTrue("Invalid conversion", !s.toUpperCase().equals(s));
 
         assertEquals("toUpperCase case conversion did not succeed",
-        		"\uD801\uDC1C", "\uD801\uDC44".toUpperCase());
+                "\uD801\uDC1C", "\uD801\uDC44".toUpperCase());
     }
 
     /**
@@ -873,7 +873,7 @@ public class String2Test extends junit.framework.TestCase {
     public void test_valueOf$CII() {
         // Test for method java.lang.String java.lang.String.valueOf(char [],
         // int, int)
-        char[] t = { 'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd' };
+        char[] t = {'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd'};
         assertEquals("copyValueOf returned incorrect String", "World", String
                 .valueOf(t, 5, 5));
     }

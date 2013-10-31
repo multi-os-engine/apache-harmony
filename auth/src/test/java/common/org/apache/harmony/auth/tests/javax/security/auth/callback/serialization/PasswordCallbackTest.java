@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Maxim V. Makarov
-*/
+ * @author Maxim V. Makarov
+ */
 
 package org.apache.harmony.auth.tests.javax.security.auth.callback.serialization;
 
@@ -39,10 +39,10 @@ public class PasswordCallbackTest extends SerializationTest implements
         char[] pwd = {'a', 'b', 'c'};
         PasswordCallback p = new PasswordCallback("prmpt", true);
         p.setPassword(pwd);
-        return new Object[] { new PasswordCallback("prompt", true), p };
+        return new Object[]{new PasswordCallback("prompt", true), p};
     }
 
-  
+
     public void assertDeserialized(Serializable golden, Serializable test) {
         assertTrue(test instanceof PasswordCallback);
         assertEquals(((PasswordCallback) golden).getPrompt(),

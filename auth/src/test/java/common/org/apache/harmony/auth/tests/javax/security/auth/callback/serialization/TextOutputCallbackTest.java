@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Maxim V. Makarov
-*/
+ * @author Maxim V. Makarov
+ */
 
 package org.apache.harmony.auth.tests.javax.security.auth.callback.serialization;
 
@@ -37,8 +37,8 @@ public class TextOutputCallbackTest extends SerializationTest implements
 
     @Override
     protected Object[] getData() {
-        return new Object[] { new TextOutputCallback(
-                TextOutputCallback.INFORMATION, "message") };
+        return new Object[]{new TextOutputCallback(
+                TextOutputCallback.INFORMATION, "message")};
     }
 
     public void assertDeserialized(Serializable golden, Serializable test) {

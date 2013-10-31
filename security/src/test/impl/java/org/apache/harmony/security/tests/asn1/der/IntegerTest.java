@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Stepan M. Mishura
-*/
+ * @author Stepan M. Mishura
+ */
 
 package org.apache.harmony.security.tests.asn1.der;
 
@@ -44,24 +44,24 @@ public class IntegerTest extends TestCase {
 
     public static final Object[][] validTestcase = {
             // BigInteger / two's-complement representation / encoding
-            { new BigInteger("0"), null, null },
-            { new BigInteger("1"), null, null },
-            { new BigInteger("-1"), null, null },
-            { new BigInteger("127"), null, null },
-            { new BigInteger("-127"), null, null },
-            { new BigInteger("128"), null, null },
-            { new BigInteger("-128"), null, null },
-            { new BigInteger("32767"), null, null },
-            { new BigInteger("-32767"), null, null },
-            { new BigInteger("32768"), null, null },
-            { new BigInteger("-32768"), null, null },
-            { new BigInteger("1234567890"), null, null },
-            { new BigInteger("-1234567890"), null, null },
+            {new BigInteger("0"), null, null},
+            {new BigInteger("1"), null, null},
+            {new BigInteger("-1"), null, null},
+            {new BigInteger("127"), null, null},
+            {new BigInteger("-127"), null, null},
+            {new BigInteger("128"), null, null},
+            {new BigInteger("-128"), null, null},
+            {new BigInteger("32767"), null, null},
+            {new BigInteger("-32767"), null, null},
+            {new BigInteger("32768"), null, null},
+            {new BigInteger("-32768"), null, null},
+            {new BigInteger("1234567890"), null, null},
+            {new BigInteger("-1234567890"), null, null},
             { // 20 octets
-                    new BigInteger(new byte[] { 0x7F, 0x00, 0x00, 0x00, 0x00,
+                    new BigInteger(new byte[]{0x7F, 0x00, 0x00, 0x00, 0x00,
                             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }), null,
-                    null }, };
+                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), null,
+                    null},};
 
     static {
         for (int i = 0; i < validTestcase.length; i++) {
@@ -118,15 +118,15 @@ public class IntegerTest extends TestCase {
      * Tests invalid ASN.1 integer encodings
      */
     public void testDecode_Invalid() throws IOException {
-        byte[][] invalid = new byte[][] {
-        // wrong tag: tag is not 0x02
-                new byte[] { 0x01, 0x01, 0x00 },
+        byte[][] invalid = new byte[][]{
+                // wrong tag: tag is not 0x02
+                new byte[]{0x01, 0x01, 0x00},
                 // wrong length: length is 0
-                new byte[] { 0x02, 0x00 },
+                new byte[]{0x02, 0x00},
                 // wrong content: is not encoded in minimum number of octets
-                new byte[] { 0x02, 0x02, 0x00, 0x00 },
+                new byte[]{0x02, 0x02, 0x00, 0x00},
                 // wrong content: is not encoded in minimum number of octets
-                new byte[] { 0x02, 0x02, (byte) 0xFF, (byte) 0x80 } };
+                new byte[]{0x02, 0x02, (byte) 0xFF, (byte) 0x80}};
 
         for (int i = 0; i < invalid.length; i++) {
             try {
@@ -139,8 +139,8 @@ public class IntegerTest extends TestCase {
     }
 
     public void testConversion() {
-        int[] testcase = new int[] { 0, 1, -1, 127, -127, 128, -128, 32767,
-                -32768, Integer.MAX_VALUE, Integer.MIN_VALUE };
+        int[] testcase = new int[]{0, 1, -1, 127, -127, 128, -128, 32767,
+                -32768, Integer.MAX_VALUE, Integer.MIN_VALUE};
 
         for (int i = 0; i < testcase.length; i++) {
             assertEquals("Testcase: " + i, testcase[i], ASN1Integer

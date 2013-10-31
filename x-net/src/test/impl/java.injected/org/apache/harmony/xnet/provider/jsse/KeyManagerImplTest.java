@@ -26,7 +26,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>KeyManagerImpl</code> constructor and methods
- *  
  */
 public class KeyManagerImplTest extends TestCase {
 
@@ -39,31 +38,31 @@ public class KeyManagerImplTest extends TestCase {
         String[] keyType = {"RSA", "DSA"};
         String al = km.chooseClientAlias(keyType, null, new Socket());
         assertNull(al);
-        
+
         al = km.chooseEngineClientAlias(keyType, null, new SSLEngineImpl(null));
         assertNull(al);
-        
+
         al = km.chooseEngineServerAlias("RSA", null, new SSLEngineImpl(null));
         assertNull(al);
-        
+
         al = km.chooseServerAlias("RSA", null, new Socket());
         assertNull(al);
-        
+
         assertNull(km.getClientAliases("RSA", null));
-        
+
         assertNull(km.getServerAliases("RSA", null));
-        
+
         assertNull(km.getCertificateChain("alias"));
         assertNull(km.getPrivateKey("alias"));
     }
-    
+
     public void testKeyManagerImpl2() throws Exception {
-        
+
         KeyStore ks = JSSETestData.getKeyStore();
         char[] pwd = JSSETestData.KS_PASSWORD;
-        
+
         KeyManagerImpl km = new KeyManagerImpl(ks, pwd);
-        String[] keyType = { "RSA", "DSA" };
+        String[] keyType = {"RSA", "DSA"};
         String al = km.chooseClientAlias(keyType, null, new Socket());
         assertEquals("ssl_test_store", al);
 

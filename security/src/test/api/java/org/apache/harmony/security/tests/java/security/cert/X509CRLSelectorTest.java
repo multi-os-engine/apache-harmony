@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexander Y. Kleymenov
-*/
+ * @author Alexander Y. Kleymenov
+ */
 
 package org.apache.harmony.security.tests.java.security.cert;
 
@@ -79,7 +79,7 @@ public class X509CRLSelectorTest extends TestCase {
         //Regression for HARMONY-465
         X509CRLSelector obj = new X509CRLSelector();
         try {
-            obj.addIssuerName(new byte[] { (byte) 2, (byte) 3, (byte) 4 });
+            obj.addIssuerName(new byte[]{(byte) 2, (byte) 3, (byte) 4});
             fail("IOException expected");
         } catch (IOException e) {
             // expected
@@ -109,7 +109,8 @@ public class X509CRLSelectorTest extends TestCase {
         try {
             selector.addIssuerName("a");
             fail("IOException expected");
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
 
         //no exception for null
         selector.addIssuerName((String) null);

@@ -24,7 +24,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>SSLProtocolException</code> class constructors and methods.
- * 
  */
 public class SSLProtocolExceptionTest extends TestCase {
 
@@ -33,7 +32,7 @@ public class SSLProtocolExceptionTest extends TestCase {
 
     /**
      * Constructor for SSLProtocolExceptionTests.
-     * 
+     *
      * @param arg0
      */
     public SSLProtocolExceptionTest(String arg0) {
@@ -43,7 +42,7 @@ public class SSLProtocolExceptionTest extends TestCase {
     static String[] msgs = {
             "",
             "Check new message",
-            "Check new message Check new message Check new message Check new message Check new message" };
+            "Check new message Check new message Check new message Check new message Check new message"};
 
     static Throwable tCause = new Throwable("Throwable for exception");
 

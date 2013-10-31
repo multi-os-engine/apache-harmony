@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Maxim V. Makarov
-*/
+ * @author Maxim V. Makarov
+ */
 
 package org.apache.harmony.auth.tests.javax.security.auth.callback;
 
@@ -34,7 +34,7 @@ public class TextOutputCallbackTest extends TestCase {
     TextOutputCallback text;
 
     /**
-     * Test for TextOutputCallback(int msgType,String msg) ctor 
+     * Test for TextOutputCallback(int msgType,String msg) ctor
      */
     public final void testTextOutputCallback_01() {
         text = new TextOutputCallback(0, "message");
@@ -43,19 +43,19 @@ public class TextOutputCallbackTest extends TestCase {
     }
 
     /**
-     * Test for TextOutputCallback(int msgType,String msg) ctor 
+     * Test for TextOutputCallback(int msgType,String msg) ctor
      */
     public final void testTextOutputCallback_02() {
-        int[] m = { TextOutputCallback.INFORMATION, TextOutputCallback.WARNING,
-                TextOutputCallback.ERROR };
+        int[] m = {TextOutputCallback.INFORMATION, TextOutputCallback.WARNING,
+                TextOutputCallback.ERROR};
         for (int i = 0; i < m.length; i++) {
             text = new TextOutputCallback(m[i], "message");
         }
     }
 
     /**
-     * Test for TextOutputCallback(int msgType,String msg) ctor, 
-     * if mgsType is not INFORMATION, WARNING or ERROR, then expected IAE 
+     * Test for TextOutputCallback(int msgType,String msg) ctor,
+     * if mgsType is not INFORMATION, WARNING or ERROR, then expected IAE
      */
     public final void testTextOutputCallback_03() {
         try {
@@ -66,8 +66,8 @@ public class TextOutputCallbackTest extends TestCase {
     }
 
     /**
-     * Test for TextOutputCallback(int msgType,String msg) ctor, 
-     * if msg is null or empty 
+     * Test for TextOutputCallback(int msgType,String msg) ctor,
+     * if msg is null or empty
      */
     public final void testInit() {
         try {

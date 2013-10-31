@@ -44,8 +44,8 @@ public class OutputStreamWriterTest extends TestCase {
 
     static private final String source = "This is a test message with Unicode character. \u4e2d\u56fd is China's name in Chinese";
 
-    static private final String[] MINIMAL_CHARSETS = new String[] { "US-ASCII",
-            "ISO-8859-1", "UTF-16BE", "UTF-16LE", "UTF-16", "UTF-8" };
+    static private final String[] MINIMAL_CHARSETS = new String[]{"US-ASCII",
+            "ISO-8859-1", "UTF-16BE", "UTF-16LE", "UTF-16", "UTF-8"};
 
     OutputStreamWriter osw;
 
@@ -424,7 +424,7 @@ public class OutputStreamWriterTest extends TestCase {
     public void testHandleEarlyEOFChar_2() throws IOException {
         int capacity = 65536;
         byte[] bytes = new byte[capacity];
-        byte[] bs = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
+        byte[] bs = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
         for (int i = 0; i < bytes.length; i++) {
             bytes[i] = bs[i / 8192];
         }
@@ -455,12 +455,12 @@ public class OutputStreamWriterTest extends TestCase {
 
                 int upper = UPPER;
                 switch (i) {
-                case 0:
-                    upper = 128;
-                    break;
-                case 1:
-                    upper = 256;
-                    break;
+                    case 0:
+                        upper = 128;
+                        break;
+                    case 1:
+                        upper = 256;
+                        break;
                 }
 
                 for (int c = 0; c < upper; ++c) {
@@ -498,12 +498,12 @@ public class OutputStreamWriterTest extends TestCase {
 
                 int upper = UPPER;
                 switch (i) {
-                case 0:
-                    upper = 128;
-                    break;
-                case 1:
-                    upper = 256;
-                    break;
+                    case 0:
+                        upper = 128;
+                        break;
+                    case 1:
+                        upper = 256;
+                        break;
                 }
 
                 int m = 0;
@@ -551,7 +551,7 @@ public class OutputStreamWriterTest extends TestCase {
 
     /**
      * @tests java.io.OutputStreamWriter#OutputStreamWriter(java.io.OutputStream,
-     *        java.lang.String)
+     *java.lang.String)
      */
     public void test_ConstructorLjava_io_OutputStreamLjava_lang_String()
             throws UnsupportedEncodingException {
@@ -581,7 +581,7 @@ public class OutputStreamWriterTest extends TestCase {
         try {
             OutputStreamWriter writer = new OutputStreamWriter(bout,
                     "ISO2022JP");
-            writer.write(new char[] { 'a' });
+            writer.write(new char[]{'a'});
             writer.close();
             // the default is ASCII, there should not be any mode changes
             String converted = new String(bout.toByteArray(), "ISO8859_1");
@@ -590,7 +590,7 @@ public class OutputStreamWriterTest extends TestCase {
 
             bout.reset();
             writer = new OutputStreamWriter(bout, "ISO2022JP");
-            writer.write(new char[] { '\u3048' });
+            writer.write(new char[]{'\u3048'});
             writer.flush();
             // the byte sequence should not switch to ASCII mode until the
             // stream is closed
@@ -604,8 +604,8 @@ public class OutputStreamWriterTest extends TestCase {
 
             bout.reset();
             writer = new OutputStreamWriter(bout, "ISO2022JP");
-            writer.write(new char[] { '\u3048' });
-            writer.write(new char[] { '\u3048' });
+            writer.write(new char[]{'\u3048'});
+            writer.write(new char[]{'\u3048'});
             writer.close();
             // there should not be a mode switch between writes
             assertEquals("invalid conversion 4", "\u001b$B$($(\u001b(B",

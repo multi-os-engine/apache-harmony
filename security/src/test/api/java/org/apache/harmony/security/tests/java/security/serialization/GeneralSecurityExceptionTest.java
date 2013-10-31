@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -28,24 +28,23 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for GeneralSecurityException serialization
- *
  */
 
 public class GeneralSecurityExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
         Exception cause = new Exception(msgs[1]);
         GeneralSecurityException dExc = new GeneralSecurityException(msgs[0], cause);
         String msg = null;
         Throwable th = null;
-        return new Object[] { new GeneralSecurityException(), new GeneralSecurityException(msg),
+        return new Object[]{new GeneralSecurityException(), new GeneralSecurityException(msg),
                 new GeneralSecurityException(msgs[1]),
                 new GeneralSecurityException(new Throwable()), new GeneralSecurityException(th),
-                new GeneralSecurityException(msgs[1], dExc) };
+                new GeneralSecurityException(msgs[1], dExc)};
     }
 
 }

@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.crypto.tests.javax.crypto.serialization;
 
@@ -28,18 +28,17 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for IllegalBlockSizeException serialization
- *
  */
 
 public class IllegalBlockSizeExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
-        return new Object[] { new IllegalBlockSizeException(),
-                new IllegalBlockSizeException(null), new IllegalBlockSizeException(msgs[1]) };
+        return new Object[]{new IllegalBlockSizeException(),
+                new IllegalBlockSizeException(null), new IllegalBlockSizeException(msgs[1])};
     }
 
 }

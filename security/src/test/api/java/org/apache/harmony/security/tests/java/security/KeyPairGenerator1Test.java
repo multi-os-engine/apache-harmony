@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security;
 
@@ -33,7 +33,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>KeyPairGenerator</code> class constructors and methods.
- *
  */
 
 public class KeyPairGenerator1Test extends TestCase {
@@ -52,7 +51,7 @@ public class KeyPairGenerator1Test extends TestCase {
     public static final String srvKeyPairGenerator = "KeyPairGenerator";
 
     public static String[] algs = {
-            "DSA", "dsa", "Dsa", "DsA", "dsA" };
+            "DSA", "dsa", "Dsa", "DsA", "dsA"};
 
     public static String validAlgName = "DSA";
 
@@ -70,12 +69,12 @@ public class KeyPairGenerator1Test extends TestCase {
                 srvKeyPairGenerator);
         DSASupported = (validProvider != null);
         if (!DSASupported) {
-            NotSupportMsg = validAlgName + " algorithm is not supported" ;
+            NotSupportMsg = validAlgName + " algorithm is not supported";
         }
         validProviderName = (DSASupported ? validProvider.getName() : null);
     }
 
-    protected KeyPairGenerator [] createKPGen() {
+    protected KeyPairGenerator[] createKPGen() {
         if (!DSASupported) {
             fail(NotSupportMsg);
             return null;
@@ -312,23 +311,23 @@ public class KeyPairGenerator1Test extends TestCase {
      */
     public void testKeyPairGenerator10() throws NoSuchAlgorithmException,
             NoSuchProviderException, IllegalArgumentException {
-            if (!DSASupported) {
-                fail(NotSupportMsg);
-                return;
-            }
-            KeyPairGenerator[] kpg = createKPGen();
-            assertNotNull("KeyPairGenerator objects were not created", kpg);
-            KeyPair kp, kp1;
-            for (int i = 0; i < kpg.length; i++) {
-                kpg[i].initialize(512);
-                kp = kpg[i].generateKeyPair();
-                kp1 = kpg[i].genKeyPair();
+        if (!DSASupported) {
+            fail(NotSupportMsg);
+            return;
+        }
+        KeyPairGenerator[] kpg = createKPGen();
+        assertNotNull("KeyPairGenerator objects were not created", kpg);
+        KeyPair kp, kp1;
+        for (int i = 0; i < kpg.length; i++) {
+            kpg[i].initialize(512);
+            kp = kpg[i].generateKeyPair();
+            kp1 = kpg[i].genKeyPair();
 
-                assertFalse("Incorrect private key", kp.getPrivate().equals(
-                        kp1.getPrivate()));
-                assertFalse("Incorrect public key", kp.getPublic().equals(
-                        kp1.getPublic()));
-            }
+            assertFalse("Incorrect private key", kp.getPrivate().equals(
+                    kp1.getPrivate()));
+            assertFalse("Incorrect public key", kp.getPublic().equals(
+                    kp1.getPublic()));
+        }
     }
 
     /**
@@ -347,7 +346,7 @@ public class KeyPairGenerator1Test extends TestCase {
             fail(NotSupportMsg);
             return;
         }
-        int[] keys =  { -10000, -1024, -1, 0, 10000 };
+        int[] keys = {-10000, -1024, -1, 0, 10000};
         KeyPairGenerator[] kpg = createKPGen();
         assertNotNull("KeyPairGenerator objects were not created", kpg);
         SecureRandom random = new SecureRandom();
@@ -384,7 +383,7 @@ public class KeyPairGenerator1Test extends TestCase {
      * KeyPair Additional class MyKeyPairGenerator1 is used
      */
     public void testKeyPairGenerator12() {
-        int[] keys = { -1, -250, 1, 64, 512, 1024 };
+        int[] keys = {-1, -250, 1, 64, 512, 1024};
         SecureRandom random = new SecureRandom();
         AlgorithmParameterSpec aps;
         KeyPairGenerator mKPG = new MyKeyPairGenerator1("");
@@ -460,7 +459,7 @@ public class KeyPairGenerator1Test extends TestCase {
      * is used
      */
     public void testKeyPairGenerator13() {
-        int[] keys = { -1, -250, 1, 63, -512, -1024 };
+        int[] keys = {-1, -250, 1, 63, -512, -1024};
         SecureRandom random = new SecureRandom();
         KeyPairGenerator mKPG = new MyKeyPairGenerator2(null);
         assertEquals("Algorithm must be null", mKPG.getAlgorithm(),

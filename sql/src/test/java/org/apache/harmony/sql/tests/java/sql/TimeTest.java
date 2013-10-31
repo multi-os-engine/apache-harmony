@@ -24,7 +24,6 @@ import junit.framework.TestCase;
 
 /**
  * JUnit Testcase for the java.sql.Time class
- * 
  */
 public class TimeTest extends TestCase {
 
@@ -48,17 +47,17 @@ public class TimeTest extends TestCase {
 
     static String STRING_OUTRANGE = "35:99:66";
 
-    static long[] TIME_ARRAY = { TIME_TEST1, TIME_TEST2, TIME_TEST3 };
+    static long[] TIME_ARRAY = {TIME_TEST1, TIME_TEST2, TIME_TEST3};
 
-    static String[] STRING_GMT_ARRAY = { STRING_TEST1, STRING_TEST2,
-            STRING_TEST3 };
+    static String[] STRING_GMT_ARRAY = {STRING_TEST1, STRING_TEST2,
+            STRING_TEST3};
 
-    static String[] STRING_LA_ARRAY = { "02:45:20", "14:17:59", "05:14:40" };
+    static String[] STRING_LA_ARRAY = {"02:45:20", "14:17:59", "05:14:40"};
 
-    static String[] STRING_JP_ARRAY = { "19:45:20", "07:17:59", "22:14:40" };
+    static String[] STRING_JP_ARRAY = {"19:45:20", "07:17:59", "22:14:40"};
 
-    static String[] INVALID_STRINGS = { STRING_INVALID1, STRING_INVALID2,
-            STRING_INVALID3 };
+    static String[] INVALID_STRINGS = {STRING_INVALID1, STRING_INVALID2,
+            STRING_INVALID3};
 
     // Timezones
     static String TZ_LONDON = "GMT"; // GMT (!) PS London != GMT (?!?)
@@ -67,10 +66,10 @@ public class TimeTest extends TestCase {
 
     static String TZ_JAPAN = "Asia/Tokyo"; // GMT + 9
 
-    static String[] TIMEZONES = { TZ_LONDON, TZ_PACIFIC, TZ_JAPAN };
+    static String[] TIMEZONES = {TZ_LONDON, TZ_PACIFIC, TZ_JAPAN};
 
-    static String[][] STRING_ARRAYS = { STRING_GMT_ARRAY, STRING_LA_ARRAY,
-            STRING_JP_ARRAY };
+    static String[][] STRING_ARRAYS = {STRING_GMT_ARRAY, STRING_LA_ARRAY,
+            STRING_JP_ARRAY};
 
     @SuppressWarnings("deprecation")
     public void testTimeintintint() {
@@ -116,10 +115,10 @@ public class TimeTest extends TestCase {
     public void testValueOfString() {
         TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
 
-        Time[] theReturns = { new Time(38720000), new Time(80279000),
-                new Time(47680000) };
-        String[] validTime = { "10:45:20", "22:17:59", "13:14:40", };
-        String[] invalidTime = { null, "ABCDEFGHI", "233104", "21-43-48" };
+        Time[] theReturns = {new Time(38720000), new Time(80279000),
+                new Time(47680000)};
+        String[] validTime = {"10:45:20", "22:17:59", "13:14:40",};
+        String[] invalidTime = {null, "ABCDEFGHI", "233104", "21-43-48"};
 
         for (int i = 0; i < validTime.length; i++) {
             Time theReturn = Time.valueOf(validTime[i]);
@@ -233,7 +232,7 @@ public class TimeTest extends TestCase {
     } // end method test
 
     /**
-     * @tests java.sql.Time#valueOf(String )
+     * @tests java.sql.Time#valueOf(String)
      */
     public void test_valueOf_IllegalArgumentException() {
         try {
@@ -299,13 +298,13 @@ public class TimeTest extends TestCase {
             // expected
         }
     }
-    
-    
+
+
     // Reset defualt timezone
     static TimeZone defaultTimeZone = TimeZone.getDefault();
-    
-    protected void tearDown(){
-    	TimeZone.setDefault(defaultTimeZone);
+
+    protected void tearDown() {
+        TimeZone.setDefault(defaultTimeZone);
     }
 } // end class TimeTest
 

@@ -32,7 +32,7 @@ import tests.support.resource.Support_Resources;
 
 /**
  * Tests X500Principal class
- * 
+ * <p/>
  * Distinguished name(DN) strings follows
  * BNF syntax specified in RFC 2253 and RFC 1779
  *
@@ -59,7 +59,7 @@ public class X500PrincipalTest extends TestCase {
         X500Principal principal = new X500Principal(is);
         String s = principal.toString();
         assertEquals("CN=A, CN=B, CN=A, CN=B", s);
-        byte[] restBytes = new byte[] { 0, 0, 0 };
+        byte[] restBytes = new byte[]{0, 0, 0};
         is.read(restBytes);
         assertEquals(restBytes[0], 1);
         assertEquals(restBytes[1], 2);
@@ -85,7 +85,7 @@ public class X500PrincipalTest extends TestCase {
     }
 
     public void testStreamPosition_1() throws Exception {
-        byte[] mess = { 0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
+        byte[] mess = {0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
                 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x5A, 0x31, 0x0A,
                 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x0B, 0x13, 0x01, 0x45,
                 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x06, 0x13,
@@ -101,7 +101,7 @@ public class X500PrincipalTest extends TestCase {
                 0x03, 0x55, 0x04, 0x0A, 0x13, 0x01, 0x42, 0x31, 0x15, 0x30,
                 0x08, 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41, 0x30,
                 0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41, 2,
-                3, 4 };
+                3, 4};
 
         ByteArrayInputStream is = new ByteArrayInputStream(mess);
         X500Principal principal = new X500Principal(is);
@@ -117,8 +117,8 @@ public class X500PrincipalTest extends TestCase {
     }
 
     public void testStreamPosition_2() throws Exception {
-        byte[] mess = { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
-                0x04, 0x03, 0x13, 0x01, 0x41, 2 };
+        byte[] mess = {0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
+                0x04, 0x03, 0x13, 0x01, 0x41, 2};
         ByteArrayInputStream is = new ByteArrayInputStream(mess);
         X500Principal principal = new X500Principal(is);
         String s = principal.getName(X500Principal.RFC1779);
@@ -153,8 +153,8 @@ public class X500PrincipalTest extends TestCase {
      * tests if the encoding is backed
      */
     public void testSafeEncoding() {
-        byte[] mess = { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
-                0x04, 0x03, 0x13, 0x01, 0x41 };
+        byte[] mess = {0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
+                0x04, 0x03, 0x13, 0x01, 0x41};
         X500Principal principal = new X500Principal(mess);
         mess[mess.length - 1] = (byte) 0xFF;
         byte[] enc = principal.getEncoded();
@@ -167,9 +167,9 @@ public class X500PrincipalTest extends TestCase {
      * checks the result
      */
     public void testToString() throws Exception {
-        byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
+        byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
                 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08, 0x06,
-                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
         X500Principal principal = new X500Principal(mess);
         String s = principal.toString();
         assertNotNull(s);
@@ -178,12 +178,12 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array
      * gets hashCode
-     * compares with expected value 
+     * compares with expected value
      */
     public void testHashCode() throws Exception {
-        byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
+        byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
                 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08, 0x06,
-                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
         X500Principal principal = new X500Principal(mess);
         int hash = principal.hashCode();
         assertEquals(principal.getName(X500Principal.CANONICAL).hashCode(),
@@ -193,12 +193,12 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array
      * Inits other X500Principal with equivalent string
-     * checks if <code>equals</code> returns true for first against second one 
+     * checks if <code>equals</code> returns true for first against second one
      */
     public void testEquals() throws Exception {
-        byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
+        byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
                 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08, 0x06,
-                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
         X500Principal principal = new X500Principal(mess);
         X500Principal principal2 = new X500Principal("CN=A, CN=B");
         assertTrue(principal.equals(principal2));
@@ -220,7 +220,7 @@ public class X500PrincipalTest extends TestCase {
      * Value is given as hex value
      * (extra spaces are given)
      * gets Name in RFC1779 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testKWAsOid_RFC1779() throws Exception {
         String dn = "CN=A, OID.2.5.4.3  =    #130142";
@@ -235,7 +235,7 @@ public class X500PrincipalTest extends TestCase {
      * Value is given as hex value
      * (extra spaces are given)
      * gets Name in RFC2253 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testKWAsOid_RFC2253() throws Exception {
         String dn = "CN=A, OID.2.5.4.3 =  #130142";
@@ -250,7 +250,7 @@ public class X500PrincipalTest extends TestCase {
      * Value is given as hex value
      * (extra spaces are given)
      * gets Name in CANONICAL format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testKWAsOid_CANONICAL() throws Exception {
         String dn = "CN=A, OID.2.5.4.3 =  #130142";
@@ -263,12 +263,12 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array, where Oid does not fall into any keyword
      * gets Name in RFC1779 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testOid_RFC1779() throws Exception {
-        byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
+        byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
                 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08, 0x06,
-                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
         mess[8] = 0x60;
         X500Principal principal = new X500Principal(mess);
 
@@ -279,12 +279,12 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array, where Oid does not fall into any keyword
      * gets Name in RFC2253 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testOid_RFC2253() throws Exception {
-        byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
+        byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
                 0x04, 0x03, 0x13, 0x01, 0x4F, 0x31, 0x0A, 0x30, 0x08, 0x06,
-                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
         mess[8] = 0x60;
         X500Principal principal = new X500Principal(mess);
 
@@ -295,12 +295,12 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array, where Oid does not fall into any keyword
      * gets Name in CANONICAL format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testOid_CANONICAL() throws Exception {
-        byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
+        byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
                 0x04, 0x03, 0x13, 0x01, 0x4F, 0x31, 0x0A, 0x30, 0x08, 0x06,
-                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
         mess[8] = 0x60;
         X500Principal principal = new X500Principal(mess);
 
@@ -311,10 +311,10 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with a string
      * gets encoded form
-     * compares with expected byte array 
+     * compares with expected byte array
      */
     public void testNameGetEncoding() throws Exception {
-        byte[] mess = { 0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
+        byte[] mess = {0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
                 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x5A, 0x31, 0x0A,
                 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x0B, 0x13, 0x01, 0x45,
                 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x06, 0x13,
@@ -329,7 +329,7 @@ public class X500PrincipalTest extends TestCase {
                 0x04, 0x07, 0x13, 0x01, 0x43, 0x31, 0x0A, 0x30, 0x08, 0x06,
                 0x03, 0x55, 0x04, 0x0A, 0x13, 0x01, 0x42, 0x31, 0x15, 0x30,
                 0x08, 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41, 0x30,
-                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41 };
+                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41};
         String dn = "CN=A+ST=CA,O=B,L=C,C=D,OU=E,CN=A+ST=CA,O=B,L=C,C=D,OU=E,CN=Z";
         X500Principal principal = new X500Principal(dn);
         byte[] s = principal.getEncoded();
@@ -340,12 +340,12 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with a string
      * gets encoded form
-     * compares with expected byte array 
+     * compares with expected byte array
      */
     public void testNameGetEncoding_01() throws Exception {
-        byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
+        byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
                 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08, 0x06,
-                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
         String dn = "CN=A,CN=B";
         X500Principal principal = new X500Principal(dn);
         byte[] s = principal.getEncoded();
@@ -356,10 +356,10 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array
      * gets Name in RFC1779 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testGetName_RFC1779() throws Exception {
-        byte[] mess = { 0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
+        byte[] mess = {0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
                 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x5A, 0x31, 0x0A,
                 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x0B, 0x13, 0x01, 0x45,
                 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x06, 0x13,
@@ -374,7 +374,7 @@ public class X500PrincipalTest extends TestCase {
                 0x04, 0x07, 0x13, 0x01, 0x43, 0x31, 0x0A, 0x30, 0x08, 0x06,
                 0x03, 0x55, 0x04, 0x0A, 0x13, 0x01, 0x42, 0x31, 0x15, 0x30,
                 0x08, 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41, 0x30,
-                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41 };
+                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41};
         X500Principal principal = new X500Principal(mess);
 
         String s = principal.getName(X500Principal.RFC1779);
@@ -387,10 +387,10 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array
      * gets Name in RFC2253 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testGetName_RFC2253() throws Exception {
-        byte[] mess = { 0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
+        byte[] mess = {0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
                 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x5A, 0x31, 0x0A,
                 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x0B, 0x13, 0x01, 0x45,
                 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x06, 0x13,
@@ -405,7 +405,7 @@ public class X500PrincipalTest extends TestCase {
                 0x04, 0x07, 0x13, 0x01, 0x43, 0x31, 0x0A, 0x30, 0x08, 0x06,
                 0x03, 0x55, 0x04, 0x0A, 0x13, 0x01, 0x42, 0x31, 0x15, 0x30,
                 0x08, 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41, 0x30,
-                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41 };
+                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41};
         X500Principal principal = new X500Principal(mess);
 
         String s = principal.getName(X500Principal.RFC2253);
@@ -417,10 +417,10 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array
      * gets Name in CANONICAL format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testGetName_CANONICAL() throws Exception {
-        byte[] mess = { 0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
+        byte[] mess = {0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
                 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x5A, 0x31, 0x0A,
                 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x0B, 0x13, 0x01, 0x45,
                 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x06, 0x13,
@@ -435,7 +435,7 @@ public class X500PrincipalTest extends TestCase {
                 0x04, 0x07, 0x13, 0x01, 0x43, 0x31, 0x0A, 0x30, 0x08, 0x06,
                 0x03, 0x55, 0x04, 0x0A, 0x13, 0x01, 0x42, 0x31, 0x15, 0x30,
                 0x08, 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41, 0x30,
-                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41 };
+                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41};
         X500Principal principal = new X500Principal(mess);
 
         String s = principal.getName(X500Principal.CANONICAL);
@@ -447,10 +447,10 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array
      * gets Name in RFC1779 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testStreamGetName_RFC1779() throws Exception {
-        byte[] mess = { 0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
+        byte[] mess = {0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
                 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x5A, 0x31, 0x0A,
                 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x0B, 0x13, 0x01, 0x45,
                 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x06, 0x13,
@@ -465,7 +465,7 @@ public class X500PrincipalTest extends TestCase {
                 0x04, 0x07, 0x13, 0x01, 0x43, 0x31, 0x0A, 0x30, 0x08, 0x06,
                 0x03, 0x55, 0x04, 0x0A, 0x13, 0x01, 0x42, 0x31, 0x15, 0x30,
                 0x08, 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41, 0x30,
-                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41 };
+                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41};
         ByteArrayInputStream is = new ByteArrayInputStream(mess);
         X500Principal principal = new X500Principal(is);
 
@@ -478,10 +478,10 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array
      * gets Name in RFC2253 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testStreamGetName_RFC2253() throws Exception {
-        byte[] mess = { 0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
+        byte[] mess = {0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
                 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x5A, 0x31, 0x0A,
                 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x0B, 0x13, 0x01, 0x45,
                 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x06, 0x13,
@@ -496,7 +496,7 @@ public class X500PrincipalTest extends TestCase {
                 0x04, 0x07, 0x13, 0x01, 0x43, 0x31, 0x0A, 0x30, 0x08, 0x06,
                 0x03, 0x55, 0x04, 0x0A, 0x13, 0x01, 0x42, 0x31, 0x15, 0x30,
                 0x08, 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41, 0x30,
-                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41 };
+                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41};
         ByteArrayInputStream is = new ByteArrayInputStream(mess);
         X500Principal principal = new X500Principal(is);
 
@@ -509,10 +509,10 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array
      * gets Name in CANONICAL format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testStreamGetName_CANONICAL() throws Exception {
-        byte[] mess = { 0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
+        byte[] mess = {0x30, (byte) 0x81, (byte) 0x9A, 0x31, 0x0A, 0x30, 0x08,
                 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x5A, 0x31, 0x0A,
                 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x0B, 0x13, 0x01, 0x45,
                 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x06, 0x13,
@@ -527,7 +527,7 @@ public class X500PrincipalTest extends TestCase {
                 0x04, 0x07, 0x13, 0x01, 0x43, 0x31, 0x0A, 0x30, 0x08, 0x06,
                 0x03, 0x55, 0x04, 0x0A, 0x13, 0x01, 0x42, 0x31, 0x15, 0x30,
                 0x08, 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41, 0x30,
-                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41 };
+                0x09, 0x06, 0x03, 0x55, 0x04, 0x08, 0x13, 0x02, 0x43, 0x41};
         ByteArrayInputStream is = new ByteArrayInputStream(mess);
         X500Principal principal = new X500Principal(is);
 
@@ -538,11 +538,11 @@ public class X500PrincipalTest extends TestCase {
     }
 
     /**
-     * Inits X500Principal with a string, where OID does not fall into any keyword 
+     * Inits X500Principal with a string, where OID does not fall into any keyword
      * gets encoded form
      * inits new X500Principal with the encoding
      * gets string in RFC1779 format
-     * compares with expected value 
+     * compares with expected value
      */
     public void testGetName_EncodingWithWrongOidButGoodName_SeveralRDNs_RFC1779()
             throws Exception {
@@ -556,11 +556,11 @@ public class X500PrincipalTest extends TestCase {
     }
 
     /**
-     * Inits X500Principal with a string, where OID does not fall into any keyword 
+     * Inits X500Principal with a string, where OID does not fall into any keyword
      * gets encoded form
      * inits new X500Principal with the encoding
      * gets string in RFC2253 format
-     * compares with expected value 
+     * compares with expected value
      */
     public void testGetName_EncodingWithWrongOidButGoodName_SeveralRDNs_RFC2253()
             throws Exception {
@@ -574,11 +574,11 @@ public class X500PrincipalTest extends TestCase {
     }
 
     /**
-     * Inits X500Principal with a string, where OID does not fall into any keyword 
+     * Inits X500Principal with a string, where OID does not fall into any keyword
      * gets encoded form
      * inits new X500Principal with the encoding
      * gets string in CANONICAL format
-     * compares with expected value 
+     * compares with expected value
      */
     public void testGetName_EncodingWithWrongOidButGoodName_SeveralRDNs_CANONICAL()
             throws Exception {
@@ -592,9 +592,9 @@ public class X500PrincipalTest extends TestCase {
     }
 
     /**
-     * Inits X500Principal with a string, where OID does not fall into any keyword 
+     * Inits X500Principal with a string, where OID does not fall into any keyword
      * gets string in RFC1779 format
-     * compares with expected value 
+     * compares with expected value
      */
     public void testGetName_wrongOidButGoodName_RFC1779() throws Exception {
         String dn = "OID.2.16.4.3=B + CN=A";
@@ -605,9 +605,9 @@ public class X500PrincipalTest extends TestCase {
     }
 
     /**
-     * Inits X500Principal with a string, where OID does not fall into any keyword 
+     * Inits X500Principal with a string, where OID does not fall into any keyword
      * gets string in RFC2253 format
-     * compares with expected value 
+     * compares with expected value
      */
     public void testGetName_wrongOidButGoodName_RFC2253() throws Exception {
         String dn = "OID.2.16.4.3=B + CN=A";
@@ -731,6 +731,7 @@ public class X500PrincipalTest extends TestCase {
 
     /**
      * FIXME test is failed - implement unicode normalization
+     *
      * @throws Exception
      */
     public void testGetNameUnicodeNormalized() throws Exception {
@@ -746,8 +747,8 @@ public class X500PrincipalTest extends TestCase {
      */
     public void testEmptyInputName() {
         String dn = "CN=\"\"";
-        byte[] mess = { 0x30, 0x0B, 0x31, 0x09, 0x30, 0x07, 0x06, 0x03, 0x55,
-                0x04, 0x03, 0x13, 0x00 };
+        byte[] mess = {0x30, 0x0B, 0x31, 0x09, 0x30, 0x07, 0x06, 0x03, 0x55,
+                0x04, 0x03, 0x13, 0x00};
         X500Principal principal = new X500Principal(dn);
         assertTrue(Arrays.equals(mess, principal.getEncoded()));
     }
@@ -759,8 +760,8 @@ public class X500PrincipalTest extends TestCase {
      */
     public void testNameSingleEscapedSpace() {
         String dn = "CN=\\ ";
-        byte[] mess = { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
-                0x04, 0x03, 0x13, 0x01, 0x20 };
+        byte[] mess = {0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
+                0x04, 0x03, 0x13, 0x01, 0x20};
         X500Principal principal = new X500Principal(dn);
         assertTrue(Arrays.equals(mess, principal.getEncoded()));
     }
@@ -768,7 +769,7 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with string with spaces
      * gets Name in RFC2253 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testNameOnlySpaces_RFC1779() {
         String dn = "CN=\"  \"";
@@ -779,7 +780,7 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with string with spaces
      * gets Name in RFC2253 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testNameOnlySpaces_RFC2253() {
         String dn = "CN=\"  \"";
@@ -799,6 +800,7 @@ public class X500PrincipalTest extends TestCase {
     }
 
     ///*** Negative Tests ***///
+
     /**
      * Inits X500Principal with string, where DN name is improper "CNN"
      * checks if proper exception is thrown
@@ -844,8 +846,8 @@ public class X500PrincipalTest extends TestCase {
      */
     public void testEmptyInputName_0() {
         String dn = "CN=";
-        byte[] mess = { 0x30, 0x0B, 0x31, 0x09, 0x30, 0x07, 0x06, 0x03, 0x55,
-                0x04, 0x03, 0x13, 0x00 };
+        byte[] mess = {0x30, 0x0B, 0x31, 0x09, 0x30, 0x07, 0x06, 0x03, 0x55,
+                0x04, 0x03, 0x13, 0x00};
         X500Principal principal = new X500Principal(dn);
         assertTrue(Arrays.equals(mess, principal.getEncoded()));
     }
@@ -1029,9 +1031,9 @@ public class X500PrincipalTest extends TestCase {
 
     public void testInitClause() {
         try {
-            byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+            byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                     0x55, 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08,
-                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
             mess[3] = 0x12;//length field
             new X500Principal(mess);
 
@@ -1059,9 +1061,9 @@ public class X500PrincipalTest extends TestCase {
      */
     public void testIllegalInputArray() {
         try {
-            byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+            byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                     0x55, 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08,
-                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
             mess[3] = 0x12;//length field
             new X500Principal(mess);
 
@@ -1076,9 +1078,9 @@ public class X500PrincipalTest extends TestCase {
      */
     public void testIllegalInputArray_is() {
         try {
-            byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+            byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                     0x55, 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08,
-                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
             mess[3] = 0x12;//length field
             ByteArrayInputStream is = new ByteArrayInputStream(mess);
             new X500Principal(is);
@@ -1094,9 +1096,9 @@ public class X500PrincipalTest extends TestCase {
      */
     public void testIllegalInputArray_01() {
         try {
-            byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+            byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                     0x55, 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08,
-                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
             mess[4] = 0x12;//inner Sequence tag field
             new X500Principal(mess);
 
@@ -1111,9 +1113,9 @@ public class X500PrincipalTest extends TestCase {
      */
     public void testIllegalInputArray_02() {
         try {
-            byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+            byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                     0x55, 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08,
-                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
             mess[10] = (byte) 0xFE;//last byte of OID
             new X500Principal(mess);
 
@@ -1128,9 +1130,9 @@ public class X500PrincipalTest extends TestCase {
      */
     public void testIllegalInputArray_03() {
         try {
-            byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+            byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                     0x55, 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08,
-                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
             mess[7] = 2;//length of OID
             new X500Principal(mess);
 
@@ -1144,9 +1146,9 @@ public class X500PrincipalTest extends TestCase {
      * checks if it is ignored
      */
     public void testSemiIllegalInputArray_04() {
-        byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
+        byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55,
                 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08, 0x06,
-                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
         mess[11] = (byte) 0x0F;//tag of value
         new X500Principal(mess);
     }
@@ -1157,9 +1159,9 @@ public class X500PrincipalTest extends TestCase {
      */
     public void testIllegalInputArray_05() {
         try {
-            byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+            byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                     0x55, 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08,
-                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
             mess[12] = 2;//length of value
             new X500Principal(mess);
 
@@ -1174,9 +1176,9 @@ public class X500PrincipalTest extends TestCase {
      */
     public void testIllegalInputArray_05_is() {
         try {
-            byte[] mess = { 0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+            byte[] mess = {0x30, 0x18, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                     0x55, 0x04, 0x03, 0x13, 0x01, 0x42, 0x31, 0x0A, 0x30, 0x08,
-                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41 };
+                    0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x01, 0x41};
             mess[12] = 2;//length of value
             ByteArrayInputStream is = new ByteArrayInputStream(mess);
             new X500Principal(is);
@@ -1258,11 +1260,11 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array, where there are leading and tailing spaces
      * gets Name in RFC1779 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testNameSpaceFromEncoding_RFC1779() throws Exception {
-        byte[] mess = { 0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03, 0x55,
-                0x04, 0x03, 0x13, 0x03, 0x20, 0x41, 0x20, };
+        byte[] mess = {0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03, 0x55,
+                0x04, 0x03, 0x13, 0x03, 0x20, 0x41, 0x20,};
         X500Principal principal = new X500Principal(mess);
         String s = principal.getName(X500Principal.RFC1779);
         assertEquals("CN=\" A \"", s);
@@ -1272,11 +1274,11 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array, where there are leading and tailing spaces
      * gets Name in RFC2253 format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testNameSpaceFromEncoding_RFC2253() throws Exception {
-        byte[] mess = { 0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03, 0x55,
-                0x04, 0x03, 0x13, 0x03, 0x20, 0x41, 0x20, };
+        byte[] mess = {0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03, 0x55,
+                0x04, 0x03, 0x13, 0x03, 0x20, 0x41, 0x20,};
         X500Principal principal = new X500Principal(mess);
         String s = principal.getName(X500Principal.RFC2253);
         assertEquals("CN=\\ A\\ ", s);
@@ -1286,11 +1288,11 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array, where there are leading and tailing spaces
      * gets Name in CANONICAL format
-     * compares with expected value of name 
+     * compares with expected value of name
      */
     public void testNameSpaceFromEncoding_CANONICAL() throws Exception {
-        byte[] mess = { 0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03, 0x55,
-                0x04, 0x03, 0x13, 0x03, 0x20, 0x41, 0x20, };
+        byte[] mess = {0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03, 0x55,
+                0x04, 0x03, 0x13, 0x03, 0x20, 0x41, 0x20,};
         X500Principal principal = new X500Principal(mess);
         String s = principal.getName(X500Principal.CANONICAL);
         assertEquals("cn=a", s);
@@ -1300,11 +1302,11 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array, where there are special characters
      * gets Name in RFC1779 format
-     * compares with expected value of name, checks if the string is in quotes 
+     * compares with expected value of name, checks if the string is in quotes
      */
     public void testNameSpecialCharsFromEncoding_RFC1779() throws Exception {
-        byte[] mess = { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03, 0x55,
-                0x04, 0x03, 0x0C, 0x02, 0x3B, 0x2C };
+        byte[] mess = {0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03, 0x55,
+                0x04, 0x03, 0x0C, 0x02, 0x3B, 0x2C};
         X500Principal principal = new X500Principal(mess);
         String s = principal.getName(X500Principal.RFC1779);
         assertEquals("CN=\";,\"", s);
@@ -1314,11 +1316,11 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array, where there are special characters
      * gets Name in RFC1779 format
-     * compares with expected value of name, checks if the characters are escaped 
+     * compares with expected value of name, checks if the characters are escaped
      */
     public void testNameSpecialCharsFromEncoding_RFC2253() throws Exception {
-        byte[] mess = { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03, 0x55,
-                0x04, 0x03, 0x0C, 0x02, 0x3B, 0x2C };
+        byte[] mess = {0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03, 0x55,
+                0x04, 0x03, 0x0C, 0x02, 0x3B, 0x2C};
         X500Principal principal = new X500Principal(mess);
         String s = principal.getName(X500Principal.RFC2253);
         assertEquals("CN=\\;\\,", s);
@@ -1328,11 +1330,11 @@ public class X500PrincipalTest extends TestCase {
     /**
      * Inits X500Principal with byte array, where there are special characters
      * gets Name in CANONICAL format
-     * compares with expected value of name, checks if the characters are escaped 
+     * compares with expected value of name, checks if the characters are escaped
      */
     public void testNameSpecialCharsFromEncoding_CANONICAL() throws Exception {
-        byte[] mess = { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03, 0x55,
-                0x04, 0x03, 0x0C, 0x02, 0x3B, 0x2C };
+        byte[] mess = {0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03, 0x55,
+                0x04, 0x03, 0x0C, 0x02, 0x3B, 0x2C};
         X500Principal principal = new X500Principal(mess);
         String s = principal.getName(X500Principal.CANONICAL);
         assertEquals("cn=\\;\\,", s);
@@ -1398,7 +1400,7 @@ public class X500PrincipalTest extends TestCase {
      * compares with expected value of name - \\nB
      */
     public void testNameSpecialChars_RFC2253_01() throws Exception {
-        
+
         try {
             // compatibility issue:
             // don't accept escaped \n because it is not a special char
@@ -1471,9 +1473,9 @@ public class X500PrincipalTest extends TestCase {
 
         X500Principal principal = new X500Principal(dn);
         byte[] enc = principal.getEncoded();
-        assertTrue(Arrays.equals(new byte[] { 0x30, 0x11, 0x31, 0x0F, 0x30,
+        assertTrue(Arrays.equals(new byte[]{0x30, 0x11, 0x31, 0x0F, 0x30,
                 0x0D, 0x06, 0x03, 0x55, 0x04, 0x03, 0x13, 0x06, 0x41, 0x42,
-                0x43, 0x44, 0x45, 0x46 }, enc));
+                0x43, 0x44, 0x45, 0x46}, enc));
 
     }
 
@@ -1499,9 +1501,9 @@ public class X500PrincipalTest extends TestCase {
         String dn = "CN=\"ABCD#EF\"";
         X500Principal principal = new X500Principal(dn);
         byte[] enc = principal.getEncoded();
-        assertTrue(Arrays.equals(new byte[] { 0x30, 0x12, 0x31, 0x10, 0x30,
+        assertTrue(Arrays.equals(new byte[]{0x30, 0x12, 0x31, 0x10, 0x30,
                 0x0E, 0x06, 0x03, 0x55, 0x04, 0x03, 0x0C, 0x07, 0x41, 0x42,
-                0x43, 0x44, 0x23, 0x45, 0x46 }, enc));
+                0x43, 0x44, 0x23, 0x45, 0x46}, enc));
     }
 
     /**
@@ -1940,14 +1942,14 @@ public class X500PrincipalTest extends TestCase {
         assertEquals("cn=a\nb", s);
     }
 
-    public static final String[] RFC2253_SPECIAL = new String[] { ",", "=",
-            "+", "<", ">", "#", ";" };
+    public static final String[] RFC2253_SPECIAL = new String[]{",", "=",
+            "+", "<", ">", "#", ";"};
 
     public void testValidDN() throws Exception {
 
         TestList list = new TestList();
 
-        list.add("", "", "", "", new byte[] { 0x30, 0x00 }); // empty RDN sequence
+        list.add("", "", "", "", new byte[]{0x30, 0x00}); // empty RDN sequence
 
         // sequence of RDN: RDN *("," RDN)
         list.add("CN=A,C=B", "CN=A,C=B", "CN=A, C=B", "cn=a,c=b");
@@ -2058,7 +2060,7 @@ public class X500PrincipalTest extends TestCase {
             // \special
             list.add("CN=\\" + element,
                     "CN=\\" + element, "CN=\"" + element
-                            + "\"");
+                    + "\"");
 
             // A + \special + B
             list.add("CN=A\\" + element + "B", "CN=A\\"
@@ -2082,15 +2084,15 @@ public class X500PrincipalTest extends TestCase {
         list.add("CN=\\41\\2C", "CN=A\\,", "CN=\"A,\""); // 0x41=='A', 0x2C=','
         list.add("CN=\\41\\2c", "CN=A\\,", "CN=\"A,\""); // 0x41=='A', 0x2c=','
         list.add("CN=\\D0\\AF", "CN=" + ((char) 1071), "CN=" + ((char) 1071),
-                new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+                new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                         0x55, 0x04, 0x03,
                         // UTF8 String
-                        0x0C, 0x02, (byte) 0xD0, (byte) 0xAF }); // 0xD0AF == the last letter(capital) of Russian alphabet
+                        0x0C, 0x02, (byte) 0xD0, (byte) 0xAF}); // 0xD0AF == the last letter(capital) of Russian alphabet
         list.add("CN=\\D0\\AFA\\41", "CN=" + ((char) 1071) + "AA", "CN="
-                + ((char) 1071) + "AA", new byte[] { 0x30, 0x0F, 0x31, 0x0D,
+                + ((char) 1071) + "AA", new byte[]{0x30, 0x0F, 0x31, 0x0D,
                 0x30, 0x0B, 0x06, 0x03, 0x55, 0x04, 0x03,
                 // UTF8 String
-                0x0C, 0x04, (byte) 0xD0, (byte) 0xAF, 0x41, 0x41 }); // 0xD0AF == the last letter(capital) of Russian alphabet
+                0x0C, 0x04, (byte) 0xD0, (byte) 0xAF, 0x41, 0x41}); // 0xD0AF == the last letter(capital) of Russian alphabet
         // UTF-8(0xE090AF) is non-shortest form of UTF-8(0xD0AF)
         //FIXME list.add("CN=\\E0\\90\\AF", "CN=" + ((char) 1071), "CN="
         //        + ((char) 1071), new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30,
@@ -2124,14 +2126,14 @@ public class X500PrincipalTest extends TestCase {
         list.add("CN=A \\,B", "CN=A \\,B", "CN=\"A ,B\"", "cn=a \\,b");
 
         //not alphabet chars
-        list.add("CN=$", "CN=$", "CN=$", new byte[] { 0x30, 0x0C, 0x31, 0x0A,
+        list.add("CN=$", "CN=$", "CN=$", new byte[]{0x30, 0x0C, 0x31, 0x0A,
                 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x03,
                 //UTF-8 String: "$"
-                0x0C, 0x01, 0x24 });
-        list.add("CN=(", "CN=(", "CN=(", new byte[] { 0x30, 0x0C, 0x31, 0x0A,
+                0x0C, 0x01, 0x24});
+        list.add("CN=(", "CN=(", "CN=(", new byte[]{0x30, 0x0C, 0x31, 0x0A,
                 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x03,
                 //PrintableString: "("
-                0x13, 0x01, 0x28 });
+                0x13, 0x01, 0x28});
 
         //
         //
@@ -2139,23 +2141,23 @@ public class X500PrincipalTest extends TestCase {
         //
         //
         list.add("CN=#130141", "CN=A", "CN=A", "cn=a"); // ASN1 Printable hex string = 'A'
-        list.add("CN=#140141", "CN=A", "CN=A", "cn=#140141", new byte[] { 0x30,
+        list.add("CN=#140141", "CN=A", "CN=A", "cn=#140141", new byte[]{0x30,
                 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x03,
-                0x14, 0x01, 0x41 }); // ASN1 Teletex hex string = 'A'
+                0x14, 0x01, 0x41}); // ASN1 Teletex hex string = 'A'
 
         list.add("CN=#010100", "CN=#010100", "CN=#010100", "cn=#010100"); // ASN1 Boolean = FALSE
         list.add("CN=#0101fF", "CN=#0101ff", "CN=#0101FF", "cn=#0101ff"); // ASN1 Boolean = TRUE
         //FIXME list.add("CN=#3000", "CN=#3000", "CN=#3000"); // ASN1 Sequence
         //FIXME list.add("CN=#0500", "CN=A", "CN=A"); // ASN1 Null
         list.add("CN= #0101fF", "CN=#0101ff", "CN=#0101FF", // space at beginning 
-                new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
-                        0x55, 0x04, 0x03, 0x01, 0x01, (byte) 0xFF } // ASN.1 Boolean = TRUE
-                );
+                new byte[]{0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+                        0x55, 0x04, 0x03, 0x01, 0x01, (byte) 0xFF} // ASN.1 Boolean = TRUE
+        );
         list.add("CN= #0101fF+ST=A", "CN=#0101ff+ST=A", "CN=#0101FF + ST=A",
                 "cn=#0101ff+st=a"); //space
         list.add("CN= #0101fF ", "CN=#0101ff", "CN=#0101FF", // space at the end
-                new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
-                        0x55, 0x04, 0x03, 0x01, 0x01, (byte) 0xFF } // ASN.1 Boolean = TRUE
+                new byte[]{0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+                        0x55, 0x04, 0x03, 0x01, 0x01, (byte) 0xFF} // ASN.1 Boolean = TRUE
                 , (byte) 0x00);
 
         //FIXME unspecified output for RFC1779
@@ -2201,25 +2203,25 @@ public class X500PrincipalTest extends TestCase {
         list.add("CN=\"\\41\\2C\"", "CN=A\\,", "CN=\"A,\""); // 0x41=='A', 0x2C=','
         list.add("CN=\"\\41\\2c\"", "CN=A\\,", "CN=\"A,\""); // 0x41=='A', 0x2c=','
         list.add("CN=\"\\D0\\AF\"", "CN=" + ((char) 1071), "CN="
-                + ((char) 1071), new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30,
+                + ((char) 1071), new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30,
                 0x09, 0x06, 0x03, 0x55, 0x04, 0x03,
                 // UTF8 String
-                0x0C, 0x02, (byte) 0xD0, (byte) 0xAF }); // 0xD0AF == the last letter(capital) of Russian alphabet
+                0x0C, 0x02, (byte) 0xD0, (byte) 0xAF}); // 0xD0AF == the last letter(capital) of Russian alphabet
         list.add("CN=\"\\D0\\AFA\\41\"", "CN=" + ((char) 1071) + "AA", "CN="
-                + ((char) 1071) + "AA", new byte[] { 0x30, 0x0F, 0x31, 0x0D,
+                + ((char) 1071) + "AA", new byte[]{0x30, 0x0F, 0x31, 0x0D,
                 0x30, 0x0B, 0x06, 0x03, 0x55, 0x04, 0x03,
                 // UTF8 String
-                0x0C, 0x04, (byte) 0xD0, (byte) 0xAF, 0x41, 0x41 }); // 0xD0AF == the last letter(capital) of Russian alphabet
+                0x0C, 0x04, (byte) 0xD0, (byte) 0xAF, 0x41, 0x41}); // 0xD0AF == the last letter(capital) of Russian alphabet
         list.add("CN=\"\\E0\\90\\AF\"", "CN=" + ((char) 1071), "CN="
-                + ((char) 1071), new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30,
+                + ((char) 1071), new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30,
                 0x09, 0x06, 0x03, 0x55, 0x04, 0x03,
                 // UTF8 String
-                0x0C, 0x02, (byte) 0xD0, (byte) 0xAF }); // UTF8(0xE090AF that is not quite correct)== UTF8(0xD0AF) == the last letter(capital) of Russian alphabet
+                0x0C, 0x02, (byte) 0xD0, (byte) 0xAF}); // UTF8(0xE090AF that is not quite correct)== UTF8(0xD0AF) == the last letter(capital) of Russian alphabet
         list.add("CN=\"\\F0\\80\\90\\AF\"", "CN=" + ((char) 1071), "CN="
-                + ((char) 1071), new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30,
+                + ((char) 1071), new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30,
                 0x09, 0x06, 0x03, 0x55, 0x04, 0x03,
                 // UTF8 String
-                0x0C, 0x02, (byte) 0xD0, (byte) 0xAF }); // UTF8(0xF08090AF that is not quite correct)== UTF8(0xD0AF) == the last letter(capital) of Russian alphabet
+                0x0C, 0x02, (byte) 0xD0, (byte) 0xAF}); // UTF8(0xF08090AF that is not quite correct)== UTF8(0xD0AF) == the last letter(capital) of Russian alphabet
 
         list.add("CN=\"\\41\"+ST=A", "CN=A+ST=A", "CN=A + ST=A"); // 0x41=='A'
         list.add("CN=\"\\41\\2C\"+ST=A", "CN=A\\,+ST=A", "CN=\"A,\" + ST=A"); // 0x41=='A', 0x2C=','
@@ -2321,8 +2323,8 @@ public class X500PrincipalTest extends TestCase {
     }
 
     public void testInvalidDN() {
-        String[] illegalDN = new String[] {
-        // RDN
+        String[] illegalDN = new String[]{
+                // RDN
                 //FIXME " ", // space only
                 "CN", // attribute type only
                 "CN=A;", // RFC 1779: BNF allows this, but ...
@@ -2408,28 +2410,28 @@ public class X500PrincipalTest extends TestCase {
         //
         // Empty
         //
-        list.add(new byte[] { 0x30, 0x00 }, "", "", "");
-        list.add(new byte[] { 0x30, 0x02, 0x31, 0x00 }, "", "", ""); //??? invalid size constraints
+        list.add(new byte[]{0x30, 0x00}, "", "", "");
+        list.add(new byte[]{0x30, 0x02, 0x31, 0x00}, "", "", ""); //??? invalid size constraints
 
         //
         // Known OID + string with different tags(all string) 
         //
-        list.add(new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // PrintableString
-                0x13, 0x01, 0x5A }, "CN=Z", "CN=Z", "cn=z");
-        list.add(new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+                0x13, 0x01, 0x5A}, "CN=Z", "CN=Z", "cn=z");
+        list.add(new byte[]{0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // TeletexString
-                0x14, 0x01, 0x5A }, "CN=Z", "CN=Z", "cn=#14015a");
+                0x14, 0x01, 0x5A}, "CN=Z", "CN=Z", "cn=#14015a");
         //FIXME:compatibility        list.add(new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
         //                0x55, 0x04, 0x03,
         //                // UniversalString
         //                0x1C, 0x01, 0x5A }, "CN=Z", "CN=Z", "cn=z");
-        list.add(new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String
-                0x0C, 0x01, 0x5A }, "CN=Z", "CN=Z", "cn=z");
+                0x0C, 0x01, 0x5A}, "CN=Z", "CN=Z", "cn=z");
         //FIXME:compatibility        list.add(new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
         //                0x55, 0x04, 0x03,
         //                // BMPString
@@ -2438,22 +2440,22 @@ public class X500PrincipalTest extends TestCase {
         //
         // Unknown OID + string with different tags(all string) 
         //
-        list.add(new byte[] { 0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
+        list.add(new byte[]{0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
                 0x00,
                 // PrintableString
-                0x13, 0x01, 0x5A }, "0.0=#13015a", "OID.0.0=Z", "0.0=#13015a");
-        list.add(new byte[] { 0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
+                0x13, 0x01, 0x5A}, "0.0=#13015a", "OID.0.0=Z", "0.0=#13015a");
+        list.add(new byte[]{0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
                 0x00,
                 // TeletexString
-                0x14, 0x01, 0x5A }, "0.0=#14015a", "OID.0.0=Z", "0.0=#14015a");
+                0x14, 0x01, 0x5A}, "0.0=#14015a", "OID.0.0=Z", "0.0=#14015a");
         //FIXME:compatibility        list.add(new byte[] { 0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
         //                0x00,
         //                // UniversalString
         //                0x1C, 0x01, 0x5A }, "0.0=#1c015a", "OID.0.0=Z", "cn=z");
-        list.add(new byte[] { 0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
+        list.add(new byte[]{0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
                 0x00,
                 // UTF8String
-                0x0C, 0x01, 0x5A }, "0.0=#0c015a", "OID.0.0=Z", "0.0=#0c015a");
+                0x0C, 0x01, 0x5A}, "0.0=#0c015a", "OID.0.0=Z", "0.0=#0c015a");
         //FIXME:compatibility        list.add(new byte[] { 0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
         //                0x00,
         //                // BMPString
@@ -2462,46 +2464,46 @@ public class X500PrincipalTest extends TestCase {
         //
         // Known OID + not a string value
         //
-        list.add(new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // Boolean
-                0x01, 0x01, (byte) 0xFF }, "CN=#0101ff", "CN=#0101FF",
+                0x01, 0x01, (byte) 0xFF}, "CN=#0101ff", "CN=#0101FF",
                 "cn=#0101ff");
-        list.add(new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // Integer
-                0x02, 0x01, 0x0F }, "CN=#02010f", "CN=#02010F", "cn=#02010f");
-        list.add(new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+                0x02, 0x01, 0x0F}, "CN=#02010f", "CN=#02010F", "cn=#02010f");
+        list.add(new byte[]{0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // BitString
-                0x03, 0x01, 0x00 }, "CN=#030100", "CN=#030100", "cn=#030100");
-        list.add(new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+                0x03, 0x01, 0x00}, "CN=#030100", "CN=#030100", "cn=#030100");
+        list.add(new byte[]{0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // SEQUENCE
-                0x30, 0x01, 0x0A }, "CN=#30010a", "CN=#30010A", "cn=#30010a");
+                0x30, 0x01, 0x0A}, "CN=#30010a", "CN=#30010A", "cn=#30010a");
 
         //
         // unknown OID + not a string value
         //
-        list.add(new byte[] { 0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
+        list.add(new byte[]{0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
                 0x00,
                 // Boolean
-                0x01, 0x01, (byte) 0xFF }, "0.0=#0101ff", "OID.0.0=#0101FF",
+                0x01, 0x01, (byte) 0xFF}, "0.0=#0101ff", "OID.0.0=#0101FF",
                 "0.0=#0101ff");
-        list.add(new byte[] { 0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
+        list.add(new byte[]{0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
                 0x00,
                 // Integer
-                0x02, 0x01, 0x0F }, "0.0=#02010f", "OID.0.0=#02010F",
+                0x02, 0x01, 0x0F}, "0.0=#02010f", "OID.0.0=#02010F",
                 "0.0=#02010f");
-        list.add(new byte[] { 0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
+        list.add(new byte[]{0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
                 0x00,
                 // BitString
-                0x03, 0x01, 0x00 }, "0.0=#030100", "OID.0.0=#030100",
+                0x03, 0x01, 0x00}, "0.0=#030100", "OID.0.0=#030100",
                 "0.0=#030100");
-        list.add(new byte[] { 0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
+        list.add(new byte[]{0x30, 0x0A, 0x31, 0x08, 0x30, 0x06, 0x06, 0x01,
                 0x00,
                 // SEQUENCE
-                0x30, 0x01, 0x0A }, "0.0=#30010a", "OID.0.0=#30010A",
+                0x30, 0x01, 0x0A}, "0.0=#30010a", "OID.0.0=#30010A",
                 "0.0=#30010a");
 
         //
@@ -2509,107 +2511,107 @@ public class X500PrincipalTest extends TestCase {
         //
 
         // spaces
-        list.add(new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: a single space char 
-                0x0C, 0x01, 0x20 }, "CN=\\ ", "CN=\" \"", "cn=");
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+                0x0C, 0x01, 0x20}, "CN=\\ ", "CN=\" \"", "cn=");
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: a space char at the beginning 
-                0x0C, 0x02, 0x20, 0x5A }, "CN=\\ Z", "CN=\" Z\"", "cn=z");
-        list.add(new byte[] { 0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03,
+                0x0C, 0x02, 0x20, 0x5A}, "CN=\\ Z", "CN=\" Z\"", "cn=z");
+        list.add(new byte[]{0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: two space chars at the beginning 
-                0x0C, 0x03, 0x20, 0x20, 0x5A }, "CN=\\  Z", "CN=\"  Z\"",
+                0x0C, 0x03, 0x20, 0x20, 0x5A}, "CN=\\  Z", "CN=\"  Z\"",
                 "cn=z", (byte) 0x01);
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: a space char at the end 
-                0x0C, 0x02, 0x5A, 0x20 }, "CN=Z\\ ", "CN=\"Z \"", "cn=z");
-        list.add(new byte[] { 0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03,
+                0x0C, 0x02, 0x5A, 0x20}, "CN=Z\\ ", "CN=\"Z \"", "cn=z");
+        list.add(new byte[]{0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: two space chars at the end 
-                0x0C, 0x03, 0x5A, 0x20, 0x20 }, "CN=Z \\ ", "CN=\"Z  \"",
+                0x0C, 0x03, 0x5A, 0x20, 0x20}, "CN=Z \\ ", "CN=\"Z  \"",
                 "cn=z", (byte) 0x01);
 
         // special chars
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: a '#' char at the beginning 
-                0x0C, 0x02, 0x23, 0x5A }, "CN=\\#Z", "CN=\"#Z\"", "cn=\\#z");
-        list.add(new byte[] { 0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03,
+                0x0C, 0x02, 0x23, 0x5A}, "CN=\\#Z", "CN=\"#Z\"", "cn=\\#z");
+        list.add(new byte[]{0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: two '#' chars 
-                0x0C, 0x03, 0x23, 0x5A, 0x23 }, "CN=\\#Z\\#", "CN=\"#Z#\"",
+                0x0C, 0x03, 0x23, 0x5A, 0x23}, "CN=\\#Z\\#", "CN=\"#Z#\"",
                 "cn=\\#z#");
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: ','
-                0x0C, 0x02, 0x5A, 0x2C }, "CN=Z\\,", "CN=\"Z,\"", "cn=z\\,");
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+                0x0C, 0x02, 0x5A, 0x2C}, "CN=Z\\,", "CN=\"Z,\"", "cn=z\\,");
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: '+'
-                0x0C, 0x02, 0x5A, 0x2B }, "CN=Z\\+", "CN=\"Z+\"", "cn=z\\+");
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+                0x0C, 0x02, 0x5A, 0x2B}, "CN=Z\\+", "CN=\"Z+\"", "cn=z\\+");
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: '"'
-                0x0C, 0x02, 0x5A, 0x22 }, "CN=Z\\\"", "CN=\"Z\\\"\"",
+                0x0C, 0x02, 0x5A, 0x22}, "CN=Z\\\"", "CN=\"Z\\\"\"",
                 "cn=z\\\"", (byte) 0x02);
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: '\'
-                0x0C, 0x02, 0x5A, 0x5C }, "CN=Z\\\\", "CN=\"Z\\\\\"",
+                0x0C, 0x02, 0x5A, 0x5C}, "CN=Z\\\\", "CN=\"Z\\\\\"",
                 "cn=z\\\\", (byte) 0x02);
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: '<'
-                0x0C, 0x02, 0x5A, 0x3C }, "CN=Z\\<", "CN=\"Z<\"", "cn=z\\<");
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+                0x0C, 0x02, 0x5A, 0x3C}, "CN=Z\\<", "CN=\"Z<\"", "cn=z\\<");
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: '>'
-                0x0C, 0x02, 0x5A, 0x3E }, "CN=Z\\>", "CN=\"Z>\"", "cn=z\\>");
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+                0x0C, 0x02, 0x5A, 0x3E}, "CN=Z\\>", "CN=\"Z>\"", "cn=z\\>");
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: ';'
-                0x0C, 0x02, 0x5A, 0x3B }, "CN=Z\\;", "CN=\"Z;\"", "cn=z\\;");
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+                0x0C, 0x02, 0x5A, 0x3B}, "CN=Z\\;", "CN=\"Z;\"", "cn=z\\;");
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: '='
-                0x0C, 0x02, 0x5A, 0x3D }, "CN=Z\\=", "CN=\"Z=\"", "cn=z=");
+                0x0C, 0x02, 0x5A, 0x3D}, "CN=Z\\=", "CN=\"Z=\"", "cn=z=");
         //FIXME        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
         //                0x55, 0x04, 0x03,
         //                // UTF8String: ';'
         //                0x0C, 0x02, 0x5A, 0x0D }, "CN=Z\\\r", "CN=\"Z\r\"", "cn=z");
 
         // combinations
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: '\ '
-                0x0C, 0x02, 0x5C, 0x20 }, "CN=\\\\\\ ", "CN=\"\\\\ \"",
+                0x0C, 0x02, 0x5C, 0x20}, "CN=\\\\\\ ", "CN=\"\\\\ \"",
                 "cn=\\\\", (byte) 0x02);
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: ' \'
-                0x0C, 0x02, 0x20, 0x5C }, "CN=\\ \\\\", "CN=\" \\\\\"",
+                0x0C, 0x02, 0x20, 0x5C}, "CN=\\ \\\\", "CN=\" \\\\\"",
                 "cn=\\\\", (byte) 0x02);
-        list.add(new byte[] { 0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: ' \ '
-                0x0C, 0x03, 0x20, 0x5C, 0x20 }, "CN=\\ \\\\\\ ",
+                0x0C, 0x03, 0x20, 0x5C, 0x20}, "CN=\\ \\\\\\ ",
                 "CN=\" \\\\ \"", "cn=\\\\", (byte) 0x02);
-        list.add(new byte[] { 0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: 'Z Z' no escaping
-                0x0C, 0x03, 0x5A, 0x20, 0x5A }, "CN=Z Z", "CN=Z Z", "cn=z z");
-        list.add(new byte[] { 0x30, 0x0F, 0x31, 0x0D, 0x30, 0x0B, 0x06, 0x03,
+                0x0C, 0x03, 0x5A, 0x20, 0x5A}, "CN=Z Z", "CN=Z Z", "cn=z z");
+        list.add(new byte[]{0x30, 0x0F, 0x31, 0x0D, 0x30, 0x0B, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: 'Z  Z' no escaping
-                0x0C, 0x04, 0x5A, 0x20, 0x20, 0x5A }, "CN=Z  Z", "CN=Z  Z",
+                0x0C, 0x04, 0x5A, 0x20, 0x20, 0x5A}, "CN=Z  Z", "CN=Z  Z",
                 "cn=z z", (byte) 0x02);
-        list.add(new byte[] { 0x30, 0x0F, 0x31, 0x0D, 0x30, 0x0B, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0F, 0x31, 0x0D, 0x30, 0x0B, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: ' #Z ' no escaping
-                0x0C, 0x04, 0x20, 0x23, 0x5A, 0x20 }, "CN=\\ \\#Z\\ ",
+                0x0C, 0x04, 0x20, 0x23, 0x5A, 0x20}, "CN=\\ \\#Z\\ ",
                 "CN=\" #Z \"", "cn=#z");
 
         //
@@ -2632,24 +2634,24 @@ public class X500PrincipalTest extends TestCase {
         //
         // Multi-valued DN
         //
-        list.add(new byte[] { 0x30, 0x14, 0x31, 0x12,
-        // 1
+        list.add(new byte[]{0x30, 0x14, 0x31, 0x12,
+                // 1
                 0x30, 0x08, 0x06, 0x03, 0x55, 0x04, 0x03,
                 // UTF8String: 'Z'
                 0x0C, 0x01, 0x5A,
                 //2
                 0x30, 0x06, 0x06, 0x01, 0x01,
                 // UTF8String: 'A'
-                0x0C, 0x01, 0x41 }, "CN=Z+0.1=#0c0141", "CN=Z + OID.0.1=A",
+                0x0C, 0x01, 0x41}, "CN=Z+0.1=#0c0141", "CN=Z + OID.0.1=A",
                 "cn=z+0.1=#0c0141");
 
         //
         //
         //
-        list.add(new byte[] { 0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0D, 0x31, 0x0B, 0x30, 0x09, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // UTF8String: the last letter(capital) of Russian alphabet
-                0x0C, 0x02, (byte) 0xD0, (byte) 0xAF }, "CN=" + ((char) 1071),
+                0x0C, 0x02, (byte) 0xD0, (byte) 0xAF}, "CN=" + ((char) 1071),
                 "CN=" + ((char) 1071), "cn=" + ((char) 1103));
         // FIXME list.add(new byte[] { 0x30, 0x0E, 0x31, 0x0C, 0x30, 0x0A, 0x06, 0x03,
         //        0x55, 0x04, 0x03,
@@ -2663,10 +2665,10 @@ public class X500PrincipalTest extends TestCase {
         //                0x0C, 0x04, (byte) 0xF0, (byte) 0x80, (byte) 0x90,
         //                (byte) 0xAF }, "CN=" + ((char) 1071), "CN="
         //                + ((char) 1071), "cn=" + ((char) 1103));
-        list.add(new byte[] { 0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
+        list.add(new byte[]{0x30, 0x0C, 0x31, 0x0A, 0x30, 0x08, 0x06, 0x03,
                 0x55, 0x04, 0x03,
                 // PrintableString: char '$' is not in table 8 (X.680)
-                0x13, 0x01, 0x24 }, "CN=$", "CN=$", "cn=$");
+                0x13, 0x01, 0x24}, "CN=$", "CN=$", "cn=$");
 
         StringBuffer errorMsg = new StringBuffer();
         for (int i = 0; i < list.size(); i++) {
@@ -2742,43 +2744,43 @@ public class X500PrincipalTest extends TestCase {
 
         public void add(String param, String rfc2253, String rfc1779,
                 byte[] encoded) {
-            add(new Object[] { param, rfc2253, rfc1779, null, encoded,
-                    emptyMask });
+            add(new Object[]{param, rfc2253, rfc1779, null, encoded,
+                    emptyMask});
         }
 
         public void add(String param, String rfc2253, String rfc1779,
                 byte[] encoded, byte mask) {
-            add(new Object[] { param, rfc2253, rfc1779, null, encoded,
-                    new byte[] { mask } });
+            add(new Object[]{param, rfc2253, rfc1779, null, encoded,
+                    new byte[]{mask}});
         }
 
         public void add(String param, String rfc2253, String rfc1779,
                 String canonical, byte[] encoded) {
-            add(new Object[] { param, rfc2253, rfc1779, canonical, encoded,
-                    emptyMask });
+            add(new Object[]{param, rfc2253, rfc1779, canonical, encoded,
+                    emptyMask});
         }
 
         public void add(String param, String rfc2253, String rfc1779,
                 String canonical, byte[] encoded, byte mask) {
-            add(new Object[] { param, rfc2253, rfc1779, canonical, encoded,
-                    new byte[] { mask } });
+            add(new Object[]{param, rfc2253, rfc1779, canonical, encoded,
+                    new byte[]{mask}});
         }
 
         //
         // TODO comment me
         //
 
-        private static final byte[] emptyMask = new byte[] { 0x00 };
+        private static final byte[] emptyMask = new byte[]{0x00};
 
         public void add(byte[] encoding, String rfc2253, String rfc1779,
                 String canonical) {
-            add(new Object[] { encoding, rfc2253, rfc1779, canonical, emptyMask });
+            add(new Object[]{encoding, rfc2253, rfc1779, canonical, emptyMask});
         }
 
         public void add(byte[] encoding, String rfc2253, String rfc1779,
                 String canonical, byte mask) {
-            add(new Object[] { encoding, rfc2253, rfc1779, canonical,
-                    new byte[] { mask } });
+            add(new Object[]{encoding, rfc2253, rfc1779, canonical,
+                    new byte[]{mask}});
         }
     }
 }

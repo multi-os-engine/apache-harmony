@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.cert.serialization;
 
@@ -28,20 +28,19 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for CertificateExpiredException serialization
- *
  */
 
 public class CertificateExpiredExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
 
-        return new Object[] { new CertificateExpiredException(),
+        return new Object[]{new CertificateExpiredException(),
                 new CertificateExpiredException(null),
-                new CertificateExpiredException(msgs[1]) };
+                new CertificateExpiredException(msgs[1])};
     }
 
 }

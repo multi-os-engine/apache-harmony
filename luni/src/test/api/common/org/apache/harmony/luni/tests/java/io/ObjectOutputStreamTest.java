@@ -43,7 +43,7 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 
-@SuppressWarnings( { "unused", "serial" })
+@SuppressWarnings({"unused", "serial"})
 public class ObjectOutputStreamTest extends TestCase implements Serializable {
 
     File f;
@@ -129,9 +129,11 @@ public class ObjectOutputStreamTest extends TestCase implements Serializable {
         public static java.lang.String staticVar1;
 
         public static java.lang.String staticVar2;
+
         {
             instVar1 = "NonStaticInitialValue";
         }
+
         static {
             staticVar1 = "StaticInitialValue";
             staticVar1 = new String(staticVar1);
@@ -303,7 +305,9 @@ public class ObjectOutputStreamTest extends TestCase implements Serializable {
 
     private static class MyExceptionWhenDumping implements java.io.Serializable {
         private static class MyException extends java.io.IOException {
-        };
+        }
+
+        ;
 
         public boolean anInstanceVar = false;
 
@@ -335,7 +339,9 @@ public class ObjectOutputStreamTest extends TestCase implements Serializable {
             java.io.Serializable {
         private static class MyException extends java.io.IOException {
             private Object notSerializable = new Object();
-        };
+        }
+
+        ;
 
         public boolean anInstanceVar = false;
 
@@ -356,8 +362,8 @@ public class ObjectOutputStreamTest extends TestCase implements Serializable {
 
     private static class WithUnmatchingSerialPersistentFields implements
             java.io.Serializable {
-        private static final ObjectStreamField[] serialPersistentFields = { new ObjectStreamField(
-                "value", String.class) };
+        private static final ObjectStreamField[] serialPersistentFields = {new ObjectStreamField(
+                "value", String.class)};
 
         public int anInstanceVar = 5;
 
@@ -368,8 +374,8 @@ public class ObjectOutputStreamTest extends TestCase implements Serializable {
 
     private static class WithMatchingSerialPersistentFields implements
             java.io.Serializable {
-        private static final ObjectStreamField[] serialPersistentFields = { new ObjectStreamField(
-                "anInstanceVar", String.class) };
+        private static final ObjectStreamField[] serialPersistentFields = {new ObjectStreamField(
+                "anInstanceVar", String.class)};
 
         public String anInstanceVar = FOO + FOO;
 
@@ -381,8 +387,8 @@ public class ObjectOutputStreamTest extends TestCase implements Serializable {
     private static class SerialPersistentFields implements java.io.Serializable {
         private static final String SIMULATED_FIELD_NAME = "text";
 
-        private static final ObjectStreamField[] serialPersistentFields = { new ObjectStreamField(
-                SIMULATED_FIELD_NAME, String.class) };
+        private static final ObjectStreamField[] serialPersistentFields = {new ObjectStreamField(
+                SIMULATED_FIELD_NAME, String.class)};
 
         public int anInstanceVar = 5;
 
@@ -409,8 +415,8 @@ public class ObjectOutputStreamTest extends TestCase implements Serializable {
             java.io.Serializable {
         private static final String SIMULATED_FIELD_NAME = "text";
 
-        private static final ObjectStreamField[] serialPersistentFields = { new ObjectStreamField(
-                SIMULATED_FIELD_NAME, String.class) };
+        private static final ObjectStreamField[] serialPersistentFields = {new ObjectStreamField(
+                SIMULATED_FIELD_NAME, String.class)};
 
         public int anInstanceVar = 5;
 
@@ -465,7 +471,9 @@ public class ObjectOutputStreamTest extends TestCase implements Serializable {
 
         private static enum Color {
             red, blue, green
-        };
+        }
+
+        ;
 
         public WriteReplaceObject(Object o) {
             replaceObject = o;
@@ -1087,7 +1095,7 @@ public class ObjectOutputStreamTest extends TestCase implements Serializable {
         int i = 7;
         String s1 = "string 1";
         String s2 = "string 2";
-        byte[] bytes = { 1, 2, 3 };
+        byte[] bytes = {1, 2, 3};
         try {
             oos = new ObjectOutputStream(bao = new ByteArrayOutputStream());
             oos.writeInt(i);

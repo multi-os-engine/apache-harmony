@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexander V. Astapchuk
-*/
+ * @author Alexander V. Astapchuk
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -31,7 +31,6 @@ import org.apache.harmony.security.tests.support.TestCertUtils;
 
 /**
  * Serialization tests for <code>Timestamp</code>
- *
  */
 
 public class TimestampTest extends SerializationTest {
@@ -41,6 +40,6 @@ public class TimestampTest extends SerializationTest {
      */
     protected Object[] getData() {
         CertPath cpath = TestCertUtils.getCertPath();
-        return new Object[] { new Timestamp(new Date(1146633251341L), cpath) };
+        return new Object[]{new Timestamp(new Date(1146633251341L), cpath)};
     }
 }

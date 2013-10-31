@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -28,19 +28,18 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for NoSuchProviderException serialization
- *
  */
 
 public class NoSuchProviderExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
-        return new Object[] { new NoSuchProviderException(),
+        return new Object[]{new NoSuchProviderException(),
                 new NoSuchProviderException(null),
-                new NoSuchProviderException(msgs[1]) };
+                new NoSuchProviderException(msgs[1])};
     }
 
 }

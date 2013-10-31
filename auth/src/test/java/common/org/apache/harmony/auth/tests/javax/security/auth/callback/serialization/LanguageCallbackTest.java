@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Maxim V. Makarov
-*/
+ * @author Maxim V. Makarov
+ */
 
 package org.apache.harmony.auth.tests.javax.security.auth.callback.serialization;
 
@@ -38,7 +38,7 @@ public class LanguageCallbackTest extends SerializationTest implements
     protected Object[] getData() {
         LanguageCallback lc = new LanguageCallback();
         lc.setLocale(Locale.UK);
-        return new Object[] { lc };
+        return new Object[]{lc};
     }
 
     public void assertDeserialized(Serializable golden, Serializable test) {

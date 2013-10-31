@@ -21,9 +21,9 @@ public class hyts_resource_fr extends java.util.ListResourceBundle {
 
     @Override
     protected Object[][] getContents() {
-        Object[][] contents = { { "subParent2", "frValue2" },
-                { "subParent3", "frValue3" }, { "subParent4", "frValue4" },
-                { "subChild1", "frChildValue1" }, };
+        Object[][] contents = {{"subParent2", "frValue2"},
+                {"subParent3", "frValue3"}, {"subParent4", "frValue4"},
+                {"subChild1", "frChildValue1"},};
         return contents;
     }
 

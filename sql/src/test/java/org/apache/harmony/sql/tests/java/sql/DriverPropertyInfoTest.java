@@ -24,7 +24,6 @@ import junit.framework.TestCase;
 
 /**
  * JUnit Testcase for the java.sql.DriverPropertyInfo class
- * 
  */
 
 public class DriverPropertyInfoTest extends TestCase {
@@ -57,7 +56,7 @@ public class DriverPropertyInfoTest extends TestCase {
 
     static String validValue = "testvalue";
 
-    static String[] updateChoices = { "Choice1", "Choice2", "Choice3" };
+    static String[] updateChoices = {"Choice1", "Choice2", "Choice3"};
 
     static String updateValue = "updateValue";
 

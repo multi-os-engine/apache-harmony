@@ -33,14 +33,12 @@ import org.apache.harmony.security.x509.AlgorithmIdentifier;
 import org.apache.harmony.security.x509.SubjectPublicKeyInfo;
 
 
-
 public class CertificationRequestTest extends TestCase {
 
     /**
      * Test method for 'com.openintel.drl.security.pkcs10.CertificationRequest'.
      * Creates CertificationRequest, gets its values, encodes and decodes the
      * encoded form.
-     * 
      */
     public void testCertificationRequest() throws IOException {
         int version = 2;// v3
@@ -55,8 +53,8 @@ public class CertificationRequestTest extends TestCase {
                 version, subject, spki, attributes);
         AlgorithmIdentifier signatureAlgId = new AlgorithmIdentifier(
                 "1.2.3.44.555");
-        byte[] signature = { (byte) 0x01, (byte) 0x02, (byte) 0x03,
-                (byte) 0x04, (byte) 0x05 };
+        byte[] signature = {(byte) 0x01, (byte) 0x02, (byte) 0x03,
+                (byte) 0x04, (byte) 0x05};
 
         CertificationRequest certReq = new CertificationRequest(certReqInfo,
                 signatureAlgId, signature);
@@ -73,13 +71,13 @@ public class CertificationRequestTest extends TestCase {
 
         // check what was decoded
         CertificationRequestInfo decodedCRinfo = certReq.getInfo();
-        
+
         assertEquals(certReqInfo.getSubject(), decodedCRinfo.getSubject());
         assertEquals(certReqInfo.getSubjectPublicKeyInfo(), decodedCRinfo
                 .getSubjectPublicKeyInfo());
         assertEquals(certReqInfo.getVersion(), decodedCRinfo.getVersion());
         assertEquals(certReqInfo.getAttributes(), decodedCRinfo.getAttributes());
-        
+
         assertEquals(certReq.getAlgId(), decoded.getAlgId());
         assertTrue(Arrays.equals(certReq.getSignature(), decoded.getSignature()));
     }

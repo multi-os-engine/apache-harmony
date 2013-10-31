@@ -34,7 +34,7 @@ public class X509CertSelectorTest extends TestCase {
      */
     public void test_addSubjectAlternativeNameLintLbyte_array() throws IOException {
         // Regression for HARMONY-2487
-        int[] types = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        int[] types = {0, 1, 2, 3, 4, 5, 6, 7, 8};
         for (int i = 0; i < types.length; i++) {
             try {
                 new X509CertSelector().addSubjectAlternativeName(types[i],
@@ -50,7 +50,7 @@ public class X509CertSelectorTest extends TestCase {
      */
     public void test_addSubjectAlternativeNameLintLjava_lang_String() throws IOException {
         // Regression for HARMONY-727
-        int[] types = { 0, 3, 4, 5, 6, 7, 8 };
+        int[] types = {0, 3, 4, 5, 6, 7, 8};
         for (int i = 0; i < types.length; i++) {
             try {
                 new X509CertSelector().addSubjectAlternativeName(types[i],
@@ -67,7 +67,7 @@ public class X509CertSelectorTest extends TestCase {
         new X509CertSelector().addSubjectAlternativeName(2, "3g.example.com");
         new X509CertSelector().addSubjectAlternativeName(2, "*.example.com");
         // Illegal DNS names
-        String[] names = new String[] {"*", "*.", "%anything"};
+        String[] names = new String[]{"*", "*.", "%anything"};
         for (String badName : names) {
             try {
                 new X509CertSelector().addSubjectAlternativeName(2, badName);
@@ -83,7 +83,7 @@ public class X509CertSelectorTest extends TestCase {
      */
     public void test_addPathToNameLintLbyte_array() throws IOException {
         // Regression for HARMONY-2487
-        int[] types = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        int[] types = {0, 1, 2, 3, 4, 5, 6, 7, 8};
         for (int i = 0; i < types.length; i++) {
             try {
                 new X509CertSelector().addPathToName(types[i], (byte[]) null);
@@ -107,7 +107,7 @@ public class X509CertSelectorTest extends TestCase {
             }
         }
     }
-    
+
     /**
      * @tests java.security.cert.X509CertSelector#setSubjectPublicKey(byte[])
      */
@@ -116,7 +116,7 @@ public class X509CertSelectorTest extends TestCase {
         //SubjectPublicKeyInfo  ::=  SEQUENCE  {
         //    algorithm            AlgorithmIdentifier,
         //    subjectPublicKey     BIT STRING  }
-        byte[] enc = { 0x30, 0x0E, // SEQUENCE
+        byte[] enc = {0x30, 0x0E, // SEQUENCE
                 0x30, 0x07, // SEQUENCE
                 0x06, 0x02, 0x03, 0x05,//OID
                 0x01, 0x01, 0x07, //ANY

@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -28,24 +28,23 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for NoSuchAlgorithmException serialization
- *
  */
 
 public class NoSuchAlgorithmExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
         Exception cause = new Exception(msgs[1]);
         NoSuchAlgorithmException dExc = new NoSuchAlgorithmException(msgs[0], cause);
         String msg = null;
         Throwable th = null;
-        return new Object[] { new NoSuchAlgorithmException(), new NoSuchAlgorithmException(msg),
+        return new Object[]{new NoSuchAlgorithmException(), new NoSuchAlgorithmException(msg),
                 new NoSuchAlgorithmException(msgs[1]),
                 new NoSuchAlgorithmException(new Throwable()), new NoSuchAlgorithmException(th),
-                new NoSuchAlgorithmException(msgs[1], dExc) };
+                new NoSuchAlgorithmException(msgs[1], dExc)};
     }
 
 }

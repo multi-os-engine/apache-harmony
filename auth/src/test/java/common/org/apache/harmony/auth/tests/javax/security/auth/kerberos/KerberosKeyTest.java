@@ -30,7 +30,7 @@ import junit.framework.TestCase;
 
 /**
  * Tests KerberosKey class implementation.
- * 
+ *
  * @see http://www.ietf.org/rfc/rfc3961.txt
  */
 public class KerberosKeyTest extends TestCase {
@@ -40,12 +40,12 @@ public class KerberosKeyTest extends TestCase {
             "name@aaa.com", 1);
 
     // byte array for testing
-    private final byte[] keyBytes = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04,
-            0x05, 0x06, 0x07 };
+    private final byte[] keyBytes = new byte[]{0x00, 0x01, 0x02, 0x03, 0x04,
+            0x05, 0x06, 0x07};
 
     /**
      * @tests javax.security.auth.kerberos.KerberosKey#KerberosKey(
-     *        javax.security.auth.kerberos.KerberosPrincipal, byte[], int, int)
+     *javax.security.auth.kerberos.KerberosPrincipal, byte[], int, int)
      */
     public void test_Ctor1() {
 
@@ -75,8 +75,8 @@ public class KerberosKeyTest extends TestCase {
 
     /**
      * @tests javax.security.auth.kerberos.KerberosKey#KerberosKey(
-     *        javax.security.auth.kerberos.KerberosPrincipal, char[],
-     *        java.lang.String)
+     *javax.security.auth.kerberos.KerberosPrincipal, char[],
+     *java.lang.String)
      */
     public void test_Ctor2() {
 
@@ -135,16 +135,16 @@ public class KerberosKeyTest extends TestCase {
                 {
                         "raeburn@ATHENA.MIT.EDU",
                         "password",
-                        new byte[] { (byte) 0xcb, (byte) 0xc2, (byte) 0x2f,
+                        new byte[]{(byte) 0xcb, (byte) 0xc2, (byte) 0x2f,
                                 (byte) 0xae, (byte) 0x23, (byte) 0x52,
-                                (byte) 0x98, (byte) 0xe3 } },
+                                (byte) 0x98, (byte) 0xe3}},
                 {
                         "danny@WHITEHOUSE.GOV",
                         "potatoe",
-                        new byte[] { (byte) 0xdf, (byte) 0x3d, (byte) 0x32,
+                        new byte[]{(byte) 0xdf, (byte) 0x3d, (byte) 0x32,
                                 (byte) 0xa7, (byte) 0x4f, (byte) 0xd9,
-                                (byte) 0x2a, (byte) 0x01 } },
-        // TODO add "pianist@EXAMPLE.COM" and "Juri ... @ATHENA.MIT.EDU"
+                                (byte) 0x2a, (byte) 0x01}},
+                // TODO add "pianist@EXAMPLE.COM" and "Juri ... @ATHENA.MIT.EDU"
         };
 
         for (Object[] element : testcases) {
@@ -226,15 +226,15 @@ public class KerberosKeyTest extends TestCase {
         } catch (IllegalStateException e) {
         }
     }
-    
+
     /**
      * @tests javax.security.auth.kerberos.KerberosKey#equals(java.lang.Object)
      */
     public void test_equals() {
         KerberosKey kerberosKey1 = new KerberosKey(principal, keyBytes, 1, 123);
         KerberosKey kerberosKey2 = new KerberosKey(principal, keyBytes, 1, 123);
-        KerberosKey kerberosKey3 = new KerberosKey(principal, new byte[] { 1,
-                3, 4, 5 }, 1, 123);
+        KerberosKey kerberosKey3 = new KerberosKey(principal, new byte[]{1,
+                3, 4, 5}, 1, 123);
         assertEquals("kerberosKey1 and kerberosKey2 should be equivalent ",
                 kerberosKey1, kerberosKey2);
         assertFalse("kerberosKey1 and kerberosKey3 sholudn't be equivalent ",

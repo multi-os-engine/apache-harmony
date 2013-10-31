@@ -24,7 +24,7 @@ import java.io.StringWriter;
 
 public class CharArrayWriterTest extends junit.framework.TestCase {
 
-    char[] hw = { 'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd' };
+    char[] hw = {'H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd'};
 
     CharArrayWriter cw;
 
@@ -123,7 +123,7 @@ public class CharArrayWriterTest extends junit.framework.TestCase {
         // Regression for HARMONY-387
         CharArrayWriter obj = new CharArrayWriter();
         try {
-            obj.write(new char[] { '0' }, 0, -1);
+            obj.write(new char[]{'0'}, 0, -1);
             fail();
         } catch (IndexOutOfBoundsException expected) {
         }

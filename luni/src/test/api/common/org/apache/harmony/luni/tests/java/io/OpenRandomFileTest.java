@@ -38,7 +38,7 @@ public class OpenRandomFileTest extends TestCase {
         assertTrue(file.exists());
         file.deleteOnExit();
         FileOutputStream fos = new FileOutputStream(file);
-        fos.write(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        fos.write(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
         fos.close();
 
         String fileName = file.getCanonicalPath();

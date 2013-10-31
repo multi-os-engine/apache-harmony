@@ -33,13 +33,13 @@ public class SignerInfoTest extends TestCase {
 
     public void testEncode() throws Exception {
 
-        Object[] issuerAndSerialNumber = new Object[] { new Name("CN=test"),
-                BigInteger.TEN.toByteArray() };
+        Object[] issuerAndSerialNumber = new Object[]{new Name("CN=test"),
+                BigInteger.TEN.toByteArray()};
 
         SignerInfo signerInfo = new SignerInfo(1, issuerAndSerialNumber,
                 new AlgorithmIdentifier("1.3.14.3.2.26"),// SHA1 OID
                 null, new AlgorithmIdentifier("1.2.840.10040.4.1"),// DSA OID
-                new byte[] { 0x01 },// signature
+                new byte[]{0x01},// signature
                 null);
 
         byte[] encoding = SignerInfo.ASN1.encode(signerInfo);

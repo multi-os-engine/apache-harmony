@@ -76,7 +76,8 @@ public abstract class SinkTester {
         return result;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return getClass().getName();
     }
 
@@ -91,7 +92,7 @@ public abstract class SinkTester {
         }
 
         public void sinkTestNoWriting() throws Exception {
-            byte[] expected = new byte[] {};
+            byte[] expected = new byte[]{};
 
             OutputStream out = create();
             out.close();
@@ -99,20 +100,20 @@ public abstract class SinkTester {
         }
 
         public void sinkTestWriteZeroBytes() throws Exception {
-            byte[] expected = new byte[] {};
+            byte[] expected = new byte[]{};
 
             OutputStream out = create();
             byte[] a = new byte[1024];
             out.write(a, 1000, 0);
             out.write(a, 0, 0);
-            out.write(new byte[] {});
+            out.write(new byte[]{});
 
             out.close();
             assertArrayEquals(expected, getBytes());
         }
 
         public void sinkTestWriteByteByByte() throws Exception {
-            byte[] expected = new byte[] { 5, 6, 7, 3, 4, 5, 3, 2, 1 };
+            byte[] expected = new byte[]{5, 6, 7, 3, 4, 5, 3, 2, 1};
 
             OutputStream out = create();
             for (byte b : expected) {
@@ -124,7 +125,7 @@ public abstract class SinkTester {
         }
 
         public void sinkTestWriteArray() throws Exception {
-            byte[] expected = new byte[] {
+            byte[] expected = new byte[]{
                     5, 6,
                     7, 3, 4, 5,
                     3, 2, 1
@@ -132,13 +133,13 @@ public abstract class SinkTester {
 
             OutputStream out = create();
 
-            byte[] a = new byte[] { 5, 6 };
+            byte[] a = new byte[]{5, 6};
             out.write(a);
 
-            byte[] b = new byte[] { 7, 3, 4, 5 };
+            byte[] b = new byte[]{7, 3, 4, 5};
             out.write(b);
 
-            byte[] c = new byte[] { 3, 2, 1 };
+            byte[] c = new byte[]{3, 2, 1};
             out.write(c);
 
             out.close();
@@ -146,7 +147,7 @@ public abstract class SinkTester {
         }
 
         public void sinkTestWriteOffset() throws Exception {
-            byte[] expected = new byte[] {
+            byte[] expected = new byte[]{
                     5, 6,
                     7, 3, 4, 5,
                     3, 2, 1
@@ -188,14 +189,14 @@ public abstract class SinkTester {
         }
 
         public void sinkTestWriteAfterClose() throws Exception {
-            byte[] expectedBytes = { 5, 6 };
+            byte[] expectedBytes = {5, 6};
             OutputStream out = create();
 
             out.write(expectedBytes);
             out.close();
 
             try {
-                out.write(new byte[] { 7, 3, 4, 5 });
+                out.write(new byte[]{7, 3, 4, 5});
                 fail("expected already closed exception");
             } catch (IOException expected) {
             }
@@ -205,14 +206,15 @@ public abstract class SinkTester {
 
         public void sinkTestWriteAfterCloseSuppressed() throws Exception {
             OutputStream out = create();
-            out.write(new byte[] { 5, 6 });
+            out.write(new byte[]{5, 6});
             out.close();
-            out.write(new byte[] { 7, 3, 4, 5 }); // no exception expected!
+            out.write(new byte[]{7, 3, 4, 5}); // no exception expected!
         }
 
         // adding a new test? Don't forget to update createTests().
 
-        @Override public String getName() {
+        @Override
+        public String getName() {
             return SinkTester.this.toString() + ":" + super.getName();
         }
     }

@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -28,19 +28,18 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for UnrecoverableEntryException serialization
- *
  */
 
 public class UnrecoverableEntryExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
-        return new Object[] { new UnrecoverableEntryException(),
+        return new Object[]{new UnrecoverableEntryException(),
                 new UnrecoverableEntryException(null),
-                new UnrecoverableEntryException(msgs[1]) };
+                new UnrecoverableEntryException(msgs[1])};
     }
 
 }

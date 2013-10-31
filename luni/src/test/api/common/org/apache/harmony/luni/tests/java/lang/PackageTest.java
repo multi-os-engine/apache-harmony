@@ -35,7 +35,7 @@ public class PackageTest extends junit.framework.TestCase {
         URL resourceURL = new URL("file:/" + resPath + "/Package/"
                 + resourceJar);
 
-        URLClassLoader ucl = new URLClassLoader(new URL[] { resourceURL }, null);
+        URLClassLoader ucl = new URLClassLoader(new URL[]{resourceURL}, null);
         return Class.forName(className, true, ucl).getPackage();
     }
 
@@ -240,27 +240,33 @@ public class PackageTest extends junit.framework.TestCase {
         try {
             p.isCompatibleWith("");
             fail("Empty version is illegal");
-        } catch (NumberFormatException ok) {}
+        } catch (NumberFormatException ok) {
+        }
         try {
             p.isCompatibleWith(".");
             fail("'.' version is illegal");
-        } catch (NumberFormatException ok) {}
+        } catch (NumberFormatException ok) {
+        }
         try {
             p.isCompatibleWith("1.2.");
             fail("'1.2.' version is illegal");
-        } catch (NumberFormatException ok) {}
+        } catch (NumberFormatException ok) {
+        }
         try {
             p.isCompatibleWith(".9");
             fail("'.9' version is illegal");
-        } catch (NumberFormatException ok) {}
+        } catch (NumberFormatException ok) {
+        }
         try {
             p.isCompatibleWith("2.4..5");
             fail("'2.4..5' version is illegal");
-        } catch (NumberFormatException ok) {}
+        } catch (NumberFormatException ok) {
+        }
         try {
             p.isCompatibleWith("20.-4");
             fail("'20.-4' version is illegal");
-        } catch (NumberFormatException ok) {}
+        } catch (NumberFormatException ok) {
+        }
     }
 
     /**
@@ -305,8 +311,8 @@ public class PackageTest extends junit.framework.TestCase {
 
         URLClassLoader uclClassLoader;
         // load from the sealed jar, then an unsealed jar with no manifest
-        uclClassLoader = new java.net.URLClassLoader(new URL[] { resourceURL1,
-                resourceURL2 }, null);
+        uclClassLoader = new java.net.URLClassLoader(new URL[]{resourceURL1,
+                resourceURL2}, null);
         Class.forName("p.C", true, uclClassLoader);
         try {
             Class.forName("p.D", true, uclClassLoader);
@@ -322,8 +328,8 @@ public class PackageTest extends junit.framework.TestCase {
                 "p/D.class"), in);
 
         // load from a sealed jar, then the directory
-        uclClassLoader = new java.net.URLClassLoader(new URL[] { resourceURL1,
-                resourceURL5 }, null);
+        uclClassLoader = new java.net.URLClassLoader(new URL[]{resourceURL1,
+                resourceURL5}, null);
         Class.forName("p.C", true, uclClassLoader);
         try {
             Class.forName("p.D", true, uclClassLoader);
@@ -333,8 +339,8 @@ public class PackageTest extends junit.framework.TestCase {
         }
 
         // load from a directory, then the sealed jar
-        uclClassLoader = new java.net.URLClassLoader(new URL[] { resourceURL1,
-                resourceURL5 }, null);
+        uclClassLoader = new java.net.URLClassLoader(new URL[]{resourceURL1,
+                resourceURL5}, null);
         Class.forName("p.D", true, uclClassLoader);
         try {
             Class.forName("p.C", true, uclClassLoader);
@@ -344,8 +350,8 @@ public class PackageTest extends junit.framework.TestCase {
         }
 
         // load from an unsealed jar with no manifest, then the sealed jar
-        uclClassLoader = new java.net.URLClassLoader(new URL[] { resourceURL1,
-                resourceURL2 }, null);
+        uclClassLoader = new java.net.URLClassLoader(new URL[]{resourceURL1,
+                resourceURL2}, null);
         Class.forName("p.D", true, uclClassLoader);
         try {
             Class.forName("p.C", true, uclClassLoader);
@@ -355,8 +361,8 @@ public class PackageTest extends junit.framework.TestCase {
         }
 
         // load from an unsealed jar with a manifest, then the sealed jar
-        uclClassLoader = new java.net.URLClassLoader(new URL[] { resourceURL1,
-                resourceURL3 }, null);
+        uclClassLoader = new java.net.URLClassLoader(new URL[]{resourceURL1,
+                resourceURL3}, null);
         Class.forName("p.C", true, uclClassLoader);
         try {
             Class.forName("p.D", true, uclClassLoader);
@@ -366,8 +372,8 @@ public class PackageTest extends junit.framework.TestCase {
         }
 
         // load from an sealed jar, then the unsealed jar with a manifest
-        uclClassLoader = new java.net.URLClassLoader(new URL[] { resourceURL1,
-                resourceURL3 }, null);
+        uclClassLoader = new java.net.URLClassLoader(new URL[]{resourceURL1,
+                resourceURL3}, null);
         Class.forName("p.D", true, uclClassLoader);
         try {
             Class.forName("p.C", true, uclClassLoader);
@@ -377,8 +383,8 @@ public class PackageTest extends junit.framework.TestCase {
         }
 
         // load from the sealed jar, then another sealed jar
-        uclClassLoader = new java.net.URLClassLoader(new URL[] { resourceURL1,
-                resourceURL4 }, null);
+        uclClassLoader = new java.net.URLClassLoader(new URL[]{resourceURL1,
+                resourceURL4}, null);
         Class.forName("p.C", true, uclClassLoader);
         try {
             Class.forName("p.D", true, uclClassLoader);

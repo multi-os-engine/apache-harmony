@@ -32,7 +32,7 @@ public class TestHelper_ClassLoader extends ClassLoader {
 
     /**
      * Loads a class specified by its name
-     * <p>
+     * <p/>
      * This classloader makes the assumption that any class it is asked to load
      * is in the current directory....
      */
@@ -75,7 +75,7 @@ public class TestHelper_ClassLoader extends ClassLoader {
                 "org.apache.harmony.sql.tests.java.sql.TestHelper_Driver1",
                 "org.apache.harmony.sql.tests.java.sql.TestHelper_Driver2",
                 "org.apache.harmony.sql.tests.java.sql.TestHelper_Driver4",
-                "org.apache.harmony.sql.tests.java.sql.TestHelper_Driver5" };
+                "org.apache.harmony.sql.tests.java.sql.TestHelper_Driver5"};
 
         Class<?> theClass;
 

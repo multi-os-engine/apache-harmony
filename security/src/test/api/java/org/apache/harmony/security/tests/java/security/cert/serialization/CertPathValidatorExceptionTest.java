@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.cert.serialization;
 
@@ -30,7 +30,6 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for CertPathValidatorException serialization
- *
  */
 
 public class CertPathValidatorExceptionTest extends SerializationTest implements
@@ -38,7 +37,7 @@ public class CertPathValidatorExceptionTest extends SerializationTest implements
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
         Exception cause = new Exception(msgs[1]);
@@ -46,13 +45,13 @@ public class CertPathValidatorExceptionTest extends SerializationTest implements
                 msgs[0], cause);
         String msg = null;
         Throwable th = null;
-        return new Object[] { new CertPathValidatorException(),
+        return new Object[]{new CertPathValidatorException(),
                 new CertPathValidatorException(msg),
                 new CertPathValidatorException(msgs[1]),
                 new CertPathValidatorException(new Throwable()),
                 new CertPathValidatorException(th),
                 new CertPathValidatorException(msgs[1], dExc),
-                new CertPathValidatorException(msgs[1], dExc, null, -1) };
+                new CertPathValidatorException(msgs[1], dExc, null, -1)};
     }
 
     public void assertDeserialized(Serializable oref, Serializable otest) {

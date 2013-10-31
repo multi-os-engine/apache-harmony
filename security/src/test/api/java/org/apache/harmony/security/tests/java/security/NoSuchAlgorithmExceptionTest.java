@@ -16,10 +16,11 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security;
+
 import java.security.NoSuchAlgorithmException;
 
 import junit.framework.TestCase;
@@ -28,7 +29,6 @@ import junit.framework.TestCase;
 /**
  * Tests for <code>NoSuchAlgorithmException</code> class constructors and
  * methods.
- * 
  */
 public class NoSuchAlgorithmExceptionTest extends TestCase {
 
@@ -37,7 +37,7 @@ public class NoSuchAlgorithmExceptionTest extends TestCase {
 
     /**
      * Constructor for NoSuchAlgorithmExceptionTests.
-     * 
+     *
      * @param arg0
      */
     public NoSuchAlgorithmExceptionTest(String arg0) {
@@ -47,7 +47,7 @@ public class NoSuchAlgorithmExceptionTest extends TestCase {
     private static String[] msgs = {
             "",
             "Check new message",
-            "Check new message Check new message Check new message Check new message Check new message" };
+            "Check new message Check new message Check new message Check new message Check new message"};
 
     private static Throwable tCause = new Throwable("Throwable for exception");
 

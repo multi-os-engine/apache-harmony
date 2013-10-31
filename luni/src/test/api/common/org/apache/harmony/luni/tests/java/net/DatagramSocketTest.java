@@ -249,7 +249,7 @@ public class DatagramSocketTest extends junit.framework.TestCase {
         port = ds.getLocalPort();
         ds.connect(localHost, serverPortNumber);
 
-        final byte[] sendBytes = { 'T', 'e', 's', 't', 0 };
+        final byte[] sendBytes = {'T', 'e', 's', 't', 0};
         send = new DatagramPacket(sendBytes, sendBytes.length);
         ds.send(send);
         receive = new DatagramPacket(new byte[20], 20);
@@ -414,7 +414,7 @@ public class DatagramSocketTest extends junit.framework.TestCase {
         // fail at the native level there is no way to return an exception so
         // there should be no exception
         ds = new java.net.DatagramSocket();
-        byte[] addressBytes = { 0, 0, 0, 0 };
+        byte[] addressBytes = {0, 0, 0, 0};
         inetAddress = InetAddress.getByAddress(addressBytes);
         portNumber = Support_PortManager.getNextPortForUDP();
         ds.connect(inetAddress, portNumber);
@@ -424,8 +424,8 @@ public class DatagramSocketTest extends junit.framework.TestCase {
                     .println("Running test_connectLjava_net_InetAddressI(DatagramSocketTest) with IPv6 address");
 
             ds = new java.net.DatagramSocket();
-            byte[] addressTestBytes = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0 };
+            byte[] addressTestBytes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0};
             inetAddress = InetAddress.getByAddress(addressTestBytes);
             portNumber = Support_PortManager.getNextPortForUDP();
             ds.connect(inetAddress, portNumber);
@@ -716,6 +716,7 @@ public class DatagramSocketTest extends junit.framework.TestCase {
     // socket.leaveGroup(group);
     // socket.close();
     // }
+
     /**
      * @tests java.net.DatagramSocket#send(java.net.DatagramPacket)
      */
@@ -843,7 +844,7 @@ public class DatagramSocketTest extends junit.framework.TestCase {
         InetAddress i = InetAddress.getByName("127.0.0.1");
         DatagramSocket d = new DatagramSocket(0, i);
         try {
-            d.send(new DatagramPacket(new byte[] { 1 }, 1));
+            d.send(new DatagramPacket(new byte[]{1}, 1));
             fail("should throw NPE.");
         } catch (NullPointerException e) {
             // expected;
@@ -865,6 +866,7 @@ public class DatagramSocketTest extends junit.framework.TestCase {
     /**
      * If the InetAddress of DatagramPacket is null, DatagramSocket.send(DatagramPacket)
      * should throw NullPointer Exception.
+     *
      * @tests java.net.DatagramSocket#send(java.net.DatagramPacket)
      */
     public void test_sendLjava_net_DatagramPacket2() throws IOException {
@@ -877,7 +879,7 @@ public class DatagramSocketTest extends junit.framework.TestCase {
             udpSocket.send(sendPacket);
             fail("Should throw SocketException");
         } catch (NullPointerException e) {
-          // Expected
+            // Expected
         } finally {
             udpSocket.close();
         }
@@ -974,10 +976,10 @@ public class DatagramSocketTest extends junit.framework.TestCase {
                         + theSocket.getLocalSocketAddress().toString()
                         + "Expected: "
                         + (new InetSocketAddress(InetAddress.getLocalHost(),
-                                portNumber)).toString(), theSocket
-                        .getLocalSocketAddress().equals(
-                                new InetSocketAddress(InetAddress
-                                        .getLocalHost(), portNumber)));
+                        portNumber)).toString(), theSocket
+                .getLocalSocketAddress().equals(
+                        new InetSocketAddress(InetAddress
+                                .getLocalHost(), portNumber)));
 
         // now make sure that datagrams sent from this socket appear to come
         // from the address we bound to
@@ -992,7 +994,7 @@ public class DatagramSocketTest extends junit.framework.TestCase {
 
         ds.connect(new InetSocketAddress(localHost, serverPortNumber));
 
-        byte[] sendBytes = { 'T', 'e', 's', 't', 0 };
+        byte[] sendBytes = {'T', 'e', 's', 't', 0};
         DatagramPacket send = new DatagramPacket(sendBytes, sendBytes.length);
         ds.send(send);
         Thread.sleep(1000);
@@ -1093,7 +1095,7 @@ public class DatagramSocketTest extends junit.framework.TestCase {
         int port = ds.getLocalPort();
         ds.connect(new InetSocketAddress(localHost, serverPortNumber));
 
-        final byte[] sendBytes = { 'T', 'e', 's', 't', 0 };
+        final byte[] sendBytes = {'T', 'e', 's', 't', 0};
         DatagramPacket send = new DatagramPacket(sendBytes, sendBytes.length);
         ds.send(send);
         DatagramPacket receive = new DatagramPacket(new byte[20], 20);
@@ -1235,7 +1237,7 @@ public class DatagramSocketTest extends junit.framework.TestCase {
         ds.connect(new InetSocketAddress(localHost, serverPortNumber + 1));
         ds.connect(new InetSocketAddress(localHost, serverPortNumber));
 
-        byte[] sendTestBytes = { 'T', 'e', 's', 't', 0 };
+        byte[] sendTestBytes = {'T', 'e', 's', 't', 0};
         send = new DatagramPacket(sendTestBytes, sendTestBytes.length);
         ds.send(send);
         DatagramPacket receivedp = new DatagramPacket(new byte[20], 20);
@@ -1263,14 +1265,14 @@ public class DatagramSocketTest extends junit.framework.TestCase {
         // connected at the Java level.
         try {
             ds = new java.net.DatagramSocket();
-            byte[] addressBytes = { 0, 0, 0, 0 };
+            byte[] addressBytes = {0, 0, 0, 0};
             InetAddress inetAddress = InetAddress.getByAddress(addressBytes);
             int portNumber = Support_PortManager.getNextPortForUDP();
             InetAddress localHostIA = InetAddress.getLocalHost();
             ds.connect(new InetSocketAddress(inetAddress, portNumber));
             assertTrue("Is not connected after connect to inaddr any", ds
                     .isConnected());
-            byte[] sendBytesArray = { 'T', 'e', 's', 't', 0 };
+            byte[] sendBytesArray = {'T', 'e', 's', 't', 0};
             DatagramPacket senddp = new DatagramPacket(sendBytesArray,
                     sendBytesArray.length, localHostIA, portNumber);
             ds.send(senddp);
@@ -1473,7 +1475,7 @@ public class DatagramSocketTest extends junit.framework.TestCase {
         // test the default case which we expect to be the same on all
         // platforms
         try {
-            theAddress = new InetSocketAddress(InetAddress.getLocalHost(),Support_PortManager.getNextPortForUDP());
+            theAddress = new InetSocketAddress(InetAddress.getLocalHost(), Support_PortManager.getNextPortForUDP());
             theSocket1 = new DatagramSocket(null);
             theSocket2 = new DatagramSocket(null);
             theSocket1.bind(theAddress);
@@ -1501,7 +1503,7 @@ public class DatagramSocketTest extends junit.framework.TestCase {
         int[] ports = Support_PortManager.getNextPortsForUDP(3);
         DatagramSocket theSocket = new DatagramSocket(ports[0]);
         theSocket.setBroadcast(false);
-        byte theBytes[] = { -1, -1, -1, -1 };
+        byte theBytes[] = {-1, -1, -1, -1};
 
         // validate we cannot connect to the broadcast address when
         // setBroadcast is false

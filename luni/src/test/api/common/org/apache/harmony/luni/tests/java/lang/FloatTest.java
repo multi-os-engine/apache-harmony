@@ -20,7 +20,7 @@ import junit.framework.TestCase;
 
 public class FloatTest extends TestCase {
 
-    private static final int rawBitsFor3_4eN38To38[] = { 0x1394470, 0x2e7958c, 0x490bd77, 0x634ecd5,
+    private static final int rawBitsFor3_4eN38To38[] = {0x1394470, 0x2e7958c, 0x490bd77, 0x634ecd5,
             0x7e2280b, 0x98d5907, 0xb30af48, 0xcdcdb1a, 0xe8a08f0, 0x102c8b2d, 0x11d7adf8,
             0x1386ccbb, 0x15287fe9, 0x16d29fe4, 0x1883a3ee, 0x1a248cea, 0x1bcdb025, 0x1d808e17,
             0x1f20b19d, 0x20c8de04, 0x227b1585, 0x241ced73, 0x25c428d0, 0x27753303, 0x29193fe2,
@@ -31,9 +31,9 @@ public class FloatTest extends TestCase {
             0x59416d99, 0x5af1c900, 0x5c971da0, 0x5e3ce508, 0x5fec1e4a, 0x619392ee, 0x633877a9,
             0x64e69594, 0x66901d7c, 0x683424dc, 0x69e12e12, 0x6b8cbccb, 0x6d2febfe, 0x6edbe6fe,
             0x7089705f, 0x722bcc76, 0x73d6bf94, 0x758637bc, 0x7727c5ac, 0x78d1b717, 0x7a83126e,
-            0x7c23d70a, 0x7dcccccc, 0x7f7fffff };
+            0x7c23d70a, 0x7dcccccc, 0x7f7fffff};
 
-    private static final String expectedStringFor3_4eN38To38[] = { "3.4028235E-38", "3.4028235E-37",
+    private static final String expectedStringFor3_4eN38To38[] = {"3.4028235E-38", "3.4028235E-37",
             "3.4028233E-36", "3.4028234E-35", "3.4028236E-34", "3.4028236E-33",
             "3.4028234E-32", "3.4028234E-31", "3.4028233E-30", "3.4028236E-29",
             "3.4028235E-28", "3.4028235E-27", "3.4028233E-26", "3.4028235E-25",
@@ -49,9 +49,9 @@ public class FloatTest extends TestCase {
             "3.4028236E19", "3.4028235E20", "3.4028233E21", "3.4028235E22", "3.4028233E23",
             "3.4028236E24", "3.4028234E25", "3.4028233E26", "3.4028234E27", "3.4028235E28",
             "3.4028236E29", "3.4028233E30", "3.4028235E31", "3.4028233E32", "3.4028236E33",
-            "3.4028236E34", "3.4028234E35", "3.4028236E36", "3.4028235E37", "3.4028235E38" };
+            "3.4028236E34", "3.4028234E35", "3.4028236E36", "3.4028235E37", "3.4028235E38"};
 
-    private static final int rawBitsFor1_17eN38To38[] = { 0x80800000, 0x82200000, 0x83c80000,
+    private static final int rawBitsFor1_17eN38To38[] = {0x80800000, 0x82200000, 0x83c80000,
             0x857a0000, 0x871c4000, 0x88c35000, 0x8a742400, 0x8c189680, 0x8dbebc20, 0x8f6e6b28,
             0x911502f9, 0x92ba43b7, 0x9468d4a5, 0x961184e7, 0x97b5e621, 0x99635fa9, 0x9b0e1bca,
             0x9cb1a2bc, 0x9e5e0b6b, 0xa00ac723, 0xa1ad78ec, 0xa358d727, 0xa5078678, 0xa6a96816,
@@ -62,9 +62,9 @@ public class FloatTest extends TestCase {
             0xd6d5d239, 0xd885a363, 0xda270c3c, 0xdbd0cf4b, 0xdd82818f, 0xdf2321f3, 0xe0cbea70,
             0xe27ee50b, 0xe41f4f27, 0xe5c722f1, 0xe778ebad, 0xe91b934c, 0xeac2781f, 0xec731627,
             0xee17edd8, 0xefbde94f, 0xf16d63a2, 0xf3145e45, 0xf4b975d7, 0xf667d34c, 0xf810e410,
-            0xf9b51d14, 0xfb626459, 0xfd0d7eb7, 0xfeb0de65 };
+            0xf9b51d14, 0xfb626459, 0xfd0d7eb7, 0xfeb0de65};
 
-    private static final String expectedStringFor1_17eN38To38[] = { "-1.17549435E-38",
+    private static final String expectedStringFor1_17eN38To38[] = {"-1.17549435E-38",
             "-1.1754944E-37", "-1.17549435E-36", "-1.17549435E-35", "-1.1754944E-34",
             "-1.17549435E-33", "-1.17549435E-32", "-1.1754944E-31", "-1.17549435E-30",
             "-1.17549435E-29", "-1.1754944E-28", "-1.1754943E-27", "-1.17549435E-26",
@@ -82,7 +82,7 @@ public class FloatTest extends TestCase {
             "-1.1754944E23", "-1.17549434E24", "-1.1754943E25", "-1.1754943E26",
             "-1.17549434E27", "-1.1754943E28", "-1.1754944E29", "-1.1754943E30",
             "-1.1754943E31", "-1.1754944E32", "-1.1754943E33", "-1.1754944E34",
-            "-1.1754944E35", "-1.1754944E36", "-1.1754943E37", "-1.1754943E38" };
+            "-1.1754944E35", "-1.1754944E36", "-1.1754943E37", "-1.1754943E38"};
 
     private void doTestCompareRawBits(String originalFloatString, int expectedRawBits,
             String expectedString) {
@@ -129,9 +129,9 @@ public class FloatTest extends TestCase {
      * @tests java.lang.Float#compare(float, float)
      */
     public void test_compare() {
-        float[] values = new float[] { Float.NEGATIVE_INFINITY, -Float.MAX_VALUE, -2f,
+        float[] values = new float[]{Float.NEGATIVE_INFINITY, -Float.MAX_VALUE, -2f,
                 -Float.MIN_VALUE, -0f, 0f, Float.MIN_VALUE, 2f, Float.MAX_VALUE,
-                Float.POSITIVE_INFINITY, Float.NaN };
+                Float.POSITIVE_INFINITY, Float.NaN};
         for (int i = 0; i < values.length; i++) {
             float f1 = values[i];
             assertTrue("compare() should be equal: " + f1, Float.compare(f1, f1) == 0);
@@ -403,69 +403,69 @@ public class FloatTest extends TestCase {
         doTestCompareRawBits("1.0E+39", 0x7f800000, "Infinity");
         doTestCompareRawBits("-1.0E+39", 0xff800000, "-Infinity");
     }
-    
+
     /**
      * @tests java.lang.Float#parseFloat(java.lang.String)
      */
     public void test_parseFloat_LString_Unusual() {
         float actual;
-        
+
         actual = Float.parseFloat("0x00000000000000000000000000000000000000000.0000000000000000000000000000000000000p0000000000000000000000000000000000");
         assertEquals("Returned incorrect value", 0.0f, actual, 0.0F);
-                
+
         actual = Float.parseFloat("+0Xfffff.fffffffffffffffffffffffffffffffp+99F");
         assertEquals("Returned incorrect value", 6.64614E35f, actual, 0.0F);
-        
+
         actual = Float.parseFloat("-0X.123456789abcdefp+99f");
         assertEquals("Returned incorrect value", -4.5072022E28f, actual, 0.0F);
-        
+
         actual = Float.parseFloat("-0X123456789abcdef.p+1f");
         assertEquals("Returned incorrect value", -1.63971062E17f, actual, 0.0F);
-        
+
         actual = Float.parseFloat("-0X000000000000000000000000000001abcdef.0000000000000000000000000001abefp00000000000000000000000000000000000000000004f");
         assertEquals("Returned incorrect value", -4.48585472E8f, actual, 0.0F);
-        
+
         actual = Float.parseFloat("0X0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001234p600f");
         assertEquals("Returned incorrect value", 5.907252E33f, actual, 0.0F);
-        
+
         actual = Float.parseFloat("0x1.p9223372036854775807");
         assertEquals("Returned incorrect value", Float.POSITIVE_INFINITY, actual, 0.0F);
-        
+
         actual = Float.parseFloat("0x1.p9223372036854775808");
         assertEquals("Returned incorrect value", Float.POSITIVE_INFINITY, actual, 0.0F);
-        
+
         actual = Float.parseFloat("0x10.p9223372036854775808");
         assertEquals("Returned incorrect value", Float.POSITIVE_INFINITY, actual, 0.0F);
-        
+
         actual = Float.parseFloat("0xabcd.ffffffffp+2000");
         assertEquals("Returned incorrect value", Float.POSITIVE_INFINITY, actual, 0.0F);
-        
+
         actual = Float.parseFloat("0x1.p-9223372036854775808");
         assertEquals("Returned incorrect value", 0.0f, actual, 0.0F);
-        
+
         actual = Float.parseFloat("0x1.p-9223372036854775809");
         assertEquals("Returned incorrect value", 0.0f, actual, 0.0F);
-        
+
         actual = Float.parseFloat("0x.1p-9223372036854775809");
         assertEquals("Returned incorrect value", 0.0f, actual, 0.0F);
     }
-    
+
     /**
      * @tests java.lang.Float#parseFloat(java.lang.String)
      */
     public void test_parseFloat_LString_NormalPositiveExponent() {
         int[] expecteds = {
-                0x3991a2b4,                0x43cc0247,                0x47909009,
-                0x4ac0c009,                0x4e109005,                0x5140c005,
-                0x5458d805,                0x57848402,                0x5a909002,
-                0x5da8a802,                0x60c0c002,                0x63cccc02,
-                0x66e4e402,                0x69f0f002,                0x6d048401,
-                0x70109001,                0x73169601,                0x76810810,
-                0x79840840,                0x7c8a08a0,                0x7f800000,
-                0x7f800000,                0x7f800000,                0x7f800000,
+                0x3991a2b4, 0x43cc0247, 0x47909009,
+                0x4ac0c009, 0x4e109005, 0x5140c005,
+                0x5458d805, 0x57848402, 0x5a909002,
+                0x5da8a802, 0x60c0c002, 0x63cccc02,
+                0x66e4e402, 0x69f0f002, 0x6d048401,
+                0x70109001, 0x73169601, 0x76810810,
+                0x79840840, 0x7c8a08a0, 0x7f800000,
+                0x7f800000, 0x7f800000, 0x7f800000,
                 0x7f800000,
         };
-        
+
         for (int i = 0; i < expecteds.length; i++) {
             int part = i * 6;
             String inputString = "0x" + part + "." + part + "0123456789abcdefp" + part;
@@ -476,13 +476,13 @@ public class FloatTest extends TestCase {
             String expectedString = Integer.toHexString(Float.floatToIntBits(expected));
             String actualString = Integer.toHexString(Float.floatToIntBits(actual));
             String errorMsg = i + "th input string is:<" + inputString
-            + ">.The expected result should be:<" + expectedString
-            + ">, but was: <" + actualString + ">. ";
-            
+                    + ">.The expected result should be:<" + expectedString
+                    + ">, but was: <" + actualString + ">. ";
+
             assertEquals(errorMsg, expected, actual, 0.0F);
         }
     }
-    
+
     /**
      * @tests java.lang.Float#parseFloat(java.lang.String)
      */
@@ -514,36 +514,36 @@ public class FloatTest extends TestCase {
                 0x0,
                 0x0,
         };
-        
+
         for (int i = 0; i < expecteds.length; i++) {
             int part = i * 7;
-            String inputString = "0x" + part + "." + part + "0123456789abcdefp-"  + part;
+            String inputString = "0x" + part + "." + part + "0123456789abcdefp-" + part;
 
             float actual = Float.parseFloat(inputString);
             float expected = Float.intBitsToFloat(expecteds[i]);
-            
+
             String expectedString = Integer.toHexString(Float.floatToIntBits(expected));
             String actualString = Integer.toHexString(Float.floatToIntBits(actual));
             String errorMsg = i + "th input string is:<" + inputString
-            + ">.The expected result should be:<" + expectedString
-            + ">, but was: <" + actualString + ">. ";
-            
+                    + ">.The expected result should be:<" + expectedString
+                    + ">, but was: <" + actualString + ">. ";
+
             assertEquals(errorMsg, expected, actual, 0.0F);
         }
     }
-    
+
     /**
      * @tests java.lang.Float#parseFloat(java.lang.String)
      */
     public void test_parseFloat_LString_MaxNormalBoundary() {
-        int[] expecteds ={
+        int[] expecteds = {
                 0x7f7fffff,
                 0x7f7fffff,
                 0x7f7fffff,
                 0x7f800000,
                 0x7f800000,
                 0x7f800000,
-                
+
                 0xff7fffff,
                 0xff7fffff,
                 0xff7fffff,
@@ -551,7 +551,7 @@ public class FloatTest extends TestCase {
                 0xff800000,
                 0xff800000,
         };
-        
+
         String[] inputs = {
                 "0x1.fffffep127",
                 "0x1.fffffe000000000000000000000000000000000000000000000001p127",
@@ -559,7 +559,7 @@ public class FloatTest extends TestCase {
                 "0x1.ffffffp127",
                 "0x1.ffffff000000000000000000000000000000000000000000000001p127",
                 "0x1.ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp127",
-                
+
                 "-0x1.fffffep127",
                 "-0x1.fffffe000000000000000000000000000000000000000000000001p127",
                 "-0x1.fffffeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp127",
@@ -567,21 +567,21 @@ public class FloatTest extends TestCase {
                 "-0x1.ffffff000000000000000000000000000000000000000000000001p127",
                 "-0x1.ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp127",
         };
-        
+
         for (int i = 0; i < inputs.length; i++) {
             float actual = Float.parseFloat(inputs[i]);
             float expected = Float.intBitsToFloat(expecteds[i]);
-            
+
             String expectedString = Integer.toHexString(Float.floatToIntBits(expected));
             String actualString = Integer.toHexString(Float.floatToIntBits(actual));
             String errorMsg = i + "th input string is:<" + inputs[i]
-            + ">.The expected result should be:<" + expectedString
-            + ">, but was: <" + actualString + ">. ";
-            
+                    + ">.The expected result should be:<" + expectedString
+                    + ">, but was: <" + actualString + ">. ";
+
             assertEquals(errorMsg, expected, actual, 0.0F);
         }
     }
-    
+
     /**
      * @tests java.lang.Float#parseFloat(java.lang.String)
      */
@@ -593,7 +593,7 @@ public class FloatTest extends TestCase {
                 0x800000,
                 0x800001,
                 0x800001,
-                
+
                 0x80800000,
                 0x80800000,
                 0x80800000,
@@ -601,7 +601,7 @@ public class FloatTest extends TestCase {
                 0x80800001,
                 0x80800001,
         };
-        
+
         String inputs[] = {
                 "0x1.0p-126",
                 "0x1.00000000000000000000000000000000000000000000001p-126",
@@ -609,7 +609,7 @@ public class FloatTest extends TestCase {
                 "0x1.000001p-126",
                 "0x1.000001000000000000000000000000000000000000000001p-126",
                 "0x1.000001fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
-                
+
                 "-0x1.0p-126",
                 "-0x1.00000000000000000000000000000000000000000000001p-126",
                 "-0x1.000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
@@ -617,21 +617,21 @@ public class FloatTest extends TestCase {
                 "-0x1.000001000000000000000000000000000000000000000001p-126",
                 "-0x1.000001fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
         };
-        
+
         for (int i = 0; i < inputs.length; i++) {
             float actual = Float.parseFloat(inputs[i]);
             float expected = Float.intBitsToFloat(expecteds[i]);
-            
+
             String expectedString = Integer.toHexString(Float.floatToIntBits(expected));
             String actualString = Integer.toHexString(Float.floatToIntBits(actual));
             String errorMsg = i + "th input string is:<" + inputs[i]
-            + ">.The expected result should be:<" + expectedString
-            + ">, but was: <" + actualString + ">. ";
-            
+                    + ">.The expected result should be:<" + expectedString
+                    + ">, but was: <" + actualString + ">. ";
+
             assertEquals(errorMsg, expected, actual, 0.0F);
         }
     }
-    
+
     /**
      * @tests java.lang.Float#parseFloat(java.lang.String)
      */
@@ -643,7 +643,7 @@ public class FloatTest extends TestCase {
                 0x800000,
                 0x800000,
                 0x800000,
-                
+
                 0x807fffff,
                 0x807fffff,
                 0x807fffff,
@@ -651,7 +651,7 @@ public class FloatTest extends TestCase {
                 0x80800000,
                 0x80800000,
         };
-        
+
         String inputs[] = {
                 "0x0.fffffep-126",
                 "0x0.fffffe000000000000000000000000000000000000000000000000000001p-126",
@@ -659,7 +659,7 @@ public class FloatTest extends TestCase {
                 "0x0.ffffffp-126",
                 "0x0.ffffff0000000000000000000000000000000000000000000000000000001p-126",
                 "0x0.ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
-                
+
                 "-0x0.fffffep-126",
                 "-0x0.fffffe000000000000000000000000000000000000000000000000000001p-126",
                 "-0x0.fffffefffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
@@ -667,21 +667,21 @@ public class FloatTest extends TestCase {
                 "-0x0.ffffff0000000000000000000000000000000000000000000000000000001p-126",
                 "-0x0.ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
         };
-        
+
         for (int i = 0; i < inputs.length; i++) {
             float actual = Float.parseFloat(inputs[i]);
             float expected = Float.intBitsToFloat(expecteds[i]);
-            
+
             String expectedString = Integer.toHexString(Float.floatToIntBits(expected));
             String actualString = Integer.toHexString(Float.floatToIntBits(actual));
             String errorMsg = i + "th input string is:<" + inputs[i]
-            + ">.The expected result should be:<" + expectedString
-            + ">, but was: <" + actualString + ">. ";
-            
+                    + ">.The expected result should be:<" + expectedString
+                    + ">, but was: <" + actualString + ">. ";
+
             assertEquals(errorMsg, expected, actual, 0.0F);
         }
     }
-    
+
     /**
      * @tests java.lang.Float#parseFloat(java.lang.String)
      */
@@ -693,7 +693,7 @@ public class FloatTest extends TestCase {
                 0x2,
                 0x2,
                 0x2,
-                
+
                 0x80000001,
                 0x80000001,
                 0x80000001,
@@ -701,7 +701,7 @@ public class FloatTest extends TestCase {
                 0x80000002,
                 0x80000002,
         };
-        
+
         String inputs[] = {
                 "0x0.000002p-126",
                 "0x0.00000200000000000000000000000000000000000001p-126",
@@ -709,7 +709,7 @@ public class FloatTest extends TestCase {
                 "0x0.000003p-126",
                 "0x0.000003000000000000000000000000000000000000001p-126",
                 "0x0.000003ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
-                
+
                 "-0x0.000002p-126",
                 "-0x0.00000200000000000000000000000000000000000001p-126",
                 "-0x0.000002ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
@@ -717,17 +717,17 @@ public class FloatTest extends TestCase {
                 "-0x0.000003000000000000000000000000000000000000001p-126",
                 "-0x0.000003ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
         };
-        
+
         for (int i = 0; i < inputs.length; i++) {
             float actual = Float.parseFloat(inputs[i]);
             float expected = Float.intBitsToFloat(expecteds[i]);
-            
+
             String expectedString = Integer.toHexString(Float.floatToIntBits(expected));
             String actualString = Integer.toHexString(Float.floatToIntBits(actual));
             String errorMsg = i + "th input string is:<" + inputs[i]
-            + ">.The expected result should be:<" + expectedString
-            + ">, but was: <" + actualString + ">. ";
-            
+                    + ">.The expected result should be:<" + expectedString
+                    + ">, but was: <" + actualString + ">. ";
+
             assertEquals(errorMsg, expected, actual, 0.0F);
         }
     }
@@ -743,7 +743,7 @@ public class FloatTest extends TestCase {
                 0x0,
                 0x1,
                 0x1,
-                
+
                 0x80000000,
                 0x80000000,
                 0x80000000,
@@ -751,33 +751,33 @@ public class FloatTest extends TestCase {
                 0x80000001,
                 0x80000001,
         };
-        
+
         String inputs[] = {
-                "0x0.000000000000000p-126",   
+                "0x0.000000000000000p-126",
                 "0x0.000000000000000000000000000000000000000000000001p-126",
                 "0x0.000000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
                 "0x0.000001p-126",
                 "0x0.000001000000000000000000000000000000000000000001p-126",
                 "0x0.000001fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
-                
-                "-0x0.000000000000000p-126",   
+
+                "-0x0.000000000000000p-126",
                 "-0x0.000000000000000000000000000000000000000000000001p-126",
                 "-0x0.000000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
                 "-0x0.000001p-126",
                 "-0x0.000001000000000000000000000000000000000000000001p-126",
                 "-0x0.000001fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffp-126",
         };
-        
+
         for (int i = 0; i < inputs.length; i++) {
             float actual = Float.parseFloat(inputs[i]);
             float expected = Float.intBitsToFloat(expecteds[i]);
-            
+
             String expectedString = Integer.toHexString(Float.floatToIntBits(expected));
             String actualString = Integer.toHexString(Float.floatToIntBits(actual));
             String errorMsg = i + "th input string is:<" + inputs[i]
-            + ">.The expected result should be:<" + expectedString
-            + ">, but was: <" + actualString + ">. ";
-            
+                    + ">.The expected result should be:<" + expectedString
+                    + ">, but was: <" + actualString + ">. ";
+
             assertEquals(errorMsg, expected, actual, 0.0F);
         }
     }
@@ -794,7 +794,7 @@ public class FloatTest extends TestCase {
         doTestCompareRawBits("8589934592", 0x50000000, "8.5899346E9");
         doTestCompareRawBits("8606711808", 0x50004000, "8.606712E9");
     }
-    
+
     /**
      * @tests java.lang.Float#shortValue()
      */
@@ -815,11 +815,11 @@ public class FloatTest extends TestCase {
         test_toString(12.90898f, "12.90898");
 
         test_toString(1.7014118346046924e+38F, "1.7014118E38");
-        
+
         test_toString(1E19F, "1.0E19");
-        
+
         test_toString(1E-36F, "1.0E-36");
-        
+
         test_toString(1.0E-38F, "1.0E-38");
     }
 
@@ -904,11 +904,11 @@ public class FloatTest extends TestCase {
 
         Float negInfiniteSigned = Float.valueOf("-Infinity");
         assertTrue("Floattest7", negInfiniteSigned.equals(new Float(Float.NEGATIVE_INFINITY)));
-        
+
         // test HARMONY-6641
         posInfinite = Float.valueOf("320.0E+2147483647");
         assertEquals("Floattest8", Float.POSITIVE_INFINITY, posInfinite);
-        
+
         negZero = Float.valueOf("-1.4E-2147483314");
         assertEquals("Floattest9", -0.0f, negZero);
     }
@@ -931,9 +931,9 @@ public class FloatTest extends TestCase {
      */
     public void test_compareToLjava_lang_Float() {
         // A selection of float values in ascending order.
-        float[] values = new float[] { Float.NEGATIVE_INFINITY, -Float.MAX_VALUE, -2f,
+        float[] values = new float[]{Float.NEGATIVE_INFINITY, -Float.MAX_VALUE, -2f,
                 -Float.MIN_VALUE, -0f, 0f, Float.MIN_VALUE, 2f, Float.MAX_VALUE,
-                Float.POSITIVE_INFINITY, Float.NaN };
+                Float.POSITIVE_INFINITY, Float.NaN};
 
         for (int i = 0; i < values.length; i++) {
             float f1 = values[i];
@@ -1018,7 +1018,7 @@ public class FloatTest extends TestCase {
         assertEquals("0x1.295788p23", Float.toHexString(9743299.65000F));
         assertEquals("0x1.295788p23", Float.toHexString(9743299.650001234F));
         assertEquals("0x1.700d1p33", Float.toHexString(12349743299.65000F));
-        
+
         // test HARMONY-2132
         assertEquals("0x1.01p10", Float.toHexString(0x1.01p10f));
     }
@@ -1039,39 +1039,39 @@ public class FloatTest extends TestCase {
             s++;
         }
     }
-    
+
     /**
-	 * @tests {@link java.lang.Float#MAX_EXPONENT}
-	 * @since 1.6 
-	 */
-	public void test_MAX_EXPONENT() {
-		assertTrue("Wrong value of java.lang.Float.MAX_EXPONENT",
-				Float.MAX_EXPONENT == 127);
-		assertTrue("Wrong value of java.lang.Float.MAX_EXPONENT",
-				Float.MAX_EXPONENT == Math.getExponent(Float.MAX_VALUE));
-	}
+     * @tests {@link java.lang.Float#MAX_EXPONENT}
+     * @since 1.6
+     */
+    public void test_MAX_EXPONENT() {
+        assertTrue("Wrong value of java.lang.Float.MAX_EXPONENT",
+                Float.MAX_EXPONENT == 127);
+        assertTrue("Wrong value of java.lang.Float.MAX_EXPONENT",
+                Float.MAX_EXPONENT == Math.getExponent(Float.MAX_VALUE));
+    }
 
-	/**
-	 * @tests {@link java.lang.Float#MIN_EXPONENT}
-	 * @since 1.6
-	 */
-	public void test_MIN_EXPONENT() {
-		assertTrue("Wrong value of java.lang.Float.MIN_EXPONENT",
-				Float.MIN_EXPONENT == -126);
-		assertTrue("Wrong value of java.lang.Float.MIN_EXPONENT",
-				Float.MIN_EXPONENT == Math.getExponent(Float.MIN_NORMAL));
-	}
+    /**
+     * @tests {@link java.lang.Float#MIN_EXPONENT}
+     * @since 1.6
+     */
+    public void test_MIN_EXPONENT() {
+        assertTrue("Wrong value of java.lang.Float.MIN_EXPONENT",
+                Float.MIN_EXPONENT == -126);
+        assertTrue("Wrong value of java.lang.Float.MIN_EXPONENT",
+                Float.MIN_EXPONENT == Math.getExponent(Float.MIN_NORMAL));
+    }
 
-	/**
-	 * @tests {@link java.lang.Float#MIN_NORMAL}
-	 * @since 1.6
-	 */
-	public void test_MIN_NORMAL() {
-		assertTrue("Wrong value of java.lang.Float.MIN_NORMAL",
-				Float.MIN_NORMAL == 0x1.0p-126f);
-		assertTrue("Wrong value of java.lang.Float.MIN_NORMAL",
-				Float.MIN_NORMAL == Float.intBitsToFloat(0x00800000));
-		assertTrue("Wrong value of java.lang.Float.MIN_NORMAL",
-				Float.MIN_NORMAL == 1.1754943508222875E-38f);
-	}
+    /**
+     * @tests {@link java.lang.Float#MIN_NORMAL}
+     * @since 1.6
+     */
+    public void test_MIN_NORMAL() {
+        assertTrue("Wrong value of java.lang.Float.MIN_NORMAL",
+                Float.MIN_NORMAL == 0x1.0p-126f);
+        assertTrue("Wrong value of java.lang.Float.MIN_NORMAL",
+                Float.MIN_NORMAL == Float.intBitsToFloat(0x00800000));
+        assertTrue("Wrong value of java.lang.Float.MIN_NORMAL",
+                Float.MIN_NORMAL == 1.1754943508222875E-38f);
+    }
 }

@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.cert;
 
@@ -34,7 +34,6 @@ import junit.framework.TestCase;
 /**
  * Tests for <code>CertPathValidatorException</code> class constructors and
  * methods.
- * 
  */
 public class CertPathValidatorExceptionTest extends TestCase {
 
@@ -43,7 +42,7 @@ public class CertPathValidatorExceptionTest extends TestCase {
 
     /**
      * Constructor for CertPathValidatorExceptionTests.
-     * 
+     *
      * @param arg0
      */
     public CertPathValidatorExceptionTest(String arg0) {
@@ -53,7 +52,7 @@ public class CertPathValidatorExceptionTest extends TestCase {
     private static String[] msgs = {
             "",
             "Check new message",
-            "Check new message Check new message Check new message Check new message Check new message" };
+            "Check new message Check new message Check new message Check new message Check new message"};
 
     private static Throwable tCause = new Throwable("Throwable for exception");
 
@@ -220,7 +219,7 @@ public class CertPathValidatorExceptionTest extends TestCase {
      * IllegalArgumentException
      */
     public void testCertPathValidatorException11() {
-        int[] indx = { 0, 1, 100, Integer.MAX_VALUE, Integer.MIN_VALUE };
+        int[] indx = {0, 1, 100, Integer.MAX_VALUE, Integer.MIN_VALUE};
         for (int j = 0; j < indx.length; j++) {
             for (int i = 0; i < msgs.length; i++) {
                 try {
@@ -282,8 +281,8 @@ public class CertPathValidatorExceptionTest extends TestCase {
     public void testCertPathValidatorException13() {
         myCertPath mcp = new myCertPath("X.509", "");
         CertPath cp = mcp.get("X.509");
-        int[] indx = { -2, -100, 0, 1, 100, Integer.MAX_VALUE,
-                Integer.MIN_VALUE };
+        int[] indx = {-2, -100, 0, 1, 100, Integer.MAX_VALUE,
+                Integer.MIN_VALUE};
         for (int j = 0; j < indx.length; j++) {
             for (int i = 0; i < msgs.length; i++) {
                 try {
@@ -330,7 +329,7 @@ public class CertPathValidatorExceptionTest extends TestCase {
                         .getCertPath());
                 assertEquals(
                         "getCertPath() must return ".concat(cp.toString()), tE
-                                .getCertPath(), cp);
+                        .getCertPath(), cp);
                 assertEquals("getIndex() must return -1", tE.getIndex(), -1);
 
             } catch (IndexOutOfBoundsException e) {
@@ -339,7 +338,7 @@ public class CertPathValidatorExceptionTest extends TestCase {
             }
         }
     }
-    
+
     class myCertPath extends CertPath {
 
         public List getCertificates() {

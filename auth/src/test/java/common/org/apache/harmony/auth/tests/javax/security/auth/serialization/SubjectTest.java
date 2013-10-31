@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Stepan M. Mishura
-*/
+ * @author Stepan M. Mishura
+ */
 
 package org.apache.harmony.auth.tests.javax.security.auth.serialization;
 
@@ -37,7 +37,7 @@ public class SubjectTest extends SerializationTest {
 
         Subject subject = new Subject();
 
-        return new Object[] { subject, subject.getPrincipals(),
-                subject.getPrivateCredentials(), subject.getPublicCredentials() };
+        return new Object[]{subject, subject.getPrincipals(),
+                subject.getPrivateCredentials(), subject.getPublicCredentials()};
     }
 }

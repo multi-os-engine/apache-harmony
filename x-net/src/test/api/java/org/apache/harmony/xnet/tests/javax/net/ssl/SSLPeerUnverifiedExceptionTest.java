@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 /**
  * Tests for <code>SSLPeerUnverifiedException</code> class constructors and
  * methods.
- * 
  */
 public class SSLPeerUnverifiedExceptionTest extends TestCase {
 
@@ -34,7 +33,7 @@ public class SSLPeerUnverifiedExceptionTest extends TestCase {
 
     /**
      * Constructor for SSLPeerUnverifiedExceptionTests.
-     * 
+     *
      * @param arg0
      */
     public SSLPeerUnverifiedExceptionTest(String arg0) {
@@ -44,7 +43,7 @@ public class SSLPeerUnverifiedExceptionTest extends TestCase {
     static String[] msgs = {
             "",
             "Check new message",
-            "Check new message Check new message Check new message Check new message Check new message" };
+            "Check new message Check new message Check new message Check new message Check new message"};
 
     static Throwable tCause = new Throwable("Throwable for exception");
 

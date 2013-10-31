@@ -33,12 +33,12 @@ public class BatchUpdateExceptionTest extends TestCase {
      */
     public void testBatchUpdateException() {
 
-        int[] theFinalStates1 = { 0 }; // Error Code state
-        int[][] theFinalStates2 = { null }; // Update Counts array state
-        String[] theFinalStates3 = { null }; // SQL State state value
-        String[] theFinalStates4 = { null }; // Message state
+        int[] theFinalStates1 = {0}; // Error Code state
+        int[][] theFinalStates2 = {null}; // Update Counts array state
+        String[] theFinalStates3 = {null}; // SQL State state value
+        String[] theFinalStates4 = {null}; // Message state
 
-        Exception[] theExceptions = { null };
+        Exception[] theExceptions = {null};
 
         BatchUpdateException aBatchUpdateException;
         int loopCount = 1;
@@ -77,14 +77,14 @@ public class BatchUpdateExceptionTest extends TestCase {
      */
     public void testBatchUpdateExceptionintArray() {
 
-        int[][] init1 = { { 1, 2, 3 }, null };
+        int[][] init1 = {{1, 2, 3}, null};
 
-        int[] theFinalStates1 = { 0, 0 }; // Error Code state
+        int[] theFinalStates1 = {0, 0}; // Error Code state
         int[][] theFinalStates2 = init1; // Update Counts array state
-        String[] theFinalStates3 = { null, null }; // SQL State state value
-        String[] theFinalStates4 = { null, null }; // Message state
+        String[] theFinalStates3 = {null, null}; // SQL State state value
+        String[] theFinalStates4 = {null, null}; // Message state
 
-        Exception[] theExceptions = { null, null };
+        Exception[] theExceptions = {null, null};
 
         BatchUpdateException aBatchUpdateException;
         int loopCount = init1.length;
@@ -123,22 +123,22 @@ public class BatchUpdateExceptionTest extends TestCase {
      */
     public void testBatchUpdateExceptionStringintArray() {
 
-        String[] init1 = { "a", "1", "valid1", "----", "&valid*", null, "",
-                ".", "a" };
-        int[][] init2 = { { 1, 2, 3 }, {}, { 3 }, null, { 5, 5 }, { 6 },
-                { 121, 2, 1 }, { 1 }, { 1, 2 } };
+        String[] init1 = {"a", "1", "valid1", "----", "&valid*", null, "",
+                ".", "a"};
+        int[][] init2 = {{1, 2, 3}, {}, {3}, null, {5, 5}, {6},
+                {121, 2, 1}, {1}, {1, 2}};
 
-        int[] theFinalStates1 = { 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // Error Code
+        int[] theFinalStates1 = {0, 0, 0, 0, 0, 0, 0, 0, 0}; // Error Code
         // state
         // Update Counts array state
         int[][] theFinalStates2 = init2;
         // SQL State state value
-        String[] theFinalStates3 = { null, null, null, null, null, null, null,
-                null, null };
+        String[] theFinalStates3 = {null, null, null, null, null, null, null,
+                null, null};
         String[] theFinalStates4 = init1; // Message state
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null,
-                null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null,
+                null, null};
 
         BatchUpdateException aBatchUpdateException;
         int loopCount = init1.length;
@@ -178,14 +178,14 @@ public class BatchUpdateExceptionTest extends TestCase {
      */
     public void testBatchUpdateExceptionStringStringintArray() {
 
-        String[] init1 = { "a", "1", "valid1", "----", "&valid*", null, "",
-                ".", "a", "a" };
-        String[] init2 = { "a", "1", "valid1", "----", "&valid*", "a", null,
-                "", ".", "a" };
-        int[][] init3 = { { 1, 2, 3 }, {}, { 3 }, { 5, 5 }, { 6 },
-                { 121, 2, 1 }, { 1 }, { 1, 2 }, { 1 }, { 2 }, null };
+        String[] init1 = {"a", "1", "valid1", "----", "&valid*", null, "",
+                ".", "a", "a"};
+        String[] init2 = {"a", "1", "valid1", "----", "&valid*", "a", null,
+                "", ".", "a"};
+        int[][] init3 = {{1, 2, 3}, {}, {3}, {5, 5}, {6},
+                {121, 2, 1}, {1}, {1, 2}, {1}, {2}, null};
 
-        int[] theFinalStates1 = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // Error
+        int[] theFinalStates1 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // Error
         // Code
         // state
         // Update Counts array state
@@ -194,8 +194,8 @@ public class BatchUpdateExceptionTest extends TestCase {
         String[] theFinalStates3 = init2;
         String[] theFinalStates4 = init1; // Message state
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null,
-                null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null,
+                null, null, null, null};
 
         BatchUpdateException aBatchUpdateException;
         int loopCount = init1.length;
@@ -235,15 +235,15 @@ public class BatchUpdateExceptionTest extends TestCase {
      */
     public void testBatchUpdateExceptionStringStringintintArray() {
 
-        String[] init1 = { "a", "1", "valid1", "----", "&valid*", null, "",
-                ".", "a", "a" };
-        String[] init2 = { "a", "1", "valid1", "----", "&valid*", "a", null,
-                "", ".", "a" };
-        int[] init3 = { -2147483648, 2147483647, 0, -492417162, -156220255,
+        String[] init1 = {"a", "1", "valid1", "----", "&valid*", null, "",
+                ".", "a", "a"};
+        String[] init2 = {"a", "1", "valid1", "----", "&valid*", "a", null,
+                "", ".", "a"};
+        int[] init3 = {-2147483648, 2147483647, 0, -492417162, -156220255,
                 -173012890, -631026360, -2147483648, -2147483648, -2147483648,
-                -2147483648 };
-        int[][] init4 = { { 1, 2, 3 }, {}, { 3 }, { 5, 5 }, { 6 },
-                { 121, 2, 1 }, { 1 }, { 1, 2 }, { 1 }, { 2 }, null };
+                -2147483648};
+        int[][] init4 = {{1, 2, 3}, {}, {3}, {5, 5}, {6},
+                {121, 2, 1}, {1}, {1, 2}, {1}, {2}, null};
 
         int[] theFinalStates1 = init3; // Error Code state
         // Update Counts array state
@@ -252,8 +252,8 @@ public class BatchUpdateExceptionTest extends TestCase {
         String[] theFinalStates3 = init2;
         String[] theFinalStates4 = init1; // Message state
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null,
-                null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null,
+                null, null, null, null};
 
         BatchUpdateException aBatchUpdateException;
         int loopCount = init1.length;
@@ -290,7 +290,6 @@ public class BatchUpdateExceptionTest extends TestCase {
 
     /**
      * @tests {@link java.sql.BatchUpdateException#BatchUpdateException(Throwable)}
-     * 
      * @since 1.6
      */
     public void testBatchUpdateExceptionLThrowable() {
@@ -307,12 +306,11 @@ public class BatchUpdateExceptionTest extends TestCase {
 
     /**
      * @tests {@link java.sql.BatchUpdateException#BatchUpdateException(int[], Throwable)}
-     * 
      * @since 1.6
      */
     public void testBatchUpdateException$ILThrowable() {
         Throwable cause = new Exception("MYTHROWABLE");
-        int[] updateCounts = new int[] { 1, 2, 3 };
+        int[] updateCounts = new int[]{1, 2, 3};
         BatchUpdateException batchUpdateException = new BatchUpdateException(
                 updateCounts, cause);
         assertNotNull(batchUpdateException);
@@ -327,12 +325,11 @@ public class BatchUpdateExceptionTest extends TestCase {
 
     /**
      * @tests {@link java.sql.BatchUpdateException#BatchUpdateException(String, int[], Throwable)}
-     * 
      * @since 1.6
      */
     public void testBatchUpdateExceptionLString$ILThrowable() {
         Throwable cause = new Exception("MYTHROWABLE");
-        int[] updateCounts = new int[] { 1, 2, 3 };
+        int[] updateCounts = new int[]{1, 2, 3};
         BatchUpdateException batchUpdateException = new BatchUpdateException(
                 "MYTESTSTRING1", "MYTESTSTRING2", updateCounts, cause);
         assertNotNull(batchUpdateException);
@@ -348,11 +345,10 @@ public class BatchUpdateExceptionTest extends TestCase {
 
     /**
      * @tests {@link java.sql.BatchUpdateException#BatchUpdateException(String, String, int[], Throwable)}
-     * 
      * @since 1.6
      */
     public void testBatchUpdateExceptionLStringLStringILThrowable() {
-        int[] updateCounts = new int[] { 1, 2, 3 };
+        int[] updateCounts = new int[]{1, 2, 3};
         BatchUpdateException batchUpdateException = new BatchUpdateException(
                 null, null, updateCounts, null);
         assertNotNull(batchUpdateException);
@@ -364,7 +360,6 @@ public class BatchUpdateExceptionTest extends TestCase {
 
     /**
      * @tests {@link java.sql.BatchUpdateException#BatchUpdateException(String, String, int, int[], Throwable)}
-     * 
      * @since 1.6
      */
     public void testBatchUpdateExceptionLStringLStringI$ILThrowable() {
@@ -383,18 +378,18 @@ public class BatchUpdateExceptionTest extends TestCase {
     public void testGetUpdateCounts() {
 
         BatchUpdateException aBatchUpdateException;
-        int[][] init1 = { { 1, 2, 3 }, {}, null };
+        int[][] init1 = {{1, 2, 3}, {}, null};
 
         int[] theReturn;
         int[][] theReturns = init1;
 
-        int[] theFinalStates1 = { 0, 0, 0 }; // Error Code state
+        int[] theFinalStates1 = {0, 0, 0}; // Error Code state
         int[][] theFinalStates2 = init1; // Update Counts array state
-        String[] theFinalStates3 = { null, null, null }; // SQL State state
+        String[] theFinalStates3 = {null, null, null}; // SQL State state
         // value
-        String[] theFinalStates4 = { null, null, null }; // Message state
+        String[] theFinalStates4 = {null, null, null}; // Message state
 
-        Exception[] theExceptions = { null, null, null };
+        Exception[] theExceptions = {null, null, null};
 
         int loopCount = init1.length;
         for (int i = 0; i < loopCount; i++) {
@@ -443,7 +438,7 @@ public class BatchUpdateExceptionTest extends TestCase {
      */
     public void testSerializationCompatibility() throws Exception {
         int vendorCode = 10;
-        int[] updateCounts = { 1, 2, 3, 4 };
+        int[] updateCounts = {1, 2, 3, 4};
         BatchUpdateException object = new BatchUpdateException("reason",
                 "SQLState", vendorCode, updateCounts);
         SerializationTest.verifyGolden(this, object,

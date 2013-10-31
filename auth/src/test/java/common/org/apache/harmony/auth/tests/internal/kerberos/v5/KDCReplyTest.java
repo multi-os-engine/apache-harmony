@@ -35,25 +35,25 @@ public class KDCReplyTest extends TestCase {
 
         assertEquals("msg-type", KDCReply.AS_REP, reply.getMsgtype());
         assertEquals("crealm", "MY.REALM", reply.getCrealm());
-        assertEquals("cname", new PrincipalName(1, new String[] { "me" }),
+        assertEquals("cname", new PrincipalName(1, new String[]{"me"}),
                 reply.getCname());
 
         // ticket
         Ticket ticket = reply.getTicket();
         assertEquals("ticket's realm", "MY.REALM", ticket.getRealm());
-        assertEquals("ticket's sname", new PrincipalName(0, new String[] {
-                "krbtgt", "MY.REALM" }), ticket.getSname());
-        
+        assertEquals("ticket's sname", new PrincipalName(0, new String[]{
+                "krbtgt", "MY.REALM"}), ticket.getSname());
+
         // enc-part
         EncryptedData encPart = reply.getEncPart();
         assertEquals("etype", 3, encPart.getEtype());
         assertEquals("kvno", 1, encPart.getKvno());
-        assertTrue("cipher", Arrays.equals(new byte[] { 0x0f }, encPart
+        assertTrue("cipher", Arrays.equals(new byte[]{0x0f}, encPart
                 .getCipher()));
     }
 
     // testing array was created by hands according to RFC4120
-    public static byte[] enc = new byte[] {
+    public static byte[] enc = new byte[]{
             // [APPLICATION 11] KDC-REP
             (byte) 0x6b,
             (byte) 0x76,

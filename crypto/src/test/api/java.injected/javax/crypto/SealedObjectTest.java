@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexander Y. Kleymenov
-*/
+ * @author Alexander Y. Kleymenov
+ */
 
 package javax.crypto;
 
@@ -133,8 +133,8 @@ public class SealedObjectTest extends TestCase {
         KeyGenerator kg = KeyGenerator.getInstance("DES");
         Key key = kg.generateKey();
 
-        IvParameterSpec ips = new IvParameterSpec(new byte[] { 1, 2, 3, 4, 5,
-                6, 7, 8 });
+        IvParameterSpec ips = new IvParameterSpec(new byte[]{1, 2, 3, 4, 5,
+                6, 7, 8});
 
         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, key, ips);
@@ -168,8 +168,8 @@ public class SealedObjectTest extends TestCase {
         KeyGenerator kg = KeyGenerator.getInstance("DES");
         Key key = kg.generateKey();
 
-        IvParameterSpec ips = new IvParameterSpec(new byte[] { 1, 2, 3, 4, 5,
-                6, 7, 8 });
+        IvParameterSpec ips = new IvParameterSpec(new byte[]{1, 2, 3, 4, 5,
+                6, 7, 8});
 
         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, key, ips);
@@ -191,7 +191,7 @@ public class SealedObjectTest extends TestCase {
     public void testGetObject3() throws Exception {
         try {
             new SealedObject("secret string", new NullCipher()).getObject(
-                    new SecretKeySpec(new byte[] { 0, 0, 0 }, "algorithm"),
+                    new SecretKeySpec(new byte[]{0, 0, 0}, "algorithm"),
                     null);
             fail("IllegalArgumentException should be thrown in the case of "
                     + "null provider.");
@@ -200,7 +200,7 @@ public class SealedObjectTest extends TestCase {
 
         try {
             new SealedObject("secret string", new NullCipher()).getObject(
-                    new SecretKeySpec(new byte[] { 0, 0, 0 }, "algorithm"), "");
+                    new SecretKeySpec(new byte[]{0, 0, 0}, "algorithm"), "");
             fail("IllegalArgumentException should be thrown in the case of "
                     + "empty provider.");
         } catch (IllegalArgumentException e) {
@@ -225,7 +225,7 @@ public class SealedObjectTest extends TestCase {
     public void testGetObject4() throws Exception {
         try {
             new SealedObject("secret string",
-                             new NullCipher()).getObject((Key)null);
+                    new NullCipher()).getObject((Key) null);
             fail("NullPointerException should be thrown when key is null");
         } catch (NullPointerException e) {
         }

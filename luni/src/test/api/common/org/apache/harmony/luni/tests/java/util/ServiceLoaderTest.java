@@ -67,8 +67,8 @@ public class ServiceLoaderTest extends TestCase {
                 super.addURL(url);
             }
         }
-        SubURLClassLoader ucl = new SubURLClassLoader(new URL[] { new URL(
-                "file:/no/such/file") });
+        SubURLClassLoader ucl = new SubURLClassLoader(new URL[]{new URL(
+                "file:/no/such/file")});
         ServiceLoader<Service> serviceLoader = ServiceLoader.load(
                 Service.class, ucl);
         Iterator<Service> itr = serviceLoader.iterator();
@@ -90,9 +90,9 @@ public class ServiceLoaderTest extends TestCase {
     /**
      * @tests {@link java.util.ServiceLoader#iterator()}.
      */
-    @SuppressWarnings( { "nls", "unchecked" })
+    @SuppressWarnings({"nls", "unchecked"})
     public void test_iterator() {
-        URLClassLoader ucl = new URLClassLoader(new URL[] { jarFile });
+        URLClassLoader ucl = new URLClassLoader(new URL[]{jarFile});
         Iterator itr = ServiceLoader.load(Service.class, ucl).iterator();
         assertTrue(itr.hasNext());
         assertEquals("ImplementationOfService", ((Service) itr.next())
@@ -147,7 +147,7 @@ public class ServiceLoaderTest extends TestCase {
         }
     }
 
-    @SuppressWarnings( { "nls", "unchecked" })
+    @SuppressWarnings({"nls", "unchecked"})
     private void nullIteratorTester(Iterator itr) {
         assertNotNull(itr);
         try {
@@ -176,10 +176,10 @@ public class ServiceLoaderTest extends TestCase {
      * @throws MalformedURLException
      * @tests {@link java.util.ServiceLoader#load(java.lang.Class, java.lang.ClassLoader)}.
      */
-    @SuppressWarnings( { "nls", "unchecked" })
+    @SuppressWarnings({"nls", "unchecked"})
     public void test_loadLjava_lang_ClassLjava_lang_ClassLoader()
             throws MalformedURLException {
-        URLClassLoader ucl = new URLClassLoader(new URL[] { jarFile });
+        URLClassLoader ucl = new URLClassLoader(new URL[]{jarFile});
         // normal config file
         ServiceLoader serviceLoader = ServiceLoader.load(Service.class, ucl);
         Iterator itr = serviceLoader.iterator();
@@ -287,7 +287,7 @@ public class ServiceLoaderTest extends TestCase {
         // add the second file
         URL jarFile2 = prepairJar("hyts_services2.jar");
         URLClassLoader ucl2 = new URLClassLoader(
-                new URL[] { jarFile, jarFile2 });
+                new URL[]{jarFile, jarFile2});
         serviceLoader = ServiceLoader.load(ServiceIn2File.class, ucl2);
         itr = serviceLoader.iterator();
         assertTrue(itr.hasNext());
@@ -310,7 +310,7 @@ public class ServiceLoaderTest extends TestCase {
         assertEquals("ImplementationOfServiceDuplicateIn2File_1",
                 ((ServiceDuplicateIn2File) itr.next()).myNameIs());
         assertFalse(itr.hasNext());
-        ucl2 = new URLClassLoader(new URL[] { jarFile2, jarFile });
+        ucl2 = new URLClassLoader(new URL[]{jarFile2, jarFile});
         serviceLoader = ServiceLoader.load(ServiceDuplicateIn2File.class, ucl2);
         itr = serviceLoader.iterator();
         assertTrue(itr.hasNext());
@@ -326,7 +326,7 @@ public class ServiceLoaderTest extends TestCase {
         assertEquals("ImplementationOfServiceIn2FileWithEmptyConfig",
                 ((ServiceIn2FileWithEmptyConfig) itr.next()).myNameIs());
         assertFalse(itr.hasNext());
-        ucl2 = new URLClassLoader(new URL[] { jarFile, jarFile2 });
+        ucl2 = new URLClassLoader(new URL[]{jarFile, jarFile2});
         serviceLoader = ServiceLoader.load(ServiceIn2FileWithEmptyConfig.class,
                 ucl2);
         itr = serviceLoader.iterator();
@@ -365,7 +365,7 @@ public class ServiceLoaderTest extends TestCase {
     /**
      * @tests {@link java.util.ServiceLoader#load(java.lang.Class)}.
      */
-    @SuppressWarnings( { "nls", "unchecked" })
+    @SuppressWarnings({"nls", "unchecked"})
     public void test_loadLjava_lang_Class() {
         ServiceLoader serviceLoader = ServiceLoader.load(Service.class);
         assertFalse(serviceLoader.iterator().hasNext());
@@ -408,9 +408,9 @@ public class ServiceLoaderTest extends TestCase {
     /**
      * @tests {@link java.util.ServiceLoader#toString()}.
      */
-    @SuppressWarnings( { "unchecked", "nls" })
+    @SuppressWarnings({"unchecked", "nls"})
     public void test_toString() {
-        URLClassLoader ucl = new URLClassLoader(new URL[] { jarFile });
+        URLClassLoader ucl = new URLClassLoader(new URL[]{jarFile});
         ServiceLoader serviceLoader = ServiceLoader.load(Service.class, ucl);
         assertTrue(serviceLoader.toString().length() > 0);
 

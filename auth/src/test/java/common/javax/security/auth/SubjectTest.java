@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Stepan M. Mishura
-*/
+ * @author Stepan M. Mishura
+ */
 
 package javax.security.auth;
 
@@ -47,7 +47,7 @@ import junit.framework.TestSuite;
 
 
 /**
- * Tests Subject and its inner classes implementation. 
+ * Tests Subject and its inner classes implementation.
  */
 
 public class SubjectTest extends SecurityTest {
@@ -65,7 +65,7 @@ public class SubjectTest extends SecurityTest {
     };
 
     PrivilegedExceptionAction<Object> emptyPEAction = new PrivilegedExceptionAction<Object>
-    () {
+            () {
         public Object run() {
             return null;
         }
@@ -301,7 +301,7 @@ public class SubjectTest extends SecurityTest {
 
     /**
      * Tests SecurityException for Subject.doAsPrivileged(
-     *     Subject,PrivilegedAction,AccessControlContext)
+     * Subject,PrivilegedAction,AccessControlContext)
      */
     public final void testACE_doAsPrivileged_A() throws Exception {
 
@@ -316,7 +316,7 @@ public class SubjectTest extends SecurityTest {
 
     /**
      * Tests SecurityException for Subject.doAsPrivileged(
-     *     Subject,PrivilegedExceptionAction,AccessControlContext)
+     * Subject,PrivilegedExceptionAction,AccessControlContext)
      */
     public final void testACE_doAsPrivileged_EA() throws Exception {
 
@@ -458,7 +458,7 @@ public class SubjectTest extends SecurityTest {
 
     /**
      * Tests Subject.doAs* methods for creating new context
-     * 
+     * <p/>
      * Expected: no SecurityException
      */
     public final void testDoAs_newACC() throws Exception {
@@ -565,7 +565,7 @@ public class SubjectTest extends SecurityTest {
 
     /**
      * Verifies that Subject.equals() has defined comparison algorism.
-     * 
+     * <p/>
      * The sequence of checks is following:
      * 1)principal set
      * 2)public credential set
@@ -843,7 +843,7 @@ public class SubjectTest extends SecurityTest {
     }
 
     public final void testSerialization() throws Exception {
-        
+
         Subject subject = new Subject();
 
         subject.getPrincipals().add(new MyClass2());
@@ -895,7 +895,7 @@ public class SubjectTest extends SecurityTest {
 
     /**
      * Test subject's deserialization in case of invalid('null') principals
-     * 
+     * <p/>
      * Serialization byte array contains null element in principal set
      * The array is invalid because it is not possible to add null element
      * to principal set via public API methods.
@@ -910,7 +910,7 @@ public class SubjectTest extends SecurityTest {
         //        getPrincipals().add(null);
         // 4) ByteArrayOutputStream class was used to write subject object
         //    and to get resulting array of bytes 
-        byte[] nullPrincipal = new byte[] { (byte) 0xac, (byte) 0xed,
+        byte[] nullPrincipal = new byte[]{(byte) 0xac, (byte) 0xed,
                 (byte) 0x00, (byte) 0x05, (byte) 0x73, (byte) 0x72,
                 (byte) 0x00, (byte) 0x1b, (byte) 0x6a, (byte) 0x61,
                 (byte) 0x76, (byte) 0x61, (byte) 0x78, (byte) 0x2e,
@@ -982,7 +982,7 @@ public class SubjectTest extends SecurityTest {
                 (byte) 0x70, (byte) 0x77, (byte) 0x04, (byte) 0x00,
                 (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x70,
                 (byte) 0x78, (byte) 0x71, (byte) 0x00, (byte) 0x7e,
-                (byte) 0x00, (byte) 0x02, (byte) 0x78, (byte) 0x78 };
+                (byte) 0x00, (byte) 0x02, (byte) 0x78, (byte) 0x78};
 
         ByteArrayInputStream in = new ByteArrayInputStream(nullPrincipal);
         ObjectInputStream sIn = new ObjectInputStream(in);
@@ -1013,7 +1013,7 @@ public class SubjectTest extends SecurityTest {
         //    set by invoking: getPrincipals().add(object);
         // 4) ByteArrayOutputStream class was used to write subject object
         //    and to get resulting array of bytes 
-        byte[] objectPrincipal = new byte[] { (byte) 0xac, (byte) 0xed,
+        byte[] objectPrincipal = new byte[]{(byte) 0xac, (byte) 0xed,
                 (byte) 0x00, (byte) 0x05, (byte) 0x73, (byte) 0x72,
                 (byte) 0x00, (byte) 0x1b, (byte) 0x6a, (byte) 0x61,
                 (byte) 0x76, (byte) 0x61, (byte) 0x78, (byte) 0x2e,
@@ -1099,7 +1099,7 @@ public class SubjectTest extends SecurityTest {
                 (byte) 0x33, (byte) 0x3a, (byte) 0x0f, (byte) 0x02,
                 (byte) 0x00, (byte) 0x00, (byte) 0x78, (byte) 0x70,
                 (byte) 0x78, (byte) 0x71, (byte) 0x00, (byte) 0x7e,
-                (byte) 0x00, (byte) 0x02, (byte) 0x78, (byte) 0x78 };
+                (byte) 0x00, (byte) 0x02, (byte) 0x78, (byte) 0x78};
 
         ByteArrayInputStream in = new ByteArrayInputStream(objectPrincipal);
         ObjectInputStream sIn = new ObjectInputStream(in);
@@ -1129,7 +1129,7 @@ public class SubjectTest extends SecurityTest {
         //        getPrincipals().add(null);
         // 4) ByteArrayOutputStream class was used to write
         //    subject's principal set object and to get resulting array of bytes 
-        byte[] nullElement = new byte[] { (byte) 0xac, (byte) 0xed,
+        byte[] nullElement = new byte[]{(byte) 0xac, (byte) 0xed,
                 (byte) 0x00, (byte) 0x05, (byte) 0x73, (byte) 0x72,
                 (byte) 0x00, (byte) 0x25, (byte) 0x6a, (byte) 0x61,
                 (byte) 0x76, (byte) 0x61, (byte) 0x78, (byte) 0x2e,
@@ -1198,7 +1198,7 @@ public class SubjectTest extends SecurityTest {
                 (byte) 0x53, (byte) 0x65, (byte) 0x74, (byte) 0x3b,
                 (byte) 0x78, (byte) 0x70, (byte) 0x00, (byte) 0x71,
                 (byte) 0x00, (byte) 0x7e, (byte) 0x00, (byte) 0x03,
-                (byte) 0x78, (byte) 0x78 };
+                (byte) 0x78, (byte) 0x78};
 
         // The array was produced in the following way:
         // 1) A check for verifying that passed principal object 
@@ -1208,7 +1208,7 @@ public class SubjectTest extends SecurityTest {
         //    set by invoking: getPrincipals().add(object);
         // 4) ByteArrayOutputStream class was used to write
         //    subject's principal set object and to get resulting array of bytes 
-        byte[] notPrincipalElement = new byte[] { (byte) 0xac, (byte) 0xed,
+        byte[] notPrincipalElement = new byte[]{(byte) 0xac, (byte) 0xed,
                 (byte) 0x00, (byte) 0x05, (byte) 0x73, (byte) 0x72,
                 (byte) 0x00, (byte) 0x25, (byte) 0x6a, (byte) 0x61,
                 (byte) 0x76, (byte) 0x61, (byte) 0x78, (byte) 0x2e,
@@ -1291,7 +1291,7 @@ public class SubjectTest extends SecurityTest {
                 (byte) 0x53, (byte) 0x65, (byte) 0x74, (byte) 0x3b,
                 (byte) 0x78, (byte) 0x70, (byte) 0x00, (byte) 0x71,
                 (byte) 0x00, (byte) 0x7e, (byte) 0x00, (byte) 0x03,
-                (byte) 0x78, (byte) 0x78 };
+                (byte) 0x78, (byte) 0x78};
 
         ByteArrayInputStream in = new ByteArrayInputStream(nullElement);
         ObjectInputStream sIn = new ObjectInputStream(in);
@@ -1335,7 +1335,7 @@ public class SubjectTest extends SecurityTest {
         // 4) ByteArrayOutputStream class was used to write
         //    subject's private credential set object
         //    and to get resulting array of bytes 
-        byte[] nullElement = new byte[] { (byte) 0xac, (byte) 0xed,
+        byte[] nullElement = new byte[]{(byte) 0xac, (byte) 0xed,
                 (byte) 0x00, (byte) 0x05, (byte) 0x73, (byte) 0x72,
                 (byte) 0x00, (byte) 0x25, (byte) 0x6a, (byte) 0x61,
                 (byte) 0x76, (byte) 0x61, (byte) 0x78, (byte) 0x2e,
@@ -1413,7 +1413,7 @@ public class SubjectTest extends SecurityTest {
                 (byte) 0x04, (byte) 0x77, (byte) 0x04, (byte) 0x00,
                 (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x78,
                 (byte) 0x71, (byte) 0x00, (byte) 0x7e, (byte) 0x00,
-                (byte) 0x08, (byte) 0x78, (byte) 0x78, (byte) 0x78 };
+                (byte) 0x08, (byte) 0x78, (byte) 0x78, (byte) 0x78};
 
         ByteArrayInputStream in = new ByteArrayInputStream(nullElement);
         ObjectInputStream sIn = new ObjectInputStream(in);
@@ -1737,7 +1737,7 @@ public class SubjectTest extends SecurityTest {
         public PrivateCredentialPermission getPermission(String c, Set<? extends Principal> p) {
             StringBuffer buf = new StringBuffer(c);
 
-            for (Iterator<? extends Principal> it = p.iterator(); it.hasNext();) {
+            for (Iterator<? extends Principal> it = p.iterator(); it.hasNext(); ) {
                 Object o = it.next();
                 buf.append(" ");
                 buf.append(o.getClass().getName());
@@ -1764,7 +1764,7 @@ public class SubjectTest extends SecurityTest {
         // 4) ByteArrayOutputStream class was used to write
         //    subject's public credential set object
         //    and to get resulting array of bytes 
-        byte[] nullElement = new byte[] { (byte) 0xac, (byte) 0xed,
+        byte[] nullElement = new byte[]{(byte) 0xac, (byte) 0xed,
                 (byte) 0x00, (byte) 0x05, (byte) 0x73, (byte) 0x72,
                 (byte) 0x00, (byte) 0x25, (byte) 0x6a, (byte) 0x61,
                 (byte) 0x76, (byte) 0x61, (byte) 0x78, (byte) 0x2e,
@@ -1842,7 +1842,7 @@ public class SubjectTest extends SecurityTest {
                 (byte) 0x04, (byte) 0x77, (byte) 0x04, (byte) 0x00,
                 (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x78,
                 (byte) 0x71, (byte) 0x00, (byte) 0x7e, (byte) 0x00,
-                (byte) 0x08, (byte) 0x78, (byte) 0x78, (byte) 0x78 };
+                (byte) 0x08, (byte) 0x78, (byte) 0x78, (byte) 0x78};
 
         ByteArrayInputStream in = new ByteArrayInputStream(nullElement);
         ObjectInputStream sIn = new ObjectInputStream(in);

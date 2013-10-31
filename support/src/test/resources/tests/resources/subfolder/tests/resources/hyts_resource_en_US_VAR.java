@@ -21,10 +21,10 @@ public class hyts_resource_en_US_VAR extends java.util.ListResourceBundle {
 
     @Override
     protected Object[][] getContents() {
-        Object[][] contents = { { "subParent4", "enUSVARValue4" },
-                { "subChild1", "enUSVARChildValue1" },
-                { "subChild2", "enUSVARChildValue2" },
-                { "subChild3", "enUSVARChildValue3" }, };
+        Object[][] contents = {{"subParent4", "enUSVARValue4"},
+                {"subChild1", "enUSVARChildValue1"},
+                {"subChild2", "enUSVARChildValue2"},
+                {"subChild3", "enUSVARChildValue3"},};
         return contents;
     }
 

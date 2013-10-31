@@ -70,16 +70,16 @@ public class SHA1withDSA_SignatureTest extends TestCase {
 
     private static final BigInteger MINUS_ONE = BigInteger.valueOf(-1);
 
-    private static final BigInteger params[][] = new BigInteger[][] {
-            { BigInteger.ZERO, BigInteger.ZERO, BigInteger.ZERO },
-            { BigInteger.ZERO, BigInteger.ZERO, BigInteger.ONE },
-            { BigInteger.ZERO, BigInteger.ONE, BigInteger.ONE },
-            { BigInteger.ONE, BigInteger.ZERO, BigInteger.ONE },
-            { BigInteger.ONE, BigInteger.ONE, BigInteger.ONE },
-            { MINUS_ONE, MINUS_ONE, MINUS_ONE },
-            { BigInteger.ONE, BigInteger.ONE, MINUS_ONE },
-            { MINUS_ONE, BigInteger.ONE, BigInteger.ONE },
-            { BigInteger.ONE, MINUS_ONE, BigInteger.ONE }, };
+    private static final BigInteger params[][] = new BigInteger[][]{
+            {BigInteger.ZERO, BigInteger.ZERO, BigInteger.ZERO},
+            {BigInteger.ZERO, BigInteger.ZERO, BigInteger.ONE},
+            {BigInteger.ZERO, BigInteger.ONE, BigInteger.ONE},
+            {BigInteger.ONE, BigInteger.ZERO, BigInteger.ONE},
+            {BigInteger.ONE, BigInteger.ONE, BigInteger.ONE},
+            {MINUS_ONE, MINUS_ONE, MINUS_ONE},
+            {BigInteger.ONE, BigInteger.ONE, MINUS_ONE},
+            {MINUS_ONE, BigInteger.ONE, BigInteger.ONE},
+            {BigInteger.ONE, MINUS_ONE, BigInteger.ONE},};
 
     private static PrivateKey privateKey;
 
@@ -151,18 +151,18 @@ public class SHA1withDSA_SignatureTest extends TestCase {
 
         super.setUp();
 
-        signs = new Signature[] { Signature.getInstance(algorithm, provider),
+        signs = new Signature[]{Signature.getInstance(algorithm, provider),
                 Signature.getInstance(algorithm, provider),
                 Signature.getInstance(algorithm, provider),
                 Signature.getInstance(algorithm, provider),
-                Signature.getInstance(algorithm, provider) };
+                Signature.getInstance(algorithm, provider)};
 
         signs[1].initSign(privateKey);
         signs[2].initSign(privateKey, null);
         signs[3].initSign(privateKey, mySecureRandom);
         signs[4].initVerify(publicKey);
 
-        signingSigns = new Signature[] { signs[1], signs[2], signs[3] };
+        signingSigns = new Signature[]{signs[1], signs[2], signs[3]};
         verifyingSign = signs[4];
     }
 
@@ -251,7 +251,7 @@ public class SHA1withDSA_SignatureTest extends TestCase {
             }
 
             public byte[] getEncoded() {
-                return new byte[] { 0 };
+                return new byte[]{0};
             }
 
             public String getFormat() {
@@ -277,7 +277,7 @@ public class SHA1withDSA_SignatureTest extends TestCase {
             }
 
             public byte[] getEncoded() {
-                return new byte[] { 0 };
+                return new byte[]{0};
             }
 
             public String getFormat() {
@@ -297,11 +297,13 @@ public class SHA1withDSA_SignatureTest extends TestCase {
             try {
                 signs[i].initSign(null);
                 fail("case1: no InvalidKeyException : i=" + i);
-            } catch (InvalidKeyException e) {}
+            } catch (InvalidKeyException e) {
+            }
             try {
                 signs[i].initSign(myRSAPrivateKey);
                 fail("case: no InvalidKeyException : i=" + i);
-            } catch (InvalidKeyException e) {}
+            } catch (InvalidKeyException e) {
+            }
         }
     }
 
@@ -320,7 +322,8 @@ public class SHA1withDSA_SignatureTest extends TestCase {
                     signs[i].initSign(getDSAPrivateKey(params[j][0],
                             params[j][1], params[j][2], BigInteger.ZERO));
                     fail("no InvalidKeyException : i =" + i + " j=" + j);
-                } catch (InvalidKeyException e) {}
+                } catch (InvalidKeyException e) {
+                }
             }
         }
     }
@@ -329,7 +332,7 @@ public class SHA1withDSA_SignatureTest extends TestCase {
      * The test against the "initSign(PrivateKey)" method.
      * It checks out that the method negates the effect of previous call
      * if it is invoked with a different argument.
-     *
+     * <p/>
      * Note.
      * In RI, negating effect of previous call includes
      * discarding updates done before calling the method.
@@ -362,16 +365,16 @@ public class SHA1withDSA_SignatureTest extends TestCase {
      * The test against the "initSign(PrivateKey)" method.
      * It checks out that the method negates the effect of previous call
      * if it is invoked with the same argument.
-     *
+     * <p/>
      * Notes.
      * 1. In RI, negating effect of previous call includes
-     *    discarding updates done before calling the method.
+     * discarding updates done before calling the method.
      * 2.
      * The specification for the method contains the following clause:
-     *     "If this method is called again with a different argument,
-     *     it negates the effect of this call."
+     * "If this method is called again with a different argument,
+     * it negates the effect of this call."
      * which meaning requires certainty in case of sequence
-     *    initSign - update - initSign
+     * initSign - update - initSign
      * RI behavior is such that with respect to "update"
      * it doesn't matter whether argument is the same or different.
      */
@@ -408,11 +411,13 @@ public class SHA1withDSA_SignatureTest extends TestCase {
             try {
                 signs[i].initVerify(pk);
                 fail("case1 : no InvalidKeyException i=" + i);
-            } catch (InvalidKeyException e) {}
+            } catch (InvalidKeyException e) {
+            }
             try {
                 signs[i].initVerify(myRSAPublicKey);
                 fail("case2 : no InvalidKeyException i=" + i);
-            } catch (InvalidKeyException e) {}
+            } catch (InvalidKeyException e) {
+            }
         }
     }
 
@@ -431,7 +436,8 @@ public class SHA1withDSA_SignatureTest extends TestCase {
                     signs[i].initVerify(getDSAPublicKey(params[j][0],
                             params[j][1], params[j][2], BigInteger.ZERO));
                     fail("no InvalidKeyException : i=" + i + " j=" + j);
-                } catch (InvalidKeyException e) {}
+                } catch (InvalidKeyException e) {
+                }
             }
         }
     }
@@ -459,7 +465,7 @@ public class SHA1withDSA_SignatureTest extends TestCase {
      * if it is invoked with the same argument.
      * Like it is for "initSign", RI behavior is such that with respect to "update"
      * it doesn't matter whether argument is the same or different.
-     *
+     * <p/>
      * Note.
      * In RI negating effect of previous call includes
      * discarding updates done before calling the method.
@@ -557,9 +563,9 @@ public class SHA1withDSA_SignatureTest extends TestCase {
      * The test agains the "sign(byte[], int, int)" method.
      * It checks out that if a Signature object's state is SIGN
      * passing to the object "offset" and "len" arguments that satisfy the condition:
-     *     "offset + len <= outbuf.length"
+     * "offset + len <= outbuf.length"
      * but "len" < actual length of signature results in throwing SignatureException.
-     *
+     * <p/>
      * Note.
      * As signature's length varies we use length value of 44 which is certainly less than signature's length,
      */
@@ -574,7 +580,8 @@ public class SHA1withDSA_SignatureTest extends TestCase {
             try {
                 signingSigns[i].sign(sig, 0, 44);
                 fail("case1 : no SignatureException : i=" + i);
-            } catch (SignatureException e) {}
+            } catch (SignatureException e) {
+            }
         }
     }
 
@@ -739,10 +746,10 @@ public class SHA1withDSA_SignatureTest extends TestCase {
      * The test against the "verify(byte[], int, int)" method.
      * It checks out that if Signature object's state is VERIFY
      * the method throws IllegalArgumentException in case of the following arguments :
-     *       outbufs == null or
-     *       offset < 0      or
-     *       length < 0      or
-     *       offset+length > outbuf.length
+     * outbufs == null or
+     * offset < 0      or
+     * length < 0      or
+     * offset+length > outbuf.length
      */
     public final void testVerifybyteArrayintint01() throws Exception {
 
@@ -752,26 +759,30 @@ public class SHA1withDSA_SignatureTest extends TestCase {
         try {
             verifyingSign.verify(null, 0, 48);
             fail("case1 : no IllegalArgumentException");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // case2 : len < 0
         try {
             verifyingSign.verify(bArray, 0, -1);
             fail("case2 : no IllegalArgumentException");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // case3 : offset < 0
         try {
             verifyingSign.verify(bArray, -1, 48);
             fail("case3: no IllegalArgumentException");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         // case4 : offset+len > outbuf.length
         try {
             int k = bArray.length / 2;
             verifyingSign.verify(bArray, k, bArray.length - k + 1);
             fail("case4: no IllegalArgumentException");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
     }
 
     /**
@@ -781,7 +792,7 @@ public class SHA1withDSA_SignatureTest extends TestCase {
      * (1) offset+length < 0
      * (2) offset > signature.length
      * (3) SignatureException if outbuf's lentgh is correct
-     *     whereas a signature doesn't meet ASN1 syntax.
+     * whereas a signature doesn't meet ASN1 syntax.
      */
     public final void testVerifybyteArrayintint02() throws Exception {
 
@@ -790,18 +801,21 @@ public class SHA1withDSA_SignatureTest extends TestCase {
         try {
             verifyingSign.verify(sigBytes, Integer.MAX_VALUE, 2);
             fail("testcase1 : no SignatureException");
-        } catch (SignatureException e) {}
+        } catch (SignatureException e) {
+        }
 
         try {
             verifyingSign.verify(sigBytes, 2, Integer.MAX_VALUE);
             fail("testcase2 : no SignatureException");
-        } catch (SignatureException e) {}
+        } catch (SignatureException e) {
+        }
 
         verifyingSign.update(message);
         try {
             verifyingSign.verify(sigBytes, 0, 50);
             fail("testcase3 : SignatureException");
-        } catch (SignatureException e) {}
+        } catch (SignatureException e) {
+        }
     }
 
     /**
@@ -894,27 +908,33 @@ public class SHA1withDSA_SignatureTest extends TestCase {
 
         try {
             verifyingSign.verify(null, 0, n);
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         try {
             verifyingSign.verify(sigBytes, -1, n);
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         try {
             verifyingSign.verify(sigBytes, 0, -1);
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         try {
             verifyingSign.verify(sigBytes, sigBytes.length - 10, 30);
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
 
         try {
             verifyingSign.verify(sigBytes, Integer.MAX_VALUE, n);
-        } catch (SignatureException e) {}
+        } catch (SignatureException e) {
+        }
 
         try {
             verifyingSign.verify(sig, 0, n);
-        } catch (SignatureException e) {}
+        } catch (SignatureException e) {
+        }
 
         // if the method doesn't reset the expected result of verificaton is "true"
 
@@ -972,7 +992,7 @@ class Predefined {
 
     static DSAPublicKey publicKey = new DSAPublicKey() {
 
-        byte yb[] = new byte[] { 91, 91, -5, 113, -35, 61, -111, -29, -59, -5,
+        byte yb[] = new byte[]{91, 91, -5, 113, -35, 61, -111, -29, -59, -5,
                 -53, -72, 93, 38, 81, 10, -75, 122, -60, -88, -74, -91, -108,
                 88, 55, -57, 119, -2, -104, -71, 83, 45, -55, -111, 46, -23,
                 -113, -34, 105, 18, -36, -33, 3, 21, 23, 93, -128, -52, 42,
@@ -981,9 +1001,9 @@ class Predefined {
                 -40, 4, -89, 1, -107, -66, -87, -112, 22, -40, -118, 59, -26,
                 90, -90, -103, -75, -104, 26, -31, 54, -95, 105, 67, -4, -44,
                 35, -75, 0, -69, 60, 65, -78, 49, 5, 1, 111, -122, 83, 22, -35,
-                -65, 122, 120, -104, -78, -25, -35, 12, -106, 101, 21, 33 };
+                -65, 122, 120, -104, -78, -25, -35, 12, -106, 101, 21, 33};
 
-        byte pb[] = new byte[] { 0, -3, 127, 83, -127, 29, 117, 18, 41, 82,
+        byte pb[] = new byte[]{0, -3, 127, 83, -127, 29, 117, 18, 41, 82,
                 -33, 74, -100, 46, -20, -28, -25, -10, 17, -73, 82, 60, -17,
                 68, 0, -61, 30, 63, -128, -74, 81, 38, 105, 69, 93, 64, 34, 81,
                 -5, 89, 61, -115, 88, -6, -65, -59, -11, -70, 48, -10, -53,
@@ -992,12 +1012,12 @@ class Predefined {
                 -62, 79, -69, -87, -41, -2, -73, -58, 27, -8, 59, 87, -25, -58,
                 -88, -90, 21, 15, 4, -5, -125, -10, -45, -59, 30, -61, 2, 53,
                 84, 19, 90, 22, -111, 50, -10, 117, -13, -82, 43, 97, -41, 42,
-                -17, -14, 34, 3, 25, -99, -47, 72, 1, -57 };
+                -17, -14, 34, 3, 25, -99, -47, 72, 1, -57};
 
-        byte qb[] = new byte[] { 0, -105, 96, 80, -113, 21, 35, 11, -52, -78,
-                -110, -71, -126, -94, -21, -124, 11, -16, 88, 28, -11 };
+        byte qb[] = new byte[]{0, -105, 96, 80, -113, 21, 35, 11, -52, -78,
+                -110, -71, -126, -94, -21, -124, 11, -16, 88, 28, -11};
 
-        byte gb[] = new byte[] { 0, -9, -31, -96, -123, -42, -101, 61, -34,
+        byte gb[] = new byte[]{0, -9, -31, -96, -123, -42, -101, 61, -34,
                 -53, -68, -85, 92, 54, -72, 87, -71, 121, -108, -81, -69, -6,
                 58, -22, -126, -7, 87, 76, 11, 61, 7, -126, 103, 81, 89, 87,
                 -114, -70, -44, 89, 79, -26, 113, 7, 16, -127, -128, -76, 73,
@@ -1006,7 +1026,7 @@ class Predefined {
                 30, 43, -77, -90, 117, -111, 110, -93, 127, 11, -6, 33, 53, 98,
                 -15, -5, 98, 122, 1, 36, 59, -52, -92, -15, -66, -88, 81, -112,
                 -119, -88, -125, -33, -31, 90, -27, -97, 6, -110, -117, 102,
-                94, -128, 123, 85, 37, 100, 1, 76, 59, -2, -49, 73, 42 };
+                94, -128, 123, 85, 37, 100, 1, 76, 59, -2, -49, 73, 42};
 
         public BigInteger getY() {
             return new BigInteger(yb);
@@ -1034,10 +1054,10 @@ class Predefined {
 
     static DSAPrivateKey privateKey = new DSAPrivateKey() {
 
-        byte xb[] = new byte[] { 12, 31, -39, 65, -61, -54, -91, 37, -93, -115,
-                81, 122, -24, -104, -31, -106, 113, -39, -69, 34 };
+        byte xb[] = new byte[]{12, 31, -39, 65, -61, -54, -91, 37, -93, -115,
+                81, 122, -24, -104, -31, -106, 113, -39, -69, 34};
 
-        byte pb[] = new byte[] { 0, -3, 127, 83, -127, 29, 117, 18, 41, 82,
+        byte pb[] = new byte[]{0, -3, 127, 83, -127, 29, 117, 18, 41, 82,
                 -33, 74, -100, 46, -20, -28, -25, -10, 17, -73, 82, 60, -17,
                 68, 0, -61, 30, 63, -128, -74, 81, 38, 105, 69, 93, 64, 34, 81,
                 -5, 89, 61, -115, 88, -6, -65, -59, -11, -70, 48, -10, -53,
@@ -1046,12 +1066,12 @@ class Predefined {
                 -62, 79, -69, -87, -41, -2, -73, -58, 27, -8, 59, 87, -25, -58,
                 -88, -90, 21, 15, 4, -5, -125, -10, -45, -59, 30, -61, 2, 53,
                 84, 19, 90, 22, -111, 50, -10, 117, -13, -82, 43, 97, -41, 42,
-                -17, -14, 34, 3, 25, -99, -47, 72, 1, -57 };
+                -17, -14, 34, 3, 25, -99, -47, 72, 1, -57};
 
-        byte qb[] = new byte[] { 0, -105, 96, 80, -113, 21, 35, 11, -52, -78,
-                -110, -71, -126, -94, -21, -124, 11, -16, 88, 28, -11 };
+        byte qb[] = new byte[]{0, -105, 96, 80, -113, 21, 35, 11, -52, -78,
+                -110, -71, -126, -94, -21, -124, 11, -16, 88, 28, -11};
 
-        byte gb[] = new byte[] { 0, -9, -31, -96, -123, -42, -101, 61, -34,
+        byte gb[] = new byte[]{0, -9, -31, -96, -123, -42, -101, 61, -34,
                 -53, -68, -85, 92, 54, -72, 87, -71, 121, -108, -81, -69, -6,
                 58, -22, -126, -7, 87, 76, 11, 61, 7, -126, 103, 81, 89, 87,
                 -114, -70, -44, 89, 79, -26, 113, 7, 16, -127, -128, -76, 73,
@@ -1060,7 +1080,7 @@ class Predefined {
                 30, 43, -77, -90, 117, -111, 110, -93, 127, 11, -6, 33, 53, 98,
                 -15, -5, 98, 122, 1, 36, 59, -52, -92, -15, -66, -88, 81, -112,
                 -119, -88, -125, -33, -31, 90, -27, -97, 6, -110, -117, 102,
-                94, -128, 123, 85, 37, 100, 1, 76, 59, -2, -49, 73, 42 };
+                94, -128, 123, 85, 37, 100, 1, 76, 59, -2, -49, 73, 42};
 
         public BigInteger getX() {
             return new BigInteger(xb);
@@ -1086,19 +1106,19 @@ class Predefined {
         }
     };
 
-    static byte msg[] = new byte[] { -126, -74, -45, -105, 31, 30, 76, -78, 56,
+    static byte msg[] = new byte[]{-126, -74, -45, -105, 31, 30, 76, -78, 56,
             31, -67, -7, 40, 36, -59, -1, -41, -46, -63, -98, -10, -56, 18, 69,
             107, -118, -70, -9, -32, 49, -48, 11, -73, 98, -67, 82, 96, 126,
             24, -40, -15, 20, 81, 103, 119, -114, -9, -85, 56, 20, -98, 89,
             -37, 34, -44, 19, -19, -126, -87, -40, -102, -96, 102, -30, 30,
             115, -68, -108, -44, 88, -65, 35, 85, 123, -1, -82, 110, 67, 99,
             84, -32, 44, 67, 75, -121, 28, -128, 49, -54, 52, 53, 119, -114,
-            -99, -61, -58, -119, -97, 91, 66 };
+            -99, -61, -58, -119, -97, 91, 66};
 
-    static byte sig[] = new byte[] { 48, 44, 2, 20, 33, -6, -66, -52, 17, -91,
+    static byte sig[] = new byte[]{48, 44, 2, 20, 33, -6, -66, -52, 17, -91,
             -90, 83, -128, 73, -114, 49, 118, 82, -65, 123, -19, 94, -26, 106,
             2, 20, 59, 75, -86, -115, 94, -125, 80, -91, -57, 61, -73, -5,
-            -109, -93, 103, -10, -73, -21, 99, 81 };
+            -109, -93, 103, -10, -73, -21, 99, 81};
 
     static byte[] getMessage() {
         return msg;

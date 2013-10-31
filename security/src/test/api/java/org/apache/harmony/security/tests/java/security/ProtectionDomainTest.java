@@ -16,10 +16,11 @@
  */
 
 /**
-* @author Alexander V. Astapchuk
-*/
+ * @author Alexander V. Astapchuk
+ */
 
 package org.apache.harmony.security.tests.java.security;
+
 import java.security.*;
 import java.net.URL;
 import java.net.MalformedURLException;
@@ -30,7 +31,6 @@ import junit.framework.TestCase;
 
 /**
  * Unit tests for java.security.ProtectionDomain.
- *
  */
 
 public class ProtectionDomainTest extends TestCase {
@@ -60,10 +60,10 @@ public class ProtectionDomainTest extends TestCase {
         cs = new CodeSource(url, (java.security.cert.Certificate[]) null);
         perms = allperm.newPermissionCollection();
         perms.add(allperm);
-        classldr = URLClassLoader.newInstance(new URL[] { url });
-        principals = new Principal[] { new TestPrincipal("0"),
+        classldr = URLClassLoader.newInstance(new URL[]{url});
+        principals = new Principal[]{new TestPrincipal("0"),
                 new TestPrincipal("1"), new TestPrincipal("2"),
-                new TestPrincipal("3"), new TestPrincipal("4"), };
+                new TestPrincipal("3"), new TestPrincipal("4"),};
     }
 
     /**

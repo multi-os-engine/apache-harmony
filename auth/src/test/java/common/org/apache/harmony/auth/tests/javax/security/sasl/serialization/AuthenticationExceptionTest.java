@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.auth.tests.javax.security.sasl.serialization;
 
@@ -27,26 +27,25 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for AuthenticationException serialization
- * 
  */
 
 public class AuthenticationExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     @Override
     protected Object[] getData() {
         String msg = null;
         Exception cause = new Exception(msgs[1]);
-        return new Object[] { new AuthenticationException(),
+        return new Object[]{new AuthenticationException(),
                 new AuthenticationException(msg),
                 new AuthenticationException(msgs[1]),
                 new AuthenticationException(msg, null),
                 new AuthenticationException(msgs[0], null),
                 new AuthenticationException(msg, cause),
                 new AuthenticationException(msgs[1], cause)
-                };
+        };
     }
 }

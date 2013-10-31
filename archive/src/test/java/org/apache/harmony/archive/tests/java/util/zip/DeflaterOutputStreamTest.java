@@ -65,7 +65,7 @@ public class DeflaterOutputStreamTest extends TestCase {
     @Override
     protected void setUp() {
         // setting up a deflater to be used
-        byte byteArray[] = { 1, 3, 4, 7, 8 };
+        byte byteArray[] = {1, 3, 4, 7, 8};
         int x = 0;
         Deflater deflate = new Deflater(1);
         deflate.setInput(byteArray);
@@ -81,10 +81,10 @@ public class DeflaterOutputStreamTest extends TestCase {
 
     /**
      * @tests java.util.zip.DeflaterOutputStream#DeflaterOutputStream(java.io.OutputStream,
-     *        java.util.zip.Deflater)
+     *java.util.zip.Deflater)
      */
     public void test_ConstructorLjava_io_OutputStreamLjava_util_zip_Deflater() throws Exception {
-        byte byteArray[] = { 1, 3, 4, 7, 8 };
+        byte byteArray[] = {1, 3, 4, 7, 8};
         File f1 = new File("hyts_ConstruOD.tst");
         FileOutputStream fos = new FileOutputStream(f1);
         Deflater defl = null;
@@ -126,14 +126,14 @@ public class DeflaterOutputStreamTest extends TestCase {
 
     /**
      * @tests java.util.zip.DeflaterOutputStream#DeflaterOutputStream(java.io.OutputStream,
-     *        java.util.zip.Deflater, int)
+     *java.util.zip.Deflater, int)
      */
     public void test_ConstructorLjava_io_OutputStreamLjava_util_zip_DeflaterI()
             throws Exception {
         int buf = 5;
         int negBuf = -5;
         int zeroBuf = 0;
-        byte byteArray[] = { 1, 3, 4, 7, 8, 3, 6 };
+        byte byteArray[] = {1, 3, 4, 7, 8, 3, 6};
         File f1 = new File("hyts_ConstruODI.tst");
         FileOutputStream fos = new FileOutputStream(f1);
         Deflater defl = null;
@@ -240,7 +240,7 @@ public class DeflaterOutputStreamTest extends TestCase {
         File f1 = new File("finish.tst");
         FileOutputStream fos1 = new FileOutputStream(f1);
         DeflaterOutputStream dos = new DeflaterOutputStream(fos1);
-        byte byteArray[] = { 1, 3, 4, 6 };
+        byte byteArray[] = {1, 3, 4, 6};
         dos.write(byteArray);
         dos.finish();
 
@@ -321,7 +321,7 @@ public class DeflaterOutputStreamTest extends TestCase {
      * @tests java.util.zip.DeflaterOutputStream#write(byte[], int, int)
      */
     public void test_write$BII() throws Exception {
-        byte byteArray[] = { 1, 3, 4, 7, 8, 3, 6 };
+        byte byteArray[] = {1, 3, 4, 7, 8, 3, 6};
 
         // Test to see if the correct bytes are saved.
         File f1 = new File("writeBII.tst");

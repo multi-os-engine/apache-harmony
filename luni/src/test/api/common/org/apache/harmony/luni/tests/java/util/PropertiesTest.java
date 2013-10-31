@@ -67,15 +67,15 @@ public class PropertiesTest extends junit.framework.TestCase {
             // Expected
         }
     }
-    
-    public void test_loadsave() throws Exception{
+
+    public void test_loadsave() throws Exception {
         Properties p = new Properties();
         try {
             p.load((InputStream) null);
             fail("should throw NPE");
         } catch (NullPointerException npe) {
-        	// expected
-        }        
+            // expected
+        }
     }
 
     /**
@@ -90,7 +90,7 @@ public class PropertiesTest extends junit.framework.TestCase {
             propertyName = (String) propertyNames.nextElement();
             assertEquals("failed to construct correct properties",
                     systemProperties.get(propertyName), properties
-                            .getProperty(propertyName));
+                    .getProperty(propertyName));
         }
     }
 
@@ -106,7 +106,7 @@ public class PropertiesTest extends junit.framework.TestCase {
 
     /**
      * @tests java.util.Properties#getProperty(java.lang.String,
-     *        java.lang.String)
+     *java.lang.String)
      */
     public void test_getPropertyLjava_lang_StringLjava_lang_String() {
         // Test for method java.lang.String
@@ -128,7 +128,7 @@ public class PropertiesTest extends junit.framework.TestCase {
 
     /**
      * @tests java.util.Properties#getProperty(java.lang.String,
-     *        java.lang.String)
+     *java.lang.String)
      */
     public void test_getPropertyLjava_lang_StringLjava_lang_String2() {
         // regression test for HARMONY-3518
@@ -220,64 +220,64 @@ public class PropertiesTest extends junit.framework.TestCase {
                 .getProperty("commented.entry"));
 
         prop = new Properties();
-		try {
-			prop.load(new ByteArrayInputStream("=".getBytes()));
-		} catch (IOException e) {
-			// expected
-		}
+        try {
+            prop.load(new ByteArrayInputStream("=".getBytes()));
+        } catch (IOException e) {
+            // expected
+        }
         assertTrue("Failed to add empty key", prop.get("").equals(""));
 
         prop = new Properties();
         try {
-			prop.load(new ByteArrayInputStream(" = ".getBytes()));
-		} catch (IOException e) {
-			// expected
-		}
+            prop.load(new ByteArrayInputStream(" = ".getBytes()));
+        } catch (IOException e) {
+            // expected
+        }
         assertTrue("Failed to add empty key2", prop.get("").equals(""));
 
-		prop = new Properties();
-		try {
-			prop.load(new ByteArrayInputStream(" a= b".getBytes()));
-		} catch (IOException e) {
-			// expected
-		}
-		assertEquals("Failed to ignore whitespace", "b", prop.get("a"));
+        prop = new Properties();
+        try {
+            prop.load(new ByteArrayInputStream(" a= b".getBytes()));
+        } catch (IOException e) {
+            // expected
+        }
+        assertEquals("Failed to ignore whitespace", "b", prop.get("a"));
 
-		prop = new Properties();
-		try {
-			prop.load(new ByteArrayInputStream(" a b".getBytes()));
-		} catch (IOException e) {
-			// expected
-		}
-		assertEquals("Failed to interpret whitespace as =", "b", prop.get("a"));
+        prop = new Properties();
+        try {
+            prop.load(new ByteArrayInputStream(" a b".getBytes()));
+        } catch (IOException e) {
+            // expected
+        }
+        assertEquals("Failed to interpret whitespace as =", "b", prop.get("a"));
 
-		prop = new Properties();
-		try {
-			prop.load(new ByteArrayInputStream("#\u008d\u00d2\na=\u008d\u00d3"
-					.getBytes("ISO8859_1")));
-		} catch (IOException e) {
-			// expected
-		}
-		assertEquals("Failed to parse chars >= 0x80", "\u008d\u00d3", prop
-				.get("a"));
+        prop = new Properties();
+        try {
+            prop.load(new ByteArrayInputStream("#\u008d\u00d2\na=\u008d\u00d3"
+                    .getBytes("ISO8859_1")));
+        } catch (IOException e) {
+            // expected
+        }
+        assertEquals("Failed to parse chars >= 0x80", "\u008d\u00d3", prop
+                .get("a"));
 
-		prop = new Properties();
-		try {
-			prop.load(new ByteArrayInputStream(
-					"#properties file\r\nfred=1\r\n#last comment"
-							.getBytes("ISO8859_1")));
-		} catch (IOException e) {
-			// expected
-		} catch (IndexOutOfBoundsException e) {
-			fail("IndexOutOfBoundsException when last line is a comment with no line terminator");
-		}
+        prop = new Properties();
+        try {
+            prop.load(new ByteArrayInputStream(
+                    "#properties file\r\nfred=1\r\n#last comment"
+                            .getBytes("ISO8859_1")));
+        } catch (IOException e) {
+            // expected
+        } catch (IndexOutOfBoundsException e) {
+            fail("IndexOutOfBoundsException when last line is a comment with no line terminator");
+        }
         assertEquals("Failed to load when last line contains a comment", "1",
                 prop.get("fred"));
     }
 
     /**
-	 * @tests java.util.Properties#load(java.io.InputStream)
-	 */
+     * @tests java.util.Properties#load(java.io.InputStream)
+     */
     public void test_loadLjava_io_InputStream_subtest0() {
         try {
             InputStream is = Support_Resources
@@ -407,7 +407,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         prop.load(new ByteArrayInputStream("a=\\q".getBytes()));
         assertEquals("Failed to read slash value #3", expected, prop);
     }
-    
+
     /**
      * @tests java.util.Properties#load(java.io.InputStream)
      */
@@ -417,11 +417,11 @@ public class PropertiesTest extends junit.framework.TestCase {
         prop = new Properties();
         prop.load(new ByteArrayInputStream("=".getBytes()));
         assertTrue("Failed to add empty key", prop.get("").equals(""));
-        
+
         prop = new Properties();
         prop.load(new ByteArrayInputStream("=\r\n".getBytes()));
         assertTrue("Failed to add empty key", prop.get("").equals(""));
-        
+
         prop = new Properties();
         prop.load(new ByteArrayInputStream("=\n\r".getBytes()));
         assertTrue("Failed to add empty key", prop.get("").equals(""));
@@ -563,8 +563,8 @@ public class PropertiesTest extends junit.framework.TestCase {
      * @since 1.6
      */
     public void test_stringPropertyNames_scenario1() {
-        String[] keys = new String[] { "key1", "key2", "key3" };
-        String[] values = new String[] { "value1", "value2", "value3" };
+        String[] keys = new String[]{"key1", "key2", "key3"};
+        String[] values = new String[]{"value1", "value2", "value3"};
         List<String> keyList = Arrays.asList(keys);
 
         Properties properties = new Properties();
@@ -610,11 +610,11 @@ public class PropertiesTest extends junit.framework.TestCase {
      * @since 1.6
      */
     public void test_stringPropertyNames_scenario2() {
-        String[] defaultKeys = new String[] { "defaultKey1", "defaultKey2",
-                "defaultKey3", "defaultKey4", "defaultKey5", "defaultKey6" };
-        String[] defaultValues = new String[] { "defaultValue1",
+        String[] defaultKeys = new String[]{"defaultKey1", "defaultKey2",
+                "defaultKey3", "defaultKey4", "defaultKey5", "defaultKey6"};
+        String[] defaultValues = new String[]{"defaultValue1",
                 "defaultValue2", "defaultValue3", "defaultValue4",
-                "defaultValue5", "defaultValue6" };
+                "defaultValue5", "defaultValue6"};
         List<String> keyList = new ArrayList<String>();
         Properties defaults = new Properties();
         for (int index = 0; index < 3; index++) {
@@ -622,8 +622,8 @@ public class PropertiesTest extends junit.framework.TestCase {
             keyList.add(defaultKeys[index]);
         }
 
-        String[] keys = new String[] { "key1", "key2", "key3" };
-        String[] values = new String[] { "value1", "value2", "value3" };
+        String[] keys = new String[]{"key1", "key2", "key3"};
+        String[] values = new String[]{"value1", "value2", "value3"};
         Properties properties = new Properties(defaults);
         for (int index = 0; index < keys.length; index++) {
             properties.setProperty(keys[index], values[index]);
@@ -703,7 +703,7 @@ public class PropertiesTest extends junit.framework.TestCase {
 
     /**
      * @tests java.util.Properties#setProperty(java.lang.String,
-     *        java.lang.String)
+     *java.lang.String)
      */
     public void test_setPropertyLjava_lang_StringLjava_lang_String() {
         // Test for method java.lang.Object
@@ -848,7 +848,7 @@ public class PropertiesTest extends junit.framework.TestCase {
                 .getProperty("key2"));
         assertEquals("Failed to load correct properties", "value1", prop
                 .getProperty("key1"));
-        
+
         try {
             prop.loadFromXML(null);
             fail("should throw NullPointerException");
@@ -859,7 +859,7 @@ public class PropertiesTest extends junit.framework.TestCase {
 
     /**
      * @tests java.util.Properties#storeToXML(java.io.OutputStream,
-     *        java.lang.String, java.lang.String)
+     *java.lang.String, java.lang.String)
      */
     public void test_storeToXMLLjava_io_OutputStreamLjava_lang_StringLjava_lang_String()
             throws Exception {
@@ -936,7 +936,7 @@ public class PropertiesTest extends junit.framework.TestCase {
             assertTrue("Stored property list not equal to original", myProps2
                     .getProperty(nextKey).equals(myProps.getProperty(nextKey)));
         }
-        
+
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             myProps.storeToXML(out, null, null);
@@ -945,12 +945,12 @@ public class PropertiesTest extends junit.framework.TestCase {
             // expected
         }
     }
- 
+
     /**
      * if loading from single line like "hello" without "\n\r" neither "=", it
      * should be same as loading from "hello="
      */
-    public void testLoadSingleLine() throws Exception{
+    public void testLoadSingleLine() throws Exception {
         Properties props = new Properties();
         InputStream sr = new ByteArrayInputStream("hello".getBytes());
         props.load(sr);
@@ -1072,7 +1072,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\r' + comment2);
-        validateOutput(new String[] { "#comment1", "#comment2" },
+        validateOutput(new String[]{"#comment1", "#comment2"},
                 baos.toByteArray());
         baos.close();
     }
@@ -1081,7 +1081,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\n' + comment2);
-        validateOutput(new String[] { "#comment1", "#comment2" },
+        validateOutput(new String[]{"#comment1", "#comment2"},
                 baos.toByteArray());
         baos.close();
     }
@@ -1090,7 +1090,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\r' + '\n' + comment2);
-        validateOutput(new String[] { "#comment1", "#comment2" },
+        validateOutput(new String[]{"#comment1", "#comment2"},
                 baos.toByteArray());
         baos.close();
     }
@@ -1099,7 +1099,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\n' + '\r' + comment2);
-        validateOutput(new String[] { "#comment1", "#", "#comment2" },
+        validateOutput(new String[]{"#comment1", "#", "#comment2"},
                 baos.toByteArray());
         baos.close();
     }
@@ -1108,7 +1108,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\r' + '#' + comment2);
-        validateOutput(new String[] { "#comment1", "#comment2" },
+        validateOutput(new String[]{"#comment1", "#comment2"},
                 baos.toByteArray());
         baos.close();
     }
@@ -1117,7 +1117,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\r' + '!' + comment2);
-        validateOutput(new String[] { "#comment1", "!comment2" },
+        validateOutput(new String[]{"#comment1", "!comment2"},
                 baos.toByteArray());
         baos.close();
     }
@@ -1126,7 +1126,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\n' + '#' + comment2);
-        validateOutput(new String[] { "#comment1", "#comment2" },
+        validateOutput(new String[]{"#comment1", "#comment2"},
                 baos.toByteArray());
         baos.close();
     }
@@ -1135,7 +1135,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\n' + '!' + comment2);
-        validateOutput(new String[] { "#comment1", "!comment2" },
+        validateOutput(new String[]{"#comment1", "!comment2"},
                 baos.toByteArray());
         baos.close();
     }
@@ -1144,7 +1144,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\r' + '\n' + '#' + comment2);
-        validateOutput(new String[] { "#comment1", "#comment2" },
+        validateOutput(new String[]{"#comment1", "#comment2"},
                 baos.toByteArray());
         baos.close();
     }
@@ -1153,7 +1153,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\n' + '\r' + '#' + comment2);
-        validateOutput(new String[] { "#comment1", "#", "#comment2" },
+        validateOutput(new String[]{"#comment1", "#", "#comment2"},
                 baos.toByteArray());
         baos.close();
     }
@@ -1162,7 +1162,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\r' + '\n' + '!' + comment2);
-        validateOutput(new String[] { "#comment1", "!comment2" },
+        validateOutput(new String[]{"#comment1", "!comment2"},
                 baos.toByteArray());
         baos.close();
     }
@@ -1171,7 +1171,7 @@ public class PropertiesTest extends junit.framework.TestCase {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Properties props = new Properties();
         props.store(baos, comment1 + '\n' + '\r' + '!' + comment2);
-        validateOutput(new String[] { "#comment1", "#", "!comment2" },
+        validateOutput(new String[]{"#comment1", "#", "!comment2"},
                 baos.toByteArray());
         baos.close();
     }

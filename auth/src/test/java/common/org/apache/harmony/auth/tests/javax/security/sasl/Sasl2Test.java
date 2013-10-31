@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.auth.tests.javax.security.sasl;
 
@@ -70,37 +70,37 @@ public class Sasl2Test extends TestCase {
         }
     }
 
-    private static final String[] mech = { "mechanism", "NEW-MECHANISM", "AA",
-            "LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG" };
+    private static final String[] mech = {"mechanism", "NEW-MECHANISM", "AA",
+            "LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG-LONG"};
 
     private static final String CLNTSRV = "SaslClientFactory.";
 
     private static final String SRVSSRV = "SaslServerFactory.";
 
     /**
-     * Test for <code>getSaslClientFactories()</code> method 
-     * 
+     * Test for <code>getSaslClientFactories()</code> method
+     * <p/>
      * Assertion: returns enumeration of factories for producing SaslClient.
-     * 
+     * <p/>
      * Enumeration consists of 4 elements.
-     * 
+     * <p/>
      * 4 different providers define the same mechanism and refer to the same
      * SaslClientFactory class
      */
     public void testGetClient01() throws SaslException {
-        mProv = new Provider[] {
+        mProv = new Provider[]{
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider1",
                         "Testing provider SaslClientFactory - 1", CLNTSRV
-                                .concat(mech[0]), fClientClass01),
+                        .concat(mech[0]), fClientClass01),
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider2",
                         "Testing provider SaslClientFactory - 2", CLNTSRV
-                                .concat(mech[0]), fClientClass01),
+                        .concat(mech[0]), fClientClass01),
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider3",
                         "Testing provider SaslClientFactory - 3", CLNTSRV
-                                .concat(mech[0]), fClientClass01),
+                        .concat(mech[0]), fClientClass01),
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider4",
                         "Testing provider SaslClientFactory - 4", CLNTSRV
-                                .concat(mech[0]), fClientClass01) };
+                        .concat(mech[0]), fClientClass01)};
 
         addProviders();
 
@@ -129,29 +129,29 @@ public class Sasl2Test extends TestCase {
     }
 
     /**
-     * Test for <code>getSaslClientFactories()</code> method 
-     * 
+     * Test for <code>getSaslClientFactories()</code> method
+     * <p/>
      * Assertion: returns enumeration of factories for producing SaslClient.
-     * 
+     * <p/>
      * Enumeration consists of 4 elements.
-     * 
+     * <p/>
      * 4 different providers define different mechanism and refer to the same
      * SaslClientFactory class
      */
     public void testGetClient02() throws SaslException {
-        mProv = new Provider[] {
+        mProv = new Provider[]{
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider1",
                         "Testing provider SaslClientFactory - 1", CLNTSRV
-                                .concat(mech[0]), fClientClass01),
+                        .concat(mech[0]), fClientClass01),
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider2",
                         "Testing provider SaslClientFactory - 2", CLNTSRV
-                                .concat(mech[1]), fClientClass01),
+                        .concat(mech[1]), fClientClass01),
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider3",
                         "Testing provider SaslClientFactory - 3", CLNTSRV
-                                .concat(mech[2]), fClientClass01),
+                        .concat(mech[2]), fClientClass01),
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider4",
                         "Testing provider SaslClientFactory - 4", CLNTSRV
-                                .concat(mech[3]), fClientClass01) };
+                        .concat(mech[3]), fClientClass01)};
         addProviders();
 
         Enumeration<SaslClientFactory> en = Sasl.getSaslClientFactories();
@@ -179,23 +179,23 @@ public class Sasl2Test extends TestCase {
     }
 
     /**
-     * Test for <code>getSaslClientFactories()</code> method 
-     * 
+     * Test for <code>getSaslClientFactories()</code> method
+     * <p/>
      * Assertion: returns enumeration of factories for producing SaslClient.
-     * 
+     * <p/>
      * Enumeration consists of 2 elements.
-     * 
+     * <p/>
      * 2 different providers define the same mechanism and refer to the
      * different SaslClientFactory classes
      */
     public void testGetClient03() throws SaslException {
-        mProv = new Provider[] {
+        mProv = new Provider[]{
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider1",
                         "Testing provider SaslClientFactory - 1", CLNTSRV
-                                .concat(mech[1]), fClientClass01),
+                        .concat(mech[1]), fClientClass01),
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider2",
                         "Testing provider SaslClientFactory - 2", CLNTSRV
-                                .concat(mech[1]), fClientClass01) };
+                        .concat(mech[1]), fClientClass01)};
         addProviders();
         Enumeration<SaslClientFactory> en = Sasl.getSaslClientFactories();
         assertNotNull("List of SaslClientFactories should not be null", en);
@@ -238,20 +238,20 @@ public class Sasl2Test extends TestCase {
     }
 
     /**
-     * Test for <code>getSaslClientFactories()</code> method 
-     * 
+     * Test for <code>getSaslClientFactories()</code> method
+     * <p/>
      * Assertion: returns enumeration of factories for producing SaslClient.
-     * 
+     * <p/>
      * Enumeration consists of 4 elements.
-     * 
+     * <p/>
      * 1 provider defines different mechanism and refer to the same
      * SaslClientFactory classes
      */
     public void testGetClient04() throws SaslException {
-        mProv = new Provider[] { (new SpiEngUtils()).new MyProvider(
+        mProv = new Provider[]{(new SpiEngUtils()).new MyProvider(
                 "MySaslClientProvider1",
                 "Testing provider SaslClientFactory - 1", CLNTSRV
-                        .concat(mech[0]), fClientClass01) };
+                .concat(mech[0]), fClientClass01)};
         mProv[0].put(CLNTSRV.concat(mech[1]), fClientClass01);
         mProv[0].put(CLNTSRV.concat(mech[2]), fClientClass01);
         mProv[0].put(CLNTSRV.concat(mech[3]), fClientClass01);
@@ -282,29 +282,29 @@ public class Sasl2Test extends TestCase {
     }
 
     /**
-     * Test for <code>getSaslServerFactories()</code> method 
-     * 
+     * Test for <code>getSaslServerFactories()</code> method
+     * <p/>
      * Assertion: returns enumeration of factories for producing SaslServer.
-     * 
+     * <p/>
      * Enumeration consists of 8 elements.
-     * 
+     * <p/>
      * 4 different providers define different mechanism and refer to the 2
      * different SaslServerFactory classes
      */
     public void testGetServer01() throws SaslException {
-        mProv = new Provider[] {
+        mProv = new Provider[]{
                 (new SpiEngUtils()).new MyProvider("MySaslServerProvider1",
                         "Testing provider SaslServerFactory - 1", SRVSSRV
-                                .concat(mech[0]), fServerClass02),
+                        .concat(mech[0]), fServerClass02),
                 (new SpiEngUtils()).new MyProvider("MySaslServerProvider2",
                         "Testing provider SaslServerFactory - 2", SRVSSRV
-                                .concat(mech[0]), fServerClass02),
+                        .concat(mech[0]), fServerClass02),
                 (new SpiEngUtils()).new MyProvider("MySaslServerProvider3",
                         "Testing provider SaslServerFactory - 3", SRVSSRV
-                                .concat(mech[0]), fServerClass02),
+                        .concat(mech[0]), fServerClass02),
                 (new SpiEngUtils()).new MyProvider("MySaslServerProvider4",
                         "Testing provider SaslServerFactory - 4", SRVSSRV
-                                .concat(mech[0]), fServerClass02) };
+                        .concat(mech[0]), fServerClass02)};
         for (Provider element : mProv) {
             for (int j = 1; j < mech.length; j++) {
                 element.put(SRVSSRV.concat(mech[j]).concat(mech[j]),
@@ -351,29 +351,29 @@ public class Sasl2Test extends TestCase {
     }
 
     /**
-     * Test for <code>getSaslServerFactories()</code> method 
-     * 
+     * Test for <code>getSaslServerFactories()</code> method
+     * <p/>
      * Assertion: returns enumeration of factories for producing SaslServer.
-     * 
+     * <p/>
      * Enumeration consists of 4 elements.
-     * 
+     * <p/>
      * 4 different providers define different mechanism and refer to the same
      * SaslServerFactory class
      */
     public void testGetServer02() throws SaslException {
-        mProv = new Provider[] {
+        mProv = new Provider[]{
                 (new SpiEngUtils()).new MyProvider("MySaslServerProvider1",
                         "Testing provider SaslServerFactory - 1", SRVSSRV
-                                .concat(mech[0]), fServerClass01),
+                        .concat(mech[0]), fServerClass01),
                 (new SpiEngUtils()).new MyProvider("MySaslServerProvider2",
                         "Testing provider SaslServerFactory - 2", SRVSSRV
-                                .concat(mech[1]), fServerClass01),
+                        .concat(mech[1]), fServerClass01),
                 (new SpiEngUtils()).new MyProvider("MySaslServerProvider3",
                         "Testing provider SaslServerFactory - 3", SRVSSRV
-                                .concat(mech[2]), fServerClass01),
+                        .concat(mech[2]), fServerClass01),
                 (new SpiEngUtils()).new MyProvider("MySaslServerProvider4",
                         "Testing provider SaslServerFactory - 4", SRVSSRV
-                                .concat(mech[3]), fServerClass01) };
+                        .concat(mech[3]), fServerClass01)};
         addProviders();
 
         Enumeration<SaslServerFactory> en = Sasl.getSaslServerFactories();
@@ -401,23 +401,23 @@ public class Sasl2Test extends TestCase {
     }
 
     /**
-     * Test for <code>getSaslServerFactories()</code> method 
-     * 
+     * Test for <code>getSaslServerFactories()</code> method
+     * <p/>
      * Assertion: returns enumeration of factories for producing SaslServer.
-     * 
+     * <p/>
      * Enumeration consists of 2 elements.
-     * 
+     * <p/>
      * 2 different providers define the same mechanism and refer to the
      * different SaslServerFactory classes
      */
     public void testGetServer03() throws SaslException {
-        mProv = new Provider[] {
+        mProv = new Provider[]{
                 (new SpiEngUtils()).new MyProvider("MySaslServerProvider1",
                         "Testing provider SaslServerFactory - 1", SRVSSRV
-                                .concat(mech[1]), fServerClass01),
+                        .concat(mech[1]), fServerClass01),
                 (new SpiEngUtils()).new MyProvider("MySaslServerProvider2",
                         "Testing provider SaslServerFactory - 2", SRVSSRV
-                                .concat(mech[1]), fServerClass01) };
+                        .concat(mech[1]), fServerClass01)};
         addProviders();
         Enumeration<SaslServerFactory> en = Sasl.getSaslServerFactories();
         assertNotNull("List of SaslServerFactories should not be null", en);
@@ -460,20 +460,20 @@ public class Sasl2Test extends TestCase {
     }
 
     /**
-     * Test for <code>getSaslServerFactories()</code> method 
-     * 
+     * Test for <code>getSaslServerFactories()</code> method
+     * <p/>
      * Assertion: returns enumeration of factories for producing SaslServer.
-     * 
+     * <p/>
      * Enumeration consists of 4 elements.
-     * 
+     * <p/>
      * 1 provider defines different mechanism and refer to the same
      * SaslServerFactory classes
      */
     public void testGetServer04() throws SaslException {
-        mProv = new Provider[] { (new SpiEngUtils()).new MyProvider(
+        mProv = new Provider[]{(new SpiEngUtils()).new MyProvider(
                 "MySaslServerProvider1",
                 "Testing provider SaslServerFactory - 1", SRVSSRV
-                        .concat(mech[0]), fServerClass02) };
+                .concat(mech[0]), fServerClass02)};
         mProv[0].put(SRVSSRV.concat(mech[1]), fServerClass02);
         mProv[0].put(SRVSSRV.concat(mech[2]), fServerClass02);
         mProv[0].put(SRVSSRV.concat(mech[3]), fServerClass02);
@@ -511,8 +511,8 @@ public class Sasl2Test extends TestCase {
         }
 
         public String[] getMechanismNames(Map<String, ?> map) {
-            return new String[] { "aaaa", "dddddddddddd",
-                    "llllllllll sssssssss aaaaaaaaaaa c" };
+            return new String[]{"aaaa", "dddddddddddd",
+                    "llllllllll sssssssss aaaaaaaaaaa c"};
         }
 
         public SaslServer createSaslServer(String mech, String prot,
@@ -545,7 +545,7 @@ public class Sasl2Test extends TestCase {
         }
 
         public String[] getMechanismNames(Map<String, ?> map) {
-            return new String[] { "a1", "a2", "a3", "a4", "a5" };
+            return new String[]{"a1", "a2", "a3", "a4", "a5"};
         }
 
         public SaslClient createSaslClient(String[] mech, String prot, String auth,
@@ -560,7 +560,7 @@ public class Sasl2Test extends TestCase {
         }
 
         public String[] getMechanismNames(Map<String, ?> map) {
-            return new String[] { "a11", "a22", "a33", "a44", "a55", "" };
+            return new String[]{"a11", "a22", "a33", "a44", "a55", ""};
         }
 
         public SaslClient createSaslClient(String[] mech, String prot, String auth,

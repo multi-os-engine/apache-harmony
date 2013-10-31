@@ -27,7 +27,7 @@ import junit.framework.TestCase;
 
 /**
  * Automated Test Suite for class java.io.ByteArrayOutputStream
- * 
+ *
  * @see java.io.ByteArrayOutputStream
  */
 public class ByteArrayOutputStreamTest extends TestCase {
@@ -188,7 +188,7 @@ public class ByteArrayOutputStreamTest extends TestCase {
         // Regression for HARMONY-387
         ByteArrayOutputStream obj = new ByteArrayOutputStream();
         try {
-            obj.write(new byte[] { (byte) 0x00 }, -1, 0);
+            obj.write(new byte[]{(byte) 0x00}, -1, 0);
             fail();
         } catch (IndexOutOfBoundsException expected) {
         }

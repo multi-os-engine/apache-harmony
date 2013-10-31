@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.auth.tests.javax.security.sasl.serialization;
 
@@ -29,7 +29,6 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for AuthorizeCallback serialization
- * 
  */
 
 public class AuthorizeCallbackTest extends SerializationTest implements
@@ -37,15 +36,15 @@ public class AuthorizeCallbackTest extends SerializationTest implements
 
     public static String[] msgs = {
             "New String",
-            "Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID." };
+            "Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID. Long stringID."};
 
     @Override
     protected Object[] getData() {
         String msg = null;
-        return new Object[] { new AuthorizeCallback(msg, msg),
+        return new Object[]{new AuthorizeCallback(msg, msg),
                 new AuthorizeCallback("", null),
                 new AuthorizeCallback(null, msgs[0]),
-                new AuthorizeCallback(msgs[1], msgs[1]), };
+                new AuthorizeCallback(msgs[1], msgs[1]),};
     }
 
     public void assertDeserialized(Serializable oref, Serializable otest) {

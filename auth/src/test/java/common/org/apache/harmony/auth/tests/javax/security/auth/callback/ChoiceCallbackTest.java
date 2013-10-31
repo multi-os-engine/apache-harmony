@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Maxim V. Makarov
-*/
+ * @author Maxim V. Makarov
+ */
 
 package org.apache.harmony.auth.tests.javax.security.auth.callback;
 
@@ -37,9 +37,9 @@ public class ChoiceCallbackTest extends TestCase {
 
     int defaultChoice = 1;
 
-    String[] choices = { "AAA", "BBB" };
+    String[] choices = {"AAA", "BBB"};
 
-    int index[] = { 1, 2, 3 };
+    int index[] = {1, 2, 3};
 
     /**
      * Class under test for Ctor
@@ -65,9 +65,9 @@ public class ChoiceCallbackTest extends TestCase {
         cb.setSelectedIndex(1);
         assertEquals(1, cb.getSelectedIndexes()[0]);
     }
-    
+
     public final void testChoiceCallback_03() {
-        
+
         try {
             cb = new ChoiceCallback(prompt, null, defaultChoice, true);
             fail("should be throw IllegalArgumentException");
@@ -117,7 +117,7 @@ public class ChoiceCallbackTest extends TestCase {
             fail("should be throw IllegalArgumentException");
         } catch (IllegalArgumentException e) {
         }
-        
+
         String[] ch1 = {""};
 
         try {
@@ -125,18 +125,19 @@ public class ChoiceCallbackTest extends TestCase {
             fail("should be throw IllegalArgumentException");
         } catch (IllegalArgumentException e) {
         }
-        
+
 
     }
+
     /**
      * test whether implementation is mutable
      */
     public final void testMutable() {
-        String c[] = { "A", "B", "C" };
+        String c[] = {"A", "B", "C"};
         cb = new ChoiceCallback(prompt, c, defaultChoice, false);
         c[0] = "D";
         assertFalse("A".equals(cb.getChoices()[0]));
-        int selection[] = { 1, 2, 3 };
+        int selection[] = {1, 2, 3};
         cb = new ChoiceCallback(prompt, c, defaultChoice, true);
         cb.setSelectedIndexes(selection);
         selection[0] = 4;

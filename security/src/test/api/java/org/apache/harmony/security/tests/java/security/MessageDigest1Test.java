@@ -53,7 +53,7 @@ public class MessageDigest1Test extends TestCase {
      */
     public void test_updateLB$LILI() {
         MyMessageDigest1 md = new MyMessageDigest1("ABC");
-        final byte[] bytes = { 1, 2, 3, 4, 5 };
+        final byte[] bytes = {1, 2, 3, 4, 5};
         md.update(bytes, 1, 2);
         assertTrue(md.runEngineUpdate2);
 
@@ -97,7 +97,7 @@ public class MessageDigest1Test extends TestCase {
      */
     public void test_updateLB$() {
         MyMessageDigest1 md = new MyMessageDigest1("ABC");
-        byte[] b = { 1, 2, 3, 4, 5 };
+        byte[] b = {1, 2, 3, 4, 5};
         md.update(b);
         assertTrue(md.runEngineUpdate2);
     }
@@ -107,7 +107,7 @@ public class MessageDigest1Test extends TestCase {
      */
     public void test_updateLjava_nio_ByteBuffer() {
         MyMessageDigest1 md = new MyMessageDigest1("ABC");
-        byte[] b = { 1, 2, 3, 4, 5 };
+        byte[] b = {1, 2, 3, 4, 5};
         ByteBuffer byteBuffer = ByteBuffer.wrap(b);
 
         int limit = byteBuffer.limit();
@@ -131,7 +131,7 @@ public class MessageDigest1Test extends TestCase {
      */
     public void test_digestLB$() {
         MyMessageDigest1 md = new MyMessageDigest1("ABC");
-        byte[] b = { 1, 2, 3, 4, 5 };
+        byte[] b = {1, 2, 3, 4, 5};
         assertEquals("incorrect result", 0, md.digest(b).length);
         assertTrue(md.runEngineDigest);
     }
@@ -141,13 +141,13 @@ public class MessageDigest1Test extends TestCase {
      */
     public void test_digestLB$LILI() throws Exception {
         MyMessageDigest1 md = new MyMessageDigest1("ABC");
-        byte[] b = { 1, 2, 3, 4, 5 };
+        byte[] b = {1, 2, 3, 4, 5};
         assertEquals("incorrect result", 0, md.digest(b, 2, 3));
         assertTrue("digest failed", md.runEngineDigest);
 
         // Regression for Harmony-1148
         md = new MyMessageDigest1();
-        final byte[] bytes = new byte[] { 2, 4, 1 };
+        final byte[] bytes = new byte[]{2, 4, 1};
         try {
             // buf == null
             md.digest(null, 0, 1);
@@ -183,13 +183,13 @@ public class MessageDigest1Test extends TestCase {
     }
 
     /**
-     * @tests java.security.MessageDigest#isEqual(byte[],byte[])
+     * @tests java.security.MessageDigest#isEqual(byte[], byte[])
      */
     public void test_isEqualLB$LB$() {
-        byte[] b1 = { 1, 2, 3, 4 };
-        byte[] b2 = { 1, 2, 3, 4, 5 };
-        byte[] b3 = { 1, 3, 3, 4 };
-        byte[] b4 = { 1, 2, 3, 4 };
+        byte[] b1 = {1, 2, 3, 4};
+        byte[] b2 = {1, 2, 3, 4, 5};
+        byte[] b3 = {1, 3, 3, 4};
+        byte[] b4 = {1, 2, 3, 4};
 
         assertTrue(MessageDigest.isEqual(b1, b4));
         assertFalse(MessageDigest.isEqual(b1, b2));
@@ -225,7 +225,7 @@ public class MessageDigest1Test extends TestCase {
      */
     public void testSHAProvider() throws Exception {
         MessageDigest md = MessageDigest.getInstance("SHA");
-        byte[] bytes = new byte[] { 1, 1, 1, 1, 1 };
+        byte[] bytes = new byte[]{1, 1, 1, 1, 1};
 
         // Regression for HARMONY-1120
         // testing combination with provider

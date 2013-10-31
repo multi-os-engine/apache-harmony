@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexander Y. Kleymenov
-*/
+ * @author Alexander Y. Kleymenov
+ */
 
 package org.apache.harmony.crypto.tests.javax.crypto.spec;
 
@@ -40,22 +40,22 @@ public class DHPrivateKeySpecTest extends TestCase {
      */
     public void testDHPrivateKeySpec() {
         BigInteger[] xs = {new BigInteger("-1000000000000"), BigInteger.ZERO,
-                            BigInteger.ONE, new BigInteger("1000000000000")};
+                BigInteger.ONE, new BigInteger("1000000000000")};
         BigInteger[] ps = {new BigInteger("-1000000000000"), BigInteger.ZERO,
-                            BigInteger.ONE, new BigInteger("1000000000000")};
+                BigInteger.ONE, new BigInteger("1000000000000")};
         BigInteger[] gs = {new BigInteger("-1000000000000"), BigInteger.ZERO,
-                            BigInteger.ONE, new BigInteger("1000000000000")};
-        for (int i=0; i<ps.length; i++) {
+                BigInteger.ONE, new BigInteger("1000000000000")};
+        for (int i = 0; i < ps.length; i++) {
             DHPrivateKeySpec dhpks = new DHPrivateKeySpec(xs[i], ps[i], gs[i]);
             assertEquals("The value returned by getX() must be "
-                        + "equal to the value specified in the constructor",
-                        dhpks.getX(), xs[i]);
+                    + "equal to the value specified in the constructor",
+                    dhpks.getX(), xs[i]);
             assertEquals("The value returned by getP() must be "
-                        + "equal to the value specified in the constructor",
-                        dhpks.getP(), ps[i]);
+                    + "equal to the value specified in the constructor",
+                    dhpks.getP(), ps[i]);
             assertEquals("The value returned by getG() must be "
-                        + "equal to the value specified in the constructor",
-                        dhpks.getG(), gs[i]);
+                    + "equal to the value specified in the constructor",
+                    dhpks.getG(), gs[i]);
         }
     }
 

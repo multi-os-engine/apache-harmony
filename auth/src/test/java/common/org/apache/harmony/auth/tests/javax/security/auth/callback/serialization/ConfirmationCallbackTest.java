@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Maxim V. Makarov
-*/
+ * @author Maxim V. Makarov
+ */
 
 package org.apache.harmony.auth.tests.javax.security.auth.callback.serialization;
 
@@ -36,9 +36,9 @@ public class ConfirmationCallbackTest extends SerializationTest implements
 
     @Override
     protected Object[] getData() {
-        return new Object[] { new ConfirmationCallback("prompt",
+        return new Object[]{new ConfirmationCallback("prompt",
                 ConfirmationCallback.INFORMATION,
-                ConfirmationCallback.YES_NO_OPTION, 1) };
+                ConfirmationCallback.YES_NO_OPTION, 1)};
     }
 
     public void assertDeserialized(Serializable golden, Serializable test) {

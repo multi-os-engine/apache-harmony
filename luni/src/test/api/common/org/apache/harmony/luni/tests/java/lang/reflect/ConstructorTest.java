@@ -109,7 +109,7 @@ public class ConstructorTest extends junit.framework.TestCase {
             fail("Exception during test : " + e.getMessage());
         }
         try {
-            Class[] cl = { int.class };
+            Class[] cl = {int.class};
             Constructor ctor = new ConstructorTestHelper().getClass()
                     .getDeclaredConstructor(cl);
             mod = ctor.getModifiers();
@@ -120,7 +120,7 @@ public class ConstructorTest extends junit.framework.TestCase {
             fail("Exception during test : " + e.getMessage());
         }
         try {
-            Class[] cl = { long.class };
+            Class[] cl = {long.class};
             Constructor ctor = new ConstructorTestHelper().getClass()
                     .getDeclaredConstructor(cl);
             mod = ctor.getModifiers();
@@ -177,22 +177,22 @@ public class ConstructorTest extends junit.framework.TestCase {
 
         assertEquals("improper instance created", 99, test.check());
     }
-    
+
     /**
      * @tests java.lang.reflect.Constructor#newInstance(java.lang.Object[])
      */
     public void test_newInstance_IAE() throws Exception {
         Constructor constructor = Vector.class
-                .getConstructor(new Class[] { Integer.TYPE });
+                .getConstructor(new Class[]{Integer.TYPE});
 
         try {
-            constructor.newInstance(new Object[] { null });
+            constructor.newInstance(new Object[]{null});
             fail("should throw IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             // Expected
         }
     }
-    
+
     public void test_newInstance_InvocationTargetException() throws Exception {
         Constructor constructor = MockObject.class.getConstructor(Class.class);
 
@@ -223,7 +223,7 @@ public class ConstructorTest extends junit.framework.TestCase {
         } catch (InvocationTargetException e) {
             // Expected
         }
-        
+
         try {
             constructor.newInstance(Throwable.class);
             fail("should throw InvocationTargetException");

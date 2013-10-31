@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 
 /**
  * JUnit Testcase for the java.sql.Date class
- * 
  */
 public class DateTest extends TestCase {
 
@@ -66,23 +65,23 @@ public class DateTest extends TestCase {
 
     static String SQL_NEGATIVE = "1969-12-31";
 
-    static long[] TIME_ARRAY = new long[] { TIME_TESTDATE1, TIME_TESTDATE2,
-            TIME_TESTDATE3, TIME_NEGATIVE, TIME_EPOCH };
+    static long[] TIME_ARRAY = new long[]{TIME_TESTDATE1, TIME_TESTDATE2,
+            TIME_TESTDATE3, TIME_NEGATIVE, TIME_EPOCH};
 
     // Date string array for London (GMT)
-    static String[] SQL_DATEARRAY = new String[] { SQL_DATESTRING1,
-            SQL_DATESTRING2, SQL_DATESTRING3, SQL_NEGATIVE, SQL_EPOCHSTRING };
+    static String[] SQL_DATEARRAY = new String[]{SQL_DATESTRING1,
+            SQL_DATESTRING2, SQL_DATESTRING3, SQL_NEGATIVE, SQL_EPOCHSTRING};
 
     // Date string array for New York - sometimes a day earlier than London
-    static String[] SQL_NYARRAY = new String[] { "1999-12-31", "2010-06-10",
-            "1931-04-20", "1969-12-31", "1969-12-31" };
+    static String[] SQL_NYARRAY = new String[]{"1999-12-31", "2010-06-10",
+            "1931-04-20", "1969-12-31", "1969-12-31"};
 
     // Date string for Tokyo
-    static String[] SQL_JAPANARRAY = new String[] { "2000-01-01", "2010-06-11",
-            "1931-04-21", "1970-01-01", "1970-01-01" };
+    static String[] SQL_JAPANARRAY = new String[]{"2000-01-01", "2010-06-11",
+            "1931-04-21", "1970-01-01", "1970-01-01"};
 
-    static String[][] SQL_TZ_DATEARRAYS = new String[][] { SQL_DATEARRAY,
-            SQL_NYARRAY, SQL_JAPANARRAY };
+    static String[][] SQL_TZ_DATEARRAYS = new String[][]{SQL_DATEARRAY,
+            SQL_NYARRAY, SQL_JAPANARRAY};
 
     // Timezones
     static String TZ_LONDON = "Europe/London"; // Note: != GMT
@@ -91,7 +90,7 @@ public class DateTest extends TestCase {
 
     static String TZ_JAPAN = "Asia/Tokyo"; // GMT + 9
 
-    static String[] TIMEZONES = { TZ_LONDON, TZ_PACIFIC, TZ_JAPAN };
+    static String[] TIMEZONES = {TZ_LONDON, TZ_PACIFIC, TZ_JAPAN};
 
     /*
      * Helper method to create a long milliseconds time from a supplied date and
@@ -110,9 +109,9 @@ public class DateTest extends TestCase {
     @SuppressWarnings("deprecation")
     public void testDateintintint() {
 
-        int init1[] = { 99, 8099, 9000, 99999, 99, 99, -1, -100 };
-        int init2[] = { 11, 0, 0, 0, 999, 0, 0, -111 };
-        int init3[] = { 31, 0, 0, 0, 0, 999, 0, -999 };
+        int init1[] = {99, 8099, 9000, 99999, 99, 99, -1, -100};
+        int init2[] = {11, 0, 0, 0, 999, 0, 0, -111};
+        int init3[] = {31, 0, 0, 0, 0, 999, 0, -999};
 
         for (int i = 0; i < init1.length; i++) {
             Date theDate = new Date(init1[i], init2[i], init3[i]);
@@ -126,9 +125,9 @@ public class DateTest extends TestCase {
      */
     public void testDatelong() {
 
-        long init1[] = { TIME_TESTDATE1, TIME_TESTDATE2, TIME_TESTDATE3,
+        long init1[] = {TIME_TESTDATE1, TIME_TESTDATE2, TIME_TESTDATE3,
                 TIME_NEGATIVE, TIME_LOWERLIMIT, TIME_UPPERLIMIT, TIME_EPOCH,
-                TIME_NOW };
+                TIME_NOW};
 
         for (long element : init1) {
             Date theDate = new Date(element);
@@ -234,12 +233,12 @@ public class DateTest extends TestCase {
      * toString() method.
      */
     public void testToString() {
-		// Loop through the timezones testing the String conversion for each
-		for (int i = 0; i < TIMEZONES.length; i++) {
-			testToString(TIMEZONES[i], TIME_ARRAY, SQL_TZ_DATEARRAYS[i]);
-		} // end for
+        // Loop through the timezones testing the String conversion for each
+        for (int i = 0; i < TIMEZONES.length; i++) {
+            testToString(TIMEZONES[i], TIME_ARRAY, SQL_TZ_DATEARRAYS[i]);
+        } // end for
 
-	} // end method testToString()
+    } // end method testToString()
 
     private void testToString(String timeZone, long[] theDates, String[] theDateStrings) {
         // Set the timezone
@@ -296,8 +295,8 @@ public class DateTest extends TestCase {
         String SQL_NOTVALID1 = "ABCDEF"; // Invalid date string
         String SQL_NOTVALID2 = "12321.43.56"; // Invalid date string
         String SQL_NOTVALID3 = null; // Invalid date string
-        String[] SQL_INVALIDARRAY = { SQL_NOTVALID1, SQL_NOTVALID2,
-                SQL_NOTVALID3 };
+        String[] SQL_INVALIDARRAY = {SQL_NOTVALID1, SQL_NOTVALID2,
+                SQL_NOTVALID3};
 
         Date theDate;
 
@@ -318,7 +317,7 @@ public class DateTest extends TestCase {
     } // end method testValueOf()
 
     /**
-     * @tests java.sql.Date#valueOf(String )
+     * @tests java.sql.Date#valueOf(String)
      */
     public void test_valueOf_IllegalArgumentException() {
         try {
@@ -384,12 +383,12 @@ public class DateTest extends TestCase {
             // expected
         }
     }
-    
+
     // Reset defualt timezone
     static TimeZone defaultTimeZone = TimeZone.getDefault();
-    
-    protected void tearDown(){
-    	TimeZone.setDefault(defaultTimeZone);
+
+    protected void tearDown() {
+        TimeZone.setDefault(defaultTimeZone);
     }
 
 } // end class DateTest

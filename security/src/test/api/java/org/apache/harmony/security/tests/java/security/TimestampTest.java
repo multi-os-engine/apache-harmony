@@ -16,10 +16,11 @@
  */
 
 /**
-* @author Alexander V. Astapchuk
-*/
+ * @author Alexander V. Astapchuk
+ */
 
 package org.apache.harmony.security.tests.java.security;
+
 import java.security.*;
 import java.security.cert.CertPath;
 import java.util.Date;
@@ -31,14 +32,13 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>Timestamp</code> class fields and methods
- *
  */
 
 public class TimestampTest extends TestCase {
 
     private Date now = new Date();
 
-    private static final byte[] encoding = { 1, 2, 3 };
+    private static final byte[] encoding = {1, 2, 3};
 
     private CertPath cpath = new MyCertPath(encoding);
 
@@ -80,7 +80,7 @@ public class TimestampTest extends TestCase {
     }
 
     public void testGetTimestamp() {
-    	Timestamp t = new Timestamp(now, cpath);
+        Timestamp t = new Timestamp(now, cpath);
         assertEquals(now, t.getTimestamp());
         assertNotSame(now, t.getTimestamp());
     }

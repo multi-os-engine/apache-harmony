@@ -34,7 +34,7 @@ public class URLClassLoaderImplTest extends TestCase {
 
     /**
      * @tests java.net.URLClassLoader#URLClassLoader(java.net.URL[], java.lang.ClassLoader,
-     *        java.net.URLStreamHandlerFactory)
+     *java.net.URLStreamHandlerFactory)
      */
     public void test_Constructor$Ljava_net_URLLjava_lang_ClassLoaderLjava_net_URLStreamHandlerFactory()
             throws Exception {
@@ -51,7 +51,7 @@ public class URLClassLoaderImplTest extends TestCase {
 
         final URL base = getClass().getResource("lf.jar");
 
-        final URL[] urls = { base };
+        final URL[] urls = {base};
         final URLClassLoader ucl = new URLClassLoader(urls, null, new TestFactory());
 
         final URL res = ucl.findResource("swt.dll");

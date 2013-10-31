@@ -44,7 +44,7 @@ public class BufferedOutputStreamTest extends junit.framework.TestCase {
 
     /**
      * @tests java.io.BufferedOutputStream#BufferedOutputStream(java.io.OutputStream,
-     *        int)
+     *int)
      */
     public void test_ConstructorLjava_io_OutputStreamI() throws IOException {
         baos = new java.io.ByteArrayOutputStream();
@@ -745,7 +745,7 @@ public class BufferedOutputStreamTest extends junit.framework.TestCase {
             assertEquals(buffer[i], byteArrayis.read());
         }
 
-        byte[] buffer2 = new byte[] { 'a', 'b', 'c', 'd' };
+        byte[] buffer2 = new byte[]{'a', 'b', 'c', 'd'};
         buffos.write(buffer2, 0, 4);
         byteArrayis = new ByteArrayInputStream(byteArrayos.toByteArray());
         assertEquals("Bytes written, not buffered", 10, byteArrayis.available());
@@ -760,7 +760,7 @@ public class BufferedOutputStreamTest extends junit.framework.TestCase {
             assertEquals(buffer2[i], byteArrayis.read());
         }
 
-        byte[] buffer3 = new byte[] { 'e', 'f', 'g', 'h', 'i' };
+        byte[] buffer3 = new byte[]{'e', 'f', 'g', 'h', 'i'};
         buffos.write(buffer3, 0, 5);
         byteArrayis = new ByteArrayInputStream(byteArrayos.toByteArray());
         assertEquals("Bytes written, not buffered", 14, byteArrayis.available());
@@ -778,7 +778,7 @@ public class BufferedOutputStreamTest extends junit.framework.TestCase {
             assertEquals(buffer3[i], byteArrayis.read());
         }
 
-        buffos.write(new byte[] { 'j', 'k' });
+        buffos.write(new byte[]{'j', 'k'});
         byteArrayis = new ByteArrayInputStream(byteArrayos.toByteArray());
         assertEquals("Bytes written, not buffered", 19, byteArrayis.available());
         buffos.flush();

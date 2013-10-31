@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vladimir N. Molotkov
-*/
+ * @author Vladimir N. Molotkov
+ */
 
 package org.apache.harmony.security.tests.asn1.der;
 
@@ -39,9 +39,9 @@ import org.apache.harmony.security.asn1.DerOutputStream;
  */
 public class BooleanTest extends TestCase {
 
-    private static byte[] eFalse = new byte[] { 0x01, 0x01, 0x00 };
+    private static byte[] eFalse = new byte[]{0x01, 0x01, 0x00};
 
-    private static byte[] eTrue = new byte[] { 0x01, 0x01, (byte) 0xFF };
+    private static byte[] eTrue = new byte[]{0x01, 0x01, (byte) 0xFF};
 
     public void test_Decode_Encode() throws IOException {
 
@@ -67,13 +67,13 @@ public class BooleanTest extends TestCase {
 
     public void testDecode_Invalid() throws IOException {
 
-        byte[][] invalid = new byte[][] {
-        // wrong tag: tag is not 0x01
-                new byte[] { 0x02, 0x01, 0x00 },
+        byte[][] invalid = new byte[][]{
+                // wrong tag: tag is not 0x01
+                new byte[]{0x02, 0x01, 0x00},
                 // wrong length: length is not 1
-                new byte[] { 0x01, 0x02, 0x00 },
+                new byte[]{0x01, 0x02, 0x00},
                 // wrong content: content is not 0x01 or 0xFF
-                new byte[] { 0x01, 0x01, 0x33 } };
+                new byte[]{0x01, 0x01, 0x33}};
 
         for (int i = 0; i < invalid.length; i++) {
             try {

@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexey V. Varlamov
-*/
+ * @author Alexey V. Varlamov
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -38,9 +38,9 @@ public class GuardedObjectTest extends SerializationTest implements
      * @see com.intel.drl.test.SerializationTest#getData()
      */
     protected Object[] getData() {
-        return new Object[] { new GuardedObject(null, null),
+        return new Object[]{new GuardedObject(null, null),
                 new GuardedObject("dsgdfg", null),
-                new GuardedObject(new Integer(76547), new MyGuard(true)), };
+                new GuardedObject(new Integer(76547), new MyGuard(true)),};
     }
 
     public void assertDeserialized(Serializable golden, Serializable test) {
@@ -53,7 +53,7 @@ public class GuardedObjectTest extends SerializationTest implements
         try {
             copySerializable(new GuardedObject(null, new MyGuard(false)));
             fail("Should not serialize if guard denies access");
+        } catch (SecurityException ok) {
         }
-        catch (SecurityException ok) {}
     }
 }

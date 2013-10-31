@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.javax.security.cert;
 
@@ -28,7 +28,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>DigestException</code> class constructors and methods.
- * 
  */
 public class CertificateParsingExceptionTest extends TestCase {
 
@@ -37,7 +36,7 @@ public class CertificateParsingExceptionTest extends TestCase {
 
     /**
      * Constructor for CertificateParsingExceptionTests.
-     * 
+     *
      * @param arg0
      */
     public CertificateParsingExceptionTest(String arg0) {
@@ -47,7 +46,7 @@ public class CertificateParsingExceptionTest extends TestCase {
     static String[] msgs = {
             "",
             "Check new message",
-            "Check new message Check new message Check new message Check new message Check new message" };
+            "Check new message Check new message Check new message Check new message Check new message"};
 
     static Throwable tCause = new Throwable("Throwable for exception");
 

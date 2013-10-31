@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.spec;
 
@@ -28,7 +28,6 @@ import junit.framework.TestCase;
 /**
  * Tests for <code>InvalidKeySpecException</code> class constructors and
  * methods.
- * 
  */
 public class InvalidKeySpecExceptionTest extends TestCase {
 
@@ -37,7 +36,7 @@ public class InvalidKeySpecExceptionTest extends TestCase {
 
     /**
      * Constructor for InvalidKeySpecExceptionTests.
-     * 
+     *
      * @param arg0
      */
     public InvalidKeySpecExceptionTest(String arg0) {
@@ -47,7 +46,7 @@ public class InvalidKeySpecExceptionTest extends TestCase {
     private static String[] msgs = {
             "",
             "Check new message",
-            "Check new message Check new message Check new message Check new message Check new message" };
+            "Check new message Check new message Check new message Check new message Check new message"};
 
     private static Throwable tCause = new Throwable("Throwable for exception");
 

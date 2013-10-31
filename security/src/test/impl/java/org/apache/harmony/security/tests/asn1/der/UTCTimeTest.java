@@ -48,32 +48,32 @@ public class UTCTimeTest extends TestCase {
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.US);
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-        validUTCTimes = new Object[][] {
+        validUTCTimes = new Object[][]{
                 // YYMMDD-HHMMSS = "500708091011Z"
                 {
                         "8 Jul 1950 09:10:11",
-                        new byte[] { 0x17, 0x0D, 0x35, 0x30, 0x30, 0x37, 0x30,
-                                0x38, 0x30, 0x39, 0x31, 0x30, 0x31, 0x31, 0x5A },
-                        null },
+                        new byte[]{0x17, 0x0D, 0x35, 0x30, 0x30, 0x37, 0x30,
+                                0x38, 0x30, 0x39, 0x31, 0x30, 0x31, 0x31, 0x5A},
+                        null},
                 //YYMMDD-HHMMSS = "991213141516Z"
                 {
                         "13 Dec 1999 14:15:16",
-                        new byte[] { 0x17, 0x0D, 0x39, 0x39, 0x31, 0x32, 0x31,
-                                0x33, 0x31, 0x34, 0x31, 0x35, 0x31, 0x36, 0x5A },
-                        null },
+                        new byte[]{0x17, 0x0D, 0x39, 0x39, 0x31, 0x32, 0x31,
+                                0x33, 0x31, 0x34, 0x31, 0x35, 0x31, 0x36, 0x5A},
+                        null},
                 // YYMMDD-HHMMSS = "000101000000Z"
                 {
                         "01 Jan 2000 00:00:00",
-                        new byte[] { 0x17, 0x0D, 0x30, 0x30, 0x30, 0x31, 0x30,
-                                0x31, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x5A },
-                        null },
+                        new byte[]{0x17, 0x0D, 0x30, 0x30, 0x30, 0x31, 0x30,
+                                0x31, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x5A},
+                        null},
                 // YYMMDD-HHMMSS = "490203040506Z"
                 {
                         "3 Feb 2049 04:05:06",
-                        new byte[] { 0x17, 0x0D, 0x34, 0x39, 0x30, 0x32, 0x30,
-                                0x33, 0x30, 0x34, 0x30, 0x35, 0x30, 0x36, 0x5A },
-                        null },
-                        };
+                        new byte[]{0x17, 0x0D, 0x34, 0x39, 0x30, 0x32, 0x30,
+                                0x33, 0x30, 0x34, 0x30, 0x35, 0x30, 0x36, 0x5A},
+                        null},
+        };
 
         try {
             // fill values for Date objects by parsing date string
@@ -89,8 +89,8 @@ public class UTCTimeTest extends TestCase {
     /**
      * Verifies decoding/encoding ASN.1 UTCTime.
      * It must interpret the year field (YY) as follows:
-     *  - if YY is greater than or equal to 50 then interpreted as 19YY
-     *  - and if YY is less than 50 then interpreted as 20YY.
+     * - if YY is greater than or equal to 50 then interpreted as 19YY
+     * - and if YY is less than 50 then interpreted as 20YY.
      */
     public void testDecodeEncode() throws Exception {
 

@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.xnet.tests.javax.net.ssl.serialization;
 
@@ -28,22 +28,21 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for SSLException serialization
- * 
  */
 
 public class SSLExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     @Override
     protected Object[] getData() {
         String msg = null;
         Exception cause = new Exception(msgs[1]);
         SSLException excSSL = new SSLException(msgs[0]);
-        return new Object[] { new SSLException(msg), new SSLException(msgs[1]),
+        return new Object[]{new SSLException(msg), new SSLException(msgs[1]),
                 new SSLException(excSSL), new SSLException(cause),
-                new SSLException(msgs[1], cause) };
+                new SSLException(msgs[1], cause)};
     }
 }

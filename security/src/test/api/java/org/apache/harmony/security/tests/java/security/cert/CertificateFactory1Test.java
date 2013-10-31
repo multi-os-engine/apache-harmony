@@ -15,8 +15,8 @@
  *  limitations under the License.
  */
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.cert;
 
@@ -49,7 +49,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>CertificateFactory</code> class methods and constructor
- *
  */
 
 public class CertificateFactory1Test extends TestCase {
@@ -74,7 +73,7 @@ public class CertificateFactory1Test extends TestCase {
     public static String defaultType = "X.509";
 
     public static final String[] validValues = {
-            "X.509", "x.509" };
+            "X.509", "x.509"};
 
     private final static String[] invalidValues = SpiEngUtils.invalidValues;
 
@@ -85,7 +84,8 @@ public class CertificateFactory1Test extends TestCase {
                 srvCertificateFactory);
         X509Support = (defaultProvider != null);
         defaultProviderName = (X509Support ? defaultProvider.getName() : null);
-        NotSupportMsg = defaultType.concat(" is not supported");    }
+        NotSupportMsg = defaultType.concat(" is not supported");
+    }
 
     private static CertificateFactory[] initCertFs() {
         if (!X509Support) {
@@ -106,7 +106,7 @@ public class CertificateFactory1Test extends TestCase {
     }
 
     private static MyCertificate createMC() {
-        byte[] enc = { (byte) 0, (byte) 2, (byte) 3, (byte) 4, (byte) 5 };
+        byte[] enc = {(byte) 0, (byte) 2, (byte) 3, (byte) 4, (byte) 5};
         return new MyCertificate("Test_Test", enc);
     }
 
@@ -359,7 +359,7 @@ public class CertificateFactory1Test extends TestCase {
         }
         CertificateFactory[] certFs = initCertFs();
         assertNotNull("CertificateFactory objects were not created", certFs);
-        byte [] bb = {};
+        byte[] bb = {};
         InputStream is = new ByteArrayInputStream(bb);
         Collection colCer;
         Collection colCrl;
@@ -407,7 +407,7 @@ public class CertificateFactory1Test extends TestCase {
             }
             is = new ByteArrayInputStream(bb);
             try {
-                 certFs[i].generateCRL(is);
+                certFs[i].generateCRL(is);
             } catch (CRLException e) {
             }
             is = new ByteArrayInputStream(bb);
@@ -549,7 +549,7 @@ public class CertificateFactory1Test extends TestCase {
         }
         CertificateFactory[] certFs = initCertFs();
         assertNotNull("CertificateFactory objects were not created", certFs);
-        byte[] enc = { (byte) 0, (byte) 2, (byte) 3, (byte) 4, (byte) 5 };
+        byte[] enc = {(byte) 0, (byte) 2, (byte) 3, (byte) 4, (byte) 5};
         MyCertPath mc = new MyCertPath(enc);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
 
@@ -679,6 +679,7 @@ public class CertificateFactory1Test extends TestCase {
     }
 
 }
+
 /**
  * Additional class to verify CertificateFactory constructor
  */

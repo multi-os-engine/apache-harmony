@@ -25,14 +25,13 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>ServerHello</code> constructor and methods
- *  
  */
 public class ServerHelloTest extends TestCase {
 
     public void testServerHello() throws Exception {
-        byte[] session_id = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+        byte[] session_id = new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
         CipherSuite cipher_suite = CipherSuite.TLS_DH_DSS_WITH_DES_CBC_SHA;
-        byte[] server_version = new byte[] { 3, 1 };
+        byte[] server_version = new byte[]{3, 1};
         ServerHello message = new ServerHello(new SecureRandom(),
                 server_version, session_id, cipher_suite, (byte) 0);
         assertEquals("incorrect type", Handshake.SERVER_HELLO, message
@@ -72,7 +71,7 @@ public class ServerHelloTest extends TestCase {
         }
 
         in.append(encoded);
-        in.append(new byte[] { 1, 2, 3 });
+        in.append(new byte[]{1, 2, 3});
         try {
             new ServerHello(in, message.length() + 3);
             fail("Extra bytes: No expected AlertException ");

@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Stepan M. Mishura
-*/
+ * @author Stepan M. Mishura
+ */
 
 package org.apache.harmony.security.tests.asn1.der;
 
@@ -62,8 +62,8 @@ public class ChoiceTest extends TestCase {
     // }
     //
 
-    private static ASN1Choice choice = new ASN1Choice(new ASN1Type[] {
-            ASN1Boolean.getInstance(), sequence, ASN1Integer.getInstance() }) {
+    private static ASN1Choice choice = new ASN1Choice(new ASN1Type[]{
+            ASN1Boolean.getInstance(), sequence, ASN1Integer.getInstance()}) {
 
         public int getIndex(Object object) {
             if (object instanceof Boolean) {
@@ -88,15 +88,15 @@ public class ChoiceTest extends TestCase {
             // format: object to encode / byte array
 
             // choice = Boolean (false)
-            { Boolean.FALSE, new byte[] { 0x01, 0x01, 0x00 } },
+            {Boolean.FALSE, new byte[]{0x01, 0x01, 0x00}},
 
             // choice = Boolean (true)
-            { Boolean.TRUE, new byte[] { 0x01, 0x01, (byte) 0xFF } },
+            {Boolean.TRUE, new byte[]{0x01, 0x01, (byte) 0xFF}},
 
             // choice = SequenceOf (empty)
-            { new ArrayList(), new byte[] { 0x30, 0x00 } },
+            {new ArrayList(), new byte[]{0x30, 0x00}},
 
-    //TODO add testcase for another ASN.1 type`
+            //TODO add testcase for another ASN.1 type`
 
     };
 
@@ -121,8 +121,8 @@ public class ChoiceTest extends TestCase {
 
     public void testChoiceInSequenceOf() throws IOException {
 
-        ASN1Choice choice = new ASN1Choice(new ASN1Type[] {
-                ASN1Boolean.getInstance(), ASN1Integer.getInstance() }) {
+        ASN1Choice choice = new ASN1Choice(new ASN1Type[]{
+                ASN1Boolean.getInstance(), ASN1Integer.getInstance()}) {
 
             public int getIndex(Object object) {
                 if (object instanceof Boolean) {
@@ -141,15 +141,15 @@ public class ChoiceTest extends TestCase {
 
         ArrayList list = new ArrayList();
         list.add(Boolean.FALSE);
-        list.add(new byte[] { 0x09 });
+        list.add(new byte[]{0x09});
 
-        byte[] encoded = new byte[] {
-        // Sequence Of
+        byte[] encoded = new byte[]{
+                // Sequence Of
                 0x30, 0x06,
                 // Boolean
                 0x01, 0x01, 0x00,
                 // Integer
-                0x02, 0x01, 0x09 };
+                0x02, 0x01, 0x09};
 
         assertTrue("Encoded: ", Arrays.equals(encoded, sequenceOf.encode(list)));
 
@@ -157,7 +157,7 @@ public class ChoiceTest extends TestCase {
 
         assertEquals("Size: ", 2, values.size());
         assertEquals("First: ", Boolean.FALSE, values.get(0));
-        assertTrue("Second: ", Arrays.equals(new byte[] { 0x09 },
+        assertTrue("Second: ", Arrays.equals(new byte[]{0x09},
                 (byte[]) values.get(1)));
     }
 
@@ -169,8 +169,8 @@ public class ChoiceTest extends TestCase {
 
     public void test_ExplicitChoice() throws IOException {
 
-        ASN1Choice choice = new ASN1Choice(new ASN1Type[] { ASN1Boolean
-                .getInstance() }) {
+        ASN1Choice choice = new ASN1Choice(new ASN1Type[]{ASN1Boolean
+                .getInstance()}) {
 
             public Object getObjectToEncode(Object obj) {
                 return obj;
@@ -183,7 +183,7 @@ public class ChoiceTest extends TestCase {
 
         ASN1Explicit explicit = new ASN1Explicit(0, choice);
 
-        byte[] encoded = new byte[] { (byte) 0xA0, 0x03, 0x01, 0x01, 0x00 };
+        byte[] encoded = new byte[]{(byte) 0xA0, 0x03, 0x01, 0x01, 0x00};
 
         assertEquals("False: ", Boolean.FALSE, explicit.decode(encoded));
 
@@ -197,11 +197,11 @@ public class ChoiceTest extends TestCase {
      */
     public void testChoiceOfChoice() throws Exception {
 
-        ASN1Choice choice1 = new ASN1Choice(new ASN1Type[] {
+        ASN1Choice choice1 = new ASN1Choice(new ASN1Type[]{
                 ASN1Oid.getInstance(), // first
                 ASN1Boolean.getInstance(),// second: decoded component
                 ASN1Integer.getInstance() // third
-                }) {
+        }) {
 
             public Object getDecodedObject(BerInputStream in)
                     throws IOException {
@@ -220,9 +220,9 @@ public class ChoiceTest extends TestCase {
             }
         };
 
-        ASN1Choice choice2 = new ASN1Choice(new ASN1Type[] { choice1, // first: decoded component
+        ASN1Choice choice2 = new ASN1Choice(new ASN1Type[]{choice1, // first: decoded component
                 ASN1BitString.getInstance() // second
-                }) {
+        }) {
 
             public Object getDecodedObject(BerInputStream in)
                     throws IOException {
@@ -241,7 +241,7 @@ public class ChoiceTest extends TestCase {
             }
         };
 
-        Boolean b = (Boolean) choice2.decode(new byte[] { 0x01, 0x01, 0x00 });
+        Boolean b = (Boolean) choice2.decode(new byte[]{0x01, 0x01, 0x00});
 
         assertTrue(b == Boolean.FALSE);
     }
@@ -251,9 +251,9 @@ public class ChoiceTest extends TestCase {
      */
     public void testDistinctTags() throws Exception {
 
-        ASN1Choice choice1 = new ASN1Choice(new ASN1Type[] {
+        ASN1Choice choice1 = new ASN1Choice(new ASN1Type[]{
                 ASN1Boolean.getInstance(),// component to be checked
-                ASN1Oid.getInstance(), ASN1Integer.getInstance() }) {
+                ASN1Oid.getInstance(), ASN1Integer.getInstance()}) {
 
             public Object getObjectToEncode(Object obj) {
                 return obj;
@@ -266,9 +266,9 @@ public class ChoiceTest extends TestCase {
 
         // two ASN.1 booleans
         try {
-            new ASN1Choice(new ASN1Type[] { choice1, //
+            new ASN1Choice(new ASN1Type[]{choice1, //
                     ASN1Boolean.getInstance() // component to be checked
-                    }) {
+            }) {
 
                 public Object getObjectToEncode(Object obj) {
                     return obj;
@@ -284,9 +284,9 @@ public class ChoiceTest extends TestCase {
 
         // ASN.1 ANY
         try {
-            new ASN1Choice(new ASN1Type[] { choice1,//
+            new ASN1Choice(new ASN1Type[]{choice1,//
                     ASN1Any.getInstance() // component to be checked
-                    }) {
+            }) {
 
                 public Object getObjectToEncode(Object obj) {
                     return obj;
@@ -301,10 +301,10 @@ public class ChoiceTest extends TestCase {
         }
 
         // two choices
-        ASN1Choice choice2 = new ASN1Choice(new ASN1Type[] {
+        ASN1Choice choice2 = new ASN1Choice(new ASN1Type[]{
                 ASN1BitString.getInstance(), //
                 ASN1Boolean.getInstance() //component to be checked
-                }) {
+        }) {
 
             public Object getObjectToEncode(Object obj) {
                 return obj;
@@ -316,7 +316,7 @@ public class ChoiceTest extends TestCase {
         };
 
         try {
-            new ASN1Choice(new ASN1Type[] { choice1, choice2 }) {
+            new ASN1Choice(new ASN1Type[]{choice1, choice2}) {
 
                 public Object getObjectToEncode(Object obj) {
                     return obj;

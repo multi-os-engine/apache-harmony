@@ -33,7 +33,7 @@ import org.apache.harmony.testframework.serialization.SerializationTest.Serializ
 public class KerberosTicketTest extends TestCase {
 
     // ticket's ASN.1 encoding  
-    private static final byte[] ticket = { 0x01, 0x02, 0x03, 0x04 };
+    private static final byte[] ticket = {0x01, 0x02, 0x03, 0x04};
 
     // client's principal 
     private static final KerberosPrincipal pClient = new KerberosPrincipal(
@@ -44,12 +44,12 @@ public class KerberosTicketTest extends TestCase {
             "server@apache.org");
 
     // session key
-    private static final byte[] sessionKey = { 0x01, 0x04, 0x03, 0x02 };
+    private static final byte[] sessionKey = {0x01, 0x04, 0x03, 0x02};
 
     private static final int KEY_TYPE = 1;
 
-    private static final boolean[] flags = { true, false, true, false, true,
-            false, true, false, true, false, true, false, };
+    private static final boolean[] flags = {true, false, true, false, true,
+            false, true, false, true, false, true, false,};
 
     private static final Date authTime = new Date(0);
 

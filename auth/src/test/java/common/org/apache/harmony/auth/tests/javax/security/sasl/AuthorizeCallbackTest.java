@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.auth.tests.javax.security.sasl;
 
@@ -27,7 +27,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for constructor and methods of AuthorizeCallback class
- * 
  */
 
 public class AuthorizeCallbackTest extends TestCase {
@@ -65,15 +64,15 @@ public class AuthorizeCallbackTest extends TestCase {
         String[] authenticationIDs = {
                 "",
                 "authenticationIDs",
-                "Long String LongString Long String LongString Long String LongString Long String LongString Long String LongString Long String LongString" };
+                "Long String LongString Long String LongString Long String LongString Long String LongString Long String LongString Long String LongString"};
         String[] authorizedIDs = {
                 "",
                 "authorizedIDs",
-                "Long String LongString Long String LongString Long String LongString Long String LongString Long String LongString Long String LongString" };
+                "Long String LongString Long String LongString Long String LongString Long String LongString Long String LongString Long String LongString"};
         String[] newAuthorizedIDs = {
                 "new authorizedIDs",
                 "another authorizedIDs",
-                "some long string for authorized IDs some long string for authorized IDs some long string for authorized IDs" };
+                "some long string for authorized IDs some long string for authorized IDs some long string for authorized IDs"};
         AuthorizeCallback auth;
         for (int i = 0; i < authenticationIDs.length; i++) {
             for (int j = 0; j < authorizedIDs.length; j++) {

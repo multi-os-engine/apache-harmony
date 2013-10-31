@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Stepan M. Mishura
-*/
+ * @author Stepan M. Mishura
+ */
 
 package org.apache.harmony.security.tests.asn1.der;
 
@@ -69,8 +69,8 @@ public class SequenceTest extends TestCase {
         defaultList = new ArrayList();
         defaultList.add(Boolean.FALSE);
 
-        sequence = new ASN1Sequence(new ASN1Type[] { ASN1Boolean.getInstance(),
-                sequenceOf }) {
+        sequence = new ASN1Sequence(new ASN1Type[]{ASN1Boolean.getInstance(),
+                sequenceOf}) {
             {
                 setDefault(Boolean.TRUE, 0);
                 setDefault(defaultList, 1);
@@ -94,26 +94,26 @@ public class SequenceTest extends TestCase {
         // Test Cases
         //
 
-        testcases = new Object[][] {
+        testcases = new Object[][]{
                 // format: object to encode / byte array
 
                 // sequence : all values are default
-                { new AppClass(Boolean.TRUE, defaultList),
-                        new byte[] { 0x30, 0x00 } },
+                {new AppClass(Boolean.TRUE, defaultList),
+                        new byte[]{0x30, 0x00}},
 
                 // sequence : true, default
-                { new AppClass(Boolean.FALSE, defaultList),
-                        new byte[] { 0x30, 0x03, 0x01, 0x01, 0x00 } },
+                {new AppClass(Boolean.FALSE, defaultList),
+                        new byte[]{0x30, 0x03, 0x01, 0x01, 0x00}},
 
                 // sequence = default, empty sequence
-                { new AppClass(Boolean.TRUE, new ArrayList()),
-                        new byte[] { 0x30, 0x02, 0x30, 0x00 } },
+                {new AppClass(Boolean.TRUE, new ArrayList()),
+                        new byte[]{0x30, 0x02, 0x30, 0x00}},
 
                 // sequence = false, empty sequence
-                { new AppClass(Boolean.FALSE, new ArrayList()),
-                        new byte[] { 0x30, 0x05, 0x01, 0x01, 0x00, 0x30, 0x00 } },
+                {new AppClass(Boolean.FALSE, new ArrayList()),
+                        new byte[]{0x30, 0x05, 0x01, 0x01, 0x00, 0x30, 0x00}},
 
-        //TODO add testcase for another ASN.1 type`
+                //TODO add testcase for another ASN.1 type`
 
         };
     }
@@ -168,8 +168,8 @@ public class SequenceTest extends TestCase {
 
     public void testVerify() throws IOException {
 
-        ASN1Sequence seqVerify = new ASN1Sequence(new ASN1Type[] {
-                ASN1Boolean.getInstance(), sequenceOf }) {
+        ASN1Sequence seqVerify = new ASN1Sequence(new ASN1Type[]{
+                ASN1Boolean.getInstance(), sequenceOf}) {
             {
                 setDefault(Boolean.TRUE, 0);
                 setDefault(defaultList, 1);
@@ -197,8 +197,8 @@ public class SequenceTest extends TestCase {
         //
         // Boolean as default
         //
-        ASN1Sequence s = new ASN1Sequence(new ASN1Type[] { ASN1Boolean
-                .getInstance() }) {
+        ASN1Sequence s = new ASN1Sequence(new ASN1Type[]{ASN1Boolean
+                .getInstance()}) {
             {
                 setDefault(Boolean.TRUE, 0);
             }
@@ -208,17 +208,17 @@ public class SequenceTest extends TestCase {
             }
         };
 
-        byte[] expectedArray = new byte[] { 0x30, 0x00 };
+        byte[] expectedArray = new byte[]{0x30, 0x00};
 
-        byte[] encoded = s.encode(new Object[] { Boolean.TRUE });
+        byte[] encoded = s.encode(new Object[]{Boolean.TRUE});
         assertTrue("Encoded boolean:", Arrays.equals(expectedArray, encoded));
 
         //
         // Integer as default
         //
-        s = new ASN1Sequence(new ASN1Type[] { ASN1Integer.getInstance() }) {
+        s = new ASN1Sequence(new ASN1Type[]{ASN1Integer.getInstance()}) {
             {
-                setDefault(new byte[] { 0x01 }, 0);
+                setDefault(new byte[]{0x01}, 0);
             }
 
             protected void getValues(Object object, Object[] values) {
@@ -226,7 +226,7 @@ public class SequenceTest extends TestCase {
             }
         };
 
-        encoded = s.encode(new Object[] { new byte[] { 0x01 } });
+        encoded = s.encode(new Object[]{new byte[]{0x01}});
         assertTrue("Encoded integer:", Arrays.equals(expectedArray, encoded));
     }
 
@@ -238,8 +238,8 @@ public class SequenceTest extends TestCase {
         //
         // Test not optional
         //
-        ASN1Sequence s = new ASN1Sequence(new ASN1Type[] { ASN1Boolean
-                .getInstance() }) {
+        ASN1Sequence s = new ASN1Sequence(new ASN1Type[]{ASN1Boolean
+                .getInstance()}) {
 
             protected void getValues(Object object, Object[] values) {
                 values[0] = ((Object[]) object)[0];
@@ -247,7 +247,7 @@ public class SequenceTest extends TestCase {
         };
 
         try {
-            s.encode(new Object[] { null });
+            s.encode(new Object[]{null});
             fail("No expected RuntimeException");
         } catch (RuntimeException e) {
         }
@@ -255,7 +255,7 @@ public class SequenceTest extends TestCase {
         //
         // Test optional
         //
-        s = new ASN1Sequence(new ASN1Type[] { ASN1Boolean.getInstance() }) {
+        s = new ASN1Sequence(new ASN1Type[]{ASN1Boolean.getInstance()}) {
             {
                 setOptional(0);
             }
@@ -265,9 +265,9 @@ public class SequenceTest extends TestCase {
             }
         };
 
-        byte[] expectedArray = new byte[] { 0x30, 0x00 };
+        byte[] expectedArray = new byte[]{0x30, 0x00};
 
-        byte[] encoded = s.encode(new Object[] { null });
+        byte[] encoded = s.encode(new Object[]{null});
         assertTrue("Encoded boolean:", Arrays.equals(expectedArray, encoded));
     }
 }

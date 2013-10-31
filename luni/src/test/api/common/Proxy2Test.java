@@ -27,7 +27,7 @@ import junit.framework.TestCase;
 public class Proxy2Test extends TestCase {
     public void test_getProxyClass_DefaultPackage() {
         Class pc = Proxy.getProxyClass(DefaultPkgIntf.class.getClassLoader(),
-                new Class[] { DefaultPkgIntf.class });
+                new Class[]{DefaultPkgIntf.class});
         assertEquals("$Proxy0", pc.getName());
     }
 }

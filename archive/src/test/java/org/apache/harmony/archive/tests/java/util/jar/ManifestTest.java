@@ -44,9 +44,9 @@ public class ManifestTest extends TestCase {
     private final String MANIFEST_NAME = "manifest/hyts_MANIFEST.MF";
 
     private static final String MANIFEST_CONTENTS = "Manifest-Version: 1.0\nBundle-Name: ClientSupport\nBundle-Description: Provides SessionService, AuthenticationService. Extends RegistryService.\nBundle-Activator: com.ibm.ive.eccomm.client.support.ClientSupportActivator\nImport-Package: com.ibm.ive.eccomm.client.services.log,\n com.ibm.ive.eccomm.client.services.registry,\n com.ibm.ive.eccomm.service.registry; specification-version=1.0.0,\n com.ibm.ive.eccomm.service.session; specification-version=1.0.0,\n com.ibm.ive.eccomm.service.framework; specification-version=1.2.0,\n org.osgi.framework; specification-version=1.0.0,\n org.osgi.service.log; specification-version=1.0.0,\n com.ibm.ive.eccomm.flash; specification-version=1.2.0,\n com.ibm.ive.eccomm.client.xml,\n com.ibm.ive.eccomm.client.http.common,\n com.ibm.ive.eccomm.client.http.client\nImport-Service: org.osgi.service.log.LogReaderService\n org.osgi.service.log.LogService,\n com.ibm.ive.eccomm.service.registry.RegistryService\nExport-Package: com.ibm.ive.eccomm.client.services.authentication; specification-version=1.0.0,\n com.ibm.ive.eccomm.service.authentication; specification-version=1.0.0,\n com.ibm.ive.eccomm.common; specification-version=1.0.0,\n com.ibm.ive.eccomm.client.services.registry.store; specification-version=1.0.0\nExport-Service: com.ibm.ive.eccomm.service.authentication.AuthenticationService,\n com.ibm.ive.eccomm.service.session.SessionService\nBundle-Vendor: IBM\nBundle-Version: 1.2.0\n";
-    
+
     private static final String MANIFEST_CONTENTS_1 = "Manifest-Version: 2.0\nBundle-Name: ClientSupport\nBundle-Description: Provides SessionService, AuthenticationService. Extends RegistryService.\nBundle-Activator: com.ibm.ive.eccomm.client.support.ClientSupportActivator\nImport-Package: com.ibm.ive.eccomm.client.services.log,\n com.ibm.ive.eccomm.client.services.registry,\n com.ibm.ive.eccomm.service.registry; specification-version=2.0.0,\n com.ibm.ive.eccomm.service.session; specification-version=2.0.0,\n com.ibm.ive.eccomm.service.framework; specification-version=2.1.0,\n org.osgi.framework; specification-version=2.0.0,\n org.osgi.service.log; specification-version=2.0.0,\n com.ibm.ive.eccomm.flash; specification-version=2.2.0,\n com.ibm.ive.eccomm.client.xml,\n com.ibm.ive.eccomm.client.http.common,\n com.ibm.ive.eccomm.client.http.client\nImport-Service: org.osgi.service.log.LogReaderService\n org.osgi.service.log.LogService,\n com.ibm.ive.eccomm.service.registry.RegistryService\nExport-Package: com.ibm.ive.eccomm.client.services.authentication; specification-version=1.0.0,\n com.ibm.ive.eccomm.service.authentication; specification-version=1.0.0,\n com.ibm.ive.eccomm.common; specification-version=1.0.0,\n com.ibm.ive.eccomm.client.services.registry.store; specification-version=1.0.0\nExport-Service: com.ibm.ive.eccomm.service.authentication.AuthenticationService,\n com.ibm.ive.eccomm.service.session.SessionService\nBundle-Vendor: IBM\nBundle-Version: 1.2.0\n";
-    
+
     private static final String MANIFEST_CONTENTS_2 = "Manifest-Version: 1.0\nName: value\n \n"; // Note penultimate line is single space
 
     private File resources;
@@ -155,10 +155,10 @@ public class ManifestTest extends TestCase {
         Attributes namedEntryAttributes = (Attributes) (entries.get(""));
         assertEquals("Should be 6 named entry attributes", 6,
                 namedEntryAttributes.size());
-        
+
         // Regression test for HARMONY-6669
         new Manifest(new ByteArrayInputStream(
-            MANIFEST_CONTENTS_2.getBytes("ISO-8859-1")));
+                MANIFEST_CONTENTS_2.getBytes("ISO-8859-1")));
     }
 
     /**
@@ -194,8 +194,8 @@ public class ManifestTest extends TestCase {
         Manifest thirdManifest = new Manifest(new ByteArrayInputStream(
                 MANIFEST_CONTENTS_1.getBytes("ISO-8859-1")));
         assertNotSame(firstManifest, thirdManifest);
-        
-        firstManifest=null;
+
+        firstManifest = null;
         assertFalse(secondManifest.equals(firstManifest));
         assertFalse(secondManifest.equals(new String("abc"))); //non Manifest Object
     }
@@ -259,7 +259,7 @@ public class ManifestTest extends TestCase {
 
     /**
      * Ensures compatibility with manifests produced by gcc.
-     * 
+     *
      * @see <a
      *      href="http://issues.apache.org/jira/browse/HARMONY-5662">HARMONY-5662</a>
      */
@@ -269,7 +269,7 @@ public class ManifestTest extends TestCase {
 
         byte[] bytes = manifestContent.getBytes("ISO-8859-1");
         new Manifest(new ByteArrayInputStream(bytes)); // the last NUL is ok
-        
+
         bytes[bytes.length - 1] = 26;
         new Manifest(new ByteArrayInputStream(bytes)); // the last EOF is ok
 
@@ -287,7 +287,7 @@ public class ManifestTest extends TestCase {
 
     public void testDecoding() throws IOException {
         Manifest m = getManifest(ATT_JAR_NAME);
-        final byte[] bVendor = new byte[] { (byte) 0xd0, (byte) 0x9C,
+        final byte[] bVendor = new byte[]{(byte) 0xd0, (byte) 0x9C,
                 (byte) 0xd0, (byte) 0xb8, (byte) 0xd0, (byte) 0xbb,
                 (byte) 0xd0, (byte) 0xb0, (byte) 0xd1, (byte) 0x8f, ' ',
                 (byte) 0xd0, (byte) 0xb4, (byte) 0xd0, (byte) 0xbe,
@@ -295,9 +295,9 @@ public class ManifestTest extends TestCase {
                 (byte) 0xd0, (byte) 0xbd, (byte) 0xd1, (byte) 0x8C,
                 (byte) 0xd0, (byte) 0xba, (byte) 0xd0, (byte) 0xb0, ' ',
                 (byte) 0xd0, (byte) 0x9C, (byte) 0xd0, (byte) 0xb0,
-                (byte) 0xd1, (byte) 0x88, (byte) 0xd0, (byte) 0xb0 };
+                (byte) 0xd1, (byte) 0x88, (byte) 0xd0, (byte) 0xb0};
 
-        final byte[] bSpec = new byte[] { (byte) 0xe1, (byte) 0x88,
+        final byte[] bSpec = new byte[]{(byte) 0xe1, (byte) 0x88,
                 (byte) 0xb0, (byte) 0xe1, (byte) 0x88, (byte) 0x8b,
                 (byte) 0xe1, (byte) 0x88, (byte) 0x9d, ' ', (byte) 0xe1,
                 (byte) 0x9a, (byte) 0xa0, (byte) 0xe1, (byte) 0x9a,
@@ -393,7 +393,7 @@ public class ManifestTest extends TestCase {
                 (byte) 0x83, (byte) 0x98, (byte) 0xe1, (byte) 0x83,
                 (byte) 0x93, (byte) 0xe1, (byte) 0x83, (byte) 0x9d,
                 (byte) 0xe1, (byte) 0x83, (byte) 0x91, (byte) 0xe1,
-                (byte) 0x83, (byte) 0x90 };
+                (byte) 0x83, (byte) 0x90};
         // TODO Cannot make the following word work, encoder changes needed
         // (byte) 0xed, (byte) 0xa0, (byte) 0x80,
         // (byte) 0xed, (byte) 0xbc, (byte) 0xb2, (byte) 0xed,

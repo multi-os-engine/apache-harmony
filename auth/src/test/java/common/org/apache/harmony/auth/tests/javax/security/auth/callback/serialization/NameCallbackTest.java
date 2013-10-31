@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Maxim V. Makarov
-*/
+ * @author Maxim V. Makarov
+ */
 
 package org.apache.harmony.auth.tests.javax.security.auth.callback.serialization;
 
@@ -38,7 +38,7 @@ public class NameCallbackTest extends SerializationTest implements
     protected Object[] getData() {
         NameCallback nc = new NameCallback("prmpt", "defName");
         nc.setName("Name");
-        return new Object[] { new NameCallback("prompt", "defaultName"), nc };
+        return new Object[]{new NameCallback("prompt", "defaultName"), nc};
     }
 
     public void assertDeserialized(Serializable golden, Serializable test) {

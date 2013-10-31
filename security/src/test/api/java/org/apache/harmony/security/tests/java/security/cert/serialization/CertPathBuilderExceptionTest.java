@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.cert.serialization;
 
@@ -28,23 +28,22 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for CertPathBuilderException serialization
- *
  */
 
 public class CertPathBuilderExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
         Exception cause = new Exception(msgs[1]);
         CertPathBuilderException dExc = new CertPathBuilderException(msgs[0], cause);
         String msg = null;
         Throwable th = null;
-        return new Object[] { new CertPathBuilderException(), new CertPathBuilderException(msg),
+        return new Object[]{new CertPathBuilderException(), new CertPathBuilderException(msg),
                 new CertPathBuilderException(msgs[1]),
                 new CertPathBuilderException(new Throwable()), new CertPathBuilderException(th),
-                new CertPathBuilderException(msgs[1], dExc) };
+                new CertPathBuilderException(msgs[1], dExc)};
     }
 }

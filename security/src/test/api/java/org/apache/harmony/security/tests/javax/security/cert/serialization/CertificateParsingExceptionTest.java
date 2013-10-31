@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.javax.security.cert.serialization;
 
@@ -28,20 +28,19 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for CertificateParsingException serialization
- *
  */
 
 public class CertificateParsingExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
-        return new Object[] { new CertificateParsingException(),
+        return new Object[]{new CertificateParsingException(),
                 new CertificateParsingException(null),
                 new CertificateParsingException(msgs[1]),
-                new CertificateParsingException(msgs[1]) };
+                new CertificateParsingException(msgs[1])};
     }
 
 }

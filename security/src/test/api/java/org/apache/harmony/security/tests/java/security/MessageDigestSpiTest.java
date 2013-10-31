@@ -66,7 +66,7 @@ public class MessageDigestSpiTest extends TestCase {
 
         assertEquals("incorrect result", DIGEST_LENGTH, md
                 .engineDigest(b, 1, 3));
-        
+
         // Regression for HARMONY-3045
         md = new MyMessageDigest();
         try {
@@ -90,7 +90,7 @@ public class MessageDigestSpiTest extends TestCase {
      */
     public void test_engineUpdateLjava_nio_ByteBuffer() {
         MyMessageDigest md = new MyMessageDigest();
-        byte[] b = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        byte[] b = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
         ByteBuffer buf = ByteBuffer.wrap(b, 0, b.length);
         buf.get(b);

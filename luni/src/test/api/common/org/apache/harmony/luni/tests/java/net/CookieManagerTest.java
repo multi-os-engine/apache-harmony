@@ -59,7 +59,7 @@ public class CookieManagerTest extends TestCase {
     /**
      * @tests {@link java.net.CookieManager#get(java.net.URI, java.util.Map)} &
      * @tests {@link java.net.CookieManager#put(java.net.URI, java.util.Map)}
-     *        IllegalArgumentException
+     * IllegalArgumentException
      * @since 1.6
      */
     public void test_Put_Get_LURI_LMap_exception() throws IOException,
@@ -106,40 +106,39 @@ public class CookieManagerTest extends TestCase {
     /**
      * @tests {@link java.net.CookieManager#get(java.net.URI, java.util.Map)} &
      * @tests {@link java.net.CookieManager#put(java.net.URI, java.util.Map)}
-     * 
      * @since 1.6
      */
     public void test_Put_Get_LURI_LMap() throws IOException, URISyntaxException {
         // cookie-key | (content, URI)...
         String[][] cookies = {
-                { "Set-cookie", 
-                    "Set-cookie:PREF=test;path=/;domain=.b.c;", "http://a.b.c/", 
-                    "Set-cookie:PREF1=test2;path=/;domain=.beg.com;", "http://a.b.c/"},
+                {"Set-cookie",
+                        "Set-cookie:PREF=test;path=/;domain=.b.c;", "http://a.b.c/",
+                        "Set-cookie:PREF1=test2;path=/;domain=.beg.com;", "http://a.b.c/"},
 
-                { "Set-cookie2", 
-                    "Set-cookie2:NAME1=VALUE1;path=/te;domain=.b.c;", "http://a.b.c/test"},
+                {"Set-cookie2",
+                        "Set-cookie2:NAME1=VALUE1;path=/te;domain=.b.c;", "http://a.b.c/test"},
 
-                { "Set-cookie", 
-                    "Set-cookie2:NAME=VALUE;path=/;domain=.beg.com;", "http://a.beg.com/test",  
-                    "Set-cookie2:NAME1=VALUE1;path=/;domain=.beg.com;",    "http://a.beg.com/test"},
+                {"Set-cookie",
+                        "Set-cookie2:NAME=VALUE;path=/;domain=.beg.com;", "http://a.beg.com/test",
+                        "Set-cookie2:NAME1=VALUE1;path=/;domain=.beg.com;", "http://a.beg.com/test"},
 
-                { "Set-cookie2", 
-                    "Set-cookie3:NAME=VALUE;path=/;domain=.test.org;", "http://a.test.org/test"},
+                {"Set-cookie2",
+                        "Set-cookie3:NAME=VALUE;path=/;domain=.test.org;", "http://a.test.org/test"},
 
-                { null, 
-                    "Set-cookie3:NAME=VALUE;path=/te;domain=.test.org;", "http://a.test.org/test"},
-                
-                { "Set-cookie2",
-                    "lala", "http://a.test.org/test"}
+                {null,
+                        "Set-cookie3:NAME=VALUE;path=/te;domain=.test.org;", "http://a.test.org/test"},
+
+                {"Set-cookie2",
+                        "lala", "http://a.test.org/test"}
 
         };
 
         // requires path of cookie is the prefix of uri
         // domain of cookie must match that of uri
-        Map<String, List<String>> responseHeaders = addCookie(new String[][] {
-                cookies[0], cookies[1] });
+        Map<String, List<String>> responseHeaders = addCookie(new String[][]{
+                cookies[0], cookies[1]});
         CookieManager manager = store(
-                new String[][] { cookies[0], cookies[1] }, responseHeaders,
+                new String[][]{cookies[0], cookies[1]}, responseHeaders,
                 null);
 
         HashMap<String, List<String>> dummyMap = new HashMap<String, List<String>>();
@@ -157,16 +156,16 @@ public class CookieManagerTest extends TestCase {
 
         // If all cookies are of version 1, then $version=1 will be added
         // ,no matter the value cookie-key
-        responseHeaders = addCookie(new String[][] { cookies[2] });
-        manager = store(new String[][] { cookies[2] }, responseHeaders, null);
+        responseHeaders = addCookie(new String[][]{cookies[2]});
+        manager = store(new String[][]{cookies[2]}, responseHeaders, null);
         map = manager.get(new URI("http://a.beg.com/test"), dummyMap);
         list = map.get("Cookie");
         assertEquals("$Version=\"1\"", list.get(0));
         assertEquals(3, list.size());
 
         // cookie-key will not have effect on determining cookie version
-        responseHeaders = addCookie(new String[][] { cookies[3] });
-        manager = store(new String[][] { cookies[3] }, responseHeaders, null);
+        responseHeaders = addCookie(new String[][]{cookies[3]});
+        manager = store(new String[][]{cookies[3]}, responseHeaders, null);
         map = manager.get(new URI("http://a.test.org/"), responseHeaders);
         list = map.get("Cookie");
         assertEquals(1, list.size());
@@ -174,23 +173,23 @@ public class CookieManagerTest extends TestCase {
 
         // When key is null, no cookie can be stored/retrieved, even if policy =
         // ACCEPT_ALL
-        responseHeaders = addCookie(new String[][] { cookies[4] });
-        manager = store(new String[][] { cookies[4] }, responseHeaders,
+        responseHeaders = addCookie(new String[][]{cookies[4]});
+        manager = store(new String[][]{cookies[4]}, responseHeaders,
                 CookiePolicy.ACCEPT_ALL);
         map = manager.get(new URI("http://a.test.org/"), responseHeaders);
         list = map.get("Cookie");
         assertEquals(0, list.size());
 
         // All cookies will be rejected if policy == ACCEPT_NONE
-        responseHeaders = addCookie(new String[][] { cookies[3] });
-        manager = store(new String[][] { cookies[3] }, responseHeaders,
+        responseHeaders = addCookie(new String[][]{cookies[3]});
+        manager = store(new String[][]{cookies[3]}, responseHeaders,
                 CookiePolicy.ACCEPT_NONE);
         map = manager.get(new URI("http://a.test.org/"), responseHeaders);
         list = map.get("Cookie");
         assertEquals(0, list.size());
-        
-        responseHeaders = addCookie(new String[][] { cookies[5] });
-        manager = store(new String[][] { cookies[5] }, responseHeaders,
+
+        responseHeaders = addCookie(new String[][]{cookies[5]});
+        manager = store(new String[][]{cookies[5]}, responseHeaders,
                 CookiePolicy.ACCEPT_ALL);
         list = map.get("Cookie");
         assertEquals(0, list.size());
@@ -206,7 +205,6 @@ public class CookieManagerTest extends TestCase {
 
     /**
      * @tests {@link java.net.CookieManager#CookieManager()}
-     * 
      * @since 1.6
      */
     public void test_CookieManager() {
@@ -217,7 +215,6 @@ public class CookieManagerTest extends TestCase {
 
     /**
      * @tests {@link java.net.CookieManager#CookieManager(java.net.CookieStore, java.net.CookiePolicy)}
-     * 
      * @since 1.6
      */
     public void testCookieManager_LCookieStore_LCookiePolicy() {
@@ -260,7 +257,6 @@ public class CookieManagerTest extends TestCase {
 
     /**
      * @tests {@link java.net.CookieManager#setCookiePolicy(java.net.CookiePolicy)}
-     * 
      * @since 1.6
      */
     public void test_SetCookiePolicy_LCookiePolicy() throws URISyntaxException,
@@ -269,7 +265,7 @@ public class CookieManagerTest extends TestCase {
         // Policy = ACCEPT_NONE
         CookieManager manager = new CookieManager();
         manager.setCookiePolicy(CookiePolicy.ACCEPT_NONE);
-        Map<String, List<String>> responseHeaders = new TreeMap<String, List<String>>();        
+        Map<String, List<String>> responseHeaders = new TreeMap<String, List<String>>();
         URI uri = new URI("http://a.b.c");
         manager.put(uri, responseHeaders);
         Map<String, List<String>> map = manager.get(uri,
@@ -283,18 +279,17 @@ public class CookieManagerTest extends TestCase {
 
         // Policy = ACCEPT_ALL
         manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-        responseHeaders = new TreeMap<String, List<String>>();    
+        responseHeaders = new TreeMap<String, List<String>>();
         ArrayList<String> list = new ArrayList<String>();
         list.add("test=null");
         responseHeaders.put("Set-cookie", list);
         manager.put(new URI("http://b.c.d"), responseHeaders);
         map = manager.get(uri, new HashMap<String, List<String>>());
-        assertEquals(1, map.size());        
+        assertEquals(1, map.size());
     }
 
     /**
      * @tests {@link java.net.CookieManager#getCookieStore()}
-     * 
      * @since 1.6
      */
     public void test_GetCookieStore() {

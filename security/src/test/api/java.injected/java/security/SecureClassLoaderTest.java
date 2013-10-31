@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexander V. Astapchuk
-*/
+ * @author Alexander V. Astapchuk
+ */
 
 package java.security;
 
@@ -31,7 +31,6 @@ import junit.framework.TestCase;
 
 /**
  * Unit test for SecureClassLoader.
- *
  */
 
 public class SecureClassLoaderTest extends TestCase {
@@ -44,15 +43,15 @@ public class SecureClassLoaderTest extends TestCase {
     /**
      * Some class presented as bytecode<br>
      * Class src:<br>
-     * <p>
+     * <p/>
      * <code>public class HiWorld {
-     * 	public static void main(String[] args)
-     * 		{System.out.println("Hi, world!"); }
-     *	}
+     * public static void main(String[] args)
+     * {System.out.println("Hi, world!"); }
+     * }
      * </code>
      */
 
-    private static final byte[] klassData = { (byte) 0xCA, (byte) 0xFE,
+    private static final byte[] klassData = {(byte) 0xCA, (byte) 0xFE,
             (byte) 0xBA, (byte) 0xBE, (byte) 0x00, (byte) 0x00, (byte) 0x00,
             (byte) 0x2E, (byte) 0x00, (byte) 0x22, (byte) 0x01, (byte) 0x00,
             (byte) 0x07, (byte) 0x48, (byte) 0x69, (byte) 0x57, (byte) 0x6F,
@@ -157,7 +156,7 @@ public class SecureClassLoaderTest extends TestCase {
             (byte) 0x00, (byte) 0x1E, (byte) 0x00, (byte) 0x1F, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x20,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x02, (byte) 0x00,
-            (byte) 0x21, };
+            (byte) 0x21,};
 
     /**
      * Tests default ctor
@@ -170,7 +169,7 @@ public class SecureClassLoaderTest extends TestCase {
      * Tests SecureClassLoader(ClassLoader)
      */
     public void testSecureClassLoaderClassLoader() throws Exception {
-        URL[] urls = new URL[] { new URL("http://localhost") };
+        URL[] urls = new URL[]{new URL("http://localhost")};
         URLClassLoader ucl = URLClassLoader.newInstance(urls);
         new SecureClassLoader(ucl);
     }

@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Stepan M. Mishura
-*/
+ * @author Stepan M. Mishura
+ */
 
 package org.apache.harmony.security.tests.asn1.der;
 
@@ -50,29 +50,29 @@ public class SequenceOfTest extends TestCase {
     // Test Cases
     //
 
-    private static Object[][] testcases = new Object[][] {
+    private static Object[][] testcases = new Object[][]{
             // format: object to encode / byte array
 
             // sequence : empty sequence
-            new Object[] { new ArrayList(), new byte[] { 0x30, 0x00 } },
+            new Object[]{new ArrayList(), new byte[]{0x30, 0x00}},
 
             // sequence : false
-            new Object[] { (new MyArray()).addMy(Boolean.FALSE),
-                    new byte[] { 0x30, 0x03, 0x01, 0x01, 0x00 } },
+            new Object[]{(new MyArray()).addMy(Boolean.FALSE),
+                    new byte[]{0x30, 0x03, 0x01, 0x01, 0x00}},
 
             // sequence : true
-            new Object[] { (new MyArray()).addMy(Boolean.TRUE),
-                    new byte[] { 0x30, 0x03, 0x01, 0x01, (byte) 0xFF } },
+            new Object[]{(new MyArray()).addMy(Boolean.TRUE),
+                    new byte[]{0x30, 0x03, 0x01, 0x01, (byte) 0xFF}},
 
             // sequence : true, false
-            new Object[] {
+            new Object[]{
                     (new MyArray()).addMy(Boolean.TRUE).addMy(Boolean.FALSE),
-                    new byte[] { 0x30, 0x06, // sequence of
+                    new byte[]{0x30, 0x06, // sequence of
                             0x01, 0x01, (byte) 0xFF, // true
-                            0x01, 0x01, 0x00 } //false
+                            0x01, 0x01, 0x00} //false
             },
 
-    //TODO add testcase for another ASN.1 type`
+            //TODO add testcase for another ASN.1 type`
 
     };
 

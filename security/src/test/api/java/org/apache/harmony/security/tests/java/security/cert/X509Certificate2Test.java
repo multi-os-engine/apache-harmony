@@ -71,7 +71,7 @@ public class X509Certificate2Test extends junit.framework.TestCase {
 
         // extension value is empty sequence
         byte[] extnValue = pemCert.getExtensionValue("2.5.29.35");
-        assertTrue(Arrays.equals(new byte[] { 0x04, 0x02, 0x30, 0x00 },
+        assertTrue(Arrays.equals(new byte[]{0x04, 0x02, 0x30, 0x00},
                 extnValue));
         assertNotNull(pemCert.toString());
         // End regression for HARMONY-3384

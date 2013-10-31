@@ -30,7 +30,7 @@ public class SystemProcessTest extends TestCase {
         try {
             Thread.currentThread().interrupt();
             execArgs = Support_Exec.execJava2(
-                    new String[] { "tests.support.Support_AvailTest" }, null,
+                    new String[]{"tests.support.Support_AvailTest"}, null,
                     true);
             process = (Process) execArgs[0];
             OutputStream os = process.getOutputStream();

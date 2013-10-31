@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Boris V. Kuznetsov
-*/
+ * @author Boris V. Kuznetsov
+ */
 
 package org.apache.harmony.security.tests.java.security;
 
@@ -37,31 +37,30 @@ import junit.framework.TestCase;
 /**
  * Tests for <code>AlgorithmParameters</code> class constructors and
  * methods.
- * 
  */
 public class AlgorithmParametersTest extends TestCase {
 
-	/**
-	 * Provider
-	 */
-	Provider p;
-	
-	/*
-	 * @see TestCase#setUp()
-	 */
-	protected void setUp() throws Exception {
-		super.setUp();
-		p = new MyProvider();
-		Security.insertProviderAt(p, 1);
-	}
+    /**
+     * Provider
+     */
+    Provider p;
 
-	/*
-	 * @see TestCase#tearDown()
-	 */
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		Security.removeProvider(p.getName());
-	}
+    /*
+      * @see TestCase#setUp()
+      */
+    protected void setUp() throws Exception {
+        super.setUp();
+        p = new MyProvider();
+        Security.insertProviderAt(p, 1);
+    }
+
+    /*
+      * @see TestCase#tearDown()
+      */
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        Security.removeProvider(p.getName());
+    }
 
     /**
      * @tests java.security.AlgorithmParameters#getAlgorithm()
@@ -82,7 +81,7 @@ public class AlgorithmParametersTest extends TestCase {
      */
     public void test_getEncoded() throws Exception {
 
-        final byte[] enc = new byte[] { 0x02, 0x01, 0x03 };
+        final byte[] enc = new byte[]{0x02, 0x01, 0x03};
 
         MyAlgorithmParameters paramSpi = new MyAlgorithmParameters() {
             protected byte[] engineGetEncoded() throws IOException {
@@ -115,7 +114,7 @@ public class AlgorithmParametersTest extends TestCase {
      */
     public void test_getEncodedLjava_lang_String() throws Exception {
 
-        final byte[] enc = new byte[] { 0x02, 0x01, 0x03 };
+        final byte[] enc = new byte[]{0x02, 0x01, 0x03};
 
         final String strFormatParam = "format";
 
@@ -144,7 +143,7 @@ public class AlgorithmParametersTest extends TestCase {
         //
         params.init(new MyAlgorithmParameterSpec());
         assertSame(enc, params.getEncoded(strFormatParam));
-        
+
         //
         // test: if format param is null
         // Regression test for HARMONY-2680
@@ -161,7 +160,7 @@ public class AlgorithmParametersTest extends TestCase {
         assertSame(enc, params.getEncoded(null));
     }
 
-	/**
+    /**
      * @tests java.security.AlgorithmParameters#getInstance(String)
      */
     public void test_getInstanceLjava_lang_String() throws Exception {
@@ -355,7 +354,7 @@ public class AlgorithmParametersTest extends TestCase {
         //
         // test: corresponding spi method is invoked
         //
-        final byte[] enc = new byte[] { 0x02, 0x01, 0x03 };
+        final byte[] enc = new byte[]{0x02, 0x01, 0x03};
 
         MyAlgorithmParameters paramSpi = new MyAlgorithmParameters() {
             protected void engineInit(byte[] params) throws IOException {
@@ -415,14 +414,14 @@ public class AlgorithmParametersTest extends TestCase {
     }
 
     /**
-     * @tests java.security.AlgorithmParameters#init(byte[],String)
+     * @tests java.security.AlgorithmParameters#init(byte[], String)
      */
     public void test_init$BLjava_lang_String() throws Exception {
 
         //
         // test: corresponding spi method is invoked
         //
-        final byte[] enc = new byte[] { 0x02, 0x01, 0x03 };
+        final byte[] enc = new byte[]{0x02, 0x01, 0x03};
         final String strFormatParam = "format";
 
         MyAlgorithmParameters paramSpi = new MyAlgorithmParameters() {
@@ -569,12 +568,12 @@ public class AlgorithmParametersTest extends TestCase {
 
         assertEquals("Algorithm", "OAEP", params.getAlgorithm());
     }
-    
-	private void checkUnititialized(AlgorithmParameters ap) {
+
+    private void checkUnititialized(AlgorithmParameters ap) {
         assertNull("Uninitialized: toString() failed", ap.toString());
-	}
-	
-	private void checkAP(AlgorithmParameters ap, Provider p) throws Exception {
+    }
+
+    private void checkAP(AlgorithmParameters ap, Provider p) throws Exception {
 
         assertSame("getProvider() failed", p, ap.getProvider());
         assertEquals("getAlgorithm() failed", "ABC", ap.getAlgorithm());
@@ -595,17 +594,17 @@ public class AlgorithmParametersTest extends TestCase {
             super(name, version, info);
         }
     }
-	
-	private class MyAlgorithmParameterSpec implements java.security.spec.AlgorithmParameterSpec{
-	}
-	
-	private class DummyAlgorithmParameters extends AlgorithmParameters {
-		public DummyAlgorithmParameters(AlgorithmParametersSpi paramSpi, 
-				Provider provider, String algorithm) {
-			super(paramSpi, provider, algorithm);
-		}
-	}
-    
+
+    private class MyAlgorithmParameterSpec implements java.security.spec.AlgorithmParameterSpec {
+    }
+
+    private class DummyAlgorithmParameters extends AlgorithmParameters {
+        public DummyAlgorithmParameters(AlgorithmParametersSpi paramSpi,
+                Provider provider, String algorithm) {
+            super(paramSpi, provider, algorithm);
+        }
+    }
+
     public static class MyAlgorithmParameters extends AlgorithmParametersSpi {
 
         public boolean runEngineInit_AlgParamSpec = false;

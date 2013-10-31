@@ -44,7 +44,7 @@ public class KerberosPrincipalTest extends TestCase {
 
     /**
      * @tests javax.security.auth.kerberos.KerberosPrincipal#KerberosPrincipal(
-     *        java.lang.String)
+     *java.lang.String)
      */
     public void test_Ctor1() {
 
@@ -56,7 +56,7 @@ public class KerberosPrincipalTest extends TestCase {
         }
 
         // testing illegal kerberos principal names
-        String[] illegalNames = new String[] { "bbb@a:a.com", // ':' char
+        String[] illegalNames = new String[]{"bbb@a:a.com", // ':' char
                 "bbb@a/a.com", // '/' char
                 "bbb@a\0a.com",// null char
                 "@/" // Regression for HARMONY-770
@@ -77,7 +77,7 @@ public class KerberosPrincipalTest extends TestCase {
         assertEquals("apache.org", principal.getRealm());
         assertEquals(KerberosPrincipal.KRB_NT_PRINCIPAL, principal
                 .getNameType());
-        
+
         // Regression for HARMONY-1182
         principal = new KerberosPrincipal("file:C://@apache.org");
         assertEquals("file:C:@apache.org", principal.getName());
@@ -85,7 +85,7 @@ public class KerberosPrincipalTest extends TestCase {
 
     /**
      * @tests javax.security.auth.kerberos.KerberosPrincipal#KerberosPrincipal(
-     *        java.lang.String, int)
+     *java.lang.String, int)
      */
     public void test_Ctor2() {
 
@@ -121,7 +121,7 @@ public class KerberosPrincipalTest extends TestCase {
 
     /**
      * @tests javax.security.auth.kerberos.KerberosPrincipal#KerberosPrincipal(
-     *        java.lang.String)
+     *java.lang.String)
      */
     public void test_Ctor_defaultRealm() throws Exception {
 
@@ -131,16 +131,16 @@ public class KerberosPrincipalTest extends TestCase {
         // default realm value is cashed
 
         // test: default realm is unset (has null value)
-        Support_Exec.execJava(new String[] { DefaultRealm_NullValue.class
-                .getName() }, null, true);
+        Support_Exec.execJava(new String[]{DefaultRealm_NullValue.class
+                .getName()}, null, true);
 
         // test: default realm name is specified via system property
-        Support_Exec.execJava(new String[] { DefaultRealm_SystemProperty.class
-                .getName() }, null, true);
+        Support_Exec.execJava(new String[]{DefaultRealm_SystemProperty.class
+                .getName()}, null, true);
 
         // test: default realm name is specified in config file
-        Support_Exec.execJava(new String[] { DefaultRealm_ConfigFile.class
-                .getName() }, null, true);
+        Support_Exec.execJava(new String[]{DefaultRealm_ConfigFile.class
+                .getName()}, null, true);
     }
 
     /**
@@ -194,7 +194,7 @@ public class KerberosPrincipalTest extends TestCase {
             } finally {
                 TestUtils.setSystemProperty(KRB5_KDC_SYS_PROP, null);
             }
-            
+
             String testRealm = "This_is_test_realm";
 
             System.setProperty(KRB5_REALM_SYS_PROP, testRealm);
@@ -232,7 +232,7 @@ public class KerberosPrincipalTest extends TestCase {
             out.write("[libdefaults]\n".getBytes());
             out.write("         default_realm = MY.TEST_REALM".getBytes());
             out.close();
-            
+
             TestUtils.setSystemProperty(KRB5_CONF_SYS_PROP, f
                     .getCanonicalPath());
 

@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.auth.tests.javax.security.sasl;
 
@@ -47,9 +47,10 @@ import org.apache.harmony.auth.tests.support.SpiEngUtils;
 public class Sasl3Test extends TestCase {
     private static final String CLNTSRV = "SaslClientFactory.";
 
-    private static final String fClientClass = mySaslClientFactory.class.getName();;
+    private static final String fClientClass = mySaslClientFactory.class.getName();
+    ;
 
-    private Provider [] provs;
+    private Provider[] provs;
     private boolean initProvs;
 
     @Override
@@ -87,29 +88,29 @@ public class Sasl3Test extends TestCase {
         }
         if (provs != null) {
             for (int i = 0; i < provs.length; i++) {
-                Security.insertProviderAt(provs[i], (i+1));
+                Security.insertProviderAt(provs[i], (i + 1));
             }
         }
     }
 
     /**
-     * Test for <code>createSaslClient(String[] mechanisms, 
-     *      String authanticationID, String protocol, String serverName,
-     *      Map prop, CallbackHandler cbh))</code>
+     * Test for <code>createSaslClient(String[] mechanisms,
+     * String authanticationID, String protocol, String serverName,
+     * Map prop, CallbackHandler cbh))</code>
      * method Assertions: throws NullPointerException when mechanisms is null;
      * throws SaslException when parameters (protocol, cbh, mechanisms) are
      * wrong.
-     * 
+     * <p/>
      * All providers are previously removed and 2 new providers were added.
      */
     public void testCreateClient01() throws SaslException {
-        mProv = new Provider[] {
+        mProv = new Provider[]{
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider1",
                         "Testing provider SaslClientFactory - 1", CLNTSRV
-                                .concat("NAME-1"), fClientClass),
+                        .concat("NAME-1"), fClientClass),
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider2",
                         "Testing provider SaslClientFactory - 2", CLNTSRV
-                                .concat("NAME-2"), fClientClass) };
+                        .concat("NAME-2"), fClientClass)};
         addProviders();
 
         CallbackHandler cbH = new cbHand();
@@ -119,20 +120,20 @@ public class Sasl3Test extends TestCase {
         } catch (NullPointerException e) {
         }
         try {
-            Sasl.createSaslClient(new String[] { "NAME-2" }, null, "protocol",
+            Sasl.createSaslClient(new String[]{"NAME-2"}, null, "protocol",
                     null, null, cbH);
             fail("SaslException should be thrown when CallbackHandler is wrong");
         } catch (SaslException e) {
         }
         cbH = new cbHandN();
         try {
-            Sasl.createSaslClient(new String[] { "NAME-1" }, null, "protocol",
+            Sasl.createSaslClient(new String[]{"NAME-1"}, null, "protocol",
                     null, null, cbH);
             fail("SaslException should be thrown when mechanisms is wrong");
         } catch (SaslException e) {
         }
         try {
-            Sasl.createSaslClient(new String[] { "NAME-2" }, null, null, null,
+            Sasl.createSaslClient(new String[]{"NAME-2"}, null, null, null,
                     null, cbH);
             fail("SaslException should be thrown when protocol is null");
         } catch (SaslException e) {
@@ -140,12 +141,12 @@ public class Sasl3Test extends TestCase {
     }
 
     /**
-     * Test for <code>createSaslClient(String[] mechanisms, 
-     *      String authanticationID, String protocol, String serverName,
-     *      Map prop, CallbackHandler cbh))</code>
+     * Test for <code>createSaslClient(String[] mechanisms,
+     * String authanticationID, String protocol, String serverName,
+     * Map prop, CallbackHandler cbh))</code>
      * method Assertions: throws NullPointerException when mechanisms is null;
      * returns null SaslClient.
-     * 
+     * <p/>
      * All providers are previously removed.
      */
     public void testCreateClient02() throws SaslException {
@@ -155,31 +156,31 @@ public class Sasl3Test extends TestCase {
         } catch (NullPointerException e) {
         }
         assertNull("Not null result", Sasl.createSaslClient(
-                new String[] { "NAME-999" }, null, null, null, null, null));
+                new String[]{"NAME-999"}, null, null, null, null, null));
     }
 
     /**
-     * Test for <code>createSaslClient(String[] mechanisms, 
-     *      String authanticationID, String protocol, String serverName,
-     *      Map prop, CallbackHandler cbh))</code>
+     * Test for <code>createSaslClient(String[] mechanisms,
+     * String authanticationID, String protocol, String serverName,
+     * Map prop, CallbackHandler cbh))</code>
      * method
-     * 
+     * <p/>
      * Assertions: returns SaslClient; throws SaslClient for NAME-1 mechanism
-     * 
+     * <p/>
      * All providers are previously removed and 2 new providers were added.
      */
     public void testCreateClient03() throws SaslException {
-        mProv = new Provider[] {
+        mProv = new Provider[]{
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider1",
                         "Testing provider SaslClientFactory - 1", CLNTSRV
-                                .concat("NAME-1"), fClientClass),
+                        .concat("NAME-1"), fClientClass),
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider2",
                         "Testing provider SaslClientFactory - 2", CLNTSRV
-                                .concat("NAME-2"), fClientClass) };
+                        .concat("NAME-2"), fClientClass)};
         addProviders();
 
         CallbackHandler cbH = new cbHandN();
-        SaslClient saslC = Sasl.createSaslClient(new String[] { "NAME-2" },
+        SaslClient saslC = Sasl.createSaslClient(new String[]{"NAME-2"},
                 null, "protocol", null, null, cbH);
         assertNotNull("Null result", saslC);
         try {
@@ -190,7 +191,7 @@ public class Sasl3Test extends TestCase {
         assertFalse("Incorrect isComplete() result", saslC.isComplete());
         // try to create client for wrong mechanism
         try {
-            saslC = Sasl.createSaslClient(new String[] { "NAME-1" }, null,
+            saslC = Sasl.createSaslClient(new String[]{"NAME-1"}, null,
                     "protocol", null, null, cbH);
             fail("SaslException sould be thrown");
         } catch (SaslException e) {
@@ -198,30 +199,30 @@ public class Sasl3Test extends TestCase {
     }
 
     /**
-     * Test for <code>createSaslClient(String[] mechanisms, 
-     *      String authanticationID, String protocol, String serverName,
-     *      Map prop, CallbackHandler cbh))</code>
+     * Test for <code>createSaslClient(String[] mechanisms,
+     * String authanticationID, String protocol, String serverName,
+     * Map prop, CallbackHandler cbh))</code>
      * method
-     * 
+     * <p/>
      * Assertions: returns SaslClient; throws SaslClient for NAME-1 mechanism
-     * 
+     * <p/>
      * All providers are previously removed and 1 new provider was added.
      */
     public void testCreateClient04() throws SaslException {
-        mProv = new Provider[] { (new SpiEngUtils()).new MyProvider(
+        mProv = new Provider[]{(new SpiEngUtils()).new MyProvider(
                 "MySaslClientProvider1",
                 "Testing provider SaslClientFactory - 1", CLNTSRV
-                        .concat("NAME-1"), fClientClass) };
+                .concat("NAME-1"), fClientClass)};
         mProv[0].put(CLNTSRV.concat("NAME-2"), fClientClass);
         addProviders();
         CallbackHandler cbH = new cbHandN();
-        SaslClient saslC = Sasl.createSaslClient(new String[] { "NAME-2" },
+        SaslClient saslC = Sasl.createSaslClient(new String[]{"NAME-2"},
                 null, "protocol", null, null, cbH);
         assertNotNull("Null result for NAME-2", saslC);
         assertFalse("Incorrect isComplete() result", saslC.isComplete());
         // try to create client for wrong mechanism
         try {
-            saslC = Sasl.createSaslClient(new String[] { "NAME-1" }, null,
+            saslC = Sasl.createSaslClient(new String[]{"NAME-1"}, null,
                     "protocol", null, null, cbH);
             fail("SaslException sould be thrown");
         } catch (SaslException e) {
@@ -229,27 +230,27 @@ public class Sasl3Test extends TestCase {
     }
 
     /**
-     * Test for <code>createSaslClient(String[] mechanisms, 
-     *      String authanticationID, String protocol, String serverName,
-     *      Map prop, CallbackHandler cbh))</code>
+     * Test for <code>createSaslClient(String[] mechanisms,
+     * String authanticationID, String protocol, String serverName,
+     * Map prop, CallbackHandler cbh))</code>
      * method
-     * 
+     * <p/>
      * Assertions: return null client when there is no provider supported some
      * mechanism returns SaslClient when incorrect mechanism is used
-     * 
+     * <p/>
      * All providers are previously removed and 2 new providers were added.
      */
     public void testCreateClient05() throws SaslException {
-        mProv = new Provider[] {
+        mProv = new Provider[]{
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider1",
                         "Testing provider SaslClientFactory - 1", CLNTSRV
-                                .concat("NAME-2"), fClientClass.concat("Ext")),
+                        .concat("NAME-2"), fClientClass.concat("Ext")),
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider2",
                         "Testing provider SaslClientFactory - 2", CLNTSRV
-                                .concat("NAME-1"), fClientClass),
+                        .concat("NAME-1"), fClientClass),
                 (new SpiEngUtils()).new MyProvider("MySaslClientProvider3",
                         "Testing provider SaslClientFactory - 3", CLNTSRV
-                                .concat("NAME-6"), fClientClass) };
+                        .concat("NAME-6"), fClientClass)};
         addProviders();
 
         CallbackHandler cbH = new cbHandN();
@@ -259,10 +260,10 @@ public class Sasl3Test extends TestCase {
         // there is no provider supported NAME-77, NAME-66 mechanisms
 
         assertNull("Not null object was created for wrong mechanism", Sasl
-                .createSaslClient(new String[] { "NAME-77", "NAME-66" }, null,
+                .createSaslClient(new String[]{"NAME-77", "NAME-66"}, null,
                         "protocol", null, null, cbH));
 
-        saslC = Sasl.createSaslClient(new String[] { "NAME-2" }, null,
+        saslC = Sasl.createSaslClient(new String[]{"NAME-2"}, null,
                 "protocol", null, null, cbH);
         assertNotNull("Null result for NAME-2", saslC);
         try {
@@ -274,7 +275,7 @@ public class Sasl3Test extends TestCase {
         // NAME-1 was defined in some provider but it is supported in
         // another provider
         try {
-            Sasl.createSaslClient(new String[] { "NAME-1" }, null, "protocol",
+            Sasl.createSaslClient(new String[]{"NAME-1"}, null, "protocol",
                     null, null, cbH);
             fail("SaslException sould be thrown");
         } catch (SaslException e) {
@@ -282,14 +283,14 @@ public class Sasl3Test extends TestCase {
         // NAME-6 and NAME-5 were defined in one provider but they are
         // supported
         // in another provider
-        saslC = Sasl.createSaslClient(new String[] { "NAME-6", "NAME-5" },
+        saslC = Sasl.createSaslClient(new String[]{"NAME-6", "NAME-5"},
                 null, "protocol", null, null, cbH);
         assertNotNull("Null result for NAME-6 and NAME-5", saslC);
     }
-    
+
     /*
-     * Additional classes for creating SaslClient and SaslServer objects
-     */
+    * Additional classes for creating SaslClient and SaslServer objects
+    */
 
     public static class mySaslClientFactory implements SaslClientFactory {
         public mySaslClientFactory() {
@@ -297,7 +298,7 @@ public class Sasl3Test extends TestCase {
         }
 
         public String[] getMechanismNames(Map<String, ?> prop) {
-            return new String[] { "NAME-1", "NAME-2", "NAME-3", "NAME-4" };
+            return new String[]{"NAME-1", "NAME-2", "NAME-3", "NAME-4"};
         }
 
         public SaslClient createSaslClient(String[] mech, String id,
@@ -312,8 +313,8 @@ public class Sasl3Test extends TestCase {
             if (protocol == null) {
                 throw new SaslException("Protocol is null");
             }
-            TextOutputCallback[] cb = { new TextOutputCallback(
-                    TextOutputCallback.INFORMATION, "Information") };
+            TextOutputCallback[] cb = {new TextOutputCallback(
+                    TextOutputCallback.INFORMATION, "Information")};
             try {
                 hnd.handle(cb);
             } catch (UnsupportedCallbackException e) {
@@ -367,7 +368,7 @@ public class Sasl3Test extends TestCase {
     public static class mySaslClientFactoryExt extends mySaslClientFactory {
         @Override
         public String[] getMechanismNames(Map<String, ?> prop) {
-            return new String[] { "NAME-5", "NAME-6" };
+            return new String[]{"NAME-5", "NAME-6"};
         }
 
         @Override
@@ -395,7 +396,7 @@ public class Sasl3Test extends TestCase {
                     PasswordCallback pc = (PasswordCallback) element;
                     System.err.print(pc.getPrompt());
                     System.err.flush();
-                    pc.setPassword(new char[] { 'O', 'k' });
+                    pc.setPassword(new char[]{'O', 'k'});
                 } else {
                     throw new UnsupportedCallbackException(element,
                             "Callback should be NamCallback or PasswordCallback");

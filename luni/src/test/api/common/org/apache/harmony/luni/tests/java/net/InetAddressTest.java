@@ -65,14 +65,14 @@ public class InetAddressTest extends junit.framework.TestCase {
         // Test for method byte [] java.net.InetAddress.getAddress()
         try {
             InetAddress ia = InetAddress.getByName("127.0.0.1");
-            byte[] caddr = new byte[] { 127, 0, 0, 1 };
+            byte[] caddr = new byte[]{127, 0, 0, 1};
             byte[] addr = ia.getAddress();
             for (int i = 0; i < addr.length; i++)
                 assertTrue("Incorrect address returned", caddr[i] == addr[i]);
         } catch (java.net.UnknownHostException e) {
         }
 
-        byte[] origBytes = new byte[] { 0, 1, 2, 3 };
+        byte[] origBytes = new byte[]{0, 1, 2, 3};
         InetAddress address = InetAddress.getByAddress(origBytes);
         origBytes[0] = -1;
         byte[] newBytes = address.getAddress();
@@ -127,11 +127,11 @@ public class InetAddressTest extends junit.framework.TestCase {
 
         // TODO : Test to ensure all the address formats are recognized
         InetAddress i = InetAddress.getByName("1.2.3");
-        assertEquals("1.2.0.3",i.getHostAddress());
+        assertEquals("1.2.0.3", i.getHostAddress());
         i = InetAddress.getByName("1.2");
-        assertEquals("1.0.0.2",i.getHostAddress());
+        assertEquals("1.0.0.2", i.getHostAddress());
         i = InetAddress.getByName(String.valueOf(0xffffffffL));
-        assertEquals("255.255.255.255",i.getHostAddress());
+        assertEquals("255.255.255.255", i.getHostAddress());
     }
 
     /**
@@ -274,7 +274,7 @@ public class InetAddressTest extends junit.framework.TestCase {
      */
     public void test_getByAddressLjava_lang_String$B() {
         // Check an IPv4 address with an IPv6 hostname
-        byte ipAddress[] = { 127, 0, 0, 1 };
+        byte ipAddress[] = {127, 0, 0, 1};
         String addressStr = "::1";
         try {
             InetAddress addr = InetAddress.getByAddress(addressStr, ipAddress);
@@ -284,8 +284,8 @@ public class InetAddressTest extends junit.framework.TestCase {
                     + ipAddress.length);
         }
 
-        byte ipAddress2[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 127, 0, 0,
-                1 };
+        byte ipAddress2[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 127, 0, 0,
+                1};
         addressStr = "::1";
         try {
             InetAddress addr = InetAddress.getByAddress(addressStr, ipAddress2);
@@ -358,7 +358,7 @@ public class InetAddressTest extends junit.framework.TestCase {
         ia = InetAddress.getByName("localhost"); //$NON-NLS-1$
         Enumeration<NetworkInterface> nif = NetworkInterface.getNetworkInterfaces();
         NetworkInterface netif;
-        while(nif.hasMoreElements()) {
+        while (nif.hasMoreElements()) {
             netif = nif.nextElement();
             ia.isReachable(netif, 10, 1000);
         }

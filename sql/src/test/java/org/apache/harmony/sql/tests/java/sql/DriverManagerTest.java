@@ -37,7 +37,6 @@ import junit.framework.TestCase;
 
 /**
  * JUnit Testcase for the java.sql.DriverManager class
- *
  */
 public class DriverManagerTest extends TestCase {
 
@@ -54,7 +53,7 @@ public class DriverManagerTest extends TestCase {
 
     static final String INVALIDDRIVER1 = "abc.klm.Foo";
 
-    static String[] driverNames = { DRIVER1, DRIVER2, DRIVER4, DRIVER5 };
+    static String[] driverNames = {DRIVER1, DRIVER2, DRIVER4, DRIVER5};
 
     static int numberLoaded;
 
@@ -109,10 +108,10 @@ public class DriverManagerTest extends TestCase {
                         true, testClassLoader);
 
         // Give the Helper class one of our drivers....
-        Class<?>[] methodClasses = { Class.forName("java.sql.Driver") };
+        Class<?>[] methodClasses = {Class.forName("java.sql.Driver")};
         Method theMethod = driverClass.getDeclaredMethod("setDriver",
                 methodClasses);
-        Object[] args = { aDriver };
+        Object[] args = {aDriver};
         theMethod.invoke(null, args);
 
         // Check that the driver was not deregistered
@@ -154,8 +153,8 @@ public class DriverManagerTest extends TestCase {
     // invalid connection - URL is null
     static String invalidConnectionURL3 = null;
 
-    static String[] invalidConnectionURLs = { invalidConnectionURL2,
-            invalidConnectionURL3 };
+    static String[] invalidConnectionURLs = {invalidConnectionURL2,
+            invalidConnectionURL3};
 
     public void testGetConnectionString() throws SQLException {
         Connection theConnection = null;
@@ -213,8 +212,8 @@ public class DriverManagerTest extends TestCase {
         Properties invalidProps1 = new Properties();
         invalidProps1.setProperty("user", invaliduser1);
         invalidProps1.setProperty("password", invalidpassword1);
-        String[] invalidURLs = { null, invalidURL1, invalidURL2, invalidURL3 };
-        Properties[] invalidProps = { nullProps, invalidProps1 };
+        String[] invalidURLs = {null, invalidURL1, invalidURL2, invalidURL3};
+        Properties[] invalidProps = {nullProps, invalidProps1};
 
         Connection theConnection = null;
         // validConnection - user & password required
@@ -247,14 +246,14 @@ public class DriverManagerTest extends TestCase {
         String invalidURL1 = "xyz:abc1:foo";
         String invaliduser1 = "jonny nouser";
         String invalidpassword1 = "whizz";
-        String[] invalid1 = { null, validuser1, validpassword1 };
-        String[] invalid2 = { validURL1, null, validpassword1 };
-        String[] invalid3 = { validURL1, validuser1, null };
-        String[] invalid4 = { invalidURL1, validuser1, validpassword1 };
-        String[] invalid5 = { validURL1, invaliduser1, invalidpassword1 };
-        String[] invalid6 = { validURL1, validuser1, invalidpassword1 };
-        String[][] invalids1 = { invalid1, invalid4 };
-        String[][] invalids2 = { invalid2, invalid3, invalid5, invalid6 };
+        String[] invalid1 = {null, validuser1, validpassword1};
+        String[] invalid2 = {validURL1, null, validpassword1};
+        String[] invalid3 = {validURL1, validuser1, null};
+        String[] invalid4 = {invalidURL1, validuser1, validpassword1};
+        String[] invalid5 = {validURL1, invaliduser1, invalidpassword1};
+        String[] invalid6 = {validURL1, validuser1, invalidpassword1};
+        String[][] invalids1 = {invalid1, invalid4};
+        String[][] invalids2 = {invalid2, invalid3, invalid5, invalid6};
 
         Connection theConnection = null;
         // validConnection - user & password required
@@ -285,9 +284,9 @@ public class DriverManagerTest extends TestCase {
 
     static String invalidURL2 = null;
 
-    static String[] validURLs = { validURL1, validURL2 };
+    static String[] validURLs = {validURL1, validURL2};
 
-    static String[] invalidURLs = { invalidURL1, invalidURL2 };
+    static String[] invalidURLs = {invalidURL1, invalidURL2};
 
     static String exceptionMsg1 = "No suitable driver";
 
@@ -406,7 +405,7 @@ public class DriverManagerTest extends TestCase {
 
     static int validTimeout2 = 0;
 
-    static int[] validTimeouts = { validTimeout1, validTimeout2 };
+    static int[] validTimeouts = {validTimeout1, validTimeout2};
 
     static int invalidTimeout1 = -10;
 
@@ -498,9 +497,9 @@ public class DriverManagerTest extends TestCase {
 
     /**
      * @tests {@link java.sql.DriverManager#registerDriver(Driver)}
-     *
+     * <p/>
      * Registers a driver for multiple times and deregisters it only once.
-     *
+     * <p/>
      * Regression for HARMONY-4205
      */
     public void test_registerDriver_MultiTimes() throws SQLException {

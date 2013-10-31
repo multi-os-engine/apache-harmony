@@ -39,7 +39,7 @@ public class PriorityQueueTest extends TestCase {
      */
     public void test_iterator() {
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>();
-        Integer[] array = { 2, 45, 7, -12, 9 };
+        Integer[] array = {2, 45, 7, -12, 9};
         for (int i = 0; i < array.length; i++) {
             integerQueue.offer(array[i]);
         }
@@ -108,7 +108,7 @@ public class PriorityQueueTest extends TestCase {
      */
     public void test_iterator_remove() {
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>();
-        Integer[] array = { 2, 45, 7, -12, 9 };
+        Integer[] array = {2, 45, 7, -12, 9};
         for (int i = 0; i < array.length; i++) {
             integerQueue.offer(array[i]);
         }
@@ -136,7 +136,7 @@ public class PriorityQueueTest extends TestCase {
 
     public void test_iterator_removeEquals() {
         PriorityQueue<String> integerQueue = new PriorityQueue<String>(10, new MockComparatorStringByLength());
-        String[] array = { "ONE", "TWO", "THREE", "FOUR", "FIVE" };
+        String[] array = {"ONE", "TWO", "THREE", "FOUR", "FIVE"};
         for (int i = 0; i < array.length; i++) {
             integerQueue.offer(array[i]);
         }
@@ -151,7 +151,7 @@ public class PriorityQueueTest extends TestCase {
      */
     public void test_iterator_remove_illegalState() {
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>();
-        Integer[] array = { 2, 45, 7, -12, 9 };
+        Integer[] array = {2, 45, 7, -12, 9};
         for (int i = 0; i < array.length; i++) {
             integerQueue.offer(array[i]);
         }
@@ -180,7 +180,7 @@ public class PriorityQueueTest extends TestCase {
     public void test_size() {
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>();
         assertEquals(0, integerQueue.size());
-        int[] array = { 2, 45, 7, -12, 9 };
+        int[] array = {2, 45, 7, -12, 9};
         for (int i = 0; i < array.length; i++) {
             integerQueue.offer(array[i]);
         }
@@ -253,7 +253,7 @@ public class PriorityQueueTest extends TestCase {
         assertNotNull(integerQueue);
         assertEquals(0, integerQueue.size());
         assertEquals(objectComparator, integerQueue.comparator());
-        Integer[] array = { 2, 45, 7, -12, 9 };
+        Integer[] array = {2, 45, 7, -12, 9};
         List<Integer> list = Arrays.asList(array);
         integerQueue.addAll(list);
         assertEquals(list.size(), integerQueue.size());
@@ -264,7 +264,7 @@ public class PriorityQueueTest extends TestCase {
      * @tests java.util.PriorityQueue#PriorityQueue(Collection)
      */
     public void test_ConstructorLjava_util_Colleciton() {
-        Integer[] array = { 2, 45, 7, -12, 9 };
+        Integer[] array = {2, 45, 7, -12, 9};
         List<Integer> list = Arrays.asList(array);
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>(list);
         assertEquals(array.length, integerQueue.size());
@@ -310,7 +310,7 @@ public class PriorityQueueTest extends TestCase {
      * @tests java.util.PriorityQueue#PriorityQueue(Collection)
      */
     public void test_ConstructorLjava_util_Colleciton_from_priorityqueue() {
-        String[] array = { "AAAAA", "AA", "AAAA", "AAAAAAAA" };
+        String[] array = {"AAAAA", "AA", "AAAA", "AAAAAAAA"};
         PriorityQueue<String> queue = new PriorityQueue<String>(4,
                 new MockComparatorStringByLength());
         for (int i = 0; i < array.length; i++) {
@@ -329,7 +329,7 @@ public class PriorityQueueTest extends TestCase {
      * @tests java.util.PriorityQueue#PriorityQueue(Collection)
      */
     public void test_ConstructorLjava_util_Colleciton_from_sortedset() {
-        int[] array = { 3, 5, 79, -17, 5 };
+        int[] array = {3, 5, 79, -17, 5};
         TreeSet<Integer> treeSet = new TreeSet<Integer>(new MockComparator<Integer>());
         for (int i = 0; i < array.length; i++) {
             treeSet.add(array[i]);
@@ -346,11 +346,11 @@ public class PriorityQueueTest extends TestCase {
 
     /**
      * @tests java.util.PriorityQueue#PriorityQueue(PriorityQueue<? * extends
-     *        E>)
+     *E>)
      */
     public void test_ConstructorLjava_util_PriorityQueue() {
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>();
-        int[] array = { 2, 45, 7, -12, 9 };
+        int[] array = {2, 45, 7, -12, 9};
         for (int i = 0; i < array.length; i++) {
             integerQueue.offer(array[i]);
         }
@@ -366,7 +366,7 @@ public class PriorityQueueTest extends TestCase {
 
     /**
      * @tests java.util.PriorityQueue#PriorityQueue(PriorityQueue<? * extends
-     *        E>)
+     *E>)
      */
     public void test_ConstructorLjava_util_PriorityQueue_null() {
         try {
@@ -381,7 +381,7 @@ public class PriorityQueueTest extends TestCase {
      * @tests java.util.PriorityQueue#PriorityQueue(SortedSet<? extends E>)
      */
     public void test_ConstructorLjava_util_SortedSet() {
-        int[] array = { 3, 5, 79, -17, 5 };
+        int[] array = {3, 5, 79, -17, 5};
         TreeSet<Integer> treeSet = new TreeSet<Integer>();
         for (int i = 0; i < array.length; i++) {
             treeSet.add(array[i]);
@@ -411,11 +411,11 @@ public class PriorityQueueTest extends TestCase {
     public void test_offerLjava_lang_Object() {
         PriorityQueue<String> queue = new PriorityQueue<String>(10,
                 new MockComparatorStringByLength());
-        String[] array = { "AAAAA", "AA", "AAAA", "AAAAAAAA" };
+        String[] array = {"AAAAA", "AA", "AAAA", "AAAAAAAA"};
         for (int i = 0; i < array.length; i++) {
             queue.offer(array[i]);
         }
-        String[] sortedArray = { "AA", "AAAA", "AAAAA", "AAAAAAAA" };
+        String[] sortedArray = {"AA", "AAAA", "AAAAA", "AAAAAAAA"};
         for (int i = 0; i < sortedArray.length; i++) {
             assertEquals(sortedArray[i], queue.poll());
         }
@@ -464,7 +464,7 @@ public class PriorityQueueTest extends TestCase {
      */
     public void test_poll() {
         PriorityQueue<String> stringQueue = new PriorityQueue<String>();
-        String[] array = { "MYTESTSTRING", "AAAAA", "BCDEF", "ksTRD", "AAAAA" };
+        String[] array = {"MYTESTSTRING", "AAAAA", "BCDEF", "ksTRD", "AAAAA"};
         for (int i = 0; i < array.length; i++) {
             stringQueue.offer(array[i]);
         }
@@ -490,7 +490,7 @@ public class PriorityQueueTest extends TestCase {
      */
     public void test_peek() {
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>();
-        int[] array = { 2, 45, 7, -12, 9 };
+        int[] array = {2, 45, 7, -12, 9};
         for (int i = 0; i < array.length; i++) {
             integerQueue.add(array[i]);
         }
@@ -514,7 +514,7 @@ public class PriorityQueueTest extends TestCase {
      */
     public void test_clear() {
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>();
-        int[] array = { 2, 45, 7, -12, 9 };
+        int[] array = {2, 45, 7, -12, 9};
         for (int i = 0; i < array.length; i++) {
             integerQueue.offer(array[i]);
         }
@@ -527,7 +527,7 @@ public class PriorityQueueTest extends TestCase {
      */
     public void test_add_Ljava_lang_Object() {
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>();
-        Integer[] array = { 2, 45, 7, -12, 9 };
+        Integer[] array = {2, 45, 7, -12, 9};
         for (int i = 0; i < array.length; i++) {
             integerQueue.add(array[i]);
         }
@@ -577,14 +577,13 @@ public class PriorityQueueTest extends TestCase {
 
     /**
      * @tests java.util.PriorityQueue#remove(Object)
-     * 
      */
     public void test_remove_Ljava_lang_Object() {
-        Integer[] array = { 2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39 };
+        Integer[] array = {2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39};
         List<Integer> list = Arrays.asList(array);
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>(list);
         assertTrue(integerQueue.remove(16));
-        Integer[] newArray = { 2, 45, 7, -12, 9, 23, 17, 1118, 10, 39 };
+        Integer[] newArray = {2, 45, 7, -12, 9, 23, 17, 1118, 10, 39};
         Arrays.sort(newArray);
         for (int i = 0; i < newArray.length; i++) {
             assertEquals(newArray[i], integerQueue.poll());
@@ -594,12 +593,11 @@ public class PriorityQueueTest extends TestCase {
 
     /**
      * @tests java.util.PriorityQueue#remove(Object)
-     * 
      */
     public void test_remove_Ljava_lang_Object_using_comparator() {
         PriorityQueue<String> queue = new PriorityQueue<String>(10,
                 new MockComparatorStringByLength());
-        String[] array = { "AAAAA", "AA", "AAAA", "AAAAAAAA" };
+        String[] array = {"AAAAA", "AA", "AAAA", "AAAAAAAA"};
         for (int i = 0; i < array.length; i++) {
             queue.offer(array[i]);
         }
@@ -609,10 +607,9 @@ public class PriorityQueueTest extends TestCase {
 
     /**
      * @tests java.util.PriorityQueue#remove(Object)
-     * 
      */
     public void test_remove_Ljava_lang_Object_not_exists() {
-        Integer[] array = { 2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39 };
+        Integer[] array = {2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39};
         List<Integer> list = Arrays.asList(array);
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>(list);
         assertFalse(integerQueue.remove(111));
@@ -622,10 +619,9 @@ public class PriorityQueueTest extends TestCase {
 
     /**
      * @tests java.util.PriorityQueue#remove(Object)
-     * 
      */
     public void test_remove_Ljava_lang_Object_null() {
-        Integer[] array = { 2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39 };
+        Integer[] array = {2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39};
         List<Integer> list = Arrays.asList(array);
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>(list);
         assertFalse(integerQueue.remove(null));
@@ -633,14 +629,13 @@ public class PriorityQueueTest extends TestCase {
 
     /**
      * @tests java.util.PriorityQueue#remove(Object)
-     * 
      */
     public void test_remove_Ljava_lang_Object_not_Compatible() {
-        Integer[] array = { 2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39 };
+        Integer[] array = {2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39};
         List<Integer> list = Arrays.asList(array);
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>(list);
         assertFalse(integerQueue.remove(new Float(1.3F)));
- 
+
         // although argument element type is not compatible with those in queue,
         // but comparator supports it.
         MockComparator<Object> comparator = new MockComparator<Object>();
@@ -666,12 +661,12 @@ public class PriorityQueueTest extends TestCase {
         queue = new PriorityQueue<Object>(100, comparator);
         assertEquals(comparator, queue.comparator());
     }
-    
+
     /**
      * @tests serialization/deserialization.
      */
     public void test_Serialization() throws Exception {
-        Integer[] array = { 2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39 };
+        Integer[] array = {2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39};
         List<Integer> list = Arrays.asList(array);
         PriorityQueue<Integer> srcIntegerQueue = new PriorityQueue<Integer>(
                 list);
@@ -688,7 +683,7 @@ public class PriorityQueueTest extends TestCase {
      * @tests serialization/deserialization.
      */
     public void test_Serialization_casting() throws Exception {
-        Integer[] array = { 2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39 };
+        Integer[] array = {2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39};
         List<Integer> list = Arrays.asList(array);
         PriorityQueue<Integer> srcIntegerQueue = new PriorityQueue<Integer>(
                 list);
@@ -705,7 +700,7 @@ public class PriorityQueueTest extends TestCase {
      * @tests serialization/deserialization compatibility with RI.
      */
     public void test_SerializationCompatibility_cast() throws Exception {
-        Integer[] array = { 2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39 };
+        Integer[] array = {2, 45, 7, -12, 9, 23, 17, 1118, 10, 16, 39};
         List<Integer> list = Arrays.asList(array);
         PriorityQueue<Integer> srcIntegerQueue = new PriorityQueue<Integer>(
                 list);
@@ -718,13 +713,13 @@ public class PriorityQueueTest extends TestCase {
         Integer I = (Integer) o;
         assertEquals(array[0], I);
     }
-    
+
     /**
      * @tests {@link PriorityQueue#contains(Object)}
      */
     public void test_contains() throws Exception {
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>();
-        Integer[] array = { 2, 45, 7, -12, 9 };
+        Integer[] array = {2, 45, 7, -12, 9};
         for (int i = 0; i < array.length; i++) {
             integerQueue.add(array[i]);
         }
@@ -733,39 +728,39 @@ public class PriorityQueueTest extends TestCase {
         }
         assertFalse(integerQueue.contains(null));
     }
-    
+
     /**
      * @tests {@link PriorityQueue#toArray()}
      */
     public void test_toArray() throws Exception {
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>();
-        Integer[] array = { 2, 45, 7, -12, 9 };
+        Integer[] array = {2, 45, 7, -12, 9};
         for (int i = 0; i < array.length; i++) {
             integerQueue.add(array[i]);
         }
         Object[] returnArray = integerQueue.toArray();
-        assertEquals(returnArray.length,integerQueue.size());
+        assertEquals(returnArray.length, integerQueue.size());
         for (int i = 0; i < returnArray.length; i++) {
             assertTrue(integerQueue.contains(returnArray[i]));
         }
     }
-    
+
     /**
      * @tests {@link PriorityQueue#toArray(T[])}
      */
     public void test_toArray_$T() throws Exception {
         PriorityQueue<Integer> integerQueue = new PriorityQueue<Integer>();
-        Integer[] array = { 2, 45, 7, -12, 9 };
+        Integer[] array = {2, 45, 7, -12, 9};
         for (int i = 0; i < array.length; i++) {
             integerQueue.add(array[i]);
         }
         Object[] returnArray = integerQueue.toArray(new Integer[0]);
-        assertEquals(returnArray.length,integerQueue.size());
+        assertEquals(returnArray.length, integerQueue.size());
         for (int i = 0; i < returnArray.length; i++) {
             assertTrue(integerQueue.contains(returnArray[i]));
         }
         returnArray = integerQueue.toArray(new Integer[10]);
-        assertEquals(10,returnArray.length);
+        assertEquals(10, returnArray.length);
         for (int i = 0; i < array.length; i++) {
             assertTrue(integerQueue.contains(returnArray[i]));
         }

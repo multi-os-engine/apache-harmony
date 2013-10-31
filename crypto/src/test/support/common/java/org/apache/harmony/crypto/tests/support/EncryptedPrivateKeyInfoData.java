@@ -21,9 +21,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 /**
- *
  * Support class for EncryptedPrivateKeyInfo_ImplTest and EncryptedPrivateKeyInfo_Test
- * 
+ * <p/>
  * All binary data for these tests were generated using
  * BEA JRockit j2sdk1.4.2_04 (http://www.bea.com) with
  * security providers list extended by Bouncy Castle's one
@@ -35,7 +34,7 @@ public class EncryptedPrivateKeyInfoData {
     /**
      * "valid" encoding for DSA with alg params
      */
-    private static final byte[] dsaEncryptedPrivateKeyInfo = new byte[] {
+    private static final byte[] dsaEncryptedPrivateKeyInfo = new byte[]{
             (byte) 0x30, (byte) 0x82, (byte) 0x05, (byte) 0x33, (byte) 0x30,
             (byte) 0x82, (byte) 0x01, (byte) 0x2b, (byte) 0x06, (byte) 0x07,
             (byte) 0x2a, (byte) 0x86, (byte) 0x48, (byte) 0xce, (byte) 0x38,
@@ -303,12 +302,12 @@ public class EncryptedPrivateKeyInfoData {
             (byte) 0xee, (byte) 0xef, (byte) 0xf0, (byte) 0xf1, (byte) 0xf2,
             (byte) 0xf3, (byte) 0xf4, (byte) 0xf5, (byte) 0xf6, (byte) 0xf7,
             (byte) 0xf8, (byte) 0xf9, (byte) 0xfa, (byte) 0xfb, (byte) 0xfc,
-            (byte) 0xfd, (byte) 0xfe, (byte) 0xff };
+            (byte) 0xfd, (byte) 0xfe, (byte) 0xff};
 
     /**
      * "valid" encoding for DSA - no alg params
      */
-    private static final byte[] dsaEncryptedPrivateKeyInfoNP = new byte[] {
+    private static final byte[] dsaEncryptedPrivateKeyInfoNP = new byte[]{
             (byte) 0x30, (byte) 0x82, (byte) 0x04, (byte) 0x11, (byte) 0x30,
             (byte) 0x0b, (byte) 0x06, (byte) 0x07, (byte) 0x2a, (byte) 0x86,
             (byte) 0x48, (byte) 0xce, (byte) 0x38, (byte) 0x04, (byte) 0x01,
@@ -517,12 +516,12 @@ public class EncryptedPrivateKeyInfoData {
             (byte) 0xec, (byte) 0xed, (byte) 0xee, (byte) 0xef, (byte) 0xf0,
             (byte) 0xf1, (byte) 0xf2, (byte) 0xf3, (byte) 0xf4, (byte) 0xf5,
             (byte) 0xf6, (byte) 0xf7, (byte) 0xf8, (byte) 0xf9, (byte) 0xfa,
-            (byte) 0xfb, (byte) 0xfc, (byte) 0xfd, (byte) 0xfe, (byte) 0xff, };
+            (byte) 0xfb, (byte) 0xfc, (byte) 0xfd, (byte) 0xfe, (byte) 0xff,};
 
     /**
      * "valid" encoding for DH with alg params
      */
-    private static final byte[] dhEncryptedPrivateKeyInfo = new byte[] {
+    private static final byte[] dhEncryptedPrivateKeyInfo = new byte[]{
             (byte) 0x30, (byte) 0x82, (byte) 0x05, (byte) 0x22, (byte) 0x30,
             (byte) 0x82, (byte) 0x01, (byte) 0x1a, (byte) 0x06, (byte) 0x09,
             (byte) 0x2a, (byte) 0x86, (byte) 0x48, (byte) 0x86, (byte) 0xf7,
@@ -786,12 +785,12 @@ public class EncryptedPrivateKeyInfoData {
             (byte) 0xee, (byte) 0xef, (byte) 0xf0, (byte) 0xf1, (byte) 0xf2,
             (byte) 0xf3, (byte) 0xf4, (byte) 0xf5, (byte) 0xf6, (byte) 0xf7,
             (byte) 0xf8, (byte) 0xf9, (byte) 0xfa, (byte) 0xfb, (byte) 0xfc,
-            (byte) 0xfd, (byte) 0xfe, (byte) 0xff };
+            (byte) 0xfd, (byte) 0xfe, (byte) 0xff};
 
     /**
      * "valid" encoding for DH - no alg params
      */
-    private static final byte[] dhEncryptedPrivateKeyInfoNP = new byte[] {
+    private static final byte[] dhEncryptedPrivateKeyInfoNP = new byte[]{
             (byte) 0x30, (byte) 0x82, (byte) 0x04, (byte) 0x13, (byte) 0x30,
             (byte) 0x0d, (byte) 0x06, (byte) 0x09, (byte) 0x2a, (byte) 0x86,
             (byte) 0x48, (byte) 0x86, (byte) 0xf7, (byte) 0x0d, (byte) 0x01,
@@ -1001,12 +1000,12 @@ public class EncryptedPrivateKeyInfoData {
             (byte) 0xef, (byte) 0xf0, (byte) 0xf1, (byte) 0xf2, (byte) 0xf3,
             (byte) 0xf4, (byte) 0xf5, (byte) 0xf6, (byte) 0xf7, (byte) 0xf8,
             (byte) 0xf9, (byte) 0xfa, (byte) 0xfb, (byte) 0xfc, (byte) 0xfd,
-            (byte) 0xfe, (byte) 0xff, };
+            (byte) 0xfe, (byte) 0xff,};
 
     /**
      * Valid DSA parameters encoding
      */
-    private static final byte[] dsaParamsEncoded = { (byte) 0x30, (byte) 0x82,
+    private static final byte[] dsaParamsEncoded = {(byte) 0x30, (byte) 0x82,
             (byte) 0x01, (byte) 0x1e, (byte) 0x02, (byte) 0x81, (byte) 0x81,
             (byte) 0x00, (byte) 0x9f, (byte) 0x5e, (byte) 0x76, (byte) 0x19,
             (byte) 0x59, (byte) 0xd8, (byte) 0xf7, (byte) 0x6b, (byte) 0x91,
@@ -1064,12 +1063,12 @@ public class EncryptedPrivateKeyInfoData {
             (byte) 0x24, (byte) 0x7f, (byte) 0x19, (byte) 0xf4, (byte) 0x0a,
             (byte) 0x2e, (byte) 0x1d, (byte) 0x92, (byte) 0x80, (byte) 0xe5,
             (byte) 0xe4, (byte) 0x05, (byte) 0x28, (byte) 0x48, (byte) 0x5c,
-            (byte) 0x34, (byte) 0xc8, (byte) 0x22 };
+            (byte) 0x34, (byte) 0xc8, (byte) 0x22};
 
     /**
      * Valid DH parameters encoding
      */
-    private static final byte[] dhParamsEncoded = { (byte) 0x30, (byte) 0x82,
+    private static final byte[] dhParamsEncoded = {(byte) 0x30, (byte) 0x82,
             (byte) 0x01, (byte) 0x0b, (byte) 0x02, (byte) 0x81, (byte) 0x81,
             (byte) 0x00, (byte) 0xce, (byte) 0x2c, (byte) 0x4f, (byte) 0xea,
             (byte) 0xf2, (byte) 0x83, (byte) 0xc5, (byte) 0x38, (byte) 0xc9,
@@ -1123,7 +1122,7 @@ public class EncryptedPrivateKeyInfoData {
             (byte) 0x5a, (byte) 0x9b, (byte) 0xf6, (byte) 0xd2, (byte) 0x0f,
             (byte) 0xe9, (byte) 0x6b, (byte) 0xeb, (byte) 0xd7, (byte) 0x93,
             (byte) 0x9a, (byte) 0x7e, (byte) 0x4f, (byte) 0xd6, (byte) 0x29,
-            (byte) 0x02, (byte) 0x02, (byte) 0x03, (byte) 0xff };
+            (byte) 0x02, (byte) 0x02, (byte) 0x03, (byte) 0xff};
 
     /**
      * pretends to be encrypted private key
@@ -1166,29 +1165,29 @@ public class EncryptedPrivateKeyInfoData {
      * Algorithm_names/standard_names to be used in tests "DSA" and "DH" must be
      * always presented
      */
-    public final static String[][] algName0 = new String[][] {
-            { "DSA", "DSA" },
-            { "DH", "DiffieHellman", "Diffie-Hellman" },
-            { "1.2.840.10040.4.1", "DSA" }, 
-            { "1.2.840.113549.1.1.1", "RSA" },
-            { "1.2.840.113549.1.3.1", "DiffieHellman" },
-            { "1.2.840.113549.1.5.3", "pbeWithMD5AndDES-CBC" },
-            { "1.2.840.113549.1.12.1.3", "pbeWithSHAAnd3-KeyTripleDES-CBC" },
+    public final static String[][] algName0 = new String[][]{
+            {"DSA", "DSA"},
+            {"DH", "DiffieHellman", "Diffie-Hellman"},
+            {"1.2.840.10040.4.1", "DSA"},
+            {"1.2.840.113549.1.1.1", "RSA"},
+            {"1.2.840.113549.1.3.1", "DiffieHellman"},
+            {"1.2.840.113549.1.5.3", "pbeWithMD5AndDES-CBC"},
+            {"1.2.840.113549.1.12.1.3", "pbeWithSHAAnd3-KeyTripleDES-CBC"},
             //            {"1.2.840.113549.1.12.1.6", "pbeWithSHAAnd40BitRC2-CBC"},
-            { "1.2.840.113549.3.2", "RC2-CBC" },
-            { "1.2.840.113549.3.3", "RC2-EBC" },
-            { "1.2.840.113549.3.4", "RC4" },
-            { "1.2.840.113549.3.5", "RC4WithMAC" },
-            { "1.2.840.113549.3.6", "DESx-CBC" },
-            { "1.2.840.113549.3.7", "TripleDES-CBC" },
-            { "1.2.840.113549.3.8", "rc5CBC" },
-            { "1.2.840.113549.3.9", "RC5-CBC" },
-            { "1.2.840.113549.3.10", "DESCDMF" }, };
+            {"1.2.840.113549.3.2", "RC2-CBC"},
+            {"1.2.840.113549.3.3", "RC2-EBC"},
+            {"1.2.840.113549.3.4", "RC4"},
+            {"1.2.840.113549.3.5", "RC4WithMAC"},
+            {"1.2.840.113549.3.6", "DESx-CBC"},
+            {"1.2.840.113549.3.7", "TripleDES-CBC"},
+            {"1.2.840.113549.3.8", "rc5CBC"},
+            {"1.2.840.113549.3.9", "RC5-CBC"},
+            {"1.2.840.113549.3.10", "DESCDMF"},};
 
     /**
      * Returns valid encoding of EncryptedPrivateKeyInfo However encoded private
      * key field (encryptedData) does not contain valid encrypted data.
-     * 
+     *
      * @throws NoSuchAlgorithmException
      */
     public static byte[] getValidEncryptedPrivateKeyInfoEncoding(
@@ -1212,7 +1211,7 @@ public class EncryptedPrivateKeyInfoData {
     /**
      * Returns valid encoding of EncryptedPrivateKeyInfo However encoded private
      * key field (encryptedData) does not contain valid encrypted data.
-     * 
+     *
      * @throws NoSuchAlgorithmException
      */
     public static byte[] getParametersEncoding(String algName)

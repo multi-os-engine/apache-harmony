@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.crypto.tests.javax.crypto.serialization;
 
@@ -28,18 +28,17 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for ShortBufferException serialization
- *
  */
 
 public class ShortBufferExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
-        return new Object[] { new ShortBufferException(),
-                new ShortBufferException(null), new ShortBufferException(msgs[1]) };
+        return new Object[]{new ShortBufferException(),
+                new ShortBufferException(null), new ShortBufferException(msgs[1])};
     }
 
 }

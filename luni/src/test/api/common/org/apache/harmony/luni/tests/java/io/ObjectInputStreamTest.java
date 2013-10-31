@@ -168,8 +168,8 @@ public class ObjectInputStreamTest extends TestCase implements
         ois = new ObjectInputStream(new ByteArrayInputStream(bao.toByteArray()));
         MockObjectInputStream mockIn = new MockObjectInputStream(
                 new ByteArrayInputStream(bao.toByteArray()));
-        Class[] clazzs = { java.io.ObjectInputStream.class,
-                java.io.Reader.class };
+        Class[] clazzs = {java.io.ObjectInputStream.class,
+                java.io.Reader.class};
         for (int i = 0; i < clazzs.length; i++) {
             Class clazz = clazzs[i];
             Class[] interfaceNames = clazz.getInterfaces();
@@ -443,7 +443,7 @@ public class ObjectInputStreamTest extends TestCase implements
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-        byte[] begStream = new byte[] { (byte) 0xac, (byte) 0xed, // STREAM_MAGIC
+        byte[] begStream = new byte[]{(byte) 0xac, (byte) 0xed, // STREAM_MAGIC
                 (byte) 0x00, (byte) 0x05, // STREAM_VERSION
                 (byte) 0x73, // TC_OBJECT
                 (byte) 0x72, // TC_CLASSDESC
@@ -454,7 +454,7 @@ public class ObjectInputStreamTest extends TestCase implements
         out.write(cName.length); // second byte for C class name length
         out.write(cName, 0, cName.length); // C class name
 
-        byte[] midStream = new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00,
+        byte[] midStream = new byte[]{(byte) 0x00, (byte) 0x00, (byte) 0x00,
                 (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
                 (byte) 0x21, // serialVersionUID = 33L
                 (byte) 0x02, // flags
@@ -468,7 +468,7 @@ public class ObjectInputStreamTest extends TestCase implements
         out.write(aName.length); // second byte for A class name length
         out.write(aName, 0, aName.length); // A class name
 
-        byte[] endStream = new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00,
+        byte[] endStream = new byte[]{(byte) 0x00, (byte) 0x00, (byte) 0x00,
                 (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
                 (byte) 0x0b, // serialVersionUID = 11L
                 (byte) 0x02, // flags
@@ -506,8 +506,9 @@ public class ObjectInputStreamTest extends TestCase implements
         Object o = ois.readObject();
         assertEquals(C.class, o.getClass());
 
-		// Regression for HARMONY-846
-        assertNull(new ObjectInputStream() {}.readObject());
+        // Regression for HARMONY-846
+        assertNull(new ObjectInputStream() {
+        }.readObject());
     }
 
     /**
@@ -533,7 +534,8 @@ public class ObjectInputStreamTest extends TestCase implements
         public String name = "name";
     }
 
-    public static class B extends A {}
+    public static class B extends A {
+    }
 
     public static class C extends B {
 
@@ -544,8 +546,8 @@ public class ObjectInputStreamTest extends TestCase implements
      * @tests java.io.ObjectInputStream#readObject()
      */
     public void test_readObjectCorrupt() throws IOException, ClassNotFoundException {
-        byte[] bytes = { 00, 00, 00, 0x64, 0x43, 0x48, (byte) 0xFD, 0x71, 00,
-                00, 0x0B, (byte) 0xB8, 0x4D, 0x65 };
+        byte[] bytes = {00, 00, 00, 0x64, 0x43, 0x48, (byte) 0xFD, 0x71, 00,
+                00, 0x0B, (byte) 0xB8, 0x4D, 0x65};
         ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
         try {
             ObjectInputStream in = new ObjectInputStream(bin);
@@ -618,26 +620,28 @@ public class ObjectInputStreamTest extends TestCase implements
 
         // Regression for HARMONY-844
         try {
-            new ObjectInputStream() {}.skipBytes(0);
+            new ObjectInputStream() {
+            }.skipBytes(0);
             fail("NullPointerException expected");
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+        }
     }
 
     // Regression Test for JIRA 2192
-	public void test_readObject_withPrimitiveClass() throws Exception {
-		File file = new File("test.ser");
-		file.deleteOnExit();
-		Test test = new Test();
-		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(
-				file));
-		out.writeObject(test);
-		out.close();
+    public void test_readObject_withPrimitiveClass() throws Exception {
+        File file = new File("test.ser");
+        file.deleteOnExit();
+        Test test = new Test();
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(
+                file));
+        out.writeObject(test);
+        out.close();
 
-		ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-		Test another = (Test) in.readObject();
-		in.close();
-		assertEquals(test, another);
-	}
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+        Test another = (Test) in.readObject();
+        in.close();
+        assertEquals(test, another);
+    }
 
     //Regression Test for JIRA-2249
     public static class ObjectOutputStreamWithWriteDesc extends
@@ -672,55 +676,55 @@ public class ObjectInputStreamTest extends TestCase implements
     }
 
     static class TestClassForSerialization implements Serializable {
-		private static final long serialVersionUID = 1L;
-	}
+        private static final long serialVersionUID = 1L;
+    }
 
     public void test_ClassDescriptor() throws IOException,
-			ClassNotFoundException {
+            ClassNotFoundException {
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ObjectOutputStreamWithWriteDesc oos = new ObjectOutputStreamWithWriteDesc(
-				baos);
-		oos.writeObject(String.class);
-		oos.close();
-		Class cls = TestClassForSerialization.class;
-		ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-		ObjectIutputStreamWithReadDesc ois = new ObjectIutputStreamWithReadDesc(
-				bais, cls);
-		Object obj = ois.readObject();
-		ois.close();
-		assertEquals(cls, obj);
-	}
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStreamWithWriteDesc oos = new ObjectOutputStreamWithWriteDesc(
+                baos);
+        oos.writeObject(String.class);
+        oos.close();
+        Class cls = TestClassForSerialization.class;
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        ObjectIutputStreamWithReadDesc ois = new ObjectIutputStreamWithReadDesc(
+                bais, cls);
+        Object obj = ois.readObject();
+        ois.close();
+        assertEquals(cls, obj);
+    }
 
-	// Regression Test for JIRA-2340
+    // Regression Test for JIRA-2340
     public static class ObjectOutputStreamWithWriteDesc1 extends
-			ObjectOutputStream {
-		public ObjectOutputStreamWithWriteDesc1(OutputStream os)
-				throws IOException {
-			super(os);
-		}
+            ObjectOutputStream {
+        public ObjectOutputStreamWithWriteDesc1(OutputStream os)
+                throws IOException {
+            super(os);
+        }
 
-		@Override
+        @Override
         public void writeClassDescriptor(ObjectStreamClass desc)
-				throws IOException {
-			super.writeClassDescriptor(desc);
-		}
-	}
+                throws IOException {
+            super.writeClassDescriptor(desc);
+        }
+    }
 
-	public static class ObjectIutputStreamWithReadDesc1 extends
-			ObjectInputStream {
+    public static class ObjectIutputStreamWithReadDesc1 extends
+            ObjectInputStream {
 
-		public ObjectIutputStreamWithReadDesc1(InputStream is)
-				throws IOException {
-			super(is);
-		}
+        public ObjectIutputStreamWithReadDesc1(InputStream is)
+                throws IOException {
+            super(is);
+        }
 
-		@Override
+        @Override
         public ObjectStreamClass readClassDescriptor() throws IOException,
-				ClassNotFoundException {
-			return super.readClassDescriptor();
-		}
-	}
+                ClassNotFoundException {
+            return super.readClassDescriptor();
+        }
+    }
 
     // Regression test for Harmony-1921
     public static class ObjectInputStreamWithResolve extends ObjectInputStream {
@@ -770,7 +774,7 @@ public class ObjectInputStreamTest extends TestCase implements
 
         @Override
         protected Object resolveObject(Object obj) throws IOException {
-            if(obj instanceof Integer){
+            if (obj instanceof Integer) {
                 obj = intObj;
             }
             return super.resolveObject(obj);
@@ -793,7 +797,7 @@ public class ObjectInputStreamTest extends TestCase implements
         byte[] bytes = baos.toByteArray();
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         ObjectInputStreamWithResolveObject ois =
-            new ObjectInputStreamWithResolveObject(bais);
+                new ObjectInputStreamWithResolveObject(bais);
         Integer actual = (Integer) ois.readObject();
         ois.close();
 
@@ -801,24 +805,24 @@ public class ObjectInputStreamTest extends TestCase implements
         assertEquals(ObjectInputStreamWithResolveObject.intObj, actual);
     }
 
-	public void test_readClassDescriptor() throws IOException,
-			ClassNotFoundException {
+    public void test_readClassDescriptor() throws IOException,
+            ClassNotFoundException {
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ObjectOutputStreamWithWriteDesc1 oos = new ObjectOutputStreamWithWriteDesc1(
-				baos);
-		ObjectStreamClass desc = ObjectStreamClass
-		.lookup(TestClassForSerialization.class);
-		oos.writeClassDescriptor(desc);
-		oos.close();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStreamWithWriteDesc1 oos = new ObjectOutputStreamWithWriteDesc1(
+                baos);
+        ObjectStreamClass desc = ObjectStreamClass
+                .lookup(TestClassForSerialization.class);
+        oos.writeClassDescriptor(desc);
+        oos.close();
 
         byte[] bytes = baos.toByteArray();
-		ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-		ObjectIutputStreamWithReadDesc1 ois = new ObjectIutputStreamWithReadDesc1(
-				bais);
-		Object obj = ois.readClassDescriptor();
-		ois.close();
-		assertEquals(desc.getClass(), obj.getClass());
+        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+        ObjectIutputStreamWithReadDesc1 ois = new ObjectIutputStreamWithReadDesc1(
+                bais);
+        Object obj = ois.readClassDescriptor();
+        ois.close();
+        assertEquals(desc.getClass(), obj.getClass());
 
         //eof
         bais = new ByteArrayInputStream(bytes);
@@ -865,7 +869,7 @@ public class ObjectInputStreamTest extends TestCase implements
         } finally {
             ois.close();
         }
-	}
+    }
 
     static class ExceptionalBufferedInputStream extends BufferedInputStream {
         private boolean eof = false;
@@ -987,6 +991,7 @@ public class ObjectInputStreamTest extends TestCase implements
     private static class RegisterValidationClass implements Serializable {
         @SuppressWarnings("unused")
         private A a = new A();
+
         private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
             stream.defaultReadObject();
             stream.registerValidation(new MockObjectInputValidation(), 0);
@@ -1016,13 +1021,13 @@ public class ObjectInputStreamTest extends TestCase implements
         ObjectInputStream oin = new ObjectInputStream(this.getClass().getClassLoader().getResourceAsStream(
                 "serialization/" + resourcePrefix + "/test_array_strings.ser"));
         TestArray testArray = (TestArray) oin.readObject();
-        String[] strings = new String[] { "AAA", "BBB" };
+        String[] strings = new String[]{"AAA", "BBB"};
         assertTrue(java.util.Arrays.equals(strings, testArray.array));
 
         oin = new ObjectInputStream(this.getClass().getClassLoader().getResourceAsStream(
                 "serialization/" + resourcePrefix + "/test_array_integers.ser"));
         testArray = (TestArray) oin.readObject();
-        Integer[] integers = new Integer[] { 10, 20 };
+        Integer[] integers = new Integer[]{10, 20};
         assertTrue(java.util.Arrays.equals(integers, testArray.array));
     }
 
@@ -1047,7 +1052,8 @@ public class ObjectInputStreamTest extends TestCase implements
 
         @Override
         protected void writeClassDescriptor(ObjectStreamClass osc) throws IOException {
-            objs[pos++] = osc;        }
+            objs[pos++] = osc;
+        }
     }
 
     static class TestObjectInputStream extends ObjectInputStream {
@@ -1092,7 +1098,7 @@ public class ObjectInputStreamTest extends TestCase implements
 
         try {
             FieldReplacementTestClass result =
-                (FieldReplacementTestClass)ois.readObject();
+                    (FieldReplacementTestClass) ois.readObject();
             fail("should throw ClassCastException");
         } catch (ClassCastException e) {
             // expected
@@ -1112,23 +1118,29 @@ public class ObjectInputStreamTest extends TestCase implements
 
     public static class FieldReplacementTestClass implements Serializable {
         private FieldClass c;
+
         public FieldReplacementTestClass(int i) {
             super();
             c = new FieldClass(i);
         }
     }
+
     public static class FieldClass implements Serializable {
         private int i;
+
         public FieldClass(int i) {
             super();
             this.i = i;
         }
+
         protected Object writeReplace() throws ObjectStreamException {
             return new ReplacementFieldClass(i);
         }
     }
+
     public static class ReplacementFieldClass implements Serializable {
         private int i;
+
         public ReplacementFieldClass(int i) {
             super();
             this.i = i;
@@ -1137,8 +1149,7 @@ public class ObjectInputStreamTest extends TestCase implements
 
 }
 
-class TestArray implements Serializable
-{
+class TestArray implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public Object[] array;
@@ -1150,17 +1161,17 @@ class TestArray implements Serializable
 }
 
 class Test implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	Class classes[] = new Class[] { byte.class, short.class, int.class,
-			long.class, boolean.class, char.class, float.class,
-                        double.class, void.class };
+    Class classes[] = new Class[]{byte.class, short.class, int.class,
+            long.class, boolean.class, char.class, float.class,
+            double.class, void.class};
 
-	@Override
+    @Override
     public boolean equals(Object o) {
-		if (!(o instanceof Test)) {
-			return false;
-		}
-		return Arrays.equals(classes, ((Test) o).classes);
-	}
+        if (!(o instanceof Test)) {
+            return false;
+        }
+        return Arrays.equals(classes, ((Test) o).classes);
+    }
 }

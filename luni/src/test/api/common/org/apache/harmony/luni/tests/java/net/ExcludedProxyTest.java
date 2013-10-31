@@ -162,7 +162,7 @@ public class ExcludedProxyTest extends TestCase {
                 Support_Configuration.ProxyServerTestHost, 1080);
         Proxy proxy1 = new Proxy(Proxy.Type.HTTP, addr1);
         Proxy proxy2 = new Proxy(Proxy.Type.SOCKS, addr2);
-        Proxy proxyList[] = { proxy1, proxy2 };
+        Proxy proxyList[] = {proxy1, proxy2};
         for (int i = 0; i < proxyList.length; ++i) {
             String posted = "just a test";
             URL u = new URL("http://"
@@ -195,7 +195,7 @@ public class ExcludedProxyTest extends TestCase {
         URL ftpUrl = new URL("ftp://" + Support_Configuration.FTPTestAddress
                 + "/nettest.txt");
         URL fileUrl = new URL("file://abc");
-        URL[] urlList = { httpUrl, jarUrl, ftpUrl, fileUrl };
+        URL[] urlList = {httpUrl, jarUrl, ftpUrl, fileUrl};
         for (int i = 0; i < urlList.length; ++i) {
             try {
                 urlList[i].openConnection(null);

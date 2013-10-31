@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexander V. Astapchuk
-*/
+ * @author Alexander V. Astapchuk
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -32,7 +32,6 @@ import org.apache.harmony.security.tests.support.TestCertUtils;
 
 /**
  * Serialization tests for <code>CodeSigner</code>
- *
  */
 
 public class CodeSignerTest extends SerializationTest {
@@ -43,7 +42,7 @@ public class CodeSignerTest extends SerializationTest {
     protected Object[] getData() {
         CertPath cpath = TestCertUtils.getCertPath();
         Timestamp ts = new Timestamp(new Date(1146633204309L), cpath);
-        return new Object[] { new CodeSigner(cpath, ts),
-                new CodeSigner(cpath, null) };
+        return new Object[]{new CodeSigner(cpath, ts),
+                new CodeSigner(cpath, null)};
     }
 }

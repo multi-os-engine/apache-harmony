@@ -24,7 +24,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>SSLKeyException</code> class constructors and methods.
- * 
  */
 public class SSLKeyExceptionTest extends TestCase {
 
@@ -33,7 +32,7 @@ public class SSLKeyExceptionTest extends TestCase {
 
     /**
      * Constructor for SSLKeyExceptionTests.
-     * 
+     *
      * @param arg0
      */
     public SSLKeyExceptionTest(String arg0) {
@@ -43,7 +42,7 @@ public class SSLKeyExceptionTest extends TestCase {
     static String[] msgs = {
             "",
             "Check new message",
-            "Check new message Check new message Check new message Check new message Check new message" };
+            "Check new message Check new message Check new message Check new message Check new message"};
 
     static Throwable tCause = new Throwable("Throwable for exception");
 

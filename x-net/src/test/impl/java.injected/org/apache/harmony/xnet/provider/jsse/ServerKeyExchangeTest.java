@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>ServerKeyExchange</code> constructor and methods
- *  
  */
 public class ServerKeyExchangeTest extends TestCase {
 
@@ -34,8 +33,8 @@ public class ServerKeyExchangeTest extends TestCase {
                 "0620872145533812525365347773040950432706816921321053881493952289532007782427182339053847578435298266865073748931755945944874247298083566202475988854994079");
         BigInteger rsa_exp = new BigInteger("65537");
 
-        byte[] hash = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5,
-                6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6 };
+        byte[] hash = new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5,
+                6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6};
         ServerKeyExchange message = new ServerKeyExchange(rsa_mod, rsa_exp,
                 null, hash);
         assertEquals("incorrect type", Handshake.SERVER_KEY_EXCHANGE, message
@@ -75,7 +74,7 @@ public class ServerKeyExchangeTest extends TestCase {
         }
 
         in.append(encoded);
-        in.append(new byte[] { 1, 2, 3 });
+        in.append(new byte[]{1, 2, 3});
         try {
             new ServerKeyExchange(in, message.length() + 3,
                     CipherSuite.KeyExchange_RSA_EXPORT);
@@ -88,8 +87,8 @@ public class ServerKeyExchangeTest extends TestCase {
         BigInteger dh_p = new BigInteger("1234567890");
         BigInteger dh_g = new BigInteger("987654321");
         BigInteger dh_Ys = new BigInteger("123123123");
-        byte[] hash = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5,
-                6, 7, 8, 9, 0 };
+        byte[] hash = new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5,
+                6, 7, 8, 9, 0};
         ServerKeyExchange message = new ServerKeyExchange(dh_p, dh_g, dh_Ys,
                 hash);
         assertEquals("incorrect type", Handshake.SERVER_KEY_EXCHANGE, message
@@ -127,7 +126,7 @@ public class ServerKeyExchangeTest extends TestCase {
         }
 
         in.append(encoded);
-        in.append(new byte[] { 1, 2, 3 });
+        in.append(new byte[]{1, 2, 3});
         try {
             new ServerKeyExchange(in, message.length() + 3,
                     CipherSuite.KeyExchange_DHE_DSS);
@@ -175,7 +174,7 @@ public class ServerKeyExchangeTest extends TestCase {
         }
 
         in.append(encoded);
-        in.append(new byte[] { 1, 2, 3 });
+        in.append(new byte[]{1, 2, 3});
         try {
             new ServerKeyExchange(in, message.length() + 3,
                     CipherSuite.KeyExchange_DH_anon);

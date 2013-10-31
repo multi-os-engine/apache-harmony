@@ -206,7 +206,7 @@ public class FileHandlerTest extends TestCase {
             handler.close();
         }
         assertFileContent(TEMPPATH + SEP + "log", "java0.test.0",
-                new LogRecord[] { r, null, r, null, r, null, r },
+                new LogRecord[]{r, null, r, null, r, null, r},
                 new MockFormatter(), "UTF-8");
     }
 
@@ -236,7 +236,7 @@ public class FileHandlerTest extends TestCase {
 
     private void assertFileContent(String homepath, String filename,
             Formatter formatter, String encoding) throws Exception {
-        assertFileContent(homepath, filename, new LogRecord[] { r }, formatter, encoding);
+        assertFileContent(homepath, filename, new LogRecord[]{r}, formatter, encoding);
     }
 
     private void assertFileContent(String homepath, String filename,
@@ -353,10 +353,10 @@ public class FileHandlerTest extends TestCase {
             handler.publish(rs[i]);
         }
 
-        assertFileContent(TEMPPATH, "testLimitCount0.1", new LogRecord[] {
-                rs[5], rs[6], rs[7] }, handler.getFormatter(), "UTF-8");
-        assertFileContent(TEMPPATH, "testLimitCount0.0", new LogRecord[] {
-                rs[8], rs[9] }, handler.getFormatter(), "UTF-8");
+        assertFileContent(TEMPPATH, "testLimitCount0.1", new LogRecord[]{
+                rs[5], rs[6], rs[7]}, handler.getFormatter(), "UTF-8");
+        assertFileContent(TEMPPATH, "testLimitCount0.0", new LogRecord[]{
+                rs[8], rs[9]}, handler.getFormatter(), "UTF-8");
 
         // normal case, limit is 60(>2*msg length <3*msg length), append is true
         handler = new FileHandler("%t/testLimitCount%u", 60, 3, false);
@@ -372,12 +372,12 @@ public class FileHandlerTest extends TestCase {
             handler.publish(rs[i]);
         }
         handler.close();
-        assertFileContent(TEMPPATH, "testLimitCount0.2", new LogRecord[] {
-                rs[3], rs[4], null, rs[5] }, handler.getFormatter(), "UTF-8");
-        assertFileContent(TEMPPATH, "testLimitCount0.1", new LogRecord[] {
-                rs[6], rs[7], rs[8] }, handler.getFormatter(), "UTF-8");
+        assertFileContent(TEMPPATH, "testLimitCount0.2", new LogRecord[]{
+                rs[3], rs[4], null, rs[5]}, handler.getFormatter(), "UTF-8");
+        assertFileContent(TEMPPATH, "testLimitCount0.1", new LogRecord[]{
+                rs[6], rs[7], rs[8]}, handler.getFormatter(), "UTF-8");
         assertFileContent(TEMPPATH, "testLimitCount0.0",
-                new LogRecord[] { rs[9] }, handler.getFormatter(), "UTF-8");
+                new LogRecord[]{rs[9]}, handler.getFormatter(), "UTF-8");
 
         FileHandler h1 = null;
         FileHandler h2 = null;

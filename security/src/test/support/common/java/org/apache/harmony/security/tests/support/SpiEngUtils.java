@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.support;
 
@@ -28,7 +28,6 @@ import java.util.StringTokenizer;
 
 /**
  * Additional class for verification spi-engine classes
- * 
  */
 
 public class SpiEngUtils {
@@ -36,11 +35,11 @@ public class SpiEngUtils {
     public static final String[] invalidValues = {
             "",
             "BadAlgorithm",
-            "Long message Long message Long message Long message Long message Long message Long message Long message Long message Long message Long message Long message Long message" };
+            "Long message Long message Long message Long message Long message Long message Long message Long message Long message Long message Long message Long message Long message"};
 
     /**
      * Verification: is algorithm supported or not
-     * 
+     *
      * @param algorithm
      * @param service
      * @return

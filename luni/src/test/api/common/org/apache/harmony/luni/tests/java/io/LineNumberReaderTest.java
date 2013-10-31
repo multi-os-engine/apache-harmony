@@ -118,7 +118,7 @@ public class LineNumberReaderTest extends TestCase {
                 lnr.getLineNumber() == 2);
 
         // Regression for HARMONY-4294
-        byte[] buffer = new byte[] { '\r', '\n' };
+        byte[] buffer = new byte[]{'\r', '\n'};
         LineNumberReader reader = new LineNumberReader(new InputStreamReader(
                 new ByteArrayInputStream(buffer), "UTF-8"));
         assertEquals('\n', reader.read());
@@ -148,8 +148,13 @@ public class LineNumberReaderTest extends TestCase {
         lnr = new LineNumberReader(new Reader() {
             private StringReader delegate = new StringReader("hello\nworld");
             private int calls = 0;
-            @Override public void close() throws IOException {}
-            @Override public int read(char[] buf, int offset, int len) throws IOException {
+
+            @Override
+            public void close() throws IOException {
+            }
+
+            @Override
+            public int read(char[] buf, int offset, int len) throws IOException {
                 if (calls++ < 2) {
                     throw new IOException();
                 } else {

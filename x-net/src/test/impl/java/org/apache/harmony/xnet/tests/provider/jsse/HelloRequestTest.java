@@ -26,7 +26,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>HelloRequest</code> constructor and methods
- *
  */
 public class HelloRequestTest extends TestCase {
 
@@ -55,7 +54,7 @@ public class HelloRequestTest extends TestCase {
         }
 
         in.append(encoded);
-        in.append(new byte[] { 1, 2, 3 });
+        in.append(new byte[]{1, 2, 3});
         try {
             new HelloRequest(in, message.length() + 3);
             fail("Extra bytes: No expected AlertException ");

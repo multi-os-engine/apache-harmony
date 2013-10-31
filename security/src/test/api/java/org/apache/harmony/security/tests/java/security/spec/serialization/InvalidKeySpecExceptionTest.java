@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.spec.serialization;
 
@@ -28,24 +28,23 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for InvalidKeySpecException serialization
- *
  */
 
 public class InvalidKeySpecExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
         Exception cause = new Exception(msgs[1]);
         InvalidKeySpecException dExc = new InvalidKeySpecException(msgs[0], cause);
         String msg = null;
         Throwable th = null;
-        return new Object[] { new InvalidKeySpecException(), new InvalidKeySpecException(msg),
+        return new Object[]{new InvalidKeySpecException(), new InvalidKeySpecException(msg),
                 new InvalidKeySpecException(msgs[1]),
                 new InvalidKeySpecException(new Throwable()), new InvalidKeySpecException(th),
-                new InvalidKeySpecException(msgs[1], dExc) };
+                new InvalidKeySpecException(msgs[1], dExc)};
     }
 
 }

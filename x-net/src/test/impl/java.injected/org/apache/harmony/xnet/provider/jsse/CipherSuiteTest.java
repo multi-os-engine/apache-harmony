@@ -21,19 +21,18 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>CipherSuite</code> constructor and methods
- * 
  */
 public class CipherSuiteTest extends TestCase {
 
     public void testEquals() {
         CipherSuite c1 = new CipherSuite("CipherSuite1", false, 0, "", "",
-                new byte[] { 10, 10 });
+                new byte[]{10, 10});
         CipherSuite c2 = new CipherSuite("CipherSuite2", false, 0, "", "",
-                new byte[] { 10, 10 });
+                new byte[]{10, 10});
         CipherSuite c3 = new CipherSuite("CipherSuite3", false, 0, "", "",
-                new byte[] { 10, 11 });
+                new byte[]{10, 11});
         CipherSuite c4 = new CipherSuite("CipherSuite4", false, 0, "", "",
-                new byte[] { 11, 10 });
+                new byte[]{11, 10});
         if (!c1.equals(c2) || c1.equals(c3) || c4.equals(c1) || c4.equals(c3)) {
             fail("testEquals failed");
         }
@@ -41,7 +40,7 @@ public class CipherSuiteTest extends TestCase {
 
     public void testToString() {
         CipherSuite c1 = new CipherSuite("CipherSuite1", false, 0, "", "",
-                new byte[] { 10, 10 });
+                new byte[]{10, 10});
         assertEquals("testToString failed", "CipherSuite1: 10 10",
                 c1.toString());
     }
@@ -67,8 +66,8 @@ public class CipherSuiteTest extends TestCase {
                     CipherSuite.getByCode(code[0], code[1]));
         }
         assertEquals("incorrect cipher suite returned for code: 10 10",
-                new CipherSuite("UNKNOUN_10_10", false, 0, "", "", new byte[] {
-                        10, 10 }), CipherSuite.getByCode((byte) 10, (byte) 10));
+                new CipherSuite("UNKNOUN_10_10", false, 0, "", "", new byte[]{
+                        10, 10}), CipherSuite.getByCode((byte) 10, (byte) 10));
     }
 
     /*
@@ -82,21 +81,21 @@ public class CipherSuiteTest extends TestCase {
                     CipherSuite.getByCode((byte) 0, (byte) 0, code[1]));
         }
         assertEquals("incorrect cipher suite returned for code: 10 10 10",
-                new CipherSuite("UNKNOUN_10_10_10", false, 0, "", "", 
-                        new byte[] { 10, 10, 10 }),
+                new CipherSuite("UNKNOUN_10_10_10", false, 0, "", "",
+                        new byte[]{10, 10, 10}),
                 CipherSuite.getByCode((byte) 10, (byte) 10, (byte) 10));
     }
 
     public void testIsAnonymous() {
         CipherSuite c1 = new CipherSuite("CipherSuite1", false,
-                CipherSuite.KeyExchange_DH_anon, "", "", new byte[] { 10, 10 });
+                CipherSuite.KeyExchange_DH_anon, "", "", new byte[]{10, 10});
         CipherSuite c2 = new CipherSuite("CipherSuite2", false,
-                CipherSuite.KeyExchange_DH_anon_EXPORT, "", "", new byte[] { 9,
-                        10 });
+                CipherSuite.KeyExchange_DH_anon_EXPORT, "", "", new byte[]{9,
+                10});
         CipherSuite c3 = new CipherSuite("CipherSuite3", false,
-                CipherSuite.KeyExchange_DH_DSS, "", "", new byte[] { 10, 11 });
+                CipherSuite.KeyExchange_DH_DSS, "", "", new byte[]{10, 11});
         CipherSuite c4 = new CipherSuite("CipherSuite4", false,
-                CipherSuite.KeyExchange_DH_RSA, "", "", new byte[] { 11, 10 });
+                CipherSuite.KeyExchange_DH_RSA, "", "", new byte[]{11, 10});
         assertTrue(c1.isAnonymous());
         assertTrue(c1.isAnonymous());
         assertFalse(c3.isAnonymous());
@@ -118,7 +117,7 @@ public class CipherSuiteTest extends TestCase {
         }
     }
 
-    public void testGetBulkEncryptionAlgorithm() {       
+    public void testGetBulkEncryptionAlgorithm() {
         assertNull(CipherSuite.TLS_NULL_WITH_NULL_NULL
                 .getBulkEncryptionAlgorithm());
         assertNull(CipherSuite.TLS_RSA_WITH_NULL_MD5
@@ -127,166 +126,166 @@ public class CipherSuiteTest extends TestCase {
                 .getBulkEncryptionAlgorithm());
         assertEquals("RC4",
                 CipherSuite.TLS_RSA_EXPORT_WITH_RC4_40_MD5
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("RC4",
                 CipherSuite.TLS_RSA_WITH_RC4_128_MD5
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("RC4",
                 CipherSuite.TLS_RSA_WITH_RC4_128_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("RC2/CBC/NoPadding",
                 CipherSuite.TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("IDEA/CBC/NoPadding",
                 CipherSuite.TLS_RSA_WITH_IDEA_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_RSA_WITH_DES_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DESede/CBC/NoPadding",
                 CipherSuite.TLS_RSA_WITH_3DES_EDE_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_DH_DSS_WITH_DES_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DESede/CBC/NoPadding",
                 CipherSuite.TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_DH_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_DH_RSA_WITH_DES_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DESede/CBC/NoPadding",
                 CipherSuite.TLS_DH_RSA_WITH_3DES_EDE_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_DHE_DSS_WITH_DES_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DESede/CBC/NoPadding",
                 CipherSuite.TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_DHE_RSA_WITH_DES_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DESede/CBC/NoPadding",
                 CipherSuite.TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("RC4",
                 CipherSuite.TLS_DH_anon_EXPORT_WITH_RC4_40_MD5
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("RC4",
                 CipherSuite.TLS_DH_anon_WITH_RC4_128_MD5
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_DH_anon_EXPORT_WITH_DES40_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DES/CBC/NoPadding",
                 CipherSuite.TLS_DH_anon_WITH_DES_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
         assertEquals("DESede/CBC/NoPadding",
                 CipherSuite.TLS_DH_anon_WITH_3DES_EDE_CBC_SHA
-                .getBulkEncryptionAlgorithm());
+                        .getBulkEncryptionAlgorithm());
     }
 
     public void testGetBlockSize() {
         assertEquals(0,
                 CipherSuite.TLS_NULL_WITH_NULL_NULL
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(0,
                 CipherSuite.TLS_RSA_WITH_NULL_MD5
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(0,
                 CipherSuite.TLS_RSA_WITH_NULL_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(0,
                 CipherSuite.TLS_RSA_EXPORT_WITH_RC4_40_MD5
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(0,
                 CipherSuite.TLS_RSA_WITH_RC4_128_MD5
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(0,
                 CipherSuite.TLS_RSA_WITH_RC4_128_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_RSA_WITH_IDEA_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_RSA_WITH_DES_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_RSA_WITH_3DES_EDE_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DH_DSS_WITH_DES_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DH_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DH_RSA_WITH_DES_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DH_RSA_WITH_3DES_EDE_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DHE_DSS_WITH_DES_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DHE_RSA_WITH_DES_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(0,
                 CipherSuite.TLS_DH_anon_EXPORT_WITH_RC4_40_MD5
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(0,
                 CipherSuite.TLS_DH_anon_WITH_RC4_128_MD5
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DH_anon_EXPORT_WITH_DES40_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DH_anon_WITH_DES_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
         assertEquals(8,
                 CipherSuite.TLS_DH_anon_WITH_3DES_EDE_CBC_SHA
-                .getBlockSize());
+                        .getBlockSize());
     }
 
     public void testGetHmacName() {
@@ -294,85 +293,85 @@ public class CipherSuiteTest extends TestCase {
                 .getHmacName());
         assertEquals("HmacMD5",
                 CipherSuite.TLS_RSA_WITH_NULL_MD5
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_RSA_WITH_NULL_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacMD5",
                 CipherSuite.TLS_RSA_EXPORT_WITH_RC4_40_MD5
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacMD5",
                 CipherSuite.TLS_RSA_WITH_RC4_128_MD5
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_RSA_WITH_RC4_128_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacMD5",
                 CipherSuite.TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_RSA_WITH_IDEA_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_RSA_WITH_DES_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_RSA_WITH_3DES_EDE_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DH_DSS_WITH_DES_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DH_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DH_RSA_WITH_DES_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DH_RSA_WITH_3DES_EDE_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DHE_DSS_WITH_DES_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DHE_RSA_WITH_DES_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacMD5",
                 CipherSuite.TLS_DH_anon_EXPORT_WITH_RC4_40_MD5
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacMD5",
                 CipherSuite.TLS_DH_anon_WITH_RC4_128_MD5
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DH_anon_EXPORT_WITH_DES40_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DH_anon_WITH_DES_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
         assertEquals("HmacSHA1",
                 CipherSuite.TLS_DH_anon_WITH_3DES_EDE_CBC_SHA
-                .getHmacName());
+                        .getHmacName());
     }
 
     public void testGetHashName() {
@@ -380,85 +379,85 @@ public class CipherSuiteTest extends TestCase {
                 .getHashName());
         assertEquals("MD5",
                 CipherSuite.TLS_RSA_WITH_NULL_MD5
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_RSA_WITH_NULL_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("MD5",
                 CipherSuite.TLS_RSA_EXPORT_WITH_RC4_40_MD5
-                .getHashName());
+                        .getHashName());
         assertEquals("MD5",
                 CipherSuite.TLS_RSA_WITH_RC4_128_MD5
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_RSA_WITH_RC4_128_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("MD5",
                 CipherSuite.TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_RSA_WITH_IDEA_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_RSA_WITH_DES_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_RSA_WITH_3DES_EDE_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DH_DSS_WITH_DES_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DH_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DH_RSA_WITH_DES_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DH_RSA_WITH_3DES_EDE_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DHE_DSS_WITH_DES_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DHE_RSA_WITH_DES_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("MD5",
                 CipherSuite.TLS_DH_anon_EXPORT_WITH_RC4_40_MD5
-                .getHashName());
+                        .getHashName());
         assertEquals("MD5",
                 CipherSuite.TLS_DH_anon_WITH_RC4_128_MD5
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DH_anon_EXPORT_WITH_DES40_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DH_anon_WITH_DES_CBC_SHA
-                .getHashName());
+                        .getHashName());
         assertEquals("SHA-1",
                 CipherSuite.TLS_DH_anon_WITH_3DES_EDE_CBC_SHA
-                .getHashName());
+                        .getHashName());
     }
 
     public void testGetMACLength() {

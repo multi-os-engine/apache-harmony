@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexander Y. Kleymenov
-*/
+ * @author Alexander Y. Kleymenov
+ */
 
 package javax.crypto;
 
@@ -53,7 +53,7 @@ public class CipherInputStreamTest extends TestCase {
      * in the constructor.
      */
     public void testCipherInputStream() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestInputStream tis = new TestInputStream(data);
         CipherInputStream cis = new CipherInputStream(tis);
 
@@ -73,7 +73,7 @@ public class CipherInputStreamTest extends TestCase {
      * (related to the InputStream) and that it returns -1 at the end of stream.
      */
     public void testRead1() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestInputStream tis = new TestInputStream(data);
         CipherInputStream cis = new CipherInputStream(tis, new NullCipher());
         byte res;
@@ -94,7 +94,7 @@ public class CipherInputStreamTest extends TestCase {
      * stream.
      */
     public void testRead2() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestInputStream tis = new TestInputStream(data);
         CipherInputStream cis = new CipherInputStream(tis, new NullCipher());
 
@@ -132,7 +132,7 @@ public class CipherInputStreamTest extends TestCase {
      * stream.
      */
     public void testRead3() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestInputStream tis = new TestInputStream(data);
         CipherInputStream cis = new CipherInputStream(tis, new NullCipher());
 
@@ -170,7 +170,7 @@ public class CipherInputStreamTest extends TestCase {
      * bytes.
      */
     public void testSkip() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestInputStream tis = new TestInputStream(data);
         CipherInputStream cis = new CipherInputStream(tis, new NullCipher());
         int expected = data.length;
@@ -208,7 +208,7 @@ public class CipherInputStreamTest extends TestCase {
      * available() method testing. Tests that the method always return 0.
      */
     public void testAvailable() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestInputStream tis = new TestInputStream(data);
         CipherInputStream cis = new CipherInputStream(tis, new NullCipher());
         assertEquals("The returned by available() method value "
@@ -220,7 +220,7 @@ public class CipherInputStreamTest extends TestCase {
      * method of the underlying input stream.
      */
     public void testClose() throws Exception {
-        byte[] data = new byte[] { -127, -100, -50, -10, -1, 0, 1, 10, 50, 127 };
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestInputStream tis = new TestInputStream(data);
         CipherInputStream cis = new CipherInputStream(tis, new NullCipher());
         cis.close();
@@ -232,7 +232,7 @@ public class CipherInputStreamTest extends TestCase {
      * markSupported() method testing. Tests that mark is not supported.
      */
     public void testMarkSupported() {
-        byte[] data = new byte[] {-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
+        byte[] data = new byte[]{-127, -100, -50, -10, -1, 0, 1, 10, 50, 127};
         TestInputStream tis = new TestInputStream(data);
         CipherInputStream cis = new CipherInputStream(tis, new NullCipher());
         assertFalse("The returned by markSupported() method value "

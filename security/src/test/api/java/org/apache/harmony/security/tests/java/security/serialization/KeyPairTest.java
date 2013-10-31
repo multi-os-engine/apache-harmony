@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vladimir N. Molotkov
-*/
+ * @author Vladimir N. Molotkov
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -44,9 +44,9 @@ public class KeyPairTest extends TestCase {
 
     protected void setUp() throws Exception {
         PrivateKeyStub privateKey = new PrivateKeyStub("privateAlgorithm",
-                "privateFormat", new byte[] { 0x00, 0x05, 0x10 });
+                "privateFormat", new byte[]{0x00, 0x05, 0x10});
         PublicKeyStub publicKey = new PublicKeyStub("publicAlgorithm",
-                "publicFormat", new byte[] { 0x01, 0x02, 0x12 });
+                "publicFormat", new byte[]{0x01, 0x02, 0x12});
 
         keyPair = new KeyPair(publicKey, privateKey);
     }
@@ -58,7 +58,7 @@ public class KeyPairTest extends TestCase {
 
         SerializationTest.verifyGolden(this, keyPair, comparator);
     }
-    
+
     /**
      * Tests serialization/deserialization
      */
@@ -69,12 +69,12 @@ public class KeyPairTest extends TestCase {
 
 
     // comparator for KeyPair objects
-    private static SerializableAssert comparator = new SerializableAssert(){
+    private static SerializableAssert comparator = new SerializableAssert() {
         public void assertDeserialized(Serializable reference, Serializable test) {
 
             // check result: compare public keys
-            Key key1 = ((KeyPair)test).getPublic();
-            Key key2 = ((KeyPair)reference).getPublic();
+            Key key1 = ((KeyPair) test).getPublic();
+            Key key2 = ((KeyPair) reference).getPublic();
 
             assertEquals("PublicKey class", key1.getClass(), key2.getClass());
             assertEquals("PublicKey algorithm", key1.getAlgorithm(), key2
@@ -84,8 +84,8 @@ public class KeyPairTest extends TestCase {
                     key2.getEncoded()));
 
             // check result: compare private keys
-            key1 = ((KeyPair)test).getPrivate();
-            key2 = ((KeyPair)reference).getPrivate();
+            key1 = ((KeyPair) test).getPrivate();
+            key2 = ((KeyPair) reference).getPrivate();
 
             assertEquals("PrivateKey class", key1.getClass(), key2.getClass());
             assertEquals("PrivateKey algorithm", key1.getAlgorithm(), key2

@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
- 
+
 package org.apache.harmony.security.tests.java.security;
 
 import java.io.ByteArrayInputStream;
@@ -51,9 +51,9 @@ public class KeyStorePrivateKeyEntryTest extends TestCase {
 
         ByteArrayInputStream certArray;
         {
-            try{
-                 certArray = new ByteArrayInputStream(
-                    certificateData.getBytes("UTF-8"));
+            try {
+                certArray = new ByteArrayInputStream(
+                        certificateData.getBytes("UTF-8"));
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e.getMessage());
             }
@@ -71,7 +71,7 @@ public class KeyStorePrivateKeyEntryTest extends TestCase {
         // If all the certificate in the chain is X509Certificate,
         // KeyStore.PrivateKeyEntry will return a X509Certificate array.
         KeyStore.PrivateKeyEntry privateKeyEntry = new KeyStore.PrivateKeyEntry(
-                privateKey, new Certificate[] { certificate });
+                privateKey, new Certificate[]{certificate});
         Certificate[] chain = privateKeyEntry.getCertificateChain();
         assertTrue(chain instanceof X509Certificate[]);
 

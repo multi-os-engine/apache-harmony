@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Stepan M. Mishura
-*/
+ * @author Stepan M. Mishura
+ */
 
 package org.apache.harmony.security.tests.asn1.der;
 
@@ -42,79 +42,79 @@ public class OidTest extends TestCase {
 
     private static Object[][] oid = {
             //oid array format: string / int array / DER encoding
-            { "0.0", // as string
-                    new int[] { 0, 0 }, // as int array
-                    new byte[] { 0x06, 0x01, 0x00 } },
+            {"0.0", // as string
+                    new int[]{0, 0}, // as int array
+                    new byte[]{0x06, 0x01, 0x00}},
             //
-            { "0.0.3", // as string
-                    new int[] { 0, 0, 3 }, // as int array
-                    new byte[] { 0x06, 0x02, 0x00, 0x03 } },
+            {"0.0.3", // as string
+                    new int[]{0, 0, 3}, // as int array
+                    new byte[]{0x06, 0x02, 0x00, 0x03}},
             //
-            { "0.1.3", // as string
-                    new int[] { 0, 1, 3 }, // as int array
-                    new byte[] { 0x06, 0x02, 0x01, 0x03 } },
+            {"0.1.3", // as string
+                    new int[]{0, 1, 3}, // as int array
+                    new byte[]{0x06, 0x02, 0x01, 0x03}},
             //
-            { "0.5", // as string
-                    new int[] { 0, 5 }, // as int array
-                    new byte[] { 0x06, 0x01, 0x05 } },
+            {"0.5", // as string
+                    new int[]{0, 5}, // as int array
+                    new byte[]{0x06, 0x01, 0x05}},
             //
-            { "0.39.3", // as string
-                    new int[] { 0, 39, 3 }, // as int array
-                    new byte[] { 0x06, 0x02, 0x27, 0x03 } },
+            {"0.39.3", // as string
+                    new int[]{0, 39, 3}, // as int array
+                    new byte[]{0x06, 0x02, 0x27, 0x03}},
             //
-            { "1.0.3", // as string
-                    new int[] { 1, 0, 3 }, // as int array
-                    new byte[] { 0x06, 0x02, 0x28, 0x03 } },
+            {"1.0.3", // as string
+                    new int[]{1, 0, 3}, // as int array
+                    new byte[]{0x06, 0x02, 0x28, 0x03}},
             //
-            { "1.1", // as string
-                    new int[] { 1, 1 }, // as int array
-                    new byte[] { 0x06, 0x01, 0x29 } },
+            {"1.1", // as string
+                    new int[]{1, 1}, // as int array
+                    new byte[]{0x06, 0x01, 0x29}},
             //
-            { "1.2.1.2.1",// as string
-                    new int[] { 1, 2, 1, 2, 1 }, // as int array
-                    new byte[] { 0x06, 0x04, 0x2A, 0x01, 0x02, 0x01 } },
+            {"1.2.1.2.1",// as string
+                    new int[]{1, 2, 1, 2, 1}, // as int array
+                    new byte[]{0x06, 0x04, 0x2A, 0x01, 0x02, 0x01}},
             //
             {
                     "1.2.840.113554.1.2.2",// as string
-                    new int[] { 1, 2, 840, 113554, 1, 2, 2 }, // as int array
-                    new byte[] { 0x06, 0x09, 0x2A, (byte) 0x86, 0x48,
-                            (byte) 0x86, (byte) 0xF7, 0x12, 0x01, 0x02, 0x02 } },
+                    new int[]{1, 2, 840, 113554, 1, 2, 2}, // as int array
+                    new byte[]{0x06, 0x09, 0x2A, (byte) 0x86, 0x48,
+                            (byte) 0x86, (byte) 0xF7, 0x12, 0x01, 0x02, 0x02}},
             //
-            { "1.39.3",// as string
-                    new int[] { 1, 39, 3 }, // as int array
-                    new byte[] { 0x06, 0x02, 0x4F, 0x03 } },
+            {"1.39.3",// as string
+                    new int[]{1, 39, 3}, // as int array
+                    new byte[]{0x06, 0x02, 0x4F, 0x03}},
             //
-            { "2.0.3",// as string
-                    new int[] { 2, 0, 3 }, // as int array
-                    new byte[] { 0x06, 0x02, 0x50, 0x03 } },
+            {"2.0.3",// as string
+                    new int[]{2, 0, 3}, // as int array
+                    new byte[]{0x06, 0x02, 0x50, 0x03}},
             //
-            { "2.5.4.3",// as string
-                    new int[] { 2, 5, 4, 3 }, // as int array
-                    new byte[] { 0x06, 0x03, 0x55, 0x04, 0x03 } },
+            {"2.5.4.3",// as string
+                    new int[]{2, 5, 4, 3}, // as int array
+                    new byte[]{0x06, 0x03, 0x55, 0x04, 0x03}},
             //
-            { "2.39.3", // as string
-                    new int[] { 2, 39, 3 }, // as int array
-                    new byte[] { 0x06, 0x02, 0x77, 0x03 } },
+            {"2.39.3", // as string
+                    new int[]{2, 39, 3}, // as int array
+                    new byte[]{0x06, 0x02, 0x77, 0x03}},
             //
-            { "2.40.3", // as string
-                    new int[] { 2, 40, 3 }, // as int array
-                    new byte[] { 0x06, 0x02, 0x78, 0x03 } },
+            {"2.40.3", // as string
+                    new int[]{2, 40, 3}, // as int array
+                    new byte[]{0x06, 0x02, 0x78, 0x03}},
             //
-            { "2.47", // as string
-                    new int[] { 2, 47 }, // as int array
-                    new byte[] { 0x06, 0x01, 0x7F } },
+            {"2.47", // as string
+                    new int[]{2, 47}, // as int array
+                    new byte[]{0x06, 0x01, 0x7F}},
             //
-            { "2.48", // as string
-                    new int[] { 2, 48 }, // as int array
-                    new byte[] { 0x06, 0x02, (byte) 0x81, 0x00 } },
+            {"2.48", // as string
+                    new int[]{2, 48}, // as int array
+                    new byte[]{0x06, 0x02, (byte) 0x81, 0x00}},
             //
-            { "2.48.5", // as string
-                    new int[] { 2, 48, 5 }, // as int array
-                    new byte[] { 0x06, 0x03, (byte) 0x81, 0x00, 0x05 } },
+            {"2.48.5", // as string
+                    new int[]{2, 48, 5}, // as int array
+                    new byte[]{0x06, 0x03, (byte) 0x81, 0x00, 0x05}},
             //
-            { "2.100.3", // as string
-                    new int[] { 2, 100, 3 }, // as int array
-                    new byte[] { 0x06, 0x03, (byte) 0x81, 0x34, 0x03 } } };
+            {"2.100.3", // as string
+                    new int[]{2, 100, 3}, // as int array
+                    new byte[]{0x06, 0x03, (byte) 0x81, 0x34, 0x03}}};
 
     public void test_MappingToIntArray() throws IOException {
 
@@ -145,15 +145,15 @@ public class OidTest extends TestCase {
     }
 
     public void testDecode_Invalid() throws IOException {
-        byte[][] invalid = new byte[][] {
-        // wrong tag: tag is not 0x06
-                new byte[] { 0x02, 0x01, 0x00 },
+        byte[][] invalid = new byte[][]{
+                // wrong tag: tag is not 0x06
+                new byte[]{0x02, 0x01, 0x00},
                 // wrong length: length is 0
-                new byte[] { 0x06, 0x00 },
+                new byte[]{0x06, 0x00},
                 // wrong content: bit 8 of the last byte is not 0
-                new byte[] { 0x06, 0x02, (byte) 0x81, (byte) 0x80 },
-        // wrong content: is not encoded in fewest number of bytes
-        //FIXME new byte[] { 0x06, 0x02, (byte) 0x80, (byte) 0x01 }
+                new byte[]{0x06, 0x02, (byte) 0x81, (byte) 0x80},
+                // wrong content: is not encoded in fewest number of bytes
+                //FIXME new byte[] { 0x06, 0x02, (byte) 0x80, (byte) 0x01 }
         };
 
         for (int i = 0; i < invalid.length; i++) {

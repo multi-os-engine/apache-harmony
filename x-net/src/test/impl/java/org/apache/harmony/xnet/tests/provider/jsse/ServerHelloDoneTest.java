@@ -28,7 +28,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>ServerHelloDone</code> constructor and methods
- *  
  */
 public class ServerHelloDoneTest extends TestCase {
 
@@ -61,7 +60,7 @@ public class ServerHelloDoneTest extends TestCase {
         }
 
         in.append(encoded);
-        in.append(new byte[] { 1, 2, 3 });
+        in.append(new byte[]{1, 2, 3});
         try {
             new ServerHelloDone(in, message.length() + 3);
             fail("Extra bytes: No expected AlertException ");

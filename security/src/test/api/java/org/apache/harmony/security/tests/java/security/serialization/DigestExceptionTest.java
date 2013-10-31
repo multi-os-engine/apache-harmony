@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -28,24 +28,23 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Tests for DigestException serialization
- *
  */
 
 public class DigestExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
         Exception cause = new Exception(msgs[1]);
         DigestException dExc = new DigestException(msgs[0], cause);
         String msg = null;
         Throwable th = null;
-        return new Object[] { new DigestException(), new DigestException(msg),
+        return new Object[]{new DigestException(), new DigestException(msg),
                 new DigestException(msgs[1]),
                 new DigestException(new Throwable()), new DigestException(th),
-                new DigestException(msgs[1], dExc) };
+                new DigestException(msgs[1], dExc)};
     }
 
 }

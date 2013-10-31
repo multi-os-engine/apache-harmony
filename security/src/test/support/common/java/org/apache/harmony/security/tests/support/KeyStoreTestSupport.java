@@ -33,15 +33,14 @@ import javax.crypto.SecretKey;
 
 /**
  * Support class for KeyStore tests
- *  
  */
 
 public class KeyStoreTestSupport {
 
     public static final String srvKeyStore = "KeyStore";
 
-    public static String[] validValues = { "bks", "BKS", "bKS", "Bks", "bKs",
-            "BkS" };
+    public static String[] validValues = {"bks", "BKS", "bKS", "Bks", "bKs",
+            "BkS"};
 
     public static String defaultType = "bks";
 

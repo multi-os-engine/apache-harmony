@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexander V. Astapchuk
-*/
+ * @author Alexander V. Astapchuk
+ */
 
 package org.apache.harmony.security.tests.java.security.serialization;
 
@@ -31,7 +31,6 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Serialization tests for <code>AccessControlException</code>
- *
  */
 
 public class AccessControlExceptionTest extends SerializationTest implements
@@ -39,10 +38,10 @@ public class AccessControlExceptionTest extends SerializationTest implements
 
     protected Object[] getData() {
         AllPermission allperms = new AllPermission();
-        return new Object[] { new AccessControlException(null),
+        return new Object[]{new AccessControlException(null),
                 new AccessControlException("string1"),
                 new AccessControlException(null, null),
-                new AccessControlException("string2", allperms) };
+                new AccessControlException("string2", allperms)};
     }
 
     public void assertDeserialized(Serializable oref, Serializable otest) {

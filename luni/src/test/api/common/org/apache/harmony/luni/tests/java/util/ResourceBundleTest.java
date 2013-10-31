@@ -121,7 +121,7 @@ public class ResourceBundleTest extends junit.framework.TestCase {
 
     /**
      * @tests java.util.ResourceBundle#getBundle(java.lang.String,
-     *        java.util.Locale)
+     *java.util.Locale)
      */
     @SuppressWarnings("nls")
     public void test_getBundleLjava_lang_StringLjava_util_Locale() {
@@ -165,7 +165,7 @@ public class ResourceBundleTest extends junit.framework.TestCase {
 
     /**
      * @tests java.util.ResourceBundle#getBundle(java.lang.String,
-     *        java.util.Locale, java.lang.ClassLoader)
+     *java.util.Locale, java.lang.ClassLoader)
      */
     @SuppressWarnings("nls")
     public void test_getBundleLjava_lang_StringLjava_util_LocaleLjava_lang_ClassLoader() {
@@ -348,11 +348,12 @@ public class ResourceBundleTest extends junit.framework.TestCase {
         }
     }
 
-	/**
+    /**
      * The control with given formats.
      */
     static class GivenFormatsControl extends Control {
         List<String> formats;
+
         GivenFormatsControl(List<String> theFormats) {
             super();
             formats = theFormats;
@@ -382,7 +383,7 @@ public class ResourceBundleTest extends junit.framework.TestCase {
         public List<String> getFormats(@SuppressWarnings("unused")
         String baseName) {
             return Arrays
-                    .asList(new String[] { "java.properties", "java.class" });
+                    .asList(new String[]{"java.properties", "java.class"});
         }
 
         /**
@@ -510,7 +511,7 @@ public class ResourceBundleTest extends junit.framework.TestCase {
         // 2. Formats/Locale
         // the "reverse" control that take java.properties first
         Control reverseControl = new GivenFormatsControl(Arrays
-                .asList(new String[] { "java.properties", "java.class" }));
+                .asList(new String[]{"java.properties", "java.class"}));
         // locale that has both class file and properties file support.
         ResourceBundle.clearCache();
         bundle = ResourceBundle.getBundle(SUBFOLDER_PROPERTIES_NAME,
@@ -980,12 +981,12 @@ public class ResourceBundleTest extends junit.framework.TestCase {
 
         // illegal control with illegal format
         otherControl = new GivenFormatsControl(Arrays
-                .asList(new String[] { "java.test" }));
+                .asList(new String[]{"java.test"}));
         illegalFormatControlTester(otherControl);
 
         // illegal control with other format
         otherControl = new GivenFormatsControl(Arrays
-                .asList(new String[] { "other.format" }));
+                .asList(new String[]{"other.format"}));
         illegalFormatControlTester(otherControl);
     }
 

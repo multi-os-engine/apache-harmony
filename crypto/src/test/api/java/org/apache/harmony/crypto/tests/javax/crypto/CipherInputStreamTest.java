@@ -49,7 +49,7 @@ public class CipherInputStreamTest extends TestCase {
     public void testClose() throws Exception {
         // Regression for HARMONY-1087
         try {
-            new CipherInputStream(new ByteArrayInputStream(new byte[] { 1 }),
+            new CipherInputStream(new ByteArrayInputStream(new byte[]{1}),
                     Cipher.getInstance("DES/CBC/PKCS5Padding")).close();
             fail("IllegalStateException expected!");
         } catch (IllegalStateException e) {

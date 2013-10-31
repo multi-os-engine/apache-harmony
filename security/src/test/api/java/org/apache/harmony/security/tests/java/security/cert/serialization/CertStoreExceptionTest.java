@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Vera Y. Petrashkova
-*/
+ * @author Vera Y. Petrashkova
+ */
 
 package org.apache.harmony.security.tests.java.security.cert.serialization;
 
@@ -28,23 +28,22 @@ import org.apache.harmony.testframework.serialization.SerializationTest;
 
 /**
  * Test for CertStoreException serialization
- *
  */
 
 public class CertStoreExceptionTest extends SerializationTest {
 
     public static String[] msgs = {
             "New message",
-            "Long message for Exception. Long message for Exception. Long message for Exception." };
+            "Long message for Exception. Long message for Exception. Long message for Exception."};
 
     protected Object[] getData() {
         Exception cause = new Exception(msgs[1]);
         CertStoreException dExc = new CertStoreException(msgs[0], cause);
         String msg = null;
         Throwable th = null;
-        return new Object[] { new CertStoreException(), new CertStoreException(msg),
+        return new Object[]{new CertStoreException(), new CertStoreException(msg),
                 new CertStoreException(msgs[1]),
                 new CertStoreException(new Throwable()), new CertStoreException(th),
-                new CertStoreException(msgs[1], dExc) };
+                new CertStoreException(msgs[1], dExc)};
     }
 }

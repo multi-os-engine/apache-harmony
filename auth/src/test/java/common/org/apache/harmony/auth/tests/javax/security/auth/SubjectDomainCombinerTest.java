@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Stepan M. Mishura
-*/
+ * @author Stepan M. Mishura
+ */
 
 package org.apache.harmony.auth.tests.javax.security.auth;
 
@@ -44,7 +44,7 @@ import org.apache.harmony.auth.internal.SecurityTest;
 public class SubjectDomainCombinerTest extends SecurityTest {
     /**
      * @tests javax.security.auth.SubjectDomainCombiner#SubjectDomainCombiner(
-     *        javax.security.auth.Subject)
+     *javax.security.auth.Subject)
      */
     public final void test_ConstructorLjavax_security_auth_Subject() {
 
@@ -64,7 +64,7 @@ public class SubjectDomainCombinerTest extends SecurityTest {
 
     /**
      * @tests javax.security.auth.SubjectDomainCombiner#combine(ProtectionDomain[],
-     *        ProtectionDomain[])
+     *ProtectionDomain[])
      */
     public final void testCombine() throws Exception {
 
@@ -90,19 +90,19 @@ public class SubjectDomainCombinerTest extends SecurityTest {
 
         CodeSource source = new CodeSource(url, (Certificate[]) null);
         PermissionCollection permissions = new Permissions();
-        ClassLoader classLoader = new URLClassLoader(new URL[] { url });
+        ClassLoader classLoader = new URLClassLoader(new URL[]{url});
 
         Principal p = new Principal() {
             public String getName() {
                 return "p";
             }
         };
-        Principal[] principals = new Principal[] { p };
+        Principal[] principals = new Principal[]{p};
 
         ProtectionDomain domain = new ProtectionDomain(source, permissions,
                 classLoader, principals);
 
-        pd = combiner.combine(new ProtectionDomain[] { domain }, null);
+        pd = combiner.combine(new ProtectionDomain[]{domain}, null);
 
         assertSame("CodeSource", source, pd[0].getCodeSource());
         assertSame("PermissionCollection", permissions, pd[0]
@@ -113,11 +113,11 @@ public class SubjectDomainCombinerTest extends SecurityTest {
         assertSame("Principal", principal, (pd[0].getPrincipals())[0]);
 
         // test case: check inherited domains
-        pd = combiner.combine(null, new ProtectionDomain[] { domain });
+        pd = combiner.combine(null, new ProtectionDomain[]{domain});
         assertSame("Inherited domain", domain, pd[0]);
 
         //Regression for HARMONY-1129
-        assertNotNull(new SubjectDomainCombiner(new Subject()).combine(new ProtectionDomain[] {null}, new ProtectionDomain[] {null}));
+        assertNotNull(new SubjectDomainCombiner(new Subject()).combine(new ProtectionDomain[]{null}, new ProtectionDomain[]{null}));
     }
 
     public final void testSecurityException() {

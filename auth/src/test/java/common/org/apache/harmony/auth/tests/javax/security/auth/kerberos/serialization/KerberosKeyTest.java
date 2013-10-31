@@ -33,8 +33,8 @@ public class KerberosKeyTest extends TestCase {
     private static final KerberosPrincipal PRINCIPAL = new KerberosPrincipal(
             "principal@apache.org");
 
-    private static final byte[] KEY_BYTES = { 0x00, 0x01, 0x02, 0x03, 0x04,
-            0x05, 0x06, 0x07 };
+    private static final byte[] KEY_BYTES = {0x00, 0x01, 0x02, 0x03, 0x04,
+            0x05, 0x06, 0x07};
 
     private static final int KEY_TYPE = 22;
 

@@ -16,8 +16,8 @@
  */
 
 /**
-* @author Alexander V. Esin
-*/
+ * @author Alexander V. Esin
+ */
 package org.ietf.jgss;
 
 import java.io.ByteArrayInputStream;
@@ -27,48 +27,48 @@ import junit.framework.TestCase;
 
 /**
  * Tests Oid class
- *
+ * <p/>
  * ASN.1 encodings and string values are base on X.690 specification.
- *  
+ *
  * @see http://asn1.elibel.tm.fr/en/standards/index.htm
  */
 public class OidTest extends TestCase {
 
     /**
-     * Testing: Constructors, toString(), equals(), getDER() 
+     * Testing: Constructors, toString(), equals(), getDER()
      */
     public void testValidOid() {
-        Object[][] testcase = new Object[][] {
+        Object[][] testcase = new Object[][]{
                 //
-                new Object[] { "0.0.3", new byte[] { 0x06, 0x02, 0x00, 0x03 } },
+                new Object[]{"0.0.3", new byte[]{0x06, 0x02, 0x00, 0x03}},
                 //
-                new Object[] { "0.1.3", new byte[] { 0x06, 0x02, 0x01, 0x03 } },
+                new Object[]{"0.1.3", new byte[]{0x06, 0x02, 0x01, 0x03}},
                 //
-                new Object[] { "0.39.3", new byte[] { 0x06, 0x02, 0x27, 0x03 } },
+                new Object[]{"0.39.3", new byte[]{0x06, 0x02, 0x27, 0x03}},
                 //
-                new Object[] { "1.0.3", new byte[] { 0x06, 0x02, 0x28, 0x03 } },
+                new Object[]{"1.0.3", new byte[]{0x06, 0x02, 0x28, 0x03}},
                 //
-                new Object[] { "1.2.1.2.1",
-                        new byte[] { 0x06, 0x04, 0x2A, 0x01, 0x02, 0x01 } },
+                new Object[]{"1.2.1.2.1",
+                        new byte[]{0x06, 0x04, 0x2A, 0x01, 0x02, 0x01}},
                 //
-                new Object[] { "1.39.3", new byte[] { 0x06, 0x02, 0x4F, 0x03 } },
+                new Object[]{"1.39.3", new byte[]{0x06, 0x02, 0x4F, 0x03}},
                 //
-                new Object[] { "2.0.3", new byte[] { 0x06, 0x02, 0x50, 0x03 } },
+                new Object[]{"2.0.3", new byte[]{0x06, 0x02, 0x50, 0x03}},
                 //
-                new Object[] { "2.5.4.3",
-                        new byte[] { 0x06, 0x03, 0x55, 0x04, 0x03 } },
+                new Object[]{"2.5.4.3",
+                        new byte[]{0x06, 0x03, 0x55, 0x04, 0x03}},
                 //
-                new Object[] { "2.39.3", new byte[] { 0x06, 0x02, 0x77, 0x03 } },
+                new Object[]{"2.39.3", new byte[]{0x06, 0x02, 0x77, 0x03}},
                 //
                 //FIXME new Object[]{"2.40.3", new byte[]{0x06, 0x02, 0x78, 0x03}},
                 //
                 //FIXME new Object[]{"2.100.3", new byte[]{0x06, 0x03, (byte)0x81, 0x34,0x03}},
                 //
-                new Object[] {
+                new Object[]{
                         "1.2.840.113554.1.2.2",
-                        new byte[] { 0x06, 0x09, 0x2A, (byte) 0x86, 0x48,
+                        new byte[]{0x06, 0x09, 0x2A, (byte) 0x86, 0x48,
                                 (byte) 0x86, (byte) 0xF7, 0x12, 0x01, 0x02,
-                                0x02 } } };
+                                0x02}}};
 
         for (int i = 0; i < testcase.length; i++) {
 
@@ -100,19 +100,19 @@ public class OidTest extends TestCase {
             }
         }
     }
-    
+
     /**
      * @tests org.ieft.jgss.Oid#containedIn(org.ieft.jgss.Oid[])
      */
     public void testContainedIn() throws Exception {
-        Oid oid= new Oid("1.2.1.2.1");
-        Oid [] oidArr= new Oid [] { 
+        Oid oid = new Oid("1.2.1.2.1");
+        Oid[] oidArr = new Oid[]{
                 new Oid("1.1.1.2.1"),
                 new Oid("1.2.2.2.1"),
                 new Oid("1.2.1.2.1"), //right
                 new Oid("1.2.1.2.5")
-                };
-        assertTrue(oid.containedIn(oidArr) );
+        };
+        assertTrue(oid.containedIn(oidArr));
 
         try {
             oid.containedIn(null);
@@ -120,7 +120,7 @@ public class OidTest extends TestCase {
         } catch (NullPointerException e) {
         }
     }
-    
+
     /**
      * Oid constructor Oid(String oid) is tested in case when
      * string oid contains a subidentifier with leading zero
@@ -138,14 +138,14 @@ public class OidTest extends TestCase {
         assertEquals(oid1.hashCode(), oid2.hashCode());
         assertEquals(oid1.hashCode(), oid3.hashCode());
     }
-    
+
     /**
      * Oid constructor Oid(String oid) is tested in case when
      * an invalid oid string is passed as a parameter
      */
     public void testInvalidOIDString() {
 
-        String[] testcase = new String[] { "", // empty string
+        String[] testcase = new String[]{"", // empty string
                 "1", // only one subidentifier
                 "SOME WRONG DATA", // char string
                 "0.40.3", // second subidentifier > 40 when first subidentifier = 0
@@ -182,15 +182,15 @@ public class OidTest extends TestCase {
      */
     public void testInvalidOIDEncodings() {
 
-        byte[][] testcase = new byte[][] {
-        // incorrect tag: MUST be 0x06
-                new byte[] { 0x05, 0x03, 0x55, 0x04, 0x03 },
+        byte[][] testcase = new byte[][]{
+                // incorrect tag: MUST be 0x06
+                new byte[]{0x05, 0x03, 0x55, 0x04, 0x03},
                 // incorrect length: MUST be 0x03
-                new byte[] { 0x06, 0x07, 0x55, 0x04, 0x03 },
+                new byte[]{0x06, 0x07, 0x55, 0x04, 0x03},
                 // incorrect length=0
                 // FIXME new byte[] { 0x06, 0x00 },
                 // incorrect last subidentifier(last octet): 8th bit is not 0 
-                new byte[] { 0x06, 0x03, 0x55, 0x04, (byte) 0x83 }
+                new byte[]{0x06, 0x03, 0x55, 0x04, (byte) 0x83}
         };
 
         // Testing: Oid(byte[] oid)
@@ -217,7 +217,7 @@ public class OidTest extends TestCase {
             }
         }
     }
-    
+
     /**
      * Tests 2 cases of Encoding Rules violation.
      * Both cases should be in testInvalidOIDEncodings().
@@ -225,18 +225,18 @@ public class OidTest extends TestCase {
     public void testEncodingRulesViolation() throws Exception {
 
         // incorrect last subidentifier: leading octet have value 0x80
-        byte[] case1 = new byte[] { 0x06, 0x04, 0x55, 0x04, (byte) 0x80, 0x03 };
+        byte[] case1 = new byte[]{0x06, 0x04, 0x55, 0x04, (byte) 0x80, 0x03};
         // incorrect length: encoded not in minimum number of octets
-        byte[] case2 = new byte[] { 0x06, (byte) 0x84, 0x00, 0x00, 0x00, 0x03,
-                0x55, 0x04, 0x03 };
+        byte[] case2 = new byte[]{0x06, (byte) 0x84, 0x00, 0x00, 0x00, 0x03,
+                0x55, 0x04, 0x03};
 
         assertEquals("2.5.4.3", new Oid(case1).toString());
         assertEquals("2.5.4.3", new Oid(case2).toString());
     }
-    
+
     public void testImmutability() throws Exception {
 
-        byte[] encoding = new byte[] { 0x06, 0x03, 0x55, 0x04, 0x03 };
+        byte[] encoding = new byte[]{0x06, 0x03, 0x55, 0x04, 0x03};
 
         Oid oid = new Oid(encoding);
 
@@ -247,16 +247,16 @@ public class OidTest extends TestCase {
         assertTrue(enc1 != enc2);
     }
 
-    
+
     /**
      * Oid encoding contains 2 extra bytes.
      * Two Oid constructors are verified:
-     *     - Oid(byte[] oid): GSSException is thrown
-     *     - Oid(InputStream oid): oid object is created,
-     *                             input stream contains extra bytes
+     * - Oid(byte[] oid): GSSException is thrown
+     * - Oid(InputStream oid): oid object is created,
+     * input stream contains extra bytes
      */
     public void testExtraBytes() throws Exception {
-        byte[] encoding = new byte[] { 0x06, 0x01, 0x55, 0x04, 0x03 };
+        byte[] encoding = new byte[]{0x06, 0x01, 0x55, 0x04, 0x03};
 
         try {
             new Oid(encoding);
@@ -312,11 +312,11 @@ public class OidTest extends TestCase {
         } catch (GSSException e) {
         }
     }
-    
+
     public void test_KerberosV5() throws Exception {
         Oid oid = new Oid("1.2.840.113554.1.2.2");
-        byte[] expectedDer = new byte[] { 6, 9, 42, -122, 72, -122, -9, 18, 1,
-                2, 2 };
+        byte[] expectedDer = new byte[]{6, 9, 42, -122, 72, -122, -9, 18, 1,
+                2, 2};
         assertTrue(Arrays.equals(expectedDer, oid.getDER()));
     }
 }

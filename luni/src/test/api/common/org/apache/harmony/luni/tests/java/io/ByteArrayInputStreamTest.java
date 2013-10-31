@@ -49,7 +49,7 @@ public class ByteArrayInputStreamTest extends junit.framework.TestCase {
                 .available());
 
         // Regression test for Harmony-2405
-        new SubByteArrayInputStream(new byte[] { 1, 2 }, 444, 13);
+        new SubByteArrayInputStream(new byte[]{1, 2}, 444, 13);
         assertEquals(444, SubByteArrayInputStream.pos);
         assertEquals(444, SubByteArrayInputStream.mark);
         assertEquals(2, SubByteArrayInputStream.count);

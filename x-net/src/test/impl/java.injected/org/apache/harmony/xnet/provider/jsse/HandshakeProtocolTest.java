@@ -28,7 +28,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests for <code>HandshakeProtocol</code> constructor and methods
- *  
  */
 public class HandshakeProtocolTest extends TestCase {
 
@@ -60,7 +59,7 @@ public class HandshakeProtocolTest extends TestCase {
                 SSLEngineResult.HandshakeStatus.NEED_TASK);
         protocol.delegatedTasks.clear();
 
-        protocol.io_stream.write(new byte[] { 1, 2, 3 });
+        protocol.io_stream.write(new byte[]{1, 2, 3});
         assertEquals(protocol.getStatus(),
                 SSLEngineResult.HandshakeStatus.NEED_WRAP);
     }
@@ -111,12 +110,12 @@ public class HandshakeProtocolTest extends TestCase {
                 sr,
                 hs_protocol.session.protocol.version,
                 hs_protocol.session.id,
-                new CipherSuite[] { CipherSuite.TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA });
+                new CipherSuite[]{CipherSuite.TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA});
         hs_protocol.serverHello = new ServerHello(sr,
                 hs_protocol.session.protocol.version, hs_protocol.session.id,
                 CipherSuite.TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA, (byte) 0);
 
-        hs_protocol.preMasterSecret = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+        hs_protocol.preMasterSecret = new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
         hs_protocol.computerMasterSecret();
         assertNull(hs_protocol.preMasterSecret);
         assertEquals(48, hs_protocol.session.master_secret.length);
@@ -132,8 +131,8 @@ public class HandshakeProtocolTest extends TestCase {
         hs_protocol.verifyFinished(data);
 
         try {
-            hs_protocol.verifyFinished(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9,
-                    0, 1, 2 });
+            hs_protocol.verifyFinished(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9,
+                    0, 1, 2});
             fail("No expected AlertException");
         } catch (AlertException e) {
         }
@@ -155,12 +154,12 @@ public class HandshakeProtocolTest extends TestCase {
                 sr,
                 hs_protocol.session.protocol.version,
                 hs_protocol.session.id,
-                new CipherSuite[] { CipherSuite.TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA });
+                new CipherSuite[]{CipherSuite.TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA});
         hs_protocol.serverHello = new ServerHello(sr,
                 hs_protocol.session.protocol.version, hs_protocol.session.id,
                 CipherSuite.TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA, (byte) 0);
 
-        hs_protocol.preMasterSecret = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+        hs_protocol.preMasterSecret = new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
         hs_protocol.computerMasterSecret();
         assertNull(hs_protocol.preMasterSecret);
         assertEquals(48, hs_protocol.session.master_secret.length);
@@ -176,8 +175,8 @@ public class HandshakeProtocolTest extends TestCase {
         hs_protocol.verifyFinished(data);
 
         try {
-            hs_protocol.verifyFinished(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9,
-                    0, 1, 2 });
+            hs_protocol.verifyFinished(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9,
+                    0, 1, 2});
             fail("No expected AlertException");
         } catch (AlertException e) {
         }

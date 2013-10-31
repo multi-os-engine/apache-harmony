@@ -28,11 +28,11 @@ public class ContentHandlerTest extends TestCase {
 
     /**
      * @tests java.net.ContentHandler#getContent(java.net.URLConnection,
-     *        java.lang.Class[])
+     *java.lang.Class[])
      */
     public void test_getContent() throws IOException {
         URLConnection conn = new URL("http://www.apache.org").openConnection();
-        Class[] classes = { Foo.class, String.class, };
+        Class[] classes = {Foo.class, String.class,};
         ContentHandler handler = new ContentHandlerImpl();
         ((ContentHandlerImpl) handler).setContent(new Foo());
         Object content = handler.getContent(conn, classes);
@@ -42,7 +42,7 @@ public class ContentHandlerTest extends TestCase {
         content = handler.getContent(conn, classes);
         assertEquals("FooSub", ((Foo) content).getFoo());
 
-        Class[] classes2 = { FooSub.class, String.class, };
+        Class[] classes2 = {FooSub.class, String.class,};
         ((ContentHandlerImpl) handler).setContent(new Foo());
         content = handler.getContent(conn, classes2);
         assertNull(content);

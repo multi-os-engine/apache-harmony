@@ -33,12 +33,12 @@ public class SQLWarningTest extends TestCase {
      */
     public void testSQLWarning() {
 
-        String[] theFinalStates1 = { null };
-        String[] theFinalStates2 = { null };
-        int[] theFinalStates3 = { 0 };
-        SQLWarning[] theFinalStates4 = { null };
+        String[] theFinalStates1 = {null};
+        String[] theFinalStates2 = {null};
+        int[] theFinalStates3 = {0};
+        SQLWarning[] theFinalStates4 = {null};
 
-        Exception[] theExceptions = { null };
+        Exception[] theExceptions = {null};
 
         SQLWarning aSQLWarning;
         int loopCount = 1;
@@ -75,17 +75,17 @@ public class SQLWarningTest extends TestCase {
      */
     public void testSQLWarningString() {
 
-        String[] init1 = { "a", "1", "valid1", "----", "&valid*", null, "", "\0" };
+        String[] init1 = {"a", "1", "valid1", "----", "&valid*", null, "", "\0"};
 
         String[] theFinalStates1 = init1;
-        String[] theFinalStates2 = { null, null, null, null, null, null, null,
-                null };
-        int[] theFinalStates3 = { 0, 0, 0, 0, 0, 0, 0, 0 };
-        SQLWarning[] theFinalStates4 = { null, null, null, null, null, null,
-                null, null };
+        String[] theFinalStates2 = {null, null, null, null, null, null, null,
+                null};
+        int[] theFinalStates3 = {0, 0, 0, 0, 0, 0, 0, 0};
+        SQLWarning[] theFinalStates4 = {null, null, null, null, null, null,
+                null, null};
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null,
-                null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null,
+                null};
 
         SQLWarning aSQLWarning;
         int loopCount = init1.length;
@@ -122,19 +122,19 @@ public class SQLWarningTest extends TestCase {
      */
     public void testSQLWarningStringString() {
 
-        String[] init1 = { "a", "1", "valid1", "----", "&valid*", null, "",
-                "\0", "a", "a", "a" };
-        String[] init2 = { "a", "1", "valid1", "----", "&valid*", "a", "a",
-                "a", null, "", "\0" };
+        String[] init1 = {"a", "1", "valid1", "----", "&valid*", null, "",
+                "\0", "a", "a", "a"};
+        String[] init2 = {"a", "1", "valid1", "----", "&valid*", "a", "a",
+                "a", null, "", "\0"};
 
         String[] theFinalStates1 = init1;
         String[] theFinalStates2 = init2;
-        int[] theFinalStates3 = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        SQLWarning[] theFinalStates4 = { null, null, null, null, null, null,
-                null, null, null, null, null };
+        int[] theFinalStates3 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        SQLWarning[] theFinalStates4 = {null, null, null, null, null, null,
+                null, null, null, null, null};
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null,
-                null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null,
+                null, null, null, null};
 
         SQLWarning aSQLWarning;
         int loopCount = init1.length;
@@ -171,22 +171,22 @@ public class SQLWarningTest extends TestCase {
      */
     public void testSQLWarningStringStringint() {
 
-        String[] init1 = { "a", "1", "valid1", "----", "&valid*", "----",
-                "----", null, "", "\0", "a", "a", "a" };
-        String[] init2 = { "a", "1", "valid1", "----", "&valid*", "valid1",
-                "----", "a", "a", "a", null, "", "\0" };
-        int[] init3 = { -2147483648, 2147483647, 0, 1412862821, -733923487,
+        String[] init1 = {"a", "1", "valid1", "----", "&valid*", "----",
+                "----", null, "", "\0", "a", "a", "a"};
+        String[] init2 = {"a", "1", "valid1", "----", "&valid*", "valid1",
+                "----", "a", "a", "a", null, "", "\0"};
+        int[] init3 = {-2147483648, 2147483647, 0, 1412862821, -733923487,
                 488067774, -1529953616, -2147483648, -2147483648, -2147483648,
-                -2147483648, -2147483648, -2147483648 };
+                -2147483648, -2147483648, -2147483648};
 
         String[] theFinalStates1 = init1;
         String[] theFinalStates2 = init2;
         int[] theFinalStates3 = init3;
-        SQLWarning[] theFinalStates4 = { null, null, null, null, null, null,
-                null, null, null, null, null, null, null };
+        SQLWarning[] theFinalStates4 = {null, null, null, null, null, null,
+                null, null, null, null, null, null, null};
 
-        Exception[] theExceptions = { null, null, null, null, null, null, null,
-                null, null, null, null, null, null };
+        Exception[] theExceptions = {null, null, null, null, null, null, null,
+                null, null, null, null, null, null};
 
         SQLWarning aSQLWarning;
         int loopCount = init1.length;
@@ -224,16 +224,16 @@ public class SQLWarningTest extends TestCase {
     public void testGetNextWarning() {
 
         SQLWarning aSQLWarning;
-        String[] init1 = { "a", "1", "valid1", "----", "&valid*" };
+        String[] init1 = {"a", "1", "valid1", "----", "&valid*"};
 
         SQLWarning theReturn;
-        SQLWarning[] theReturns = { null };
+        SQLWarning[] theReturns = {null};
         String[] theFinalStates1 = init1;
-        String[] theFinalStates2 = { null };
-        int[] theFinalStates3 = { 0 };
-        SQLWarning[] theFinalStates4 = { null };
+        String[] theFinalStates2 = {null};
+        int[] theFinalStates3 = {0};
+        SQLWarning[] theFinalStates4 = {null};
 
-        Exception[] theExceptions = { null };
+        Exception[] theExceptions = {null};
 
         int loopCount = 1;
         for (int i = 0; i < loopCount; i++) {
@@ -272,17 +272,17 @@ public class SQLWarningTest extends TestCase {
      */
     public void testSetNextWarningSQLWarning() {
 
-        SQLWarning[] parm1 = { new SQLWarning(), null };
+        SQLWarning[] parm1 = {new SQLWarning(), null};
 
         SQLWarning aSQLWarning;
-        String[] init1 = { "a", "1" };
+        String[] init1 = {"a", "1"};
 
         String[] theFinalStates1 = init1;
-        String[] theFinalStates2 = { null, null };
-        int[] theFinalStates3 = { 0, 0 };
+        String[] theFinalStates2 = {null, null};
+        int[] theFinalStates3 = {0, 0};
         SQLWarning[] theFinalStates4 = parm1;
 
-        Exception[] theExceptions = { null, null };
+        Exception[] theExceptions = {null, null};
 
         int loopCount = parm1.length;
         for (int i = 0; i < loopCount; i++) {
@@ -349,7 +349,6 @@ public class SQLWarningTest extends TestCase {
 
     /**
      * @tests {@link java.sql.SQLWarning#SQLWarning(Throwable)}
-     * 
      * @since 1.6
      */
     public void testConstructor_Ljava_lang_Throwable() {
@@ -361,7 +360,6 @@ public class SQLWarningTest extends TestCase {
 
     /**
      * @tests {@link java.sql.SQLWarning#SQLWarning(String, Throwable)}
-     * 
      * @since 1.6
      */
     public void testConstructor_LString_Throwable() {
@@ -374,7 +372,6 @@ public class SQLWarningTest extends TestCase {
 
     /**
      * @tests {@link java.sql.SQLWarning#SQLWarning(String, String, Throwable)}
-     * 
      * @since 1.6
      */
     public void testConstructor_LString_String_Throwable() {
@@ -388,7 +385,6 @@ public class SQLWarningTest extends TestCase {
 
     /**
      * @tests {@link java.sql.SQLWarning#SQLWarning(String, String, int, Throwable)}
-     * 
      * @since 1.6
      */
     public void testConstructor_LString_String_I_Throwable() {

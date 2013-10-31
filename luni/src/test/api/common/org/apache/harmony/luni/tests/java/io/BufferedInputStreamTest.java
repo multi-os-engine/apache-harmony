@@ -119,8 +119,8 @@ public class BufferedInputStreamTest extends TestCase {
 
         // Test that a closed stream throws an IOE for available()
         BufferedInputStream bis = new BufferedInputStream(
-                new ByteArrayInputStream(new byte[] { 'h', 'e', 'l', 'l', 'o',
-                        ' ', 't', 'i', 'm' }));
+                new ByteArrayInputStream(new byte[]{'h', 'e', 'l', 'l', 'o',
+                        ' ', 't', 'i', 'm'}));
         int available = bis.available();
         bis.close();
         assertTrue(available != 0);
@@ -225,7 +225,7 @@ public class BufferedInputStreamTest extends TestCase {
         assertTrue("Wrong bytes 2", in.read() == 6 && in.read() == 7);
 
         BufferedInputStream buf = new BufferedInputStream(
-                new ByteArrayInputStream(new byte[] { 0, 1, 2, 3, 4 }), 2);
+                new ByteArrayInputStream(new byte[]{0, 1, 2, 3, 4}), 2);
         buf.mark(3);
         bytes = new byte[3];
         int result = buf.read(bytes);
@@ -235,8 +235,8 @@ public class BufferedInputStreamTest extends TestCase {
         assertEquals("Assert 2:", 2, bytes[2]);
         assertEquals("Assert 3:", 3, buf.read());
 
-        buf = new BufferedInputStream(new ByteArrayInputStream(new byte[] { 0,
-                1, 2, 3, 4 }), 2);
+        buf = new BufferedInputStream(new ByteArrayInputStream(new byte[]{0,
+                1, 2, 3, 4}), 2);
         buf.mark(3);
         bytes = new byte[4];
         result = buf.read(bytes);
@@ -248,8 +248,8 @@ public class BufferedInputStreamTest extends TestCase {
         assertEquals("Assert 8:", 4, buf.read());
         assertEquals("Assert 9:", -1, buf.read());
 
-        buf = new BufferedInputStream(new ByteArrayInputStream(new byte[] { 0,
-                1, 2, 3, 4 }), 2);
+        buf = new BufferedInputStream(new ByteArrayInputStream(new byte[]{0,
+                1, 2, 3, 4}), 2);
         buf.mark(Integer.MAX_VALUE);
         buf.read();
         buf.close();
@@ -340,7 +340,9 @@ public class BufferedInputStreamTest extends TestCase {
                 buf1.length).equals(fileString.substring(3000, 3100)));
 
         BufferedInputStream bufin = new BufferedInputStream(new InputStream() {
-            int size = 2, pos = 0;
+            int size = 2
+                    ,
+                    pos = 0;
 
             byte[] contents = new byte[size];
 

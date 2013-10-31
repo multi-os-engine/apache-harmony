@@ -76,7 +76,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#EnumMap(Class)
      */
-    @SuppressWarnings({ "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_ConstructorLjava_lang_Class() {
         try {
             new EnumMap((Class) null);
@@ -84,8 +84,8 @@ public class EnumMapTest extends TestCase {
         } catch (NullPointerException e) {
             // Expected
         }
-        
-        
+
+
         try {
             new EnumMap(Size.Big.getClass());
             fail("Expected NullPointerException"); //$NON-NLS-1$
@@ -125,7 +125,7 @@ public class EnumMapTest extends TestCase {
         } catch (ClassCastException e) {
             // Expected
         }
-        
+
         enumSizeMap = new EnumMap(Size.Middle.getClass());
         assertNull("Return non-null for non mapped key", enumSizeMap.put( //$NON-NLS-1$
                 Size.Small, 1));
@@ -138,11 +138,11 @@ public class EnumMapTest extends TestCase {
             // Expected
         }
     }
-    
+
     /**
      * @tests java.util.EnumMap#EnumMap(EnumMap)
      */
-    @SuppressWarnings({ "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_ConstructorLjava_util_EnumMap() {
         EnumMap enumMap;
         EnumMap enumColorMap = null;
@@ -157,7 +157,7 @@ public class EnumMapTest extends TestCase {
         Double double1 = new Double(1);
         enumColorMap.put(Color.Green, 2);
         enumColorMap.put(Color.Blue, double1);
-        
+
         enumMap = new EnumMap(enumColorMap);
         assertEquals("Constructor fails", 2, enumMap.get(Color.Green)); //$NON-NLS-1$
         assertSame("Constructor fails", double1, enumMap.get(Color.Blue)); //$NON-NLS-1$
@@ -176,7 +176,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#EnumMap(Map)
      */
-    @SuppressWarnings({ "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_ConstructorLjava_util_Map() {
         EnumMap enumMap;
         Map enumColorMap = null;
@@ -234,7 +234,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#clear()
      */
-    @SuppressWarnings({ "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_clear() {
         EnumMap enumSizeMap = new EnumMap(Size.class);
         enumSizeMap.put(Size.Small, 1);
@@ -245,7 +245,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#containsKey(Object)
      */
-    @SuppressWarnings( { "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_containsKeyLjava_lang_Object() {
         EnumMap enumSizeMap = new EnumMap(Size.class);
         assertFalse("Returned true for uncontained key", enumSizeMap //$NON-NLS-1$
@@ -269,7 +269,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#clone()
      */
-    @SuppressWarnings( { "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_clone() {
         EnumMap enumSizeMap = new EnumMap(Size.class);
         Integer integer = new Integer("3"); //$NON-NLS-1$
@@ -291,7 +291,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#containsValue(Object)
      */
-    @SuppressWarnings( { "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_containsValueLjava_lang_Object() {
         EnumMap enumSizeMap = new EnumMap(Size.class);
         Double double1 = new Double(3);
@@ -320,7 +320,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#entrySet()
      */
-    @SuppressWarnings({ "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_entrySet() {
         EnumMap enumSizeMap = new EnumMap(Size.class);
         enumSizeMap.put(Size.Middle, 1);
@@ -550,7 +550,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#equals(Object)
      */
-    @SuppressWarnings( { "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_equalsLjava_lang_Object() {
         EnumMap enumMap = new EnumMap(Size.class);
         enumMap.put(Size.Small, 1);
@@ -590,7 +590,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#keySet()
      */
-    @SuppressWarnings( { "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_keySet() {
         EnumMap enumSizeMap = new EnumMap(Size.class);
         enumSizeMap.put(Size.Middle, 2);
@@ -747,7 +747,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#get(Object)
      */
-    @SuppressWarnings({ "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_getLjava_lang_Object() {
         EnumMap enumSizeMap = new EnumMap(Size.class);
         assertNull("Get returned non-null for non mapped key", enumSizeMap //$NON-NLS-1$
@@ -755,7 +755,7 @@ public class EnumMapTest extends TestCase {
         enumSizeMap.put(Size.Big, 1);
         assertEquals("Get returned incorrect value for given key", 1, //$NON-NLS-1$
                 enumSizeMap.get(Size.Big));
-        
+
         assertNull("Get returned non-null for non mapped key", enumSizeMap //$NON-NLS-1$
                 .get(Size.Small));
         assertNull("Get returned non-null for non existent key", enumSizeMap //$NON-NLS-1$
@@ -773,7 +773,7 @@ public class EnumMapTest extends TestCase {
                 enumColorMap.get(Color.Green));
         assertNull("Get returned non-null for non mapped key", enumColorMap //$NON-NLS-1$
                 .get(Color.Blue));
-        
+
         enumColorMap.put(Color.Green, new Double(4));
         assertEquals("Get returned incorrect value for given key", //$NON-NLS-1$
                 new Double(4), enumColorMap.get(Color.Green));
@@ -787,11 +787,11 @@ public class EnumMapTest extends TestCase {
         assertSame("Get returned incorrect value for given key", f, //$NON-NLS-1$
                 enumColorMap.get(Color.Green));
     }
-    
+
     /**
-     * @tests java.util.EnumMap#put(Object,Object)
+     * @tests java.util.EnumMap#put(Object, Object)
      */
-    @SuppressWarnings( { "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_putLjava_lang_ObjectLjava_lang_Object() {
         EnumMap enumSizeMap = new EnumMap(Size.class);
         try {
@@ -836,7 +836,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#putAll(Map)
      */
-    @SuppressWarnings({ "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_putAllLjava_util_Map() {
         EnumMap enumColorMap = new EnumMap<Color, Double>(Color.class);
         enumColorMap.put(Color.Green, 2);
@@ -903,7 +903,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#remove(Object)
      */
-    @SuppressWarnings({ "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_removeLjava_lang_Object() {
         EnumMap enumSizeMap = new EnumMap(Size.class);
         assertNull("Remove of non-mapped key returned non-null", enumSizeMap //$NON-NLS-1$
@@ -944,7 +944,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#size()
      */
-    @SuppressWarnings({ "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_size() {
         EnumMap enumSizeMap = new EnumMap(Size.class);
         assertEquals("Wrong size", 0, enumSizeMap.size()); //$NON-NLS-1$
@@ -959,7 +959,7 @@ public class EnumMapTest extends TestCase {
             // Expected
         }
         assertEquals("Wrong size", 1, enumSizeMap.size()); //$NON-NLS-1$
-        
+
         enumSizeMap.put(Size.Middle, null);
         assertEquals("Wrong size", 2, enumSizeMap.size()); //$NON-NLS-1$
         enumSizeMap.remove(Size.Big);
@@ -982,7 +982,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests java.util.EnumMap#values()
      */
-    @SuppressWarnings( { "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void test_values() {
         EnumMap enumColorMap = new EnumMap<Color, Double>(Color.class);
         enumColorMap.put(Color.Red, 1);
@@ -1138,7 +1138,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests serialization/deserialization.
      */
-    @SuppressWarnings({ "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void testSerializationSelf() throws Exception {
         EnumMap enumColorMap = new EnumMap<Color, Double>(Color.class);
         enumColorMap.put(Color.Blue, 3);
@@ -1148,7 +1148,7 @@ public class EnumMapTest extends TestCase {
     /**
      * @tests serialization/deserialization compatibility with RI.
      */
-    @SuppressWarnings({ "unchecked", "boxing" })
+    @SuppressWarnings({"unchecked", "boxing"})
     public void testSerializationCompatibility() throws Exception {
         EnumMap enumColorMap = new EnumMap<Color, Double>(Color.class);
         enumColorMap.put(Color.Red, 1);
