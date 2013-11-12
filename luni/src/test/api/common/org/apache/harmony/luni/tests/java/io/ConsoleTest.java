@@ -17,21 +17,18 @@
 
 package org.apache.harmony.luni.tests.java.io;
 
+import junit.framework.TestCase;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Console;
-import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-import junit.framework.TestCase;
 
 /**
  * This file is test for java.io.Console. Due to the redirect problem, it can
@@ -102,24 +99,10 @@ public class ConsoleTest extends TestCase {
         assertEquals("2 Please input a line of string to test:", prompt);
     }
 
-    public void test_readPassword() {
-        // Since we cannot set the echo off by using the mock input and output
-        // stream, so IOException will be thrown.
-        try {
-            console.readPassword();
-            fail();
-        } catch (IOError expected) {
-        }
-    }
-
     public void test_readPassword_LString_LObject() {
-        try {
-            console.readPassword("%d", 3);
-            fail();
-        } catch (IOError expected) {
-        }
+        console.readPassword("%d", 3);
         String prompt = new String(((ByteArrayOutputStream) out).toByteArray());
-        assertEquals("3", prompt);
+        assertEquals("3\n", prompt);
     }
 
     /**
