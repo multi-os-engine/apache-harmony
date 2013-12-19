@@ -150,18 +150,8 @@ public class IsCollectedTest extends JDWPSyncTestCase {
         logWriter.println("\n=> Send " + thisCommandName
                 + " for checkedObject_01 and check reply...");
 
-        CommandPacket checkedCommand = new CommandPacket(
-                JDWPCommands.ObjectReferenceCommandSet.CommandSetID,
-                JDWPCommands.ObjectReferenceCommandSet.IsCollectedCommand);
-        checkedCommand.setNextValueAsObjectID(checkedObject_01ID);
-
-        ReplyPacket checkedReply = debuggeeWrapper.vmMirror
-                .performCommand(checkedCommand);
-        checkedCommand = null;
-        checkReplyPacket(checkedReply, thisCommandName);
-
-        boolean checkedObject_01_IsCollected = checkedReply
-                .getNextValueAsBoolean();
+        boolean checkedObject_01_IsCollected =
+                isObjectCollected(checkedObject_01ID);
         logWriter.println("=> IsCollected for checkedObject_01 = "
                 + checkedObject_01_IsCollected);
 
@@ -194,17 +184,8 @@ public class IsCollectedTest extends JDWPSyncTestCase {
         logWriter.println("\n=> Send " + thisCommandName
                 + " for checkedObject_02 and check reply...");
 
-        checkedCommand = new CommandPacket(
-                JDWPCommands.ObjectReferenceCommandSet.CommandSetID,
-                JDWPCommands.ObjectReferenceCommandSet.IsCollectedCommand);
-        checkedCommand.setNextValueAsObjectID(checkedObject_02ID);
-
-        checkedReply = debuggeeWrapper.vmMirror.performCommand(checkedCommand);
-        checkedCommand = null;
-        checkReplyPacket(checkedReply, thisCommandName);
-
-        boolean checkedObject_02_IsCollected = checkedReply
-                .getNextValueAsBoolean();
+        boolean checkedObject_02_IsCollected =
+                isObjectCollected(checkedObject_02ID);
         logWriter.println("=> IsCollected for checkedObject_02 = "
                 + checkedObject_02_IsCollected);
 
@@ -241,8 +222,34 @@ public class IsCollectedTest extends JDWPSyncTestCase {
         if (failMessage.length() > 0) {
             fail(failMessage);
         }
+    }
 
-        assertAllDataRead(checkedReply);
+    private boolean isObjectCollected(long objectId) {
+        CommandPacket checkedCommand = new CommandPacket(
+            JDWPCommands.ObjectReferenceCommandSet.CommandSetID,
+            JDWPCommands.ObjectReferenceCommandSet.IsCollectedCommand);
+        checkedCommand.setNextValueAsObjectID(objectId);
+
+        ReplyPacket checkedReply =
+            debuggeeWrapper.vmMirror.performCommand(checkedCommand);
+        checkedCommand = null;
+        int[] expectedErrors = new int[] {
+            JDWPConstants.Error.NONE,             // object exists.
+            JDWPConstants.Error.INVALID_OBJECT    // object has been collected.
+        };
+        checkReplyPacket(checkedReply, thisCommandName, expectedErrors);
+
+        boolean is_collected;
+        if (checkedReply.getErrorCode() == JDWPConstants.Error.NONE) {
+            is_collected = checkedReply.getNextValueAsBoolean();
+            assertAllDataRead(checkedReply);
+        } else {  // INVALID_OBJECT
+            assertEquals(JDWPConstants.Error.INVALID_OBJECT,
+                         checkedReply.getErrorCode());
+            is_collected = true;
+        }
+
+        return is_collected;
     }
 
     /**
