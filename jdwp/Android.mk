@@ -37,7 +37,8 @@ include $(call all-makefiles-under,$(LOCAL_PATH))
 
 #jdwp_test_runtime_target := dalvikvm -XXlib:libart.so
 jdwp_test_runtime_target := dalvikvm -XXlib:libartd.so
-jdwp_test_runtime_host := $(ANDROID_BUILD_TOP)/art/tools/art
+jdwp_test_runtime_host := $(ANDROID_HOST_OUT)/bin/art
+#jdwp_test_runtime_host := $(ANDROID_HOST_OUT)/bin/art -d
 
 jdwp_test_runtime_options :=
 jdwp_test_runtime_options += -verbose:jdwp
