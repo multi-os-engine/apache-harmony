@@ -209,6 +209,80 @@ public class VmMirror {
     }
 
     /**
+     * Sets breakpoint that triggers only on a certain occurrence to a given
+     * location
+     *
+     * @param typeTag
+     * @param breakpoint
+     * @param suspendPolicy
+     *            Suspend policy for a breakpoint being created
+     * @param threadID
+     *            Limit the requested event to be reported for the given thread
+     *            only
+     * @return ReplyPacket for corresponding command
+     */
+    public ReplyPacket setThreadOnlyBreakpoint(byte typeTag,
+            Breakpoint breakpoint, byte suspendPolicy, long threadID) {
+        long typeID = getTypeID(breakpoint.className, typeTag);
+
+        // Get Method reference ID
+        long methodID = getMethodID(typeID, breakpoint.methodName);
+
+        byte eventKind = JDWPConstants.EventKind.BREAKPOINT;
+
+        EventMod mod1 = new EventMod();
+        mod1.modKind = EventMod.ModKind.LocationOnly;
+        mod1.loc = new Location(typeTag, typeID, methodID, breakpoint.index);
+
+        EventMod mod2 = new EventMod();
+        mod2.modKind = EventMod.ModKind.ThreadOnly;
+        mod2.thread = threadID;
+
+        EventMod[] mods = new EventMod[] { mod1, mod2 };
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set breakpoint
+        return setEvent(event);
+    }
+
+    /**
+     * Sets breakpoint that triggers only on a certain occurrence to a given
+     * location
+     *
+     * @param typeTag
+     * @param breakpoint
+     * @param suspendPolicy
+     *            Suspend policy for a breakpoint being created
+     * @param objectID
+     *            Limit the requested event to be reported for the given 'this'
+     *            object only
+     * @return ReplyPacket for corresponding command
+     */
+    public ReplyPacket setInstanceOnlyBreakpoint(byte typeTag,
+            Breakpoint breakpoint, byte suspendPolicy, long objectID) {
+        long typeID = getTypeID(breakpoint.className, typeTag);
+
+        // Get Method reference ID
+        long methodID = getMethodID(typeID, breakpoint.methodName);
+
+        byte eventKind = JDWPConstants.EventKind.BREAKPOINT;
+
+        EventMod mod1 = new EventMod();
+        mod1.modKind = EventMod.ModKind.LocationOnly;
+        mod1.loc = new Location(typeTag, typeID, methodID, breakpoint.index);
+
+        EventMod mod2 = new EventMod();
+        mod2.modKind = EventMod.ModKind.InstanceOnly;
+        mod2.instance = objectID;
+
+        EventMod[] mods = new EventMod[] { mod1, mod2 };
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set breakpoint
+        return setEvent(event);
+    }
+
+    /**
      * Sets breakpoint at the beginning of method with name <i>methodName</i>.
      * 
      * @param classID
@@ -434,6 +508,21 @@ public class VmMirror {
         targetVMCapabilities.reserved32 = replyPacket.getNextValueAsBoolean();
 
         return replyPacket;
+    }
+
+    public boolean canWatchFieldModification() {
+        capabilities();
+        return targetVMCapabilities.canWatchFieldModification;
+    }
+
+    public boolean canWatchFieldAccess() {
+        capabilities();
+        return targetVMCapabilities.canWatchFieldAccess;
+    }
+
+    public boolean canUseInstanceFilters() {
+        capabilities();
+        return targetVMCapabilities.canUseInstanceFilters;
     }
 
     /**
@@ -1466,6 +1555,41 @@ public class VmMirror {
     }
 
     /**
+     * Sets exception event request for given exception class signature.
+     *
+     * @param exceptionSignature
+     *            exception signature.
+     * @param caught
+     *            is exception caught
+     * @param uncaught
+     *            is exception uncaught
+     * @param threadID
+     *            Limit the requested event to be reported for the given thread
+     *            only
+     * @return ReplyPacket for corresponding command
+     */
+    public ReplyPacket setThreadOnlyException(String exceptionSignature,
+            boolean caught, boolean uncaught, long threadID) {
+        // Request referenceTypeID for exception
+        long exceptionID = getClassID(exceptionSignature);
+        byte eventKind = JDWPConstants.EventKind.EXCEPTION;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        EventMod[] mods = new EventMod[2];
+        mods[0] = new EventMod();
+        mods[0].modKind = EventMod.ModKind.ExceptionOnly;
+        mods[0].caught = caught;
+        mods[0].uncaught = uncaught;
+        mods[0].exceptionOrNull = exceptionID;
+
+        mods[1] = new EventMod();
+        mods[1].modKind = EventMod.ModKind.ThreadOnly;
+        mods[1].thread = threadID;
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        return setEvent(event);
+    }
+
+    /**
      * Sets METHOD_ENTRY event request for specified class name pattern.
      * 
      * @param classRegexp
@@ -1518,6 +1642,72 @@ public class VmMirror {
             mods[1] = new EventMod();
             mods[1].modKind = EventMod.ModKind.Count;
             mods[1].count = count;
+        }
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        return setEvent(event);
+    }
+
+    /**
+     * Sets METHOD_ENTRY event request for specified class name pattern.
+     *
+     * @param classRegexp
+     *            class name pattern or null for no pattern
+     * @param threadID
+     *            Limit the requested event to be reported for the given thread
+     *            only
+     * @return ReplyPacket for corresponding command
+     */
+    public ReplyPacket setThreadOnlyMethodEntry(String classRegexp, long threadID) {
+        byte eventKind = JDWPConstants.EventKind.METHOD_ENTRY;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        EventMod[] mods = null;
+        if (classRegexp == null) {
+            mods = new EventMod[] { new EventMod() };
+            mods[0].modKind = EventMod.ModKind.ThreadOnly;
+            mods[0].thread = threadID;
+        } else {
+            mods = new EventMod[2];
+            mods[0] = new EventMod();
+            mods[0].modKind = EventMod.ModKind.ClassMatch;
+            mods[0].classPattern = classRegexp;
+
+            mods[1] = new EventMod();
+            mods[1].modKind = EventMod.ModKind.ThreadOnly;
+            mods[1].thread = threadID;
+        }
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        return setEvent(event);
+    }
+
+    /**
+     * Sets METHOD_ENTRY event request for specified class name pattern.
+     *
+     * @param classRegexp
+     *            class name pattern or null for no pattern
+     * @param objectID
+     *            Limit the requested event to be reported for the given 'this'
+     *            object only
+     * @return ReplyPacket for corresponding command
+     */
+    public ReplyPacket setInstanceOnlyMethodEntry(String classRegexp, long objectID) {
+        byte eventKind = JDWPConstants.EventKind.METHOD_ENTRY;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        EventMod[] mods = null;
+        if (classRegexp == null) {
+            mods = new EventMod[] { new EventMod() };
+            mods[0].modKind = EventMod.ModKind.InstanceOnly;
+            mods[0].instance = objectID;
+        } else {
+            mods = new EventMod[2];
+            mods[0] = new EventMod();
+            mods[0].modKind = EventMod.ModKind.ClassMatch;
+            mods[0].classPattern = classRegexp;
+
+            mods[1] = new EventMod();
+            mods[1].modKind = EventMod.ModKind.InstanceOnly;
+            mods[1].instance = objectID;
         }
         Event event = new Event(eventKind, suspendPolicy, mods);
 
@@ -1611,6 +1801,74 @@ public class VmMirror {
     }
 
     /**
+     * Sets METHOD_EXIT event request for specified class name pattern.
+     *
+     * @param classRegexp
+     *            classRegexp class name pattern or null for no pattern
+     * @param threadID
+     *            Limit the requested event to be reported for the given thread
+     *            only
+     * @return ReplyPacket for corresponding command
+     */
+    public ReplyPacket setThreadOnlyMethodExit(String classRegexp, long threadID) {
+        byte eventKind = JDWPConstants.EventKind.METHOD_EXIT;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        EventMod[] mods = null;
+        if (classRegexp == null) {
+            mods = new EventMod[] { new EventMod() };
+            mods[0].modKind = EventMod.ModKind.ThreadOnly;
+            mods[0].thread = threadID;
+        } else {
+            mods = new EventMod[2];
+            mods[0] = new EventMod();
+            mods[0].modKind = EventMod.ModKind.ClassMatch;
+            mods[0].classPattern = classRegexp;
+
+            mods[1] = new EventMod();
+            mods[1].modKind = EventMod.ModKind.ThreadOnly;
+            mods[1].thread = threadID;
+        }
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        return setEvent(event);
+
+    }
+
+    /**
+     * Sets METHOD_EXIT event request for specified class name pattern.
+     *
+     * @param classRegexp
+     *            classRegexp class name pattern or null for no pattern
+     * @param objectID
+     *            Limit the requested event to be reported for the given 'this'
+     *            object only
+     * @return ReplyPacket for corresponding command
+     */
+    public ReplyPacket setInstanceOnlyMethodExit(String classRegexp, long objectID) {
+        byte eventKind = JDWPConstants.EventKind.METHOD_EXIT;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        EventMod[] mods = null;
+        if (classRegexp == null) {
+            mods = new EventMod[] { new EventMod() };
+            mods[0].modKind = EventMod.ModKind.InstanceOnly;
+            mods[0].instance = objectID;
+        } else {
+            mods = new EventMod[2];
+            mods[0] = new EventMod();
+            mods[0].modKind = EventMod.ModKind.ClassMatch;
+            mods[0].classPattern = classRegexp;
+
+            mods[1] = new EventMod();
+            mods[1].modKind = EventMod.ModKind.InstanceOnly;
+            mods[1].instance = objectID;
+        }
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        return setEvent(event);
+
+    }
+
+    /**
      * Sets field access event request for specified class signature and field
      * name.
      * 
@@ -1653,6 +1911,156 @@ public class VmMirror {
     }
 
     /**
+     * Sets field access event request for specified class signature and field
+     * name
+     *
+     * @param classTypeTag
+     *            class Type Tag (class/interface/array)
+     * @param classSignature
+     *            class signature
+     * @param fieldName
+     *            field name
+     * @param count
+     *            Limit the requested event to be reported at most once after a
+     *            given number of occurrences
+     * @return ReplyPacket if breakpoint is set
+     * @throws ReplyErrorCodeException
+     */
+    public ReplyPacket setCountableFieldAccess(String classSignature,
+            byte classTypeTag, String fieldName,
+            int count) throws ReplyErrorCodeException {
+        ReplyPacket request = null;
+        long typeID = -1;
+        long fieldID = -1;
+
+        // Request referenceTypeID for class
+        typeID = getClassID(classSignature);
+
+        // Request fields in class
+        request = getFieldsInClass(typeID);
+
+        // Get fieldID from received packet
+        fieldID = getFieldID(request, fieldName);
+
+        // Prepare corresponding event
+        byte eventKind = JDWPConstants.EventKind.FIELD_ACCESS;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        EventMod[] mods = new EventMod[2];
+        mods[0] = new EventMod();
+        mods[0].fieldID = fieldID;
+        mods[0].declaring = typeID;
+        mods[0].modKind = EventMod.ModKind.FieldOnly;
+
+        mods[1] = new EventMod();
+        mods[1].count = count;
+        mods[1].modKind = EventMod.ModKind.Count;
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set exception
+        return setEvent(event);
+    }
+
+    /**
+     * Sets field access event request for specified class signature and field
+     * name
+     *
+     * @param classTypeTag
+     *            class Type Tag (class/interface/array)
+     * @param classSignature
+     *            class signature
+     * @param fieldName
+     *            field name
+     * @param threadID
+     *            Limit the requested event to be reported for the given thread
+     *            only
+     * @return ReplyPacket if breakpoint is set
+     * @throws ReplyErrorCodeException
+     */
+    public ReplyPacket setThreadOnlyFieldAccess(String classSignature,
+            byte classTypeTag, String fieldName,
+            long threadID) throws ReplyErrorCodeException {
+        ReplyPacket request = null;
+        long typeID = -1;
+        long fieldID = -1;
+
+        // Request referenceTypeID for class
+        typeID = getClassID(classSignature);
+
+        // Request fields in class
+        request = getFieldsInClass(typeID);
+
+        // Get fieldID from received packet
+        fieldID = getFieldID(request, fieldName);
+
+        // Prepare corresponding event
+        byte eventKind = JDWPConstants.EventKind.FIELD_ACCESS;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        EventMod[] mods = new EventMod[2];
+        mods[0] = new EventMod();
+        mods[0].fieldID = fieldID;
+        mods[0].declaring = typeID;
+        mods[0].modKind = EventMod.ModKind.FieldOnly;
+
+        mods[1] = new EventMod();
+        mods[1].thread = threadID;
+        mods[1].modKind = EventMod.ModKind.ThreadOnly;
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set exception
+        return setEvent(event);
+    }
+
+    /**
+     * Sets field access event request for specified class signature and field
+     * name
+     *
+     * @param classTypeTag
+     *            class Type Tag (class/interface/array)
+     * @param classSignature
+     *            class signature
+     * @param fieldName
+     *            field name
+     * @param objectID
+     *            Limit the requested event to be reported for the given 'this'
+     *            object only
+     * @return ReplyPacket if breakpoint is set
+     * @throws ReplyErrorCodeException
+     */
+    public ReplyPacket setInstanceOnlyFieldAccess(String classSignature,
+            byte classTypeTag, String fieldName,
+            long objectID) throws ReplyErrorCodeException {
+        ReplyPacket request = null;
+        long typeID = -1;
+        long fieldID = -1;
+
+        // Request referenceTypeID for class
+        typeID = getClassID(classSignature);
+
+        // Request fields in class
+        request = getFieldsInClass(typeID);
+
+        // Get fieldID from received packet
+        fieldID = getFieldID(request, fieldName);
+
+        // Prepare corresponding event
+        byte eventKind = JDWPConstants.EventKind.FIELD_ACCESS;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        EventMod[] mods = new EventMod[2];
+        mods[0] = new EventMod();
+        mods[0].fieldID = fieldID;
+        mods[0].declaring = typeID;
+        mods[0].modKind = EventMod.ModKind.FieldOnly;
+
+        mods[1] = new EventMod();
+        mods[1].instance = objectID;
+        mods[1].modKind = EventMod.ModKind.InstanceOnly;
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set exception
+        return setEvent(event);
+    }
+
+    /**
      * Sets field modification event request for specified class signature and
      * field name.
      * 
@@ -1688,6 +2096,156 @@ public class VmMirror {
         mods[0].fieldID = fieldID;
         mods[0].declaring = typeID;
         mods[0].modKind = EventMod.ModKind.FieldOnly;
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set event
+        return setEvent(event);
+    }
+
+    /**
+     * Sets field modification event request for specified class signature and
+     * field name.
+     *
+     * @param classTypeTag
+     *            class Type Tag (class/interface/array)
+     * @param classSignature
+     *            class signature
+     * @param fieldName
+     *            field name
+     * @param count
+     *            Limit the requested event to be reported at most once after a
+     *            given number of occurrences
+     * @return ReplyPacket for corresponding command
+     * @throws ReplyErrorCodeException
+     */
+    public ReplyPacket setCountableFieldModification(String classSignature,
+            byte classTypeTag, String fieldName,
+            int count) throws ReplyErrorCodeException {
+        ReplyPacket request = null;
+        long typeID = -1;
+        long fieldID = -1;
+
+        // Request referenceTypeID for class
+        typeID = getClassID(classSignature);
+
+        // Request fields in class
+        request = getFieldsInClass(typeID);
+
+        // Get fieldID from received packet
+        fieldID = getFieldID(request, fieldName);
+
+        // Prepare corresponding event
+        byte eventKind = JDWPConstants.EventKind.FIELD_MODIFICATION;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        EventMod[] mods = new EventMod[2];
+        mods[0] = new EventMod();
+        mods[0].fieldID = fieldID;
+        mods[0].declaring = typeID;
+        mods[0].modKind = EventMod.ModKind.FieldOnly;
+
+        mods[1] = new EventMod();
+        mods[1].count = count;
+        mods[1].modKind = EventMod.ModKind.Count;
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set event
+        return setEvent(event);
+    }
+
+    /**
+     * Sets field modification event request for specified class signature and
+     * field name.
+     *
+     * @param classTypeTag
+     *            class Type Tag (class/interface/array)
+     * @param classSignature
+     *            class signature
+     * @param fieldName
+     *            field name
+     * @param threadID
+     *            Limit the requested event to be reported for the given thread
+     *            only
+     * @return ReplyPacket for corresponding command
+     * @throws ReplyErrorCodeException
+     */
+    public ReplyPacket setThreadOnlyFieldModification(String classSignature,
+            byte classTypeTag, String fieldName,
+            long threadID) throws ReplyErrorCodeException {
+        ReplyPacket request = null;
+        long typeID = -1;
+        long fieldID = -1;
+
+        // Request referenceTypeID for class
+        typeID = getClassID(classSignature);
+
+        // Request fields in class
+        request = getFieldsInClass(typeID);
+
+        // Get fieldID from received packet
+        fieldID = getFieldID(request, fieldName);
+
+        // Prepare corresponding event
+        byte eventKind = JDWPConstants.EventKind.FIELD_MODIFICATION;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        EventMod[] mods = new EventMod[2];
+        mods[0] = new EventMod();
+        mods[0].fieldID = fieldID;
+        mods[0].declaring = typeID;
+        mods[0].modKind = EventMod.ModKind.FieldOnly;
+
+        mods[1] = new EventMod();
+        mods[1].thread = threadID;
+        mods[1].modKind = EventMod.ModKind.ThreadOnly;
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set event
+        return setEvent(event);
+    }
+
+    /**
+     * Sets field modification event request for specified class signature and
+     * field name.
+     *
+     * @param classTypeTag
+     *            class Type Tag (class/interface/array)
+     * @param classSignature
+     *            class signature
+     * @param fieldName
+     *            field name
+     * @param objectID
+     *            Limit the requested event to be reported for the given 'this'
+     *            object only
+     * @return ReplyPacket for corresponding command
+     * @throws ReplyErrorCodeException
+     */
+    public ReplyPacket setInstanceOnlyFieldModification(String classSignature,
+            byte classTypeTag, String fieldName,
+            long objectID) throws ReplyErrorCodeException {
+        ReplyPacket request = null;
+        long typeID = -1;
+        long fieldID = -1;
+
+        // Request referenceTypeID for class
+        typeID = getClassID(classSignature);
+
+        // Request fields in class
+        request = getFieldsInClass(typeID);
+
+        // Get fieldID from received packet
+        fieldID = getFieldID(request, fieldName);
+
+        // Prepare corresponding event
+        byte eventKind = JDWPConstants.EventKind.FIELD_MODIFICATION;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        EventMod[] mods = new EventMod[2];
+        mods[0] = new EventMod();
+        mods[0].fieldID = fieldID;
+        mods[0].declaring = typeID;
+        mods[0].modKind = EventMod.ModKind.FieldOnly;
+
+        mods[1] = new EventMod();
+        mods[1].instance = objectID;
+        mods[1].modKind = EventMod.ModKind.InstanceOnly;
         Event event = new Event(eventKind, suspendPolicy, mods);
 
         // Set event
@@ -1778,6 +2336,52 @@ public class VmMirror {
     }
 
     /**
+     * Sets THREAD_START event request.
+     *
+     * @param count
+     *            Limit the requested event to be reported at most once after a
+     *            given number of occurrences
+     *
+     * @return ReplyPacket for corresponding command
+     */
+    public ReplyPacket setCountableThreadStart(int count) {
+        // Prepare corresponding event
+        byte eventKind = JDWPConstants.EventKind.THREAD_START;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        // EventMod[] mods = new EventMod[1];
+        EventMod[] mods = new EventMod[] { new EventMod() };
+        mods[0].modKind = EventMod.ModKind.Count;
+        mods[0].count = count;
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set event
+        return setEvent(event);
+    }
+
+    /**
+     * Sets THREAD_START event request.
+     *
+     * @param threadID
+     *            Limit the requested event to be reported for the given thread
+     *            only
+     *
+     * @return ReplyPacket for corresponding command
+     */
+    public ReplyPacket setThreadOnlyThreadStart(long threadID) {
+        // Prepare corresponding event
+        byte eventKind = JDWPConstants.EventKind.THREAD_START;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        // EventMod[] mods = new EventMod[1];
+        EventMod[] mods = new EventMod[] { new EventMod() };
+        mods[0].modKind = EventMod.ModKind.ThreadOnly;
+        mods[0].thread = threadID;
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set event
+        return setEvent(event);
+    }
+
+    /**
      * Sets THREAD_END event request.
      * 
      * @return ReplyPacket for corresponding command
@@ -1789,6 +2393,52 @@ public class VmMirror {
         EventMod[] mods = new EventMod[0];
         Event event = new Event(eventKind, suspendPolicy, mods);
 
+        return setEvent(event);
+    }
+
+    /**
+     * Sets THREAD_END event request.
+     *
+     * @param count
+     *            Limit the requested event to be reported at most once after a
+     *            given number of occurrences
+     *
+     * @return ReplyPacket for corresponding command
+     */
+    public ReplyPacket setCountableThreadEnd(int count) {
+        // Prepare corresponding event
+        byte eventKind = JDWPConstants.EventKind.THREAD_END;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        // EventMod[] mods = new EventMod[1];
+        EventMod[] mods = new EventMod[] { new EventMod() };
+        mods[0].modKind = EventMod.ModKind.Count;
+        mods[0].count = count;
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set event
+        return setEvent(event);
+    }
+
+    /**
+     * Sets THREAD_END event request.
+     *
+     * @param threadID
+     *            Limit the requested event to be reported for the given thread
+     *            only
+     *
+     * @return ReplyPacket for corresponding command
+     */
+    public ReplyPacket setThreadOnlyThreadEnd(long threadID) {
+        // Prepare corresponding event
+        byte eventKind = JDWPConstants.EventKind.THREAD_END;
+        byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
+        // EventMod[] mods = new EventMod[1];
+        EventMod[] mods = new EventMod[] { new EventMod() };
+        mods[0].modKind = EventMod.ModKind.ThreadOnly;
+        mods[0].thread = threadID;
+        Event event = new Event(eventKind, suspendPolicy, mods);
+
+        // Set event
         return setEvent(event);
     }
 
