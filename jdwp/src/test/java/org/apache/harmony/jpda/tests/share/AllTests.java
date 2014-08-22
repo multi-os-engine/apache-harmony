@@ -73,6 +73,7 @@ public class AllTests {
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.EventModifiers.CountModifierTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.EventModifiers.InstanceOnlyModifierTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.EventModifiers.ThreadOnlyModifierTest.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.AnnotationTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.Breakpoint002Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.BreakpointTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.ClassPrepareTest.class);
