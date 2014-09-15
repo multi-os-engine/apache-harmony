@@ -28,7 +28,12 @@ package org.apache.harmony.jpda.tests.jdwp.StringReference;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
+import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
+import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
+import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.jdwp.share.JDWPTestConstants;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -79,4 +84,46 @@ public class ValueTest extends JDWPSyncTestCase {
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
     }
 
+    public void testStringReferenceValueTest001_NullString() {
+        logWriter.println("testStringReferenceValueTest001_NullString started");
+        synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
+
+        checkCommandError(JDWPTestConstants.NULL_OBJECT_ID,
+                          JDWPConstants.Error.INVALID_OBJECT);
+
+        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
+    }
+
+    public void testStringReferenceValueTest001_InvalidObject() {
+        logWriter.println("testStringReferenceValueTest001_InvalidObject started");
+        synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
+
+        checkCommandError(JDWPTestConstants.INVALID_OBJECT_ID,
+                          JDWPConstants.Error.INVALID_OBJECT);
+
+        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
+    }
+
+    public void testStringReferenceValueTest001_InvalidString() {
+        logWriter.println("testStringReferenceValueTest001_InvalidString started");
+        synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
+
+        String signature = "Lorg/apache/harmony/jpda/tests/jdwp/share/debuggee/HelloWorld;";
+        long debuggeeClassID = getClassIDBySignature(signature);
+        checkCommandError(debuggeeClassID, JDWPConstants.Error.INVALID_STRING);
+
+        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
+    }
+
+    private void checkCommandError(long stringID, int expectedError) {
+        logWriter.println("Send StringReference.Value command with id " + stringID);
+
+        CommandPacket packet = new CommandPacket(
+                JDWPCommands.StringReferenceCommandSet.CommandSetID,
+                JDWPCommands.StringReferenceCommandSet.ValueCommand);
+        packet.setNextValueAsObjectID(stringID);
+        ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(packet);
+
+        checkReplyPacket(reply, "StringReference::Value command", expectedError);
+    }
 }
