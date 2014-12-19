@@ -11,8 +11,16 @@ harmony_jdwp_test_src_files := \
 
 #jdwp_test_runtime_target := dalvikvm -XXlib:libart.so
 jdwp_test_runtime_target := dalvikvm -XXlib:libartd.so
-#jdwp_test_runtime_host := $(ANDROID_HOST_OUT)/bin/art
-jdwp_test_runtime_host := $(ANDROID_HOST_OUT)/bin/art -d
+
+# org.apache.harmony.jpda.tests.jdwp.VirtualMachine.ClassPathsTest fails on the host
+# if we do not declare the bootclasspath explicitly.
+art_host_bootclasspath := $(ANDROID_HOST_OUT)/framework/core-libart-hostdex.jar
+art_host_bootclasspath := $(art_host_bootclasspath):$(ANDROID_HOST_OUT)/framework/conscrypt-hostdex.jar
+art_host_bootclasspath := $(art_host_bootclasspath):$(ANDROID_HOST_OUT)/framework/okhttp-hostdex.jar
+art_host_bootclasspath := $(art_host_bootclasspath):$(ANDROID_HOST_OUT)/framework/core-junit-hostdex.jar
+art_host_bootclasspath := $(art_host_bootclasspath):$(ANDROID_HOST_OUT)/framework/bouncycastle-hostdex.jar
+#jdwp_test_runtime_host := $(ANDROID_HOST_OUT)/bin/art -Xbootclasspath:$(art_host_bootclasspath)
+jdwp_test_runtime_host := $(ANDROID_HOST_OUT)/bin/art -d -Xbootclasspath:$(art_host_bootclasspath)
 
 # Runtime target for CTS. We also support running with a forced abi.
 cts_jdwp_test_runtime_target := dalvikvm|\#ABI\#| -XXlib:libart.so
