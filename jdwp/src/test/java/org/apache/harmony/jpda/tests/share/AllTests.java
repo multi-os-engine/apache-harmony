@@ -88,6 +88,7 @@ public class AllTests {
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.FieldWithLocationTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.MethodEntryTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.MethodExitTest.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.MethodExitWithReturnValue002Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.MethodExitWithReturnValueTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.SingleStepWithLocationTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.SingleStepTest.class);
