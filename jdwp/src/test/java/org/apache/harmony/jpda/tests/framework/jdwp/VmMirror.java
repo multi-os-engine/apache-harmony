@@ -733,6 +733,22 @@ public class VmMirror {
     }
 
     /**
+     * Returns the suspend count of the specified <code>threadID</code>.
+     *
+     * @param threadID
+     *            thread ID
+     * @return thread suspend count
+     */
+    public int getThreadSuspendCount(long threadID) {
+        CommandPacket commandPacket = new CommandPacket(
+                JDWPCommands.ThreadReferenceCommandSet.CommandSetID,
+                JDWPCommands.ThreadReferenceCommandSet.SuspendCountCommand);
+        commandPacket.setNextValueAsThreadID(threadID);
+        ReplyPacket replyPacket = checkReply(performCommand(commandPacket));
+        return replyPacket.getNextValueAsInt();
+    }
+
+    /**
      * Returns name of thread group for specified <code>groupID</code>
      * 
      * @param groupID
