@@ -37,27 +37,39 @@ public class ExceptionDebuggee extends SyncDebuggee {
     public static void main(String[] args) {
         runDebuggee(ExceptionDebuggee.class);
     }
-    
-    public void run(){
-        
+
+    public void run() {
         logWriter.println("-- ExceptionDebuggee: STARTED");
-        // load and prepare DebuggeeException class
-        DebuggeeException ex = new DebuggeeException("dummy exception");
-        
+
+        // Cause loading of DebuggeeException so it is visible from the test.
+        new DebuggeeException("dummy exception");
+
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
-        
+
         logWriter.println("-- ExceptionDebuggee: Wait for SGNL_CONTINUE...");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
         logWriter.println("-- ExceptionDebuggee: SGNL_CONTINUE has been received!");
-        
-        try {
-            // throw caught exception
-            throw new DebuggeeException("Caught debuggee exception");
-        } catch (DebuggeeException e) {
-            logWriter.println("-- ExceptionDebuggee: Exception: \""+e.getMessage()+"\" was thrown");
-        }
 
-        logWriter.println("DUMP{" + ex + "}"); 
+        throwAndCatchDebuggeeException();
+
         logWriter.println("-- ExceptionDebuggee: FINISHing...");
+    }
+
+    void throwAndCatchDebuggeeException() {
+        try {
+            throwDebuggeeExceptionWithBreakpoint();
+        } catch (DebuggeeException e) {
+            logWriter.println("Caught DebuggeeException");
+        }
+    }
+
+    private void throwDebuggeeExceptionWithBreakpoint() {
+        logWriter.println("throwDebuggeeExceptionWithBreakpoint");
+        throwDebuggeeException();
+    }
+
+    private void throwDebuggeeException() {
+        logWriter.println("throwDebuggeeException");
+        throw new DebuggeeException("Caught debuggee exception");
     }
 }
