@@ -33,6 +33,74 @@ import org.apache.harmony.jpda.tests.share.SyncDebuggee;
  *  
  */
 public class InvokeMethodDebuggee extends SyncDebuggee {
+    public static final boolean EXPECTED_BOOLEAN_RESULT = true;
+    public static final byte EXPECTED_BYTE_RESULT = 123;
+    public static final char EXPECTED_CHAR_RESULT = '@';
+    public static final short EXPECTED_SHORT_RESULT = 12345;
+    public static final int EXPECTED_INT_RESULT = 123456789;
+    public static final float EXPECTED_FLOAT_RESULT = 1.23456f;
+    public static final long EXPECTED_LONG_RESULT = 123456789133456789L;
+    public static final double EXPECTED_DOUBLE_RESULT = 0.123456789d;
+
+    public static boolean testBooleanReturn(boolean needThrow) throws Throwable {
+        if (needThrow) {
+            throwException();
+        }
+        return EXPECTED_BOOLEAN_RESULT;
+    }
+
+    public static byte testByteReturn(boolean needThrow) throws Throwable {
+        if (needThrow) {
+            throwException();
+        }
+        return EXPECTED_BYTE_RESULT;
+    }
+
+    public static char testCharReturn(boolean needThrow) throws Throwable {
+        if (needThrow) {
+            throwException();
+        }
+        return EXPECTED_CHAR_RESULT;
+    }
+
+    public static short testShortReturn(boolean needThrow) throws Throwable {
+        if (needThrow) {
+            throwException();
+        }
+        return EXPECTED_SHORT_RESULT;
+    }
+
+    public static int testIntReturn(boolean needThrow) throws Throwable {
+        if (needThrow) {
+            throwException();
+        }
+        return EXPECTED_INT_RESULT;
+    }
+
+    public static float testFloatReturn(boolean needThrow) throws Throwable {
+        if (needThrow) {
+            throwException();
+        }
+        return EXPECTED_FLOAT_RESULT;
+    }
+
+    public static long testLongReturn(boolean needThrow) throws Throwable {
+        if (needThrow) {
+            throwException();
+        }
+        return EXPECTED_LONG_RESULT;
+    }
+
+    public static double testDoubleReturn(boolean needThrow) throws Throwable {
+        if (needThrow) {
+            throwException();
+        }
+        return EXPECTED_DOUBLE_RESULT;
+    }
+
+    private static void throwException() throws Throwable {
+        throw new Throwable("test exception");
+    }
 
     public class testClass1 {
         public testClass1() {

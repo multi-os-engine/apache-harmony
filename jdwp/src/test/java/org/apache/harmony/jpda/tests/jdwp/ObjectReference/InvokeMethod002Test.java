@@ -33,14 +33,14 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class InvokeMethod002Test extends JDWPSyncTestCase {
     protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ObjectReference.InvokeMethod002Debuggee";
+        return InvokeMethod002Debuggee.class.getName();
     }
 
     /**
      * This testcase exercises ObjectReference.InvokeMethod command.
      * <BR>The test first starts the debuggee, request METHOD_ENTRY event so the
      * application suspends on first invoke.
-     * <BR>Then sends ClassType.InvokeMethod command for method with null
+     * <BR>Then sends ObjectReference.InvokeMethod command for method with null
      * argument. Checks that returned value is expected int value and returned
      * exception object is null.
      * <BR>Finally resume the application.

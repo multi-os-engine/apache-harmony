@@ -273,8 +273,7 @@ public class Value {
         case JDWPConstants.Tag.STRING_TAG:
             return "StringID: " + getLongValue();
         case JDWPConstants.Tag.ARRAY_TAG:
-            return "ObjectID: " + getLongValue();
-
+            return "ArrayID: " + getLongValue();
         case JDWPConstants.Tag.CLASS_LOADER_TAG:
             return "ClassLoaderID: " + getLongValue();
         case JDWPConstants.Tag.CLASS_OBJECT_TAG:

@@ -32,6 +32,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.jdwp.share.debuggee.InvokeMethodDebuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -40,145 +41,146 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class InvokeMethodTest extends JDWPSyncTestCase {
 
-    static final int testStatusPassed = 0;
-    static final int testStatusFailed = -1;
+    private static final String BREAKPOINT_METHOD_NAME = "execMethod";
 
     protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.share.debuggee.InvokeMethodDebuggee";
+        return InvokeMethodDebuggee.class.getName();
     }
 
     /**
-     * This testcase exercises ClassType.InvokeMethod command.
-     * <BR>At first the test starts debuggee.
-     * <BR>Then does the following checks:
-     * <BR>&nbsp;&nbsp; - send ClassType.InvokeMethod command for method,
-     * which should not throw any Exception, and checks,
-     * that returned value is expected int value and returned
-     * exception object is null;
-     * <BR>&nbsp;&nbsp; - send ClassType.InvokeMethod command for method,
-     * which should throw some Exception, and checks, that
-     * returned exception object is not null and has expected attributes;
+     * This testcase exercises ClassType.InvokeMethod command for method
+     * returning boolean value.
      */
-    public void testInvokeMethod001() {
+    public void testInvokeMethod001_returnBoolean() {
+        runTestInvokeMethod("testBooleanReturn", new Value(InvokeMethodDebuggee.EXPECTED_BOOLEAN_RESULT));
+    }
+
+    /**
+     * This testcase exercises ClassType.InvokeMethod command for method
+     * returning byte value.
+     */
+    public void testInvokeMethod001_returnByte() {
+        runTestInvokeMethod("testByteReturn", new Value(InvokeMethodDebuggee.EXPECTED_BYTE_RESULT));
+    }
+
+    /**
+     * This testcase exercises ClassType.InvokeMethod command for method
+     * returning char value.
+     */
+    public void testInvokeMethod001_returnChar() {
+        runTestInvokeMethod("testCharReturn", new Value(InvokeMethodDebuggee.EXPECTED_CHAR_RESULT));
+    }
+
+    /**
+     * This testcase exercises ClassType.InvokeMethod command for method
+     * returning short value.
+     */
+    public void testInvokeMethod001_returnShort() {
+        runTestInvokeMethod("testShortReturn", new Value(InvokeMethodDebuggee.EXPECTED_SHORT_RESULT));
+    }
+
+    /**
+     * This testcase exercises ClassType.InvokeMethod command for method
+     * returning int value.
+     */
+    public void testInvokeMethod001_returnInt() {
+        runTestInvokeMethod("testIntReturn", new Value(InvokeMethodDebuggee.EXPECTED_INT_RESULT));
+    }
+
+    /**
+     * This testcase exercises ClassType.InvokeMethod command for method
+     * returning float value.
+     */
+    public void testInvokeMethod001_returnFloat() {
+        runTestInvokeMethod("testFloatReturn", new Value(InvokeMethodDebuggee.EXPECTED_FLOAT_RESULT));
+    }
+
+    /**
+     * This testcase exercises ClassType.InvokeMethod command for method
+     * returning long value.
+     */
+    public void testInvokeMethod001_returnLong() {
+        runTestInvokeMethod("testLongReturn", new Value(InvokeMethodDebuggee.EXPECTED_LONG_RESULT));
+    }
+
+    /**
+     * This testcase exercises ClassType.InvokeMethod command for method
+     * returning double value.
+     */
+    public void testInvokeMethod001_returnDouble() {
+        runTestInvokeMethod("testDoubleReturn", new Value(InvokeMethodDebuggee.EXPECTED_DOUBLE_RESULT));
+    }
+
+    /**
+     * Common method to test ClassType.InvokeMethod.
+     * <BR>It first starts the InvokeMethodDebuggee and suspends it on a BREAKPOINT event.
+     * Then does the following checks:
+     * <BR>&nbsp;&nbsp; - send ClassType.InvokeMethod command for given method,
+     * which should not throw any Exception, and checks that returned value is
+     * expected value and returned exception object is null;
+     * <BR>&nbsp;&nbsp; - send ClassType.InvokeMethod command for given method,
+     * which should throw some Exception, and checks that returned exception
+     * object is not null and has expected attributes;
+     *
+     * @param methodName the method to execute
+     * @param expectedValue the expected return value
+     */
+    private void runTestInvokeMethod(String methodName, Value expectedValue) {
+        printTestLog("START");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-        // Get referenceTypeID
-        CommandPacket packet = new CommandPacket(
-                JDWPCommands.VirtualMachineCommandSet.CommandSetID,
-                JDWPCommands.VirtualMachineCommandSet.ClassesBySignatureCommand);
-        String classSig = "Lorg/apache/harmony/jpda/tests/jdwp/share/debuggee/InvokeMethodDebuggee;";
-        packet.setNextValueAsString(classSig);
-        ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "VirtualMachine::ClassesBySignature command");
+        long typeID = getClassIDBySignature(getDebuggeeClassSignature());
+        long targetMethodID = getMethodID(typeID, methodName);
 
-        int classes = reply.getNextValueAsInt();
-        assertEquals("VirtualMachine::ClassesBySignature returned invalid number of classes,",
-                1, classes); //this class may be loaded only once
-        byte refTypeTag = reply.getNextValueAsByte();
-        long typeID = reply.getNextValueAsReferenceTypeID();
-        int status = reply.getNextValueAsInt();
-        assertAllDataRead(reply);
-        assertEquals("VirtualMachine::ClassesBySignature returned Invalid type tag,",
-                JDWPConstants.TypeTag.CLASS, refTypeTag,
-                JDWPConstants.TypeTag.getName(JDWPConstants.TypeTag.CLASS),
-                JDWPConstants.TypeTag.getName(refTypeTag));
+        // Suspend debuggee on an event so we can invoke method.
+        long targetThreadID = suspendDebuggeeOnBreakpoint(typeID);
 
-        logWriter.println(" VirtualMachine.ClassesBySignature: classes="
-                + classes + " refTypeTag=" + refTypeTag + " typeID= " + typeID
-                + " status=" + status);
+        // Make InvokeMethod without Exception
+        Value returnValue = invokeMethodWithoutException(typeID, targetThreadID, targetMethodID);
+        assertEquals("Invalid return value", expectedValue, returnValue);
 
-        // Get methodID
-        packet = new CommandPacket(
-                JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
-                JDWPCommands.ReferenceTypeCommandSet.MethodsCommand);
-        packet.setNextValueAsClassID(typeID);
-        reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "ReferenceType::Methods command");
+        // Make InvokeMethod with Exception
+        TaggedObject exception = invokeMethodWithException(typeID, targetThreadID, targetMethodID);
+        assertTrue("Invalid exception object ID:<" + exception.objectID + ">", exception.objectID != 0);
+        assertEquals("Invalid exception tag,", JDWPConstants.Tag.OBJECT_TAG, exception.tag
+                , JDWPConstants.Tag.getName(JDWPConstants.Tag.OBJECT_TAG)
+                , JDWPConstants.Tag.getName(exception.tag));
+        logWriter.println(" ClassType.InvokeMethod: exception.tag="
+                + exception.tag + " exception.objectID=" + exception.objectID);
 
-        int declared = reply.getNextValueAsInt();
-        logWriter.println(" ReferenceType.Methods: declared=" + declared);
-        long targetMethodID = 0;
-        for (int i = 0; i < declared; i++) {
-            long methodID = reply.getNextValueAsMethodID();
-            String name = reply.getNextValueAsString();
-            String signature = reply.getNextValueAsString();
-            int modBits = reply.getNextValueAsInt();
-            logWriter.println("  methodID=" + methodID + " name=" + name
-                    + " signature=" + signature + " modBits=" + modBits);
-            if (name.equals("testMethod2")) {
-                targetMethodID = methodID;
-            }
-        }
-        assertAllDataRead(reply);
+        //  Let's resume application
+        finishDebuggee();
+        printTestLog("END");
+    }
 
-        // Set EventRequest
-        packet = new CommandPacket(
-                JDWPCommands.EventRequestCommandSet.CommandSetID,
-                JDWPCommands.EventRequestCommandSet.SetCommand);
-        packet.setNextValueAsByte(JDWPConstants.EventKind.METHOD_ENTRY);
-        packet.setNextValueAsByte(JDWPConstants.SuspendPolicy.ALL);
-        packet.setNextValueAsInt(1);
-        packet.setNextValueAsByte((byte) 5);
-        packet.setNextValueAsString("*.InvokeMethodDebuggee");
-        reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "EventRequest::Set command");
+    /**
+     * Suspends all threads of debuggee on a breakpoint.
+     * @param debuggeeTypeID the debuggee class ID
+     * @return the event thread ID
+     */
+    private long suspendDebuggeeOnBreakpoint(long debuggeeTypeID) {
+        int breakpointRequestID = debuggeeWrapper.vmMirror.setBreakpointAtMethodBegin(debuggeeTypeID, BREAKPOINT_METHOD_NAME);
 
-        int requestID = reply.getNextValueAsInt();
-        logWriter.println(" EventRequest.Set: requestID=" + requestID);
-        assertAllDataRead(reply);
+        // Signal debuggee to continue.
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
 
-        long targetThreadID = 0;
         // Wait event
-        CommandPacket event = debuggeeWrapper.vmMirror.receiveEvent();
-        byte suspendPolicy = event.getNextValueAsByte();
-        int events = event.getNextValueAsInt();
-        logWriter.println(" EVENT_THREAD event: suspendPolicy=" + suspendPolicy + " events=" + events);
-        for (int i = 0; i < events; i++) {
-            byte eventKind = event.getNextValueAsByte();
-            int newRequestID = event.getNextValueAsInt();
-            long threadID = event.getNextValueAsThreadID();
-            //Location location =
-                event.getNextValueAsLocation();
-            logWriter.println("  EVENT_THREAD event " + i + ": eventKind="
-                    + eventKind + " requestID=" + newRequestID + " threadID="
-                    + threadID);
-            if (newRequestID == requestID) {
-                targetThreadID = threadID;
-            }
-        }
-        assertAllDataRead(event);
+        long targetThreadID = debuggeeWrapper.vmMirror.waitForBreakpoint(breakpointRequestID);
         assertTrue("Invalid targetThreadID, must be != 0", targetThreadID != 0);
 
         //  Let's clear event request
-        packet = new CommandPacket(
-                JDWPCommands.EventRequestCommandSet.CommandSetID,
-                JDWPCommands.EventRequestCommandSet.ClearCommand);
-        packet.setNextValueAsByte(JDWPConstants.EventKind.METHOD_ENTRY);
-        packet.setNextValueAsInt(requestID);
-        reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "EventRequest::Clear command");
-        assertAllDataRead(reply);
+        debuggeeWrapper.vmMirror.clearEvent(JDWPConstants.EventKind.METHOD_ENTRY, breakpointRequestID);
 
-        // Make InvokeMethod without Exception
-        packet = new CommandPacket(
-                JDWPCommands.ClassTypeCommandSet.CommandSetID,
-                JDWPCommands.ClassTypeCommandSet.InvokeMethodCommand);
-        packet.setNextValueAsClassID(typeID);
-        packet.setNextValueAsThreadID(targetThreadID);
-        packet.setNextValueAsMethodID(targetMethodID);
-        packet.setNextValueAsInt(1);
-            packet.setNextValueAsValue(new Value(false));
-        packet.setNextValueAsInt(0);
-        logWriter.println(" Send ClassType.InvokeMethod without Exception");
-        reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "ClassType::InvokeMethod command");
+        return targetThreadID;
+    }
+
+    private Value invokeMethodWithoutException(long typeID, long targetThreadID,
+            long targetMethodID) {
+        ReplyPacket reply = checkInvokeMethod(typeID, targetThreadID, targetMethodID, false);
 
         Value returnValue = reply.getNextValueAsValue();
         assertNotNull("Returned value is null", returnValue);
-        assertEquals("Invalid returned value,", 234, returnValue.getIntValue());
-        logWriter.println(" ClassType.InvokeMethod: returnValue.getIntValue()="
-                + returnValue.getIntValue());
+        logWriter.println(" ClassType.InvokeMethod: returnValue=" + returnValue.toString());
 
         TaggedObject exception = reply.getNextValueAsTaggedObject();
         assertNotNull("Returned exception is null", exception);
@@ -190,43 +192,48 @@ public class InvokeMethodTest extends JDWPSyncTestCase {
                 + exception.tag + " exception.objectID=" + exception.objectID);
         assertAllDataRead(reply);
 
-        // Make InvokeMethod with Exception
-        packet = new CommandPacket(
+        return returnValue;
+    }
+
+    private TaggedObject invokeMethodWithException(long typeID, long targetThreadID,
+            long targetMethodID) {
+        ReplyPacket reply = checkInvokeMethod(typeID, targetThreadID, targetMethodID, true);
+
+        Value returnValue = reply.getNextValueAsValue();
+        // TODO value is null
+        logWriter.println(" ClassType.InvokeMethod: returnValue=" + returnValue.toString());
+
+        TaggedObject exception = reply.getNextValueAsTaggedObject();
+        assertNotNull("Returned exception is null", exception);
+        assertAllDataRead(reply);
+
+        return exception;
+    }
+
+    private ReplyPacket invokeMethod(long typeID, long targetThreadID,
+            long targetMethodID, boolean needThrow) {
+        CommandPacket packet = new CommandPacket(
                 JDWPCommands.ClassTypeCommandSet.CommandSetID,
                 JDWPCommands.ClassTypeCommandSet.InvokeMethodCommand);
         packet.setNextValueAsClassID(typeID);
         packet.setNextValueAsThreadID(targetThreadID);
         packet.setNextValueAsMethodID(targetMethodID);
         packet.setNextValueAsInt(1);
-            packet.setNextValueAsValue(new Value(true));
-        packet.setNextValueAsInt(0);
-        logWriter.println(" Send ClassType.InvokeMethod with Exception");
-        reply = debuggeeWrapper.vmMirror.performCommand(packet);
+            packet.setNextValueAsValue(new Value(needThrow));
+        packet.setNextValueAsInt(0);  // invoke options: resume all threads.
+        String message = " Send ClassType.InvokeMethod ";
+        message += (needThrow) ? "with" : "without";
+        message += " exception";
+        logWriter.println(message);
+        ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(packet);
+        return reply;
+    }
+
+    private ReplyPacket checkInvokeMethod(long typeID, long targetThreadID,
+            long targetMethodID, boolean needThrow) {
+        ReplyPacket reply = invokeMethod(typeID, targetThreadID, targetMethodID, needThrow);
         checkReplyPacket(reply, "ClassType::InvokeMethod command");
-
-        returnValue = reply.getNextValueAsValue();
-        logWriter.println(" ClassType.InvokeMethod: returnValue.getIntValue()="
-                + returnValue.getIntValue());
-
-        exception = reply.getNextValueAsTaggedObject();
-        assertNotNull("Returned exception is null", exception);
-        assertTrue("Invalid exception object ID:<" + exception.objectID + ">", exception.objectID != 0);
-        assertEquals("Invalid exception tag,", JDWPConstants.Tag.OBJECT_TAG, exception.tag
-                , JDWPConstants.Tag.getName(JDWPConstants.Tag.OBJECT_TAG)
-                , JDWPConstants.Tag.getName(exception.tag));
-        logWriter.println(" ClassType.InvokeMethod: exception.tag="
-                + exception.tag + " exception.objectID=" + exception.objectID);
-        assertAllDataRead(reply);
-
-        //  Let's resume application
-        packet = new CommandPacket(
-                JDWPCommands.VirtualMachineCommandSet.CommandSetID,
-                JDWPCommands.VirtualMachineCommandSet.ResumeCommand);
-        reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "VirtualMachine::Resume command");
-        assertAllDataRead(reply);
-
-        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
+        return reply;
     }
 
     /**
@@ -243,7 +250,7 @@ public class InvokeMethodTest extends JDWPSyncTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         logWriter.println("\n==> Getting debuggeeRefTypeID... ");
-        String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/share/debuggee/InvokeMethodDebuggee;";
+        String debuggeeSignature = getDebuggeeClassSignature();
         logWriter.println("==> debuggeeSignature = |" + debuggeeSignature + "|+");
         long debuggeeRefTypeID = debuggeeWrapper.vmMirror.getClassID(debuggeeSignature);
         if ( debuggeeRefTypeID == -1 ) {
@@ -262,57 +269,8 @@ public class InvokeMethodTest extends JDWPSyncTestCase {
         }
         logWriter.println("==> testMethodID = " + testMethodID);
 
-        logWriter.println("\n==> Setting EventRequest... ");
-        CommandPacket packet = new CommandPacket(
-                JDWPCommands.EventRequestCommandSet.CommandSetID,
-                JDWPCommands.EventRequestCommandSet.SetCommand);
-        packet.setNextValueAsByte(JDWPConstants.EventKind.METHOD_ENTRY);
-        packet.setNextValueAsByte(JDWPConstants.SuspendPolicy.ALL);
-        packet.setNextValueAsInt(1);
-        packet.setNextValueAsByte((byte) 5);
-        packet.setNextValueAsString("*.InvokeMethodDebuggee");
-
-        ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "EventRequest::Set command");
-
-        int requestID = reply.getNextValueAsInt();
-        logWriter.println(" EventRequest.Set: requestID=" + requestID);
-
-        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
-
-        logWriter.println("\n==> Getting targetThreadID... ");
-        long targetThreadID = 0;
-        // Wait event
-        CommandPacket event = debuggeeWrapper.vmMirror
-                .receiveEvent();
-        byte suspendPolicy = event.getNextValueAsByte();
-        int events = event.getNextValueAsInt();
-        logWriter.println(" EVENT_THREAD event: suspendPolicy=" + suspendPolicy
-                + " events=" + events);
-        for (int i = 0; i < events; i++) {
-            byte eventKind = event.getNextValueAsByte();
-            int newRequestID = event.getNextValueAsInt();
-            long threadID = event.getNextValueAsThreadID();
-            //Location location =
-                event.getNextValueAsLocation();
-            logWriter.println("  EVENT_THREAD event " + i + ": eventKind="
-                    + eventKind + " requestID=" + newRequestID + " threadID="
-                    + threadID);
-            if (newRequestID == requestID) {
-                targetThreadID = threadID;
-            }
-        }
-        logWriter.println("==> targetThreadID = " + targetThreadID);
-        assertTrue("Invalid targetThreadID, must be != 0", targetThreadID != 0);
-
-        logWriter.println("\n==> Clear EventRequest... ");
-        packet = new CommandPacket(
-                JDWPCommands.EventRequestCommandSet.CommandSetID,
-                JDWPCommands.EventRequestCommandSet.ClearCommand);
-        packet.setNextValueAsByte(JDWPConstants.EventKind.METHOD_ENTRY);
-        packet.setNextValueAsInt(requestID);
-        reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "EventRequest::Clear command");
+        // Suspend debuggee on breakpoint so we can invoke method.
+        long targetThreadID = suspendDebuggeeOnBreakpoint(debuggeeRefTypeID);
 
         logWriter.println("\n==> Getting invalidClassRefTypeID... ");
         String invalidClassSignature = "Lorg/apache/harmony/jpda/tests/jdwp/share/debuggee/testClass2;";
@@ -326,45 +284,10 @@ public class InvokeMethodTest extends JDWPSyncTestCase {
 
         logWriter.println
         ("\n==> Send ClassType::InvokeMethod for invalidClassRefTypeID, testMethodID...");
-        packet = new CommandPacket(
-                JDWPCommands.ClassTypeCommandSet.CommandSetID,
-                JDWPCommands.ClassTypeCommandSet.InvokeMethodCommand);
-        packet.setNextValueAsClassID(invalidClassRefTypeID);
-        packet.setNextValueAsThreadID(targetThreadID);
-        packet.setNextValueAsMethodID(testMethodID);
-        packet.setNextValueAsInt(1);
-            packet.setNextValueAsValue(new Value(false));
-        packet.setNextValueAsInt(0);
-        reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        short errorCode = reply.getErrorCode();
-        if (errorCode == JDWPConstants.Error.NONE) {
-            logWriter.println
-            ("## FAILURE: ClassType::InvokeMethod command does NOT return expected error - INVALID_METHODID");
+        ReplyPacket reply = invokeMethod(invalidClassRefTypeID, targetThreadID, testMethodID, false);
+        checkInvokeMethodFailure(reply, JDWPConstants.Error.INVALID_METHODID);
 
-            // next is only for extra info
-            logWriter.println("\n==> Result if invoke method:");
-            Value returnValue = reply.getNextValueAsValue();
-            if (returnValue != null) {
-                logWriter.println(" ClassType.InvokeMethod: returnValue.getIntValue()="
-                        + returnValue.getIntValue());
-            }
-
-            TaggedObject exception = reply.getNextValueAsTaggedObject();
-            if (exception != null) {
-                logWriter.println(" ClassType.InvokeMethod: exception.tag="
-                        + exception.tag + " exception.objectID=" + exception.objectID);
-                if ( exception.objectID != 0 ) {
-                    String exceptionSignature = getObjectSignature(exception.objectID);
-                    logWriter.println(" exceptionSignature = " + exceptionSignature);
-                }
-            }
-        }
-        checkReplyPacket(reply, "ClassType::InvokeMethod command", JDWPConstants.Error.INVALID_METHODID);
-
-        logWriter.println("==> PASSED: Expected error (INVALID_METHODID) is returned");
-        resumeDebuggee();
-
-        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
+        finishDebuggee();
     }
 
     /**
@@ -380,7 +303,7 @@ public class InvokeMethodTest extends JDWPSyncTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         logWriter.println("\n==> Getting debuggeeRefTypeID... ");
-        String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/share/debuggee/InvokeMethodDebuggee;";
+        String debuggeeSignature = getDebuggeeClassSignature();
         logWriter.println("==> debuggeeSignature = |" + debuggeeSignature + "|+");
         long debuggeeRefTypeID = debuggeeWrapper.vmMirror.getClassID(debuggeeSignature);
         if ( debuggeeRefTypeID == -1 ) {
@@ -399,81 +322,76 @@ public class InvokeMethodTest extends JDWPSyncTestCase {
         }
         logWriter.println("==> nonStaticMethodID = " + nonStaticMethodID);
 
-        logWriter.println("\n==> Setting EventRequest... ");
-        CommandPacket packet = new CommandPacket(
-                JDWPCommands.EventRequestCommandSet.CommandSetID,
-                JDWPCommands.EventRequestCommandSet.SetCommand);
-        packet.setNextValueAsByte(JDWPConstants.EventKind.METHOD_ENTRY);
-        packet.setNextValueAsByte(JDWPConstants.SuspendPolicy.ALL);
-        packet.setNextValueAsInt(1);
-        packet.setNextValueAsByte((byte) 5);
-        packet.setNextValueAsString("*.InvokeMethodDebuggee");
-
-        ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "EventRequest::Set command");
-
-        int requestID = reply.getNextValueAsInt();
-        logWriter.println(" EventRequest.Set: requestID=" + requestID);
-
-        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
-
-        logWriter.println("\n==> Getting targetThreadID... ");
-        long targetThreadID = 0;
-        // Wait event
-        CommandPacket event = debuggeeWrapper.vmMirror
-                .receiveEvent();
-        byte suspendPolicy = event.getNextValueAsByte();
-        int events = event.getNextValueAsInt();
-        logWriter.println(" EVENT_THREAD event: suspendPolicy=" + suspendPolicy
-                + " events=" + events);
-        for (int i = 0; i < events; i++) {
-            byte eventKind = event.getNextValueAsByte();
-            int newRequestID = event.getNextValueAsInt();
-            long threadID = event.getNextValueAsThreadID();
-            //Location location =
-                event.getNextValueAsLocation();
-            logWriter.println("  EVENT_THREAD event " + i + ": eventKind="
-                    + eventKind + " requestID=" + newRequestID + " threadID="
-                    + threadID);
-            if (newRequestID == requestID) {
-                targetThreadID = threadID;
-            }
-        }
-        logWriter.println("==> targetThreadID = " + targetThreadID);
-        assertTrue("Invalid targetThreadID, must be != 0", targetThreadID != 0);
-
-        logWriter.println("\n==> Clear EventRequest... ");
-        packet = new CommandPacket(
-                JDWPCommands.EventRequestCommandSet.CommandSetID,
-                JDWPCommands.EventRequestCommandSet.ClearCommand);
-        packet.setNextValueAsByte(JDWPConstants.EventKind.METHOD_ENTRY);
-        packet.setNextValueAsInt(requestID);
-        reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "EventRequest::Clear command");
+        // Suspend debuggee on breakpoint so we can invoke method.
+        long targetThreadID = suspendDebuggeeOnBreakpoint(debuggeeRefTypeID);
 
         logWriter.println
         ("\n==> Send ClassType::InvokeMethod for debuggeeRefTypeID, nonStaticMethodID...");
-        packet = new CommandPacket(
+        ReplyPacket reply = invokeMethod(debuggeeRefTypeID, targetThreadID, nonStaticMethodID, false);
+        checkInvokeMethodFailure(reply, JDWPConstants.Error.INVALID_METHODID);
+
+        finishDebuggee();
+    }
+
+    public void testInvokeMethod004_InvalidArgumentCount() {
+        printTestLog("START...");
+        synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
+
+        logWriter.println("\n==> Getting debuggeeRefTypeID... ");
+        String debuggeeSignature = getDebuggeeClassSignature();
+        logWriter.println("==> debuggeeSignature = |" + debuggeeSignature + "|+");
+        long debuggeeRefTypeID = debuggeeWrapper.vmMirror.getClassID(debuggeeSignature);
+        if ( debuggeeRefTypeID == -1 ) {
+            logWriter.println("## FAILURE: Can not get debuggeeRefTypeID!");
+            fail("Can not get debuggeeRefTypeID!");
+        }
+        logWriter.println("==> debuggeeRefTypeID = " + debuggeeRefTypeID);
+
+        String staticMethodName = "testMethod2";
+        logWriter.println("\n==> Getting method ID for debuggee method '"+staticMethodName+"'... ");
+        long targetMethodID =
+            debuggeeWrapper.vmMirror.getMethodID(debuggeeRefTypeID, staticMethodName);
+        if ( targetMethodID == -1 ) {
+            logWriter.println("## FAILURE: Can not get methodID!");
+            fail("Can not get methodID!");
+        }
+        logWriter.println("==> nonStaticMethodID = " + targetMethodID);
+
+        // Suspend debuggee on breakpoint so we can invoke method.
+        long targetThreadID = suspendDebuggeeOnBreakpoint(debuggeeRefTypeID);
+
+        logWriter.println
+        ("\n==> Send ClassType::InvokeMethod for debuggeeRefTypeID, nonStaticMethodID...");
+        CommandPacket packet = new CommandPacket(
                 JDWPCommands.ClassTypeCommandSet.CommandSetID,
                 JDWPCommands.ClassTypeCommandSet.InvokeMethodCommand);
         packet.setNextValueAsClassID(debuggeeRefTypeID);
         packet.setNextValueAsThreadID(targetThreadID);
-        packet.setNextValueAsMethodID(nonStaticMethodID);
-        packet.setNextValueAsInt(1);
-        packet.setNextValueAsValue(new Value(false));
-        packet.setNextValueAsInt(0);
-        reply = debuggeeWrapper.vmMirror.performCommand(packet);
+        packet.setNextValueAsMethodID(targetMethodID);
+        packet.setNextValueAsInt(0);  // delibarately pass no arguments.
+        packet.setNextValueAsInt(0);  // invoke options: resume all threads.
+        ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(packet);
+        checkInvokeMethodFailure(reply, JDWPConstants.Error.ILLEGAL_ARGUMENT);
+
+        finishDebuggee();
+    }
+
+    private void checkInvokeMethodFailure(ReplyPacket reply, int expectedError) {
+        String expectedErrorName = JDWPConstants.Error.getName(expectedError);
         short errorCode = reply.getErrorCode();
         if (errorCode == JDWPConstants.Error.NONE) {
             logWriter.println
-            ("## FAILURE: ClassType::InvokeMethod command does NOT return expected error - INVALID_METHODID");
+            ("## FAILURE: ClassType::InvokeMethod command does NOT return expected error - " + expectedErrorName);
 
             // next is only for extra info
             logWriter.println("\n==> Result if invoke method:");
             Value returnValue = reply.getNextValueAsValue();
             if (returnValue != null) {
-                logWriter.println(" ClassType.InvokeMethod: returnValue.getIntValue()="
-                        + returnValue.getIntValue());
+                if (returnValue.getTag() != JDWPConstants.Tag.NO_TAG) {
+                    logWriter.println(" ClassType.InvokeMethod: returnValue=" + returnValue.toString());
+                } else {
+                    logWriter.println(" ClassType.InvokeMethod: returnValue=<null>");
+                }
             }
 
             TaggedObject exception = reply.getNextValueAsTaggedObject();
@@ -486,11 +404,14 @@ public class InvokeMethodTest extends JDWPSyncTestCase {
                 }
             }
         }
-        checkReplyPacket(reply, "ClassType::InvokeMethod command", JDWPConstants.Error.INVALID_METHODID);
+        checkReplyPacket(reply, "ClassType::InvokeMethod command", expectedError);
+    }
 
-        logWriter.println("==> PASSED: Expected error (INVALID_METHODID) is returned");
+    private void finishDebuggee() {
+        // Resume debuggee from BREAKPOINT event.
         resumeDebuggee();
 
+        // Continue debuggee so it terminates.
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
     }
 }
