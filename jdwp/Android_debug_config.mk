@@ -19,23 +19,126 @@
 # We run in debug mode to get more error checking and enable JDWP verbose logs
 # to investigate failures during testing.
 
+# Common runtime options for runner and debuggee (host and target)
+jdwp_test_common_runtime_options := -Xcompiler-option --debuggable # mandatory
+
+# TODO this should only apply to the debuggee
+ifeq ($(ART_TEST_RUN_TEST_NDEBUG),true)
+  jdwp_test_common_runtime_options += -XXlib:libart.so
+else
+  jdwp_test_common_runtime_options += -XXlib:libartd.so
+endif
+
+art_core_image_name := core
+ifeq ($(ART_TEST_OPTIMIZING),true)
+  $(info ART_TEST_OPTIMIZING)
+  jdwp_test_common_runtime_options += -Xcompiler-option --compiler-backend=Optimizing
+  art_core_image_name := $(art_core_image_name)-optimizing
+else
+  ifeq ($(ART_TEST_INTERPRETER),true)
+    $(info ART_TEST_INTERPRETER)
+    jdwp_test_common_runtime_options += -Xint
+    jdwp_test_common_runtime_options += -Xcompiler-option --compiler-filter=interpret-only
+    art_core_image_name := $(art_core_image_name)-interpreter
+  else
+    ifeq ($(ART_TEST_JIT),true)
+      $(info ART_TEST_JIT)
+      jdwp_test_common_runtime_options += -Xusejit:true
+      jdwp_test_common_runtime_options += -Xcompiler-option --compiler-filter=interpret-only
+      art_core_image_name := $(art_core_image_name)-interpreter
+    endif
+  endif
+endif
+
+# Dex2oat
+ifeq ($(ART_TEST_RUN_TEST_PREBUILD),true)
+  $(info "ART_TEST_RUN_TEST_PREBUILD: ignoring for JDWP tests")
+endif
+ifeq ($(ART_TEST_RUN_TEST_NO_PREBUILD),true)
+  $(info "ART_TEST_RUN_TEST_NO_PREBUILD: ignoring for JDWP tests")
+endif
+ifeq ($(ART_TEST_RUN_TEST_NO_DEX2OAT),true)
+  $(info ART_TEST_RUN_TEST_NO_DEX2OAT)
+  jdwp_test_common_runtime_options += -Xcompiler:/system/bin/false
+endif
+
+# Relocations
+ifeq ($(ART_TEST_RUN_TEST_NO_RELOCATE),true)
+  $(info ART_TEST_RUN_TEST_NO_RELOCATE)
+  jdwp_test_common_runtime_options += -Xnorelocate
+else
+  jdwp_test_common_runtime_options += -Xrelocate
+  jdwp_test_common_runtime_options += -Xcompiler-option --include-patch-information
+  ifeq ($(ART_TEST_RUN_TEST_RELOCATE_NO_PATCHOAT),true)
+    $(info ART_TEST_RUN_TEST_RELOCATE_NO_PATCHOAT)
+    jdwp_test_common_runtime_options += -Xpatchoat:/system/bin/false
+  endif
+endif
+
+# PIC
+ifeq ($(ART_TEST_PIC_TEST),true)
+  $(info ART_TEST_PIC_TEST)
+  jdwp_test_common_runtime_options += -Xcompiler-option --compile-pic
+endif
+
+# TODO Image
+ifeq ($(ART_TEST_RUN_TEST_NO_IMAGE),true)
+  $(info ART_TEST_RUN_TEST_NO_IMAGE)
+  art_core_image_name := non-existant-core
+else
+  ifeq ($(ART_TEST_PIC_IMAGE),true)
+    $(info ART_TEST_PIC_IMAGE)
+    art_core_image_name := $(art_core_image_name)-pic
+  endif
+endif
+
 # Target settings
-jdwp_test_classpath_target := /data/jdwp/apache-harmony-jdwp-tests.jar:/data/junit/junit-targetdex.jar
-jdwp_test_runtime_bin_target := dalvikvm
+jdwp_test_target_runtime_options := $(jdwp_test_common_runtime_options)
+jdwp_test_target_runtime_options += -Ximage:/system/framework/$(art_core_image_name).art
 
 # Host settings
-jdwp_test_classpath_host := $(HOST_OUT_JAVA_LIBRARIES)/apache-harmony-jdwp-tests-hostdex.jar:$(HOST_OUT_JAVA_LIBRARIES)/junit-hostdex.jar
-jdwp_test_runtime_bin_host := $(HOST_OUT_EXECUTABLES)/art
-
-# Common runtime settings for runner and debuggee.
-jdwp_test_common_runtime_options := -XXlib:libartd.so -Xcompiler-option --debuggable
+jdwp_test_host_runtime_options := $(jdwp_test_common_runtime_options)
+jdwp_test_host_runtime_options += -Ximage:$(abspath $(HOST_OUT_EXECUTABLES)/../framework/$(art_core_image_name).art)
 
 # Debuggee runtime options
-jdwp_test_runtime_options := -verbose:jdwp
-#jdwp_test_runtime_options += -Xint # interpret-only mode
-#jdwp_test_runtime_options += -Xnoimage-dex2oat # imageless mode
-#jdwp_test_runtime_options += -Xcompiler-option --compiler-backend=Optimizing # optimizing compiler
-#jdwp_test_runtime_options += -verbose:threads
+jdwp_test_debuggee_runtime_options := -verbose:jdwp
+#jdwp_test_debuggee_runtime_options += -Xnoimage-dex2oat # imageless mode
+#jdwp_test_debuggee_runtime_options += -verbose:threads
+
+# Gc types
+art_gc_args := -Xgc:preverify -Xgc:postverify -XX:HspaceCompactForOOMMinIntervalMs=0
+ifeq ($(ART_TEST_GC_STRESS),true)
+  $(info ART_TEST_GC_STRESS)
+  jdwp_test_debuggee_runtime_options += $(art_gc_args)
+  jdwp_test_debuggee_runtime_options += -Xgc:SS -Xms2m -Xmx2m
+else
+  ifeq ($(ART_TEST_GC_VERIFY),true)
+    $(info ART_TEST_GC_VERIFY)
+    jdwp_test_debuggee_runtime_options += $(art_gc_args)
+    jdwp_test_debuggee_runtime_options += -Xgc:preverify_rosalloc -Xgc:postverify_rosalloc
+  endif
+endif
+
+# JNI
+ifeq ($(ART_TEST_JNI_FORCECOPY),true)
+  $(info ART_TEST_JNI_FORCECOPY)
+  jdwp_test_debuggee_runtime_options += -Xjniopts:forcecopy
+else
+  jdwp_test_debuggee_runtime_options += -Xcheck:jni
+endif
+
+# Tracing debuggee
+ifeq ($(ART_TEST_TRACE),true)
+  $(info ART_TEST_TRACE)
+  jdwp_test_debuggee_runtime_options += -Xmethod-trace
+  ifneq ($(TMPDIR),)
+    jdwp_test_debuggee_runtime_options += -Xmethod-trace-file:$(TMPDIR)/trace.bin
+  else
+    # TODO /data/local/tmp on target?
+    jdwp_test_debuggee_runtime_options += -Xmethod-trace-file:/tmp/trace.bin
+  endif
+  jdwp_test_debuggee_runtime_options += -Xmethod-trace-file-size:2000000
+endif
 
 # Test suite class name
 jdwp_test_suite_class_name := org.apache.harmony.jpda.tests.share.AllTests
@@ -80,12 +183,13 @@ jdwp_tests_target_dependencies := \
 # $(3) extra dependency rule (ex: run-jdwp-tests-host-all64)
 define define-jdwp-host-rule
 .PHONY: $(2)
-$(2): jdwp_test_runtime_host := $(jdwp_test_runtime_bin_host) --$(1) $(jdwp_test_common_runtime_options)
+$(2): jdwp_test_runtime_host := $(HOST_OUT_EXECUTABLES)/art --$(1) $(jdwp_test_host_runtime_options)
+$(2): jdwp_test_classpath_host := $(HOST_OUT_JAVA_LIBRARIES)/apache-harmony-jdwp-tests-hostdex.jar:$(HOST_OUT_JAVA_LIBRARIES)/junit-hostdex.jar
 $(2): $(jdwp_tests_host_dependencies) $(3)
 	$(hide) echo "Running JDWP $(1)-bit host tests"
-	$$(jdwp_test_runtime_host) -cp $(jdwp_test_classpath_host) \
+	$$(jdwp_test_runtime_host) -cp $$(jdwp_test_classpath_host) \
     $(jdwp_test_target_runtime_common_args) \
-    -Djpda.settings.debuggeeJavaPath='$$(jdwp_test_runtime_host) $(jdwp_test_runtime_options)' \
+    -Djpda.settings.debuggeeJavaPath='$$(jdwp_test_runtime_host) $(jdwp_test_debuggee_runtime_options)' \
     $(jdwp_test_suite_class_name)
 endef
 
@@ -119,7 +223,8 @@ endef
 # $(3) extra dependency rule (ex: run-jdwp-tests-target-all64)
 define define-jdwp-target-rule
 .PHONY: $(2)
-$(2): jdwp_test_runtime_target := $(jdwp_test_runtime_bin_target)$(1) $(jdwp_test_common_runtime_options)
+$(2): jdwp_test_runtime_target := dalvikvm$(1) $(jdwp_test_target_runtime_options)
+$(2): jdwp_test_classpath_target := /data/jdwp/apache-harmony-jdwp-tests.jar:/data/junit/junit-targetdex.jar
 $(2): $(jdwp_tests_target_dependencies) $(3)
 	$(hide) echo "Running JDWP $(1)-bit target tests"
 	adb root
@@ -128,9 +233,9 @@ $(2): $(jdwp_tests_target_dependencies) $(3)
 	adb sync
 	adb reboot
 	$$(call wait-for-boot-complete)
-	adb shell $$(jdwp_test_runtime_target) -cp $(jdwp_test_classpath_target) \
+	adb shell $$(jdwp_test_runtime_target) -cp $$(jdwp_test_classpath_target) \
     $(jdwp_test_target_runtime_common_args) \
-    -Djpda.settings.debuggeeJavaPath='$$(jdwp_test_runtime_target) $(jdwp_test_runtime_options)' \
+    -Djpda.settings.debuggeeJavaPath='$$(jdwp_test_runtime_target) $(jdwp_test_debuggee_runtime_options)' \
     $(jdwp_test_suite_class_name)
 endef
 
