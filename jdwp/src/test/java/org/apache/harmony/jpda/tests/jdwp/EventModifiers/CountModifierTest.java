@@ -29,15 +29,6 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  * JDWP Unit test for Count event modifier.
  */
 public class CountModifierTest extends JDWPEventModifierTestCase {
-    private static final
-            String DEBUGGEE_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/CountModifierDebuggee;";
-    private static final
-            String TEST_CLASS_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/CountModifierDebuggee$TestClass;";
-    private static final
-            String TEST_CLASS_NAME = "org.apache.harmony.jpda.tests.jdwp.EventModifiers.CountModifierDebuggee$TestClass";
-    private static final
-            String EXCEPTION_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/CountModifierDebuggee$TestException;";
-
     // The name of the test method where we set our event requests.
     private static final String METHOD_NAME = "eventTestMethod";
 
@@ -49,7 +40,6 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
             LOCATION_COUNT_FIELD_NAME = "locationEventCount";
     private static final String
             EXCEPTION_EVENT_COUNT_FIELD_NAME = "exceptionEventCount";
-    private static final String THREAD_RUN_COUNT_FIELD_NAME = "threadRunCount";
     private static final String
             FIELD_READ_WRITE_COUNT_FIELD_NAME = "fieldReadWriteCount";
 
@@ -74,7 +64,8 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
 
         // Breakpoint at start of test method.
         byte typeTag = JDWPConstants.TypeTag.CLASS;
-        Breakpoint breakpoint = new Breakpoint(TEST_CLASS_SIGNATURE,
+        String testClassSignature = getClassSignature(CountModifierDebuggee.TestClass.class);
+        Breakpoint breakpoint = new Breakpoint(testClassSignature,
                 METHOD_NAME, 0);
         EventBuilder builder = createBreakpointEventBuilder(typeTag,
                 breakpoint);
@@ -96,8 +87,9 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
     public void testMethodEntry() {
         logWriter.println("testMethodEntry started");
 
+        String testClassName = CountModifierDebuggee.TestClass.class.getName();
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
-        EventBuilder builder = createMethodEntryEventBuilder(TEST_CLASS_NAME);
+        EventBuilder builder = createMethodEntryEventBuilder(testClassName);
         testEventWithCountModifier(builder, LOCATION_COUNT_FIELD_NAME);
 
         logWriter.println("testMethodEntry done");
@@ -116,8 +108,9 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
     public void testMethodExit() {
         logWriter.println("testMethodExit started");
 
+        String testClassName = CountModifierDebuggee.TestClass.class.getName();
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
-        EventBuilder builder = createMethodExitEventBuilder(TEST_CLASS_NAME);
+        EventBuilder builder = createMethodExitEventBuilder(testClassName);
         testEventWithCountModifier(builder, LOCATION_COUNT_FIELD_NAME);
 
         logWriter.println("testMethodExit done");
@@ -138,8 +131,9 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
     public void testMethodExitWithReturnValue() {
         logWriter.println("testMethodExitWithReturnValue started");
 
+        String testClassName = CountModifierDebuggee.TestClass.class.getName();
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
-        EventBuilder builder = createMethodExitWithReturnValueEventBuilder(TEST_CLASS_NAME);
+        EventBuilder builder = createMethodExitWithReturnValueEventBuilder(testClassName);
         testEventWithCountModifier(builder, LOCATION_COUNT_FIELD_NAME);
 
         logWriter.println("testMethodExitWithReturnValue done");
@@ -159,8 +153,10 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
     public void testException() {
         logWriter.println("testException started");
 
+        String exceptionClassSignature =
+                getClassSignature(CountModifierDebuggee.TestException.class);
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
-        EventBuilder builder = createExceptionEventBuilder(EXCEPTION_SIGNATURE,
+        EventBuilder builder = createExceptionEventBuilder(exceptionClassSignature,
                 true, false);
         testEventWithCountModifier(builder,
                 EXCEPTION_EVENT_COUNT_FIELD_NAME);
@@ -190,8 +186,9 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
             return;
         }
 
+        String debuggeeSignature = getDebuggeeClassSignature();
         EventBuilder builder = createFieldAccessEventBuilder(
-                JDWPConstants.TypeTag.CLASS, DEBUGGEE_SIGNATURE,
+                JDWPConstants.TypeTag.CLASS, debuggeeSignature,
                 WATCHED_FIELD_NAME);
         testEventWithCountModifier(builder, FIELD_READ_WRITE_COUNT_FIELD_NAME);
 
@@ -220,8 +217,9 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
             return;
         }
 
+        String debuggeeSignature = getDebuggeeClassSignature();
         EventBuilder builder = createFieldModificationEventBuilder(
-                JDWPConstants.TypeTag.CLASS, DEBUGGEE_SIGNATURE,
+                JDWPConstants.TypeTag.CLASS, debuggeeSignature,
                 WATCHED_FIELD_NAME);
         testEventWithCountModifier(builder, FIELD_READ_WRITE_COUNT_FIELD_NAME);
 
@@ -239,10 +237,9 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
 
         // Check we properly ignore the (count - 1) previous events.
         int expectedCount = CountModifierDebuggee.EVENT_COUNT;
-        int actualCount = getStaticIntField(DEBUGGEE_SIGNATURE, countFieldName);
+        String debuggeeSignature = getDebuggeeClassSignature();
+        int actualCount = getStaticIntField(debuggeeSignature, countFieldName);
         assertEquals("Invalid event count", expectedCount, actualCount);
-
-        clearAndResume(event.eventKind, requestID);
     }
 
     private int getStaticIntField(String classSignature, String fieldName) {

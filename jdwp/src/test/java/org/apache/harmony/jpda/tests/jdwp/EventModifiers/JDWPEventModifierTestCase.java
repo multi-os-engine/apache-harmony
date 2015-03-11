@@ -241,17 +241,6 @@ abstract class JDWPEventModifierTestCase extends JDWPSyncTestCase {
     }
 
     /**
-     * Clears the corresponding event and resumes the VM.
-     *
-     * @param eventKind the event kind
-     * @param requestID the event request ID
-     */
-    protected void clearAndResume(byte eventKind, int requestID) {
-        clearEvent(eventKind, requestID, true);
-        resumeDebuggee();
-    }
-
-    /**
      * Checks the VM supports the canWatchFieldAccess capability. If it does
      * not, prints a warning in the console.
      *
