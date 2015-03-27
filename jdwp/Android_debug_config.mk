@@ -73,20 +73,52 @@ jdwp_tests_target_dependencies := \
   $(TARGET_OUT_DATA)/jdwp/apache-harmony-jdwp-tests.jar \
   $(TARGET_OUT_DATA)/junit/junit-targetdex.jar
 
+# Creates a temp directory (used to control test failures)
+jdwp_host_test_dir := $(shell mktemp -d --tmpdir jdwp-tests-XXXXX)
+jdwp_host_test_passed_dir := $(jdwp_host_test_dir)/passed
+jdwp_host_test_failed_dir := $(jdwp_host_test_dir)/failed
+
+# Dump output for all tests in the given directory
+#
+# $(1) directory
+define dump-test-output
+  $(hide) test -d $(1) && (ls -1 $(1) | xargs -I {} sh -c "echo -e '\e[93m[OUTPUT OF {}]\e[0m' && cat $(1)/{}") || true
+endef
+
+# List passed and failed tests.
+#
+# $(1): true to dump all tests output, false for failed tests only
+define check-jdwp
+	$(call dump-test-output,$(jdwp_host_test_passed_dir))
+	$(call dump-test-output,$(jdwp_host_test_failed_dir))
+	$(hide) echo ""
+	$(hide) test -d $(jdwp_host_test_passed_dir) && (echo -e "\e[92mPASSING TESTS\e[0m" && ls -1 $(jdwp_host_test_passed_dir)) || echo -e "\e[91mNO TESTS PASSED\e[0m"
+	$(hide) test -d $(jdwp_host_test_failed_dir) && (echo -e "\e[91mFAILING TESTS\e[0m" && ls -1 $(jdwp_host_test_failed_dir)) || echo -e "\e[92mNO TESTS FAILED\e[0m"
+	$(hide) test ! -d $(jdwp_host_test_failed_dir) && rm -rf $(jdwp_host_test_dir) || (rm -rf $(jdwp_host_test_dir) && false)
+endef
+
 # Define a JDWP host rule
 #
 # $(1) ABI (32 or 64)
 # $(2) rule name (ex: run-jdwp-tests-host32)
 # $(3) extra dependency rule (ex: run-jdwp-tests-host-all64)
+# $(4) true if this rule is invoked directly, false otherwise
 define define-jdwp-host-rule
 .PHONY: $(2)
 $(2): jdwp_test_runtime_host := $(jdwp_test_runtime_bin_host) --$(1) $(jdwp_test_common_runtime_options)
+$(2): jdwp_tmp_output_file := $(jdwp_host_test_dir)/$(2)
+$(2): jdwp_success_command := (echo -e "$(2) \e[92mPASSED\e[0m" && mkdir -p $(jdwp_host_test_passed_dir) && cp $$(jdwp_tmp_output_file) $(jdwp_host_test_passed_dir)/$(2))
+$(2): jdwp_failure_command := (echo -e "$(2) \e[91mFAILED\e[0m" && mkdir -p $(jdwp_host_test_failed_dir) && cp $$(jdwp_tmp_output_file) $(jdwp_host_test_failed_dir)/$(2))
 $(2): $(jdwp_tests_host_dependencies) $(3)
-	$(hide) echo "Running JDWP $(1)-bit host tests"
-	$$(jdwp_test_runtime_host) -cp $(jdwp_test_classpath_host) \
+	$(hide) echo "Running JDWP $(1)-bit host tests: $(2)"
+	$(hide) (($$(jdwp_test_runtime_host) -cp $(jdwp_test_classpath_host) \
     $(jdwp_test_target_runtime_common_args) \
     -Djpda.settings.debuggeeJavaPath='$$(jdwp_test_runtime_host) $(jdwp_test_runtime_options)' \
-    $(jdwp_test_suite_class_name)
+    $(jdwp_test_suite_class_name) &> $$(jdwp_tmp_output_file)) && $$(jdwp_success_command)) || $$(jdwp_failure_command)
+	$(hide) rm $$(jdwp_tmp_output_file)
+  ifeq ($(4),true)
+	  $(call check-jdwp,true)
+  endif
 endef
 
 # Declare all JDWP host rules
@@ -94,11 +126,11 @@ endef
 # $(1) ABI (32 or 64)
 define declare-jdwp-host-rule
   # Declare standalone host rule for the given ABI.
-  $(eval $(call define-jdwp-host-rule,$(1),run-jdwp-tests-host$(1),))
+  $(eval $(call define-jdwp-host-rule,$(1),run-jdwp-tests-host$(1),,true))
 
   # Declare variant host rule for run-jdwp-tests-host. It depends on the previous abi rule(s)
   # so all ABIs are tested.
-  $(eval $(call define-jdwp-host-rule,$(1),run-jdwp-tests-host-all$(1),$(jdwp_tests_previous_host_rule)))
+  $(eval $(call define-jdwp-host-rule,$(1),run-jdwp-tests-host-all$(1),$(jdwp_tests_previous_host_rule),false))
   jdwp_tests_previous_host_rule := run-jdwp-tests-host-all$(1)
 endef
 
@@ -154,6 +186,7 @@ $(foreach abi,$(jdwp_tests_target_abis),$(eval $(call declare-jdwp-target-rule,$
 # High level host and target rules running tests for each ABI.
 .PHONY: run-jdwp-tests-host
 run-jdwp-tests-host: $(jdwp_tests_previous_host_rule)
+	$(call check-jdwp,false)
 
 .PHONY: run-jdwp-tests-target
 run-jdwp-tests-target: $(jdwp_tests_previous_target_rule)
