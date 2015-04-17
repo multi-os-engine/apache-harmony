@@ -209,7 +209,7 @@ public class JPDADebuggeeSynchronizer implements DebuggeeSynchronizer {
      */
     public synchronized void startClient() {
         long timeout = settings.getTimeout();
-        String host = "localhost";
+        String host = "127.0.0.1";
         int port = getSyncPortNumber();
         try {
             logWriter.println("[SYNC] Attaching socket to: " + host + ":" + port);
