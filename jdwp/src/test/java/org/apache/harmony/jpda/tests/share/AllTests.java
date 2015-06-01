@@ -69,6 +69,7 @@ public class AllTests {
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassObjectReference.ReflectedTypeTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.InvokeMethod002Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.InvokeMethod003Test.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.InvokeWithMultipleEvents001Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.InvokeMethodTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.NewInstance002Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.NewInstanceTest.class);
