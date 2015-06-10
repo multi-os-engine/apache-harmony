@@ -20,17 +20,19 @@ package org.apache.harmony.jpda.tests.jdwp.ClassType;
 
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
-import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
-import org.apache.harmony.jpda.tests.jdwp.share.JDWPInvokeMethodWithSuspensionTestCase;
+import org.apache.harmony.jpda.tests.framework.jdwp.Value;
+import org.apache.harmony.jpda.tests.jdwp.share.JDWPInvokeMethodSuspendedTwiceTestCase;
+import org.apache.harmony.jpda.tests.jdwp.share.debuggee.InvokeMethodSuspendedTwiceDebuggee;
 
 /**
- * JDWP unit test for ClassType.NewInstance command with a thread suspension.
+ * JDWP unit test for ClassType.InvokeCommand command with thread suspended more than once before
+ * the invoke.
  */
-public class NewInstanceWithSuspensionTest extends JDWPInvokeMethodWithSuspensionTestCase {
-    public void testInvokeWithMultipleEvents001() {
-        runInvokeMethodTest("<init>");
+public class InvokeMethodAfterMultipleThreadSuspensionTest extends JDWPInvokeMethodSuspendedTwiceTestCase {
+    public void testInvokeWithMultipleSuspensions001() {
+        runInvokeMethodTest(InvokeMethodSuspendedTwiceDebuggee.STATIC_METHOD_NAME);
     }
 
     @Override
@@ -38,7 +40,7 @@ public class NewInstanceWithSuspensionTest extends JDWPInvokeMethodWithSuspensio
             long methodId, int invoke_options) {
         CommandPacket command = new CommandPacket(
                 JDWPCommands.ClassTypeCommandSet.CommandSetID,
-                JDWPCommands.ClassTypeCommandSet.NewInstanceCommand);
+                JDWPCommands.ClassTypeCommandSet.InvokeMethodCommand);
         command.setNextValueAsClassID(classID);
         command.setNextValueAsThreadID(threadId);
         command.setNextValueAsMethodID(methodId);
@@ -49,21 +51,18 @@ public class NewInstanceWithSuspensionTest extends JDWPInvokeMethodWithSuspensio
 
     @Override
     protected String getInvokeCommandName() {
-        return "ClassType.NewInstance";
+        return "ClassType.InvokeCommand";
     }
 
     @Override
     protected void checkInvokeReply(ReplyPacket reply) {
-        // Check result is an object.
-        TaggedObject invokeNewObject = reply.getNextValueAsTaggedObject();
-        assertEquals(JDWPConstants.Tag.OBJECT_TAG, invokeNewObject.tag);
-        assertFalse("Invalid exception object id", invokeNewObject.objectID == 0);
+        // Check result is 'void'
+        Value invokeResult = reply.getNextValueAsValue();
+        assertNull("Expect null result value for 'void'", invokeResult);
 
         // Check exception is null.
         TaggedObject invokeException = reply.getNextValueAsTaggedObject();
-        assertEquals(JDWPConstants.Tag.OBJECT_TAG, invokeException.tag);
         assertEquals("Invalid exception object id", 0, invokeException.objectID);
-
         assertAllDataRead(reply);
 
     }

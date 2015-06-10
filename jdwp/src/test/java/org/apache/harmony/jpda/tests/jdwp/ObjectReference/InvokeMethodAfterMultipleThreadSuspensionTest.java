@@ -16,31 +16,44 @@
  *  limitations under the License.
  */
 
-package org.apache.harmony.jpda.tests.jdwp.ClassType;
+package org.apache.harmony.jpda.tests.jdwp.ObjectReference;
 
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
-import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
-import org.apache.harmony.jpda.tests.jdwp.share.JDWPInvokeMethodWithSuspensionTestCase;
+import org.apache.harmony.jpda.tests.framework.jdwp.Value;
+import org.apache.harmony.jpda.tests.jdwp.share.JDWPInvokeMethodSuspendedTwiceTestCase;
+import org.apache.harmony.jpda.tests.jdwp.share.debuggee.InvokeMethodSuspendedTwiceDebuggee;
 
 /**
- * JDWP unit test for ClassType.NewInstance command with a thread suspension.
+ * JDWP unit test for ObjectReference.InvokeCommand command with thread suspended more than once
+ * before the invoke.
  */
-public class NewInstanceWithSuspensionTest extends JDWPInvokeMethodWithSuspensionTestCase {
+public class InvokeMethodAfterMultipleThreadSuspensionTest extends JDWPInvokeMethodSuspendedTwiceTestCase {
     public void testInvokeWithMultipleEvents001() {
-        runInvokeMethodTest("<init>");
+        runInvokeMethodTest(InvokeMethodSuspendedTwiceDebuggee.INSTANCE_METHOD_NAME);
     }
 
     @Override
     protected CommandPacket buildInvokeCommand(long threadId, long classID,
             long methodId, int invoke_options) {
+        // At first, we must find the 'this' object of the top frame.
+        ReplyPacket replyPacket = debuggeeWrapper.vmMirror.getThreadFrames(threadId, 0, 1);
+        int framesCount = replyPacket.getNextValueAsInt();
+        assertEquals("Invalid frame count:", 1, framesCount);
+        long topFrameId = replyPacket.getNextValueAsFrameID();
+        replyPacket.getNextValueAsLocation();  // consume 'location'
+        assertAllDataRead(replyPacket);
+
+        long receiverId = debuggeeWrapper.vmMirror.getThisObject(threadId, topFrameId);
+
         CommandPacket command = new CommandPacket(
-                JDWPCommands.ClassTypeCommandSet.CommandSetID,
-                JDWPCommands.ClassTypeCommandSet.NewInstanceCommand);
-        command.setNextValueAsClassID(classID);
+                JDWPCommands.ObjectReferenceCommandSet.CommandSetID,
+                JDWPCommands.ObjectReferenceCommandSet.InvokeMethodCommand);
+        command.setNextValueAsThreadID(receiverId);
         command.setNextValueAsThreadID(threadId);
+        command.setNextValueAsClassID(classID);
         command.setNextValueAsMethodID(methodId);
         command.setNextValueAsInt(0);
         command.setNextValueAsInt(invoke_options);
@@ -49,21 +62,18 @@ public class NewInstanceWithSuspensionTest extends JDWPInvokeMethodWithSuspensio
 
     @Override
     protected String getInvokeCommandName() {
-        return "ClassType.NewInstance";
+        return "ObjectReference.InvokeCommand";
     }
 
     @Override
     protected void checkInvokeReply(ReplyPacket reply) {
-        // Check result is an object.
-        TaggedObject invokeNewObject = reply.getNextValueAsTaggedObject();
-        assertEquals(JDWPConstants.Tag.OBJECT_TAG, invokeNewObject.tag);
-        assertFalse("Invalid exception object id", invokeNewObject.objectID == 0);
+        // Check result is 'void'
+        Value invokeResult = reply.getNextValueAsValue();
+        assertNull("Expect null result value for 'void'", invokeResult);
 
         // Check exception is null.
         TaggedObject invokeException = reply.getNextValueAsTaggedObject();
-        assertEquals(JDWPConstants.Tag.OBJECT_TAG, invokeException.tag);
         assertEquals("Invalid exception object id", 0, invokeException.objectID);
-
         assertAllDataRead(reply);
 
     }

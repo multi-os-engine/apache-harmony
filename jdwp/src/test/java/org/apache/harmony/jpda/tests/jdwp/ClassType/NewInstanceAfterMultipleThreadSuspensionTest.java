@@ -23,12 +23,13 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
-import org.apache.harmony.jpda.tests.jdwp.share.JDWPInvokeMethodWithSuspensionTestCase;
+import org.apache.harmony.jpda.tests.jdwp.share.JDWPInvokeMethodSuspendedTwiceTestCase;
 
 /**
- * JDWP unit test for ClassType.NewInstance command with a thread suspension.
+ * JDWP unit test for ClassType.NewInstance command with thread suspended more than once before the
+ * invoke.
  */
-public class NewInstanceWithSuspensionTest extends JDWPInvokeMethodWithSuspensionTestCase {
+public class NewInstanceAfterMultipleThreadSuspensionTest extends JDWPInvokeMethodSuspendedTwiceTestCase {
     public void testInvokeWithMultipleEvents001() {
         runInvokeMethodTest("<init>");
     }
