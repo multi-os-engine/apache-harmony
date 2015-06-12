@@ -737,6 +737,22 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
     }
 
     /**
+     * Helper for comparing JDWP tags and printing string equivalents.
+     *
+     * @param message -
+     *            user message
+     * @param expectedTag -
+     *            expected JDWP tag
+     * @param actualTag -
+     *            actual JDWP tag
+     */
+    protected void assertTagEquals(String message, byte expectedTag, byte actualTag) {
+        assertEquals(message, expectedTag, actualTag,
+                     JDWPConstants.Tag.getName(expectedTag),
+                     JDWPConstants.Tag.getName(actualTag));
+    }
+
+    /**
      * Asserts that two strings are equal.
      * 
      * @param message -

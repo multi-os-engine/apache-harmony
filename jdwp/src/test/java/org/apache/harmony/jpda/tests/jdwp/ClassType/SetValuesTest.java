@@ -145,9 +145,9 @@ public class SetValuesTest extends JDWPClassTypeTestCase {
         checkReplyPacket(reply, "ClassType::GetValues command");
 
         int fields = reply.getNextValueAsInt();
-        assertEquals("ClassType::SetValues returne invalid fields number,", 1, fields);
+        assertEquals("ClassType::GetValues returned invalid fields number,", 1, fields);
         Value returnedValue = reply.getNextValueAsValue();
-        assertEquals("ClassType::SetValues returne invalid returned value,", value, returnedValue);
+        assertEquals("ClassType::GetValues returned invalid return value,", value, returnedValue);
         logWriter.println("==> testField: OK");
     }
 

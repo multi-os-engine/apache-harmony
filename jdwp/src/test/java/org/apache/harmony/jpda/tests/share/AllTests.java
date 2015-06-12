@@ -69,8 +69,9 @@ public class AllTests {
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassObjectReference.ReflectedTypeTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.InvokeMethod002Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.InvokeMethod003Test.class);
-    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.InvokeMethodWithSuspensionTest.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.InvokeMethodReturnTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.InvokeMethodTest.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.InvokeMethodWithSuspensionTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.NewInstance002Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.NewInstanceTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassType.NewInstanceWithSuspensionTest.class);
@@ -133,6 +134,7 @@ public class AllTests {
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ObjectReference.GetValuesTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ObjectReference.InvokeMethod002Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ObjectReference.InvokeMethod003Test.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ObjectReference.InvokeMethodReturnTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ObjectReference.InvokeMethodTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ObjectReference.InvokeMethodWithSuspensionTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ObjectReference.IsCollectedTest.class);

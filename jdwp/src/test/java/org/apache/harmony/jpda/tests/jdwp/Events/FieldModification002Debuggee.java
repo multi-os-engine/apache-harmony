@@ -33,6 +33,8 @@ import org.apache.harmony.jpda.tests.share.SyncDebuggee;
 /**
  * Debuggee for FieldAccessTest and FieldModified unit tests.
  * Provides access and modification of testIntField field.
+ * 
+ * @deprecated
  */
 public class FieldModification002Debuggee extends SyncDebuggee {
 
