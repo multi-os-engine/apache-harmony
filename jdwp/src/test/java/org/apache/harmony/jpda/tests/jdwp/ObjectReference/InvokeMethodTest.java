@@ -32,6 +32,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -52,8 +53,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class InvokeMethodTest extends JDWPSyncTestCase {
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.share.debuggee.InvokeMethodDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return org.apache.harmony.jpda.tests.jdwp.share.debuggee.InvokeMethodDebuggee.class;
     }
 
     protected int setEventRequest() {

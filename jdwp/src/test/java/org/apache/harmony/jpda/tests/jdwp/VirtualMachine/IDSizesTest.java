@@ -29,6 +29,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 
 
 /**
@@ -36,8 +37,8 @@ import org.apache.harmony.jpda.tests.jdwp.share.JDWPTestCase;
  */
 public class IDSizesTest extends JDWPTestCase {
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.share.debuggee.SimpleHelloWorld";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return org.apache.harmony.jpda.tests.jdwp.share.debuggee.SimpleHelloWorld.class;
     }
 
     /**

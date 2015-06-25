@@ -30,6 +30,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -41,8 +42,8 @@ public class InterruptTest extends JDWPSyncTestCase {
     static String waitForString = "java.lang.InterruptedException";
     boolean isReceived = false;
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ThreadReference.InterruptDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return InterruptDebuggee.class;
     }
 
     /**

@@ -25,6 +25,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class ClassFileVersionTest extends JDWPSyncTestCase {
@@ -35,13 +36,11 @@ public class ClassFileVersionTest extends JDWPSyncTestCase {
 
 	static final String thisCommandName = "ReferenceType.ClassFileVersion command";
 
-	static final String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ReferenceType/ClassFileVersionDebuggee;";
-
 	static final String debuggeeClass = "org/apache/harmony/jpda/tests/jdwp/ReferenceType/ClassFileVersionDebuggee.class";
 
 	@Override
-	protected String getDebuggeeClassName() {
-		return "org.apache.harmony.jpda.tests.jdwp.ReferenceType.ClassFileVersionDebuggee";
+	protected Class<? extends Debuggee> getDebuggeeClass() {
+		return ClassFileVersionDebuggee.class;
 	}
 
 	/**
@@ -57,7 +56,7 @@ public class ClassFileVersionTest extends JDWPSyncTestCase {
 				+ ": START...");
 		synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-		long refTypeID = getClassIDBySignature(debuggeeSignature);
+		long refTypeID = getClassIDBySignature(getDebuggeeClassSignature());
 
 		logWriter.println("=> Debuggee class = " + getDebuggeeClassName());
 		logWriter.println("=> referenceTypeID for Debuggee class = "

@@ -24,6 +24,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 import java.io.IOException;
@@ -34,8 +35,8 @@ import java.io.IOException;
 public class DisposeDuringInvokeTest extends JDWPSyncTestCase {
 
     @Override
-    protected String getDebuggeeClassName() {
-        return DisposeDuringInvokeDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return DisposeDuringInvokeDebuggee.class;
     }
 
     /**

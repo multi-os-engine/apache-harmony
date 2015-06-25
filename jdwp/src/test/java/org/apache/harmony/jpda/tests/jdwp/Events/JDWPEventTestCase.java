@@ -26,14 +26,15 @@
 package org.apache.harmony.jpda.tests.jdwp.Events;
 
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 
 /**
  * Internal class that extends functionality of JDWPSyncTestCase class.
  */
 class JDWPEventTestCase extends JDWPSyncTestCase {
 
-    protected String getDebuggeeClassName() {
-        return EventDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return EventDebuggee.class;
     }
 
 }

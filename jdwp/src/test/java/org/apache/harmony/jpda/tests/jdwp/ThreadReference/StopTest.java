@@ -30,6 +30,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -38,10 +39,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class StopTest extends JDWPSyncTestCase {
 
-    static String SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/ThreadReference/StopDebuggee;";
-
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ThreadReference.StopDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return StopDebuggee.class;
     }
 
     /**
@@ -64,7 +63,7 @@ public class StopTest extends JDWPSyncTestCase {
         logWriter.println("testStop001: ID of the tested thread to Stop = " + threadID);
 
         long classID =
-            debuggeeWrapper.vmMirror.getClassID(SIGNATURE);
+            debuggeeWrapper.vmMirror.getClassID(getDebuggeeClassSignature());
 
         long fieldID =
             debuggeeWrapper.vmMirror.getFieldID(classID, StopDebuggee.FIELD_NAME);

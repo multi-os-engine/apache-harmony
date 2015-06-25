@@ -24,6 +24,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -33,8 +34,8 @@ public class OwnedMonitorsStackDepthInfoTest extends JDWPSyncTestCase {
 
     static final String thisCommandName = "ThreadReference.OwnedMonitorsStackDepthInfo command ";
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ThreadReference.OwnedMonitorsStackDepthInfoDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return OwnedMonitorsStackDepthInfoDebuggee.class;
     }
 
     // OwnedMonitorsStackDepthInfo needs canGetMonitorFrameInfo VM capability support

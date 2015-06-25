@@ -31,14 +31,15 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
  * JDWP Unit test for FIELD_MODIFICATION event.
  */
 public class FieldModification002Test extends JDWPEventTestCase {
-    protected String getDebuggeeClassName() {
-        return FieldModification002Debuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return FieldModification002Debuggee.class;
     }
 
     /**

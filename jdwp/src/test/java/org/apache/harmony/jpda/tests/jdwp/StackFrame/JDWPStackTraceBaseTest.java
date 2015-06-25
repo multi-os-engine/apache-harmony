@@ -35,7 +35,7 @@ public class JDWPStackTraceBaseTest extends JDWPStackFrameTestCase {
     VarInfo[] varInfos;
 
     String varSignatures[] = {
-            "Lorg/apache/harmony/jpda/tests/jdwp/StackFrame/StackTraceDebuggee;",
+            getDebuggeeClassSignature(),
             "Z",
             "I",
             "Ljava/lang/String;"

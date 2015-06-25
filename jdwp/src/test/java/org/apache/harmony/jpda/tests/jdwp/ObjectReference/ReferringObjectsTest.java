@@ -26,6 +26,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class ReferringObjectsTest extends JDWPSyncTestCase {
@@ -38,14 +39,12 @@ public class ReferringObjectsTest extends JDWPSyncTestCase {
 
     static final String thisCommandName = "ObjectReference.ReferringObjects command";
 
-    static final String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ObjectReference/ReferringObjectsDebuggee;";
-
     static final String referreeObjSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ObjectReference/ReferringObjectsReferree001;";
 
     static final String referrerObjSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ObjectReference/ReferringObjectsReferrer001;";
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ObjectReference.ReferringObjectsDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ReferringObjectsDebuggee.class;
     }
 
     // ReferringObjects need canGetInstanceInfo VM capability support
@@ -111,7 +110,7 @@ public class ReferringObjectsTest extends JDWPSyncTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         // Get the number of referrer objects in ReferringObjectsDebugee
-        long debuggeeRefTypeID = getClassIDBySignature(debuggeeSignature);
+        long debuggeeRefTypeID = getClassIDBySignature(getDebuggeeClassSignature());
         long referringObjNumID = debuggeeWrapper.vmMirror.getFieldID(
                 debuggeeRefTypeID, "referringObjNum");
         long[] fieldIDs = new long[1];

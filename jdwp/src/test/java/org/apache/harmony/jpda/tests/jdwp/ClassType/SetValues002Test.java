@@ -31,6 +31,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -42,10 +43,9 @@ public class SetValues002Test extends JDWPSyncTestCase {
     static final int testStatusPassed = 0;
     static final int testStatusFailed = -1;
     static final String thisCommandName = "ClassType::SetValues command";
-    static final String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ClassType/SetValues002Debuggee;";
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ClassType.SetValues002Debuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return SetValues002Debuggee.class;
     }
 
     /**
@@ -62,7 +62,7 @@ public class SetValues002Test extends JDWPSyncTestCase {
         CommandPacket classesBySignatureCommand = new CommandPacket(
                 JDWPCommands.VirtualMachineCommandSet.CommandSetID,
                 JDWPCommands.VirtualMachineCommandSet.ClassesBySignatureCommand);
-        classesBySignatureCommand.setNextValueAsString(debuggeeSignature);
+        classesBySignatureCommand.setNextValueAsString(getDebuggeeClassSignature());
         ReplyPacket classesBySignatureReply =
             debuggeeWrapper.vmMirror.performCommand(classesBySignatureCommand);
         classesBySignatureCommand = null;

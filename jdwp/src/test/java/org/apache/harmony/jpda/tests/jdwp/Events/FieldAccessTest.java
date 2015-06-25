@@ -31,6 +31,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.EventThread;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -38,8 +39,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  * JDWP Unit test for FIELD_ACCESS event.
  */
 public class FieldAccessTest extends JDWPEventTestCase {
-    protected String getDebuggeeClassName() {
-        return FieldDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return FieldDebuggee.class;
     }
 
     /**
@@ -62,7 +63,7 @@ public class FieldAccessTest extends JDWPEventTestCase {
 
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-        String classSignature = "Lorg/apache/harmony/jpda/tests/jdwp/Events/FieldDebuggee;";
+        String classSignature = getDebuggeeClassSignature();
         ReplyPacket reply = debuggeeWrapper.vmMirror.setFieldAccess(classSignature, JDWPConstants.TypeTag.CLASS, "testIntField");
         checkReplyPacket(reply, "Set FIELD_ACCESS event");
 

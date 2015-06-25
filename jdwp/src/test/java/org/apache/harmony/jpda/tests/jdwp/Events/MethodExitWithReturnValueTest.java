@@ -27,12 +27,13 @@ import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.EventThread;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.Event_METHOD_EXIT;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.Event_METHOD_EXIT_WITH_RETURN_VALUE;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class MethodExitWithReturnValueTest extends JDWPEventTestCase {
 
-    protected String getDebuggeeClassName() {
-        return MethodExitWithReturnValueDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return MethodExitWithReturnValueDebuggee.class;
     }
 
     /**
@@ -42,7 +43,7 @@ public class MethodExitWithReturnValueTest extends JDWPEventTestCase {
      */
     public void testMethodExitWithReturnValueException() {
         logWriter.println("==> Start testMethodExitWithReturnValue which method will throw IOException.");
-        String methodExitClassNameRegexp = "org.apache.harmony.jpda.tests.jdwp.Events.MethodExitWithReturnValueDebuggee";
+        String methodExitClassNameRegexp = getDebuggeeClassName();
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         // Set event request for MethodExitWithReturnValue
@@ -71,7 +72,7 @@ public class MethodExitWithReturnValueTest extends JDWPEventTestCase {
                 JDWPConstants.EventKind.getName(event.getEventKind()));
 
         long refID = event.getLocation().classID;
-        String expectedSignature = "Lorg/apache/harmony/jpda/tests/jdwp/Events/MethodExitWithReturnValueDebuggee;";
+        String expectedSignature = getDebuggeeClassSignature();
         String actualSignature =  debuggeeWrapper.vmMirror.getReferenceTypeSignature(refID);
         assertEquals("Invalid class signature of method caller,",expectedSignature,actualSignature);
     }

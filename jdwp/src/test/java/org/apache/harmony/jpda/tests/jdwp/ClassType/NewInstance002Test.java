@@ -25,6 +25,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -33,8 +34,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class NewInstance002Test extends JDWPSyncTestCase {
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ClassType.NewInstance002Debuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return NewInstance002Debuggee.class;
     }
 
     /**
@@ -50,7 +51,7 @@ public class NewInstance002Test extends JDWPSyncTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         // Get debuggee class ID.
-        String debuggeeClassSig = "Lorg/apache/harmony/jpda/tests/jdwp/ClassType/NewInstance002Debuggee;";
+        String debuggeeClassSig = getDebuggeeClassSignature();
         long debuggeeTypeID = debuggeeWrapper.vmMirror.getClassID(debuggeeClassSig);
         assertTrue("Failed to find debuggee class", debuggeeTypeID != 0);
 
@@ -104,7 +105,7 @@ public class NewInstance002Test extends JDWPSyncTestCase {
         assertAllDataRead(reply);
 
         // Get test class ID.
-        String testClassSig = "Lorg/apache/harmony/jpda/tests/jdwp/ClassType/NewInstance002Debuggee$TestClass;";
+        String testClassSig = getClassSignature(NewInstance002Debuggee.TestClass.class);
         long testTypeID = debuggeeWrapper.vmMirror.getClassID(testClassSig);
         assertTrue("Failed to find test class", testTypeID != 0);
 

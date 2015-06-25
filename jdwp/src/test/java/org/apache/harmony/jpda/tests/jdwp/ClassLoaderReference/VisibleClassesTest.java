@@ -30,6 +30,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -39,11 +40,11 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 public class VisibleClassesTest extends JDWPSyncTestCase {
 
     /**
-     * Returns full name of debuggee class which is used by this test.
-     * @return full name of debuggee class.
+     * Returns the debuggee class which is used by this test.
+     * @return debuggee class.
      */
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.share.debuggee.HelloWorld";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return org.apache.harmony.jpda.tests.jdwp.share.debuggee.HelloWorld.class;
     }
 
     /**

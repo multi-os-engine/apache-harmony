@@ -23,6 +23,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.debuggee.InvokeMethodWithSuspensionDebuggee;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 import java.io.IOException;
@@ -33,8 +34,8 @@ import java.io.IOException;
 public abstract class JDWPInvokeMethodWithSuspensionTestCase extends JDWPSyncTestCase {
 
     @Override
-    protected final String getDebuggeeClassName() {
-        return InvokeMethodWithSuspensionDebuggee.class.getName();
+    protected final Class<? extends Debuggee> getDebuggeeClass() {
+        return InvokeMethodWithSuspensionDebuggee.class;
     }
 
     /**

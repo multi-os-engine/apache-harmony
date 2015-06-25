@@ -32,6 +32,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.Events.ClassPrepareDebuggee;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPUnitDebuggeeWrapper;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -40,8 +41,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class ClassPrepareTest extends JDWPEventTestCase {
 
-    protected String getDebuggeeClassName() {
-        return ClassPrepareDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ClassPrepareDebuggee.class;
     }
 
     /**

@@ -23,20 +23,18 @@ import org.apache.harmony.jpda.tests.framework.jdwp.Event;
 import org.apache.harmony.jpda.tests.framework.jdwp.EventBuilder;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
  * JDWP Unit test for Count event modifier.
  */
 public class CountModifierTest extends JDWPEventModifierTestCase {
-    private static final
-            String DEBUGGEE_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/CountModifierDebuggee;";
-    private static final
-            String TEST_CLASS_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/CountModifierDebuggee$TestClass;";
-    private static final
-            String TEST_CLASS_NAME = "org.apache.harmony.jpda.tests.jdwp.EventModifiers.CountModifierDebuggee$TestClass";
-    private static final
-            String EXCEPTION_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/CountModifierDebuggee$TestException;";
+    private static final String TEST_CLASS_NAME = CountModifierDebuggee.TestClass.class.getName();
+    private static final String TEST_CLASS_SIGNATURE =
+            getClassSignature(CountModifierDebuggee.TestClass.class);
+    private static final String EXCEPTION_SIGNATURE =
+            getClassSignature(CountModifierDebuggee.TestException.class);
 
     // The name of the test method where we set our event requests.
     private static final String METHOD_NAME = "eventTestMethod";
@@ -45,17 +43,13 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
     private static final String WATCHED_FIELD_NAME = "watchedField";
 
     // Fields for verifying events count.
-    private static final String
-            LOCATION_COUNT_FIELD_NAME = "locationEventCount";
-    private static final String
-            EXCEPTION_EVENT_COUNT_FIELD_NAME = "exceptionEventCount";
-    private static final String THREAD_RUN_COUNT_FIELD_NAME = "threadRunCount";
-    private static final String
-            FIELD_READ_WRITE_COUNT_FIELD_NAME = "fieldReadWriteCount";
+    private static final String LOCATION_COUNT_FIELD_NAME = "locationEventCount";
+    private static final String EXCEPTION_EVENT_COUNT_FIELD_NAME = "exceptionEventCount";
+    private static final String FIELD_READ_WRITE_COUNT_FIELD_NAME = "fieldReadWriteCount";
 
     @Override
-    protected String getDebuggeeClassName() {
-        return CountModifierDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return CountModifierDebuggee.class;
     }
 
     /**
@@ -191,7 +185,7 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
         }
 
         EventBuilder builder = createFieldAccessEventBuilder(
-                JDWPConstants.TypeTag.CLASS, DEBUGGEE_SIGNATURE,
+                JDWPConstants.TypeTag.CLASS, getDebuggeeClassSignature(),
                 WATCHED_FIELD_NAME);
         testEventWithCountModifier(builder, FIELD_READ_WRITE_COUNT_FIELD_NAME);
 
@@ -221,7 +215,7 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
         }
 
         EventBuilder builder = createFieldModificationEventBuilder(
-                JDWPConstants.TypeTag.CLASS, DEBUGGEE_SIGNATURE,
+                JDWPConstants.TypeTag.CLASS, getDebuggeeClassSignature(),
                 WATCHED_FIELD_NAME);
         testEventWithCountModifier(builder, FIELD_READ_WRITE_COUNT_FIELD_NAME);
 
@@ -239,7 +233,7 @@ public class CountModifierTest extends JDWPEventModifierTestCase {
 
         // Check we properly ignore the (count - 1) previous events.
         int expectedCount = CountModifierDebuggee.EVENT_COUNT;
-        int actualCount = getStaticIntField(DEBUGGEE_SIGNATURE, countFieldName);
+        int actualCount = getStaticIntField(getDebuggeeClassSignature(), countFieldName);
         assertEquals("Invalid event count", expectedCount, actualCount);
 
         clearAndResume(event.eventKind, requestID);

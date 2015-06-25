@@ -26,6 +26,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -40,13 +41,11 @@ public class ConstantPoolTest extends JDWPSyncTestCase {
 
     static final String thisCommandName = "ReferenceType.ConstantPool command";
 
-    static final String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ReferenceType/ConstantPoolDebuggee;";
-
     static final String debuggeeClass = "org/apache/harmony/jpda/tests/jdwp/ReferenceType/ConstantPoolDebuggee.class";
 
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ReferenceType.ConstantPoolDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ConstantPoolDebuggee.class;
     }
 
     /**
@@ -73,7 +72,7 @@ public class ConstantPoolTest extends JDWPSyncTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         // Compose ConstantPool command
-        long refTypeID = getClassIDBySignature(debuggeeSignature);
+        long refTypeID = getClassIDBySignature(getDebuggeeClassSignature());
 
         logWriter.println("=> Debuggee class = " + getDebuggeeClassName());
         logWriter.println("=> referenceTypeID for Debuggee class = " + refTypeID);

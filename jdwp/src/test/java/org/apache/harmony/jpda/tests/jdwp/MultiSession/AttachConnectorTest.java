@@ -31,6 +31,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPUnitDebuggeeWrapper;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -39,8 +40,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class AttachConnectorTest extends JDWPSyncTestCase {
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.MultiSession.ConnectorKindDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ConnectorKindDebuggee.class;
     }
 
     /**

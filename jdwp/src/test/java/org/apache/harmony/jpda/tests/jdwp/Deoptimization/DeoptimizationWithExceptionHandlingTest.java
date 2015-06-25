@@ -23,13 +23,14 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class DeoptimizationWithExceptionHandlingTest extends JDWPSyncTestCase {
 
     @Override
-    protected String getDebuggeeClassName() {
-        return DeoptimizationWithExceptionHandlingDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return DeoptimizationWithExceptionHandlingDebuggee.class;
     }
 
     /**

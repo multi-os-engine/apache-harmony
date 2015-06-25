@@ -30,6 +30,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -37,8 +38,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class ClassPrepareTest extends JDWPEventTestCase {
 
-    protected String getDebuggeeClassName() {
-        return ClassPrepareDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ClassPrepareDebuggee.class;
     }
 
     /**
@@ -51,8 +52,8 @@ public class ClassPrepareTest extends JDWPEventTestCase {
 
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-        String class2prepareRegexp = "org.apache.harmony.jpda.tests.jdwp.Events.Class2Prepare";
-        String class2prepareSignature = "Lorg/apache/harmony/jpda/tests/jdwp/Events/Class2Prepare;";
+        String class2prepareRegexp = Class2Prepare.class.getName();
+        String class2prepareSignature = getClassSignature(Class2Prepare.class);
 
         ReplyPacket reply = debuggeeWrapper.vmMirror.setClassPrepared(class2prepareRegexp);
         checkReplyPacket(reply, "Set CLASS_PREPARE event");
@@ -88,7 +89,7 @@ public class ClassPrepareTest extends JDWPEventTestCase {
             return;
         }
 
-        String expectedClassSignature = "Lorg/apache/harmony/jpda/tests/jdwp/Events/Class2Prepare;";
+        String expectedClassSignature = getClassSignature(Class2Prepare.class);
         logWriter.println("==> testClassPrepareEventForSourceNameMatch started");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 

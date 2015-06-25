@@ -25,11 +25,12 @@
  */
 package org.apache.harmony.jpda.tests.jdwp.share;
 
+import junit.framework.TestCase;
+
 import org.apache.harmony.jpda.tests.framework.TestErrorException;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDALogWriter;
 import org.apache.harmony.jpda.tests.share.JPDATestOptions;
-
-import junit.framework.TestCase;
 
 /**
  * Basic class for all JDWP unit tests based on <code>JUnit</code> framework.
@@ -51,12 +52,20 @@ public abstract class JDWPRawTestCase extends TestCase {
     protected JPDATestOptions settings;
 
     /**
-     * This method should be overridden in derived classes to return full name
-     * for debuggee class.
+     * This method should be overridden in derived classes to return the debuggee class.
      * 
+     * @return debuggee class
+     */
+    protected abstract Class<? extends Debuggee> getDebuggeeClass();
+
+    /**
+     * Returns the full debuggee class name based on {@link #getDebuggeeClass()}.
+     *
      * @return full debuggee class name
      */
-    protected abstract String getDebuggeeClassName();
+    protected final String getDebuggeeClassName() {
+        return getDebuggeeClass().getName();
+    }
 
     /**
      * Returns the signature of the debuggee class. This is computed based on
@@ -64,23 +73,8 @@ public abstract class JDWPRawTestCase extends TestCase {
      *
      * @return full debuggee class signature.
      */
-    protected String getDebuggeeClassSignature() {
-        String debuggeeClassName = getDebuggeeClassName();
-        return getClassSignature(debuggeeClassName);
-    }
-
-    /**
-     * Returns the signature matching the given class name
-     * @param className
-     *          a fully qualified class name
-     * @return the class signature
-     */
-    protected static String getClassSignature(String className) {
-        StringBuilder builder = new StringBuilder();
-        builder.append('L');
-        builder.append(className.replace('.', '/'));
-        builder.append(';');
-        return builder.toString();
+    protected final String getDebuggeeClassSignature() {
+        return getClassSignature(getDebuggeeClass());
     }
 
     /**
@@ -91,7 +85,12 @@ public abstract class JDWPRawTestCase extends TestCase {
      */
     protected static String getClassSignature(Class<?> c) {
         String className = c.getName();
-        return getClassSignature(className);
+        if (!c.isArray()) {
+            // Array classes name already starts with "[+L" and ends with ";" so we only need
+            // to add prefix/suffix for non-array classes.
+            className = "L" + className + ";";
+        }
+        return className.replace('.', '/');
     }
 
     /**

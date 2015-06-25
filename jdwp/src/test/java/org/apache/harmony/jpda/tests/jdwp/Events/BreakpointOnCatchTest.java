@@ -18,7 +18,6 @@
 
 package org.apache.harmony.jpda.tests.jdwp.Events;
 
-import org.apache.harmony.jpda.tests.framework.TestErrorException;
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.Location;
@@ -26,6 +25,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.EventThread;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.Event_EXCEPTION;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -33,8 +33,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class BreakpointOnCatchTest extends JDWPEventTestCase {
     @Override
-    protected String getDebuggeeClassName() {
-        return BreakpointOnCatchDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return BreakpointOnCatchDebuggee.class;
     }
 
     /**

@@ -32,6 +32,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
+import org.apache.harmony.jpda.tests.share.SyncDebuggee;
 
 
 
@@ -113,11 +114,11 @@ public class SuperClassTest extends JDWPClassTypeTestCase {
 
         // check that superclass for Debuggee is SyncDebuggee
         {
-            long classID = getClassIDBySignature(getDebuggeeSignature());
+            long classID = getClassIDBySignature(getDebuggeeClassSignature());
 
             ReplyPacket reply = jdwpGetSuperClassReply(classID, JDWPConstants.Error.NONE);
             // complare returned signature with superclass signature
-            asserSuperClassReplyIsValid(reply, "Lorg/apache/harmony/jpda/tests/share/SyncDebuggee;");
+            asserSuperClassReplyIsValid(reply, getClassSignature(SyncDebuggee.class));
         }
 
         // check that there is no superclass for java.lang.Object
@@ -164,7 +165,7 @@ public class SuperClassTest extends JDWPClassTypeTestCase {
 
         // check that reply error code is INVALID_OBJECT for a FieldID Out Data
         {
-            long classID = getClassIDBySignature(getDebuggeeSignature());
+            long classID = getClassIDBySignature(getDebuggeeClassSignature());
 
             FieldInfo[] fields = jdwpGetFields(classID);
             // assert stringID is not null

@@ -25,12 +25,8 @@
  */
 package org.apache.harmony.jpda.tests.jdwp.ClassObjectReference;
 
-import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
-import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
-import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
-import org.apache.harmony.jpda.tests.jdwp.ClassObjectReference.AbstractReflectedTypeTestCase.TypeSignatureAndTag;
-import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -40,15 +36,12 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class ReflectedTypeTest extends AbstractReflectedTypeTestCase {
 
-    private static final String DEBUGGEE_CLASS_NAME =
-            "org.apache.harmony.jpda.tests.jdwp.share.debuggee.HelloWorld";
-
     /**
-     * Returns full name of debuggee class which is used by this test.
-     * @return full name of debuggee class.
+     * Returns the debuggee class which is used by this test.
+     * @return the debuggee class.
      */
-    protected String getDebuggeeClassName() {
-        return DEBUGGEE_CLASS_NAME;
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return org.apache.harmony.jpda.tests.jdwp.share.debuggee.HelloWorld.class;
     }
 
     /**
@@ -74,8 +67,7 @@ public class ReflectedTypeTest extends AbstractReflectedTypeTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         // Builds debuggee class signature string.
-        String debuggeeClassSignature =
-                "L" + DEBUGGEE_CLASS_NAME.replace('.', '/') + ";";
+        String debuggeeClassSignature = getDebuggeeClassSignature();
 
         TypeSignatureAndTag[] array = new TypeSignatureAndTag[] {
             new TypeSignatureAndTag("Ljava/lang/Object;",

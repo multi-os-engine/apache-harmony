@@ -23,6 +23,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.Location;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -33,8 +34,8 @@ public class ExceptionUncaughtTest extends ExceptionBaseTest {
 
     private static final String THROW_EXCEPTION_METHOD = "throwDebuggeeException";
 
-    protected String getDebuggeeClassName() {
-        return ExceptionUncaughtDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ExceptionUncaughtDebuggee.class;
     }
 
     /**

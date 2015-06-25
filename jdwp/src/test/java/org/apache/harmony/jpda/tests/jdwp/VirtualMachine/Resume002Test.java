@@ -24,6 +24,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.Location;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -33,8 +34,8 @@ public class Resume002Test extends JDWPSyncTestCase {
     private static final String BREAKPOINT_METHOD_NAME = "breakpointMethod";
 
     @Override
-    protected String getDebuggeeClassName() {
-        return Resume002Debuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return Resume002Debuggee.class;
     }
 
     /**

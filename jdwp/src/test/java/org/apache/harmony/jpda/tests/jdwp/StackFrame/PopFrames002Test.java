@@ -31,14 +31,13 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
  * JDWP Unit test for StackFrame.PopFrames command.
  */
 public class PopFrames002Test extends JDWPStackFrameTestCase {
-
-    private String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/StackFrame/PopFramesDebuggee;";
 
     private String breakpointMethodName = "nestledMethod4";
 
@@ -50,8 +49,8 @@ public class PopFrames002Test extends JDWPStackFrameTestCase {
 
     private static final byte NUMBER_OF_FRAMES_TO_POP = 3;
 
-    protected String getDebuggeeClassName() {
-        return PopFramesDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return PopFramesDebuggee.class;
     }
 
     /**
@@ -78,7 +77,7 @@ public class PopFrames002Test extends JDWPStackFrameTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         // find checked method
-        long refTypeID = getClassIDBySignature(debuggeeSignature);
+        long refTypeID = getClassIDBySignature(getDebuggeeClassSignature());
 
         logWriter.println("=> Debuggee class = " + getDebuggeeClassName());
 
@@ -204,7 +203,7 @@ public class PopFrames002Test extends JDWPStackFrameTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         // find checked method
-        long refTypeID = getClassIDBySignature(debuggeeSignature);
+        long refTypeID = getClassIDBySignature(getDebuggeeClassSignature());
 
         logWriter.println("=> Debuggee class = " + getDebuggeeClassName());
 
@@ -300,7 +299,7 @@ public class PopFrames002Test extends JDWPStackFrameTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         // find checked method
-        long refTypeID = getClassIDBySignature(debuggeeSignature);
+        long refTypeID = getClassIDBySignature(getDebuggeeClassSignature());
 
         logWriter.println("=> Debuggee class = " + getDebuggeeClassName());
 
@@ -349,7 +348,7 @@ public class PopFrames002Test extends JDWPStackFrameTestCase {
 
         // create JDWP command for MethodInvoke with a long running method
         long debuggeeRefTypeID = debuggeeWrapper.vmMirror
-                .getClassID(debuggeeSignature);
+                .getClassID(getDebuggeeClassSignature());
         logWriter.println("=> Find toInvokeMethodID for method: " + PopFramesDebuggee.METHOD_TO_INVOKE_NAME);
         long toInvokeMethodID = debuggeeWrapper.vmMirror.getMethodID(
                 debuggeeRefTypeID, PopFramesDebuggee.METHOD_TO_INVOKE_NAME);

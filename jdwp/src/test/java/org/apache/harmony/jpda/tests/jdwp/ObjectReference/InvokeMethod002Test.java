@@ -25,6 +25,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -32,8 +33,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  * JDWP unit test for ObjectReference.InvokeMethod command.
  */
 public class InvokeMethod002Test extends JDWPSyncTestCase {
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ObjectReference.InvokeMethod002Debuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return InvokeMethod002Debuggee.class;
     }
 
     /**
@@ -49,7 +50,7 @@ public class InvokeMethod002Test extends JDWPSyncTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         // Get debuggee class ID.
-        String debuggeeClassSig = "Lorg/apache/harmony/jpda/tests/jdwp/ObjectReference/InvokeMethod002Debuggee;";
+        String debuggeeClassSig = getDebuggeeClassSignature();
         long debuggeeTypeID = debuggeeWrapper.vmMirror.getClassID(debuggeeClassSig);
         assertTrue("Failed to find debuggee class", debuggeeTypeID != 0);
 

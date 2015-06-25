@@ -30,6 +30,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPUnitDebuggeeWrapper;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -38,8 +39,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class FieldModificationTest extends JDWPEventTestCase {
 
-    protected String getDebuggeeClassName() {
-        return FieldDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return FieldDebuggee.class;
     }
 
     /**
@@ -64,7 +65,7 @@ public class FieldModificationTest extends JDWPEventTestCase {
 
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-        String classSignature = "Lorg/apache/harmony/jpda/tests/jdwp/MultiSession/FieldDebuggee;";
+        String classSignature = getDebuggeeClassSignature();
         debuggeeWrapper.vmMirror.setFieldModification(classSignature,
                 JDWPConstants.TypeTag.CLASS, "testIntField");
 

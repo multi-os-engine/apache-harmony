@@ -30,6 +30,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.EventThread;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -39,8 +40,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class MethodExitTest extends JDWPEventTestCase {
 
-    protected String getDebuggeeClassName() {
-        return MethodEntryDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return MethodEntryDebuggee.class;
     }
 
     /**
@@ -52,7 +53,6 @@ public class MethodExitTest extends JDWPEventTestCase {
         logWriter.println("testMethodExit started");
 
         String methodExitClassNameRegexp = "org.apache.harmony.jpda.tests.jdwp.Events.MethodEntryDebuggee";
-        //String methodExitClassNameSignature = "Lorg/apache/harmony/jpda/tests/jdwp/Events/MethodEntryDebuggee;";
 
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 

@@ -29,6 +29,7 @@ import org.apache.harmony.jpda.tests.framework.TestErrorException;
 import org.apache.harmony.jpda.tests.framework.TestOptions;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPRawTestCase;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPUnitDebuggeeProcessWrapper;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 import org.apache.harmony.jpda.tests.share.JPDATestOptions;
 
@@ -43,9 +44,6 @@ public class OnthrowDebuggerLaunchTest extends JDWPRawTestCase {
 
     public static final String EXCEPTION_CLASS_FOR_DEBUGGER =
                    "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.ExceptionForDebugger";
-
-    public static final String DEBUGGEE_CLASS =
-                   "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthowDebuggerLaunchDebuggee";
 
     /**
      * Test launches debuggee (without establishing synchronization connection)
@@ -192,8 +190,8 @@ public class OnthrowDebuggerLaunchTest extends JDWPRawTestCase {
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected String getDebuggeeClassName() {
-        return DEBUGGEE_CLASS;
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return OnthowDebuggerLaunchDebuggee.class;
     }
 
     /**

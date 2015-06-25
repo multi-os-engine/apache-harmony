@@ -25,6 +25,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.Location;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -32,12 +33,10 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class SingleStepWithLocationTest extends JDWPEventTestCase {
 
-    private String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/Events/SingleStepDebuggee;";
-
     private static final String BREAKPOINT_METHOD_NAME = "breakpointTest";
 
-    protected String getDebuggeeClassName() {
-        return SingleStepDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return SingleStepDebuggee.class;
     }
 
     /**
@@ -54,7 +53,7 @@ public class SingleStepWithLocationTest extends JDWPEventTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         // Set breakpoint.
-        long refTypeID = getClassIDBySignature(debuggeeSignature);
+        long refTypeID = getClassIDBySignature(getDebuggeeClassSignature());
 
         logWriter.println("=> Debuggee class = " + getDebuggeeClassName());
         logWriter.println("=> referenceTypeID for Debuggee class = " + refTypeID);
@@ -75,7 +74,7 @@ public class SingleStepWithLocationTest extends JDWPEventTestCase {
         logWriter.println("=> breakpointThreadID = " + breakpointThreadID);
 
         // Remove breakpoint.
-        debuggeeWrapper.vmMirror.clearBreakpoint((int)requestID);
+        debuggeeWrapper.vmMirror.clearBreakpoint(requestID);
 
         // Get line table and get code index of the last line.
         long methodID = getMethodID(refTypeID, BREAKPOINT_METHOD_NAME);
@@ -151,7 +150,7 @@ public class SingleStepWithLocationTest extends JDWPEventTestCase {
         // Clear SINGLE_STEP event
         logWriter.println("==> Clearing SINGLE_STEP event..");
         ReplyPacket clearRequestReply =
-            debuggeeWrapper.vmMirror.clearEvent(JDWPConstants.EventKind.SINGLE_STEP, (int) requestID);
+            debuggeeWrapper.vmMirror.clearEvent(JDWPConstants.EventKind.SINGLE_STEP, requestID);
         checkReplyPacket(clearRequestReply, "Clear SINGLE_STEP event");
         logWriter.println("==> SINGLE_STEP event has been cleared");
 

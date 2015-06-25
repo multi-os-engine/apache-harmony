@@ -32,6 +32,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPTestConstants;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -42,10 +43,8 @@ public class IsCollectedTest extends JDWPSyncTestCase {
 
     static final String thisCommandName = "ObjectReference.IsCollected command";
 
-    static final String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ObjectReference/IsCollectedDebuggee;";
-
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ObjectReference.IsCollectedDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return IsCollectedDebuggee.class;
     }
 
     /**
@@ -66,7 +65,7 @@ public class IsCollectedTest extends JDWPSyncTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
         finalSyncMessage = "TO_FINISH";
 
-        long refTypeID = getClassIDBySignature(debuggeeSignature);
+        long refTypeID = getClassIDBySignature(getDebuggeeClassSignature());
 
         logWriter.println("=> Debuggee class = " + getDebuggeeClassName());
         logWriter.println("=> referenceTypeID for Debuggee class = "

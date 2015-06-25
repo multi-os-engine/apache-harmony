@@ -23,6 +23,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 import java.util.ArrayList;
@@ -33,8 +34,8 @@ import java.util.List;
  */
 public class JDWPStackFrameAccessTest extends JDWPStackFrameTestCase {
     @Override
-    protected final String getDebuggeeClassName() {
-        return StackTrace002Debuggee.class.getName();
+    protected final Class<? extends Debuggee> getDebuggeeClass() {
+        return StackTrace002Debuggee.class;
     }
 
     static class VariableInfo {

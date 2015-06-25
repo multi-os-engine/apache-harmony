@@ -26,6 +26,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.Location;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.EventThreadLocation;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -33,12 +34,10 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class InstanceOnlyModifierTest extends JDWPEventModifierTestCase {
 
-    private static final
-            String DEBUGGEE_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/InstanceOnlyModifierDebuggee;";
-    private static final
-            String TEST_CLASS_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/InstanceOnlyModifierDebuggee$TestClass;";
-    private static final
-            String TEST_CLASS_NAME = "org.apache.harmony.jpda.tests.jdwp.EventModifiers.InstanceOnlyModifierDebuggee$TestClass";
+    private static final String TEST_CLASS_NAME =
+            InstanceOnlyModifierDebuggee.TestClass.class.getName();
+    private static final String TEST_CLASS_SIGNATURE =
+            getClassSignature(InstanceOnlyModifierDebuggee.TestClass.class);
 
     // The name of the test method where we set our event requests.
     private static final String METHOD_NAME = "eventTestMethod";
@@ -49,8 +48,8 @@ public class InstanceOnlyModifierTest extends JDWPEventModifierTestCase {
     private static final String INSTANCE_FIELD_NAME = "INSTANCE_ONLY";
 
     @Override
-    protected String getDebuggeeClassName() {
-        return InstanceOnlyModifierDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return InstanceOnlyModifierDebuggee.class;
     }
 
     /**
@@ -190,7 +189,7 @@ public class InstanceOnlyModifierTest extends JDWPEventModifierTestCase {
         }
 
         String exceptionClassSignature =
-                "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/InstanceOnlyModifierDebuggee$TestException;";
+                getClassSignature(InstanceOnlyModifierDebuggee.TestException.class);
         EventBuilder builder = createExceptionEventBuilder(exceptionClassSignature, true, false);
         testEventWithInstanceOnlyModifier(builder);
 
@@ -277,8 +276,7 @@ public class InstanceOnlyModifierTest extends JDWPEventModifierTestCase {
     }
 
     private long getInstanceObjectId() {
-        Value fieldValue = getFieldValue(DEBUGGEE_SIGNATURE,
-                INSTANCE_FIELD_NAME);
+        Value fieldValue = getFieldValue(getDebuggeeClassSignature(), INSTANCE_FIELD_NAME);
         assertEquals("Invalid field value tag", JDWPConstants.Tag.OBJECT_TAG,
                 fieldValue.getTag());
         return fieldValue.getLongValue();

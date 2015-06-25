@@ -24,13 +24,14 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.Event_MONITOR_WAITED;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class MonitorWaitedTest extends JDWPSyncTestCase {
     String monitorSignature = "Lorg/apache/harmony/jpda/tests/jdwp/Events/MonitorWaitMockMonitor;";
     
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.Events.MonitorWaitAndWaitedDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return MonitorWaitAndWaitedDebuggee.class;
     }
 
     public void testMonitorWaitedForClassOnly() {

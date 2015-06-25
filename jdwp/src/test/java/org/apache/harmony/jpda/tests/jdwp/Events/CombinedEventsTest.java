@@ -32,6 +32,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.Location;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -39,9 +40,6 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  * METHOD_ENTRY, SINGLE_STEP, BREAKPOINT, METHOD_EXIT.
  */
 public class CombinedEventsTest extends CombinedEventsTestCase {
-
-    private String debuggeeSignature =
-        "Lorg/apache/harmony/jpda/tests/jdwp/Events/CombinedEventsDebuggee;";
 
     private String methodForEvents = "sampleMethod";
 
@@ -51,8 +49,8 @@ public class CombinedEventsTest extends CombinedEventsTestCase {
     private boolean eventVmDeathReceived = false;
     private boolean eventMethodExitReceived = false;
 
-    protected String getDebuggeeClassName() {
-        return CombinedEventsDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return CombinedEventsDebuggee.class;
     }
 
     /**
@@ -79,6 +77,7 @@ public class CombinedEventsTest extends CombinedEventsTestCase {
 
         String debuggeeMainThreadName = synchronizer.receiveMessage();
 
+        String debuggeeSignature = getDebuggeeClassSignature();
         long debuggeeClassID = debuggeeWrapper.vmMirror
                 .getClassID(debuggeeSignature);
         logWriter.println("=> debuggeeClassID = " + debuggeeClassID);
@@ -206,6 +205,7 @@ public class CombinedEventsTest extends CombinedEventsTestCase {
 
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
+        String debuggeeSignature = getDebuggeeClassSignature();
         long debuggeeClassID = debuggeeWrapper.vmMirror.getClassID(debuggeeSignature);
         logWriter.println("=> debuggeeClassID = " + debuggeeClassID);
 
@@ -341,6 +341,7 @@ public class CombinedEventsTest extends CombinedEventsTestCase {
 
         String debuggeeMainThreadName = synchronizer.receiveMessage();
 
+        String debuggeeSignature = getDebuggeeClassSignature();
         long debuggeeClassID = debuggeeWrapper.vmMirror
                 .getClassID(debuggeeSignature);
         logWriter.println("=> debuggeeClassID = " + debuggeeClassID);
@@ -460,6 +461,7 @@ public class CombinedEventsTest extends CombinedEventsTestCase {
 
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
+        String debuggeeSignature = getDebuggeeClassSignature();
         long debuggeeClassID = debuggeeWrapper.vmMirror.getClassID(debuggeeSignature);
         logWriter.println("=> debuggeeClassID = " + debuggeeClassID);
 
@@ -590,6 +592,7 @@ public class CombinedEventsTest extends CombinedEventsTestCase {
 
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
+        String debuggeeSignature = getDebuggeeClassSignature();
         long debuggeeClassID = debuggeeWrapper.vmMirror
                 .getClassID(debuggeeSignature);
         logWriter.println("=> debuggeeClassID = " + debuggeeClassID);
@@ -763,6 +766,7 @@ public class CombinedEventsTest extends CombinedEventsTestCase {
 
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
+        String debuggeeSignature = getDebuggeeClassSignature();
         long debuggeeClassID = debuggeeWrapper.vmMirror
                 .getClassID(debuggeeSignature);
         logWriter.println("=> debuggeeClassID = " + debuggeeClassID);

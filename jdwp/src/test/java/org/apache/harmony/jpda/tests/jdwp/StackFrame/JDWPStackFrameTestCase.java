@@ -30,6 +30,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.Location;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 
 
 public class JDWPStackFrameTestCase extends JDWPSyncTestCase {
@@ -83,8 +84,8 @@ public class JDWPStackFrameTestCase extends JDWPSyncTestCase {
         
     }
     
-    protected String getDebuggeeClassName() {
-        return StackTraceDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return StackTraceDebuggee.class;
     }
     
     protected int jdwpGetFrameCount(long threadID) {

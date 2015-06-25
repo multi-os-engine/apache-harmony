@@ -23,6 +23,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class ForceEarlyReturn003Test extends JDWPSyncTestCase {
@@ -31,8 +32,8 @@ public class ForceEarlyReturn003Test extends JDWPSyncTestCase {
 
     static final float EXPECTED_FLOAT = 0.5f;
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ThreadReference.ForceEarlyReturnDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ForceEarlyReturnDebuggee.class;
     }
 
     // ForceEarlyReturn needs canForceEarlyReturn VM capability support

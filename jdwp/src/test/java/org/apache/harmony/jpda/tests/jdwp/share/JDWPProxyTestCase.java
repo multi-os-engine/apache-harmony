@@ -22,13 +22,14 @@ import org.apache.harmony.jpda.tests.framework.jdwp.Location;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.debuggee.ProxyDebuggee;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public abstract class JDWPProxyTestCase extends JDWPSyncTestCase {
 
     @Override
-    protected String getDebuggeeClassName() {
-        return ProxyDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ProxyDebuggee.class;
     }
 
     protected static class EventContext {

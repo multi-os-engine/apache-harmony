@@ -51,7 +51,7 @@ public class SetValuesTest extends JDWPClassTypeTestCase {
         logWriter.println("testSetValues001 started");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-        long classID = getClassIDBySignature(getDebuggeeSignature());
+        long classID = getClassIDBySignature(getDebuggeeClassSignature());
 
         FieldInfo[] fields = jdwpGetFieldIDs(classID);
 

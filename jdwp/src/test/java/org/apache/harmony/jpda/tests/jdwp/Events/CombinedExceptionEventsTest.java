@@ -23,6 +23,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.Events.CombinedExceptionEventsDebuggee.SubDebuggeeException;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 import java.util.Arrays;
@@ -32,8 +33,8 @@ import java.util.Arrays;
  */
 public class CombinedExceptionEventsTest extends CombinedEventsTestCase {
     @Override
-    protected String getDebuggeeClassName() {
-        return CombinedExceptionEventsDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return CombinedExceptionEventsDebuggee.class;
     }
 
     /**

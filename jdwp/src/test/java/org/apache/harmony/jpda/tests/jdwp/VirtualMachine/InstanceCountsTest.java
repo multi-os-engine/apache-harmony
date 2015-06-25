@@ -24,6 +24,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class InstanceCountsTest extends JDWPSyncTestCase {
@@ -34,14 +35,8 @@ public class InstanceCountsTest extends JDWPSyncTestCase {
 
     static final String thisCommandName = "VirtualMachine.InstanceCounts command ";
 
-    static final String mockClass1Signature = "Lorg/apache/harmony/jpda/tests/jdwp/VirtualMachine/MockClass1;";
-
-    static final String mockClass2Signature = "Lorg/apache/harmony/jpda/tests/jdwp/VirtualMachine/MockClass2;";
-
-    static final String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/VirtualMachine/InstanceCountsDebuggee;";
-
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.VirtualMachine.InstanceCountsDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return InstanceCountsDebuggee.class;
     }
 
     // InstanceCounts need canGetInstanceInfo VM capability support
@@ -71,7 +66,9 @@ public class InstanceCountsTest extends JDWPSyncTestCase {
         logWriter.println("==> " + thisTestName + " for " + thisCommandName + ": START...");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-        long debuggeeRefTypeID = getClassIDBySignature(debuggeeSignature);
+        long debuggeeRefTypeID = getClassIDBySignature(getDebuggeeClassSignature());
+        String mockClass1Signature = getClassSignature(MockClass1.class);
+        String mockClass2Signature = getClassSignature(MockClass2.class);
         long mockClassRefTypeIDOfClass1 = getClassIDBySignature(mockClass1Signature);
         long mockClassRefTypeIDOfClass2 = getClassIDBySignature(mockClass2Signature);
 

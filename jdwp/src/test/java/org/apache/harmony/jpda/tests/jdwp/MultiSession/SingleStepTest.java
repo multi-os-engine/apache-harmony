@@ -34,6 +34,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPUnitDebuggeeWrapper;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -42,12 +43,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class SingleStepTest extends JDWPSyncTestCase {
 
-    private String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/MultiSession/SingleStepDebuggee;";
-
-    private String DEBUGGEE_CLASS_NAME = "org.apache.harmony.jpda.tests.jdwp.MultiSession.SingleStepDebuggee";
-
-    protected String getDebuggeeClassName() {
-        return DEBUGGEE_CLASS_NAME;
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return SingleStepDebuggee.class;
     }
 
     /**
@@ -68,7 +65,7 @@ public class SingleStepTest extends JDWPSyncTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         //find checked method
-        long refTypeID = debuggeeWrapper.vmMirror.getClassID(debuggeeSignature);
+        long refTypeID = debuggeeWrapper.vmMirror.getClassID(getDebuggeeClassSignature());
 
         logWriter.println("=> Debuggee class = " + getDebuggeeClassName());
         logWriter.println("=> referenceTypeID for Debuggee class = "

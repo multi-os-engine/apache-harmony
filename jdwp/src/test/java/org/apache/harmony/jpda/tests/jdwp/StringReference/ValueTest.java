@@ -34,6 +34,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPTestConstants;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -42,8 +43,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class ValueTest extends JDWPSyncTestCase {
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.share.debuggee.HelloWorld";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return org.apache.harmony.jpda.tests.jdwp.share.debuggee.HelloWorld.class;
     }
 
     protected void checkString(String testString) throws UnsupportedEncodingException {
@@ -124,7 +125,7 @@ public class ValueTest extends JDWPSyncTestCase {
         logWriter.println("testStringReferenceValueTest001_InvalidString started");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-        String signature = "Lorg/apache/harmony/jpda/tests/jdwp/share/debuggee/HelloWorld;";
+        String signature = getDebuggeeClassSignature();
         long debuggeeClassID = getClassIDBySignature(signature);
         checkCommandError(debuggeeClassID, JDWPConstants.Error.INVALID_STRING);
 

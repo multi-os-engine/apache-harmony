@@ -28,6 +28,7 @@ package org.apache.harmony.jpda.tests.jdwp.MultiSession;
 import org.apache.harmony.jpda.tests.framework.TestOptions;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPUnitDebuggeeWrapper;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -36,8 +37,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class ResumeTest extends JDWPSyncTestCase {
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.MultiSession.ResumeDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ResumeDebuggee.class;
     }
 
     /**

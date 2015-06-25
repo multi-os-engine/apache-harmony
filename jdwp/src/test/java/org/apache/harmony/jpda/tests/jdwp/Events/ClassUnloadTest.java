@@ -31,6 +31,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.exceptions.TimeoutException;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -44,8 +45,8 @@ public class ClassUnloadTest extends JDWPEventTestCase {
 	public static final String TESTED_CLASS_SIGNATURE =
 		"L" + TESTED_CLASS_NAME.replace('.', '/') + ";";
 
-    protected String getDebuggeeClassName() {
-        return ClassUnloadDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ClassUnloadDebuggee.class;
     }
 
     /**

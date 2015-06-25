@@ -26,6 +26,7 @@
 package org.apache.harmony.jpda.tests.jdwp.ArrayReference;
 
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 
 class JDWPArrayReferenceTestCase extends JDWPSyncTestCase {
 
@@ -34,8 +35,8 @@ class JDWPArrayReferenceTestCase extends JDWPSyncTestCase {
      * all testcases in this test.
      * @return full name of debuggee class.
      */
-    protected String getDebuggeeClassName() {
-        return ArrayReferenceDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ArrayReferenceDebuggee.class;
     }
     
 }

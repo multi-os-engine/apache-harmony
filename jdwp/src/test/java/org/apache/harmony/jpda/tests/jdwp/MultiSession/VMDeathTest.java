@@ -34,6 +34,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPUnitDebuggeeWrapper;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -44,10 +45,8 @@ public class VMDeathTest extends JDWPSyncTestCase {
 
     int requestID = 0;
 
-    static final String DEBUGGEE_CLASS_NAME = "org.apache.harmony.jpda.tests.jdwp.Events.EventDebuggee";
-
-    protected String getDebuggeeClassName() {
-        return DEBUGGEE_CLASS_NAME;
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return EventDebuggee.class;
     }
 
     /**

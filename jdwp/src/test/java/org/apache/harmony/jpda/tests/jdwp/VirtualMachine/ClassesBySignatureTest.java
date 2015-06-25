@@ -30,6 +30,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -38,10 +39,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class ClassesBySignatureTest extends JDWPSyncTestCase {
 
-    static final String SIGNATURE001 = "Lorg/apache/harmony/jpda/tests/jdwp/share/debuggee/HelloWorld;";
-
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.share.debuggee.HelloWorld";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return org.apache.harmony.jpda.tests.jdwp.share.debuggee.HelloWorld.class;
     }
 
     /**
@@ -56,11 +55,13 @@ public class ClassesBySignatureTest extends JDWPSyncTestCase {
      */
     public void testClassesBySignature001() {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
+        
+        String debuggeeSignature = getDebuggeeClassSignature();
 
         CommandPacket packet = new CommandPacket(
                 JDWPCommands.VirtualMachineCommandSet.CommandSetID,
                 JDWPCommands.VirtualMachineCommandSet.ClassesBySignatureCommand);
-        packet.setNextValueAsString(SIGNATURE001);
+        packet.setNextValueAsString(debuggeeSignature);
 
         ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(packet);
         checkReplyPacket(reply, "VirtualMachine::ClassesBySignature command");
@@ -103,8 +104,8 @@ public class ClassesBySignatureTest extends JDWPSyncTestCase {
             signature = replySignature.getNextValueAsString();
 
             logWriter.println("\ttypeID = " + typeID + "(" + signature + ")");
-            if (!SIGNATURE001.equals(signature)) {
-                printErrorAndFail("Signature must be " + SIGNATURE001);
+            if (!debuggeeSignature.equals(signature)) {
+                printErrorAndFail("Signature must be " + debuggeeSignature);
             }
 
             logWriter.println("\tstatus = "

@@ -31,6 +31,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 
 
 /**
@@ -40,11 +41,9 @@ public class ResumeTest extends JDWPSyncTestCase {
 
     static final int testStatusPassed = 0;
     static final int testStatusFailed = -1;
-    static final String debuggeeSignature =
-            "Lorg/apache/harmony/jpda/tests/jdwp/ThreadReference/ResumeDebuggee;";
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ThreadReference.ResumeDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ResumeDebuggee.class;
     }
 
     /**
@@ -62,6 +61,7 @@ public class ResumeTest extends JDWPSyncTestCase {
         logWriter.println("==> testResume001: START...");
         String debuggeeMessage = synchronizer.receiveMessage();
         int testedThreadsNumber = 0;
+        String debuggeeSignature = getDebuggeeClassSignature();
         try {
             testedThreadsNumber = Integer.valueOf(debuggeeMessage).intValue();
         } catch (NumberFormatException exception) {

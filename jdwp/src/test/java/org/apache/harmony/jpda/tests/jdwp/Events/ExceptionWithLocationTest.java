@@ -23,6 +23,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.Location;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 
 /**
  * JDWP Unit test for caught EXCEPTION event with LocationOnly modifier.
@@ -50,13 +51,8 @@ public class ExceptionWithLocationTest extends EventLocationEventTestCase {
     }
 
     @Override
-    protected String getDebuggeeClassName() {
-        return ExceptionWithLocationDebuggee.class.getName();
-    }
-
-    @Override
-    protected String getDebuggeeSignature() {
-        return "Lorg/apache/harmony/jpda/tests/jdwp/Events/ExceptionWithLocationDebuggee;";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ExceptionWithLocationDebuggee.class;
     }
 
     @Override

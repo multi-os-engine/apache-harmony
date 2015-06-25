@@ -24,14 +24,15 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants.Tag;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class ForceEarlyReturn005Test extends JDWPSyncTestCase {
 
     static final String thisCommandName = "ThreadReference.ForceEarlyReturn command ";
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ThreadReference.ForceEarlyReturnDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ForceEarlyReturnDebuggee.class;
     }
 
     // ForceEarlyReturn needs canForceEarlyReturn VM capability support

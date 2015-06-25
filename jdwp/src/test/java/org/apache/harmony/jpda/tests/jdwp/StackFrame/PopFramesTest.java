@@ -28,6 +28,7 @@ package org.apache.harmony.jpda.tests.jdwp.StackFrame;
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -35,14 +36,12 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class PopFramesTest extends JDWPStackFrameTestCase {
 
-    private String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/StackFrame/PopFramesDebuggee;";
-
     private String breakpointMethodName = "nestledMethod4";
 
     private String methodToPop = "nestledMethod4";
 
-    protected String getDebuggeeClassName() {
-        return PopFramesDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return PopFramesDebuggee.class;
     }
 
     /**
@@ -69,7 +68,7 @@ public class PopFramesTest extends JDWPStackFrameTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         // find checked method
-        long refTypeID = getClassIDBySignature(debuggeeSignature);
+        long refTypeID = getClassIDBySignature(getDebuggeeClassSignature());
 
         logWriter.println("=> Debuggee class = " + getDebuggeeClassName());
 

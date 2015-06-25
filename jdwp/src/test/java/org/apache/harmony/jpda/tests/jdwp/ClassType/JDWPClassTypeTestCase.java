@@ -30,6 +30,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 
 
 /**
@@ -38,21 +39,12 @@ import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
 public class JDWPClassTypeTestCase extends JDWPSyncTestCase {
 
     /**
-     * Returns full name of debuggee class which is used by
+     * Returns the debuggee class which is used by
      * testcases in this test.
-     * @return full name of debuggee class.
+     * @return the debuggee class.
      */
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ClassType.ClassTypeDebuggee";
-    }
-
-    /**
-     * Returns signature of debuggee class which is used by
-     * testcases in this test.
-     * @return signature of debuggee class.
-     */
-    protected String getDebuggeeSignature() {
-      return "Lorg/apache/harmony/jpda/tests/jdwp/ClassType/ClassTypeDebuggee;";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return org.apache.harmony.jpda.tests.jdwp.ClassType.ClassTypeDebuggee.class;
     }
 
     class FieldInfo {

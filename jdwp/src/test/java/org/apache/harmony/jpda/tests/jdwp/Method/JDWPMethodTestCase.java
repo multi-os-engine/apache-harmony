@@ -30,12 +30,13 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 
 
 public class JDWPMethodTestCase extends JDWPSyncTestCase {
 
-    protected String getDebuggeeClassName() {
-        return MethodDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return MethodDebuggee.class;
     }
 
     static class MethodInfo {

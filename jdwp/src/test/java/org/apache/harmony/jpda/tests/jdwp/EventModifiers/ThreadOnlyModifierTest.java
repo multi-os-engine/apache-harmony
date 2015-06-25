@@ -24,6 +24,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.EventBuilder;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.EventThread;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -31,12 +32,10 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class ThreadOnlyModifierTest extends JDWPEventModifierTestCase {
 
-    private static final
-            String DEBUGGEE_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/ThreadOnlyModifierDebuggee;";
-    private static final
-            String TEST_CLASS_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/ThreadOnlyModifierDebuggee$TestClass;";
-    private static final
-            String TEST_CLASS_NAME = "org.apache.harmony.jpda.tests.jdwp.EventModifiers.ThreadOnlyModifierDebuggee$TestClass";
+    private static final String TEST_CLASS_NAME =
+            ThreadOnlyModifierDebuggee.TestClass.class.getName();
+    private static final String TEST_CLASS_SIGNATURE =
+            getClassSignature(ThreadOnlyModifierDebuggee.TestClass.class);
 
     // The name of the test method where we set our event requests.
     private static final String METHOD_NAME = "eventTestMethod";
@@ -47,8 +46,8 @@ public class ThreadOnlyModifierTest extends JDWPEventModifierTestCase {
     private static final String THREAD_FIELD_NAME = "THREAD_ONLY";
 
     @Override
-    protected String getDebuggeeClassName() {
-        return ThreadOnlyModifierDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ThreadOnlyModifierDebuggee.class;
     }
 
     /**
@@ -149,8 +148,7 @@ public class ThreadOnlyModifierTest extends JDWPEventModifierTestCase {
 
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
         EventBuilder builder = createExceptionEventBuilder(
-                "Lorg/apache/harmony/jpda/tests/jdwp/EventModifiers/ThreadOnlyModifierDebuggee$TestException;",
-                true, false);
+                getClassSignature(ThreadOnlyModifierDebuggee.TestException.class), true, false);
         testEventWithThreadOnlyModifier(builder);
 
         logWriter.println("testException done");
@@ -214,7 +212,7 @@ public class ThreadOnlyModifierTest extends JDWPEventModifierTestCase {
         }
 
         EventBuilder builder = createFieldAccessEventBuilder(
-                JDWPConstants.TypeTag.CLASS, DEBUGGEE_SIGNATURE,
+                JDWPConstants.TypeTag.CLASS, getDebuggeeClassSignature(),
                 WATCHED_FIELD_NAME);
         testEventWithThreadOnlyModifier(builder);
 
@@ -243,7 +241,7 @@ public class ThreadOnlyModifierTest extends JDWPEventModifierTestCase {
         }
 
         EventBuilder builder = createFieldModificationEventBuilder(
-                JDWPConstants.TypeTag.CLASS, DEBUGGEE_SIGNATURE,
+                JDWPConstants.TypeTag.CLASS, getDebuggeeClassSignature(),
                 WATCHED_FIELD_NAME);
         testEventWithThreadOnlyModifier(builder);
 
@@ -251,7 +249,7 @@ public class ThreadOnlyModifierTest extends JDWPEventModifierTestCase {
     }
 
     private long getFilteredThreadId() {
-        Value fieldValue = getFieldValue(DEBUGGEE_SIGNATURE, THREAD_FIELD_NAME);
+        Value fieldValue = getFieldValue(getDebuggeeClassSignature(), THREAD_FIELD_NAME);
         assertEquals("Invalid field value tag", JDWPConstants.Tag.THREAD_TAG,
                 fieldValue.getTag());
         return fieldValue.getLongValue();

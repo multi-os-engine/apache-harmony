@@ -30,6 +30,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.Location;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 import java.util.ArrayList;
@@ -56,8 +57,8 @@ public class CombinedEvents002Test extends CombinedEventsTestCase {
     private Map<Byte, Integer> requestsMap = new HashMap<>();
 
     @Override
-    protected String getDebuggeeClassName() {
-        return CombinedEvents002Debuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return CombinedEvents002Debuggee.class;
     }
 
     /**

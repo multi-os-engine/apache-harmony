@@ -28,6 +28,7 @@ package org.apache.harmony.jpda.tests.jdwp.MultiSession;
 import org.apache.harmony.jpda.tests.framework.TestOptions;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPUnitDebuggeeWrapper;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -36,12 +37,10 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class RefTypeIDTest extends JDWPSyncTestCase {
 
-    private final String DEBUGGEE_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/MultiSession/MultiSessionDebuggee;";
-
     private final String METHOD_NAME = "printWord";
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.MultiSession.MultiSessionDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return MultiSessionDebuggee.class;
     }
 
     /**
@@ -55,7 +54,7 @@ public class RefTypeIDTest extends JDWPSyncTestCase {
 
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-        long classID = debuggeeWrapper.vmMirror.getClassID(DEBUGGEE_SIGNATURE);
+        long classID = debuggeeWrapper.vmMirror.getClassID(getDebuggeeClassSignature());
 
         logWriter.println("");
         logWriter.println("=> CLOSE CONNECTION..");

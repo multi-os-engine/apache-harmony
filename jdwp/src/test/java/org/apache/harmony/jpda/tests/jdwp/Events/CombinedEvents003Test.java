@@ -32,6 +32,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.Location;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -39,19 +40,12 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  * METHOD_ENTRY, SINGLE_STEP, BREAKPOINT, METHOD_EXIT.
  */
 public class CombinedEvents003Test extends CombinedEventsTestCase {
-
-    private String debuggeeSignature =
-        "Lorg/apache/harmony/jpda/tests/jdwp/Events/CombinedEvents003Debuggee;";
-
     private String methodForEvents = "emptyMethod";
-
-    private String methodEntryClassNameRegexp =
-        "org.apache.harmony.jpda.tests.jdwp.Events.CombinedEvents003Debuggee";
 
     private boolean eventVmDeathReceived = false;
 
-    protected String getDebuggeeClassName() {
-        return CombinedEvents003Debuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return CombinedEvents003Debuggee.class;
     }
 
     /**
@@ -70,8 +64,8 @@ public class CombinedEvents003Test extends CombinedEventsTestCase {
 
         String debuggeeMainThreadName = synchronizer.receiveMessage();
 
-        long debuggeeClassID = debuggeeWrapper.vmMirror
-                .getClassID(debuggeeSignature);
+        String debuggeeSignature = getDebuggeeClassSignature();
+        long debuggeeClassID = debuggeeWrapper.vmMirror.getClassID(debuggeeSignature);
         logWriter.println("=> debuggeeClassID = " + debuggeeClassID);
 
         long threadID = debuggeeWrapper.vmMirror.getThreadID(debuggeeMainThreadName);
@@ -108,6 +102,8 @@ public class CombinedEvents003Test extends CombinedEventsTestCase {
         ReplyPacket reply = debuggeeWrapper.vmMirror.setBreakpoint(combinedEventsLocation);
         int breakpointRequestID = reply.getNextValueAsInt();
         logWriter.println("=> Breakpoint requestID = " + breakpointRequestID);
+
+        String methodEntryClassNameRegexp = getDebuggeeClassName();
 
         logWriter.println("=> Set request for METHOD_ENTRY event in debuggee: "
                 + getDebuggeeClassName());

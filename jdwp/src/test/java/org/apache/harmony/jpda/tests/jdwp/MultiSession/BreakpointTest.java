@@ -32,6 +32,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPUnitDebuggeeWrapper;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -40,12 +41,10 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class BreakpointTest extends JDWPSyncTestCase {
 
-    private String DEBUGGEE_SIGNATURE = "Lorg/apache/harmony/jpda/tests/jdwp/MultiSession/MultiSessionDebuggee;";
+    private static final String METHOD_NAME = "printWord";
 
-    private String METHOD_NAME = "printWord";
-
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.MultiSession.MultiSessionDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return MultiSessionDebuggee.class;
     }
 
     /**
@@ -59,7 +58,7 @@ public class BreakpointTest extends JDWPSyncTestCase {
         logWriter.println("==> testClearBreakpoint001 started..");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-        long classID = debuggeeWrapper.vmMirror.getClassID(DEBUGGEE_SIGNATURE);
+        long classID = debuggeeWrapper.vmMirror.getClassID(getDebuggeeClassSignature());
 
         //long requestID =
             debuggeeWrapper.vmMirror.setBreakpointAtMethodBegin(

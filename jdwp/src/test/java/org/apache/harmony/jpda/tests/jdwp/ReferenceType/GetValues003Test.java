@@ -31,6 +31,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -39,11 +40,10 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class GetValues003Test extends JDWPSyncTestCase {
 
-    static final String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ReferenceType/GetValues003Debuggee;";
     static final String chekedClassSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ReferenceType/RFGetValues003CheckedClass;";
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ReferenceType.GetValues003Debuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return GetValues003Debuggee.class;
     }
 
     /**
@@ -61,6 +61,7 @@ public class GetValues003Test extends JDWPSyncTestCase {
         logWriter.println
         ("\n=> Get debuggeeRefTypeID for debuggee class = " + getDebuggeeClassName() + "...");
         long debuggeeRefTypeID = 0;
+        String debuggeeSignature = getDebuggeeClassSignature();
         try {
             debuggeeRefTypeID = debuggeeWrapper.vmMirror.getClassID(debuggeeSignature);
         } catch ( Throwable thrown) {

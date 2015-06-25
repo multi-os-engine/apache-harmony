@@ -31,6 +31,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.exceptions.ReplyErrorCodeException;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,18 +42,15 @@ import java.util.List;
  */
 public class ResumeTest extends JDWPSyncTestCase {
 
-    static final String debuggeeSignature =
-        "Lorg/apache/harmony/jpda/tests/jdwp/VirtualMachine/ResumeDebuggee;";
-
-    protected String getDebuggeeClassName() {
-        return ResumeDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ResumeDebuggee.class;
     }
 
     @Override
     protected void internalTearDown() {
         // We need to finish the tested threads before detaching.
         logWriter.println("Finish debuggee tested threads");
-        setStaticIntField(debuggeeSignature,
+        setStaticIntField(getDebuggeeClassSignature(),
                 ResumeDebuggee.TO_FINISH_DEBUGGEE_FIELD_NAME, 99);
         super.internalTearDown();
     }

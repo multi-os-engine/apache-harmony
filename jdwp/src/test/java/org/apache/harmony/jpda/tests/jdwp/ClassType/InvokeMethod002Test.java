@@ -31,6 +31,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -38,8 +39,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  * JDWP unit test for ClassType.InvokeMethod command.
  */
 public class InvokeMethod002Test extends JDWPSyncTestCase {
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.share.debuggee.InvokeMethodDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return org.apache.harmony.jpda.tests.jdwp.share.debuggee.InvokeMethodDebuggee.class;
     }
 
     /**
@@ -58,7 +59,7 @@ public class InvokeMethod002Test extends JDWPSyncTestCase {
         CommandPacket packet = new CommandPacket(
             JDWPCommands.VirtualMachineCommandSet.CommandSetID,
             JDWPCommands.VirtualMachineCommandSet.ClassesBySignatureCommand);
-        String classSig = "Lorg/apache/harmony/jpda/tests/jdwp/share/debuggee/InvokeMethodDebuggee;";
+        String classSig = getDebuggeeClassSignature();
         packet.setNextValueAsString(classSig);
 
         ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(packet);

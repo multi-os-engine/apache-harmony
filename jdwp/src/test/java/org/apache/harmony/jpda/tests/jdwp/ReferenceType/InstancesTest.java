@@ -24,6 +24,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class InstancesTest extends JDWPSyncTestCase {
@@ -38,16 +39,10 @@ public class InstancesTest extends JDWPSyncTestCase {
 
     static String thisTestName;
 
-    static final String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ReferenceType/InstancesDebuggee;";
-
-    static final String mockClassSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ReferenceType/MockClass;";
-
-    static final String stringSignature = "Ljava/lang/String;";
-
     static final String intArraySignature = "[I";
     @Override
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ReferenceType.InstancesDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return InstancesDebuggee.class;
     }
 
     /**
@@ -72,8 +67,9 @@ public class InstancesTest extends JDWPSyncTestCase {
                 + ": START...");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
+        String mockClassSignature = getClassSignature(MockClass.class);
         long mockClassRefTypeID = getClassIDBySignature(mockClassSignature);
-        long debuggeeRefTypeID = getClassIDBySignature(debuggeeSignature);
+        long debuggeeRefTypeID = getClassIDBySignature(getDebuggeeClassSignature());
 
         //Get the number of reachable objects in debuggee class
         long reachableObjNumID = debuggeeWrapper.vmMirror.getFieldID(
@@ -231,6 +227,7 @@ public class InstancesTest extends JDWPSyncTestCase {
                 + ": START...");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
+        String stringSignature = getClassSignature(StringBuilder.class);
         long stringRefTypeID = getClassIDBySignature(stringSignature);
         maxInstances = 10;
 

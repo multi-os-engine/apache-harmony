@@ -33,6 +33,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.EventThread;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 
@@ -42,12 +43,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class SingleStepTest extends JDWPEventTestCase {
 
-    private String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/Events/SingleStepDebuggee;";
-
-    private String DEBUGGEE_CLASS_NAME = "org.apache.harmony.jpda.tests.jdwp.Events.SingleStepDebuggee";
-
-    protected String getDebuggeeClassName() {
-        return DEBUGGEE_CLASS_NAME;
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return SingleStepDebuggee.class;
     }
 
     /**
@@ -104,7 +101,7 @@ public class SingleStepTest extends JDWPEventTestCase {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         //find checked method
-        long refTypeID = getClassIDBySignature(debuggeeSignature);
+        long refTypeID = getClassIDBySignature(getDebuggeeClassSignature());
 
         logWriter.println("=> Debuggee class = " + getDebuggeeClassName());
         logWriter.println("=> referenceTypeID for Debuggee class = " + refTypeID);

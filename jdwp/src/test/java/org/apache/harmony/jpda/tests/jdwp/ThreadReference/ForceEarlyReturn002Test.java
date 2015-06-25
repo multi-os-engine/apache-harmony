@@ -18,14 +18,12 @@
 
 package org.apache.harmony.jpda.tests.jdwp.ThreadReference;
 
-import org.apache.harmony.jpda.tests.framework.Breakpoint;
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
-import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
-import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class ForceEarlyReturn002Test extends JDWPSyncTestCase {
@@ -34,8 +32,8 @@ public class ForceEarlyReturn002Test extends JDWPSyncTestCase {
 
     static final long EXPECTED_LONG = 100;
 
-    protected String getDebuggeeClassName() {
-        return "org.apache.harmony.jpda.tests.jdwp.ThreadReference.ForceEarlyReturnDebuggee";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return ForceEarlyReturnDebuggee.class;
     }
 
     // ForceEarlyReturn needs canForceEarlyReturn VM capability support

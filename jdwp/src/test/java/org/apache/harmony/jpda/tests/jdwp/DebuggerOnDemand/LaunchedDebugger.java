@@ -26,6 +26,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.Location;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPTestCase;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPUnitDebuggeeWrapper;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 import org.apache.harmony.jpda.tests.share.JPDATestOptions;
 
@@ -39,13 +40,10 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
 
     // synchronization channel between debugger and test
     protected JPDADebuggeeSynchronizer testSynchronizer;
-    
-    // name of tested debuggee class
-    public static final String DEBUGGEE_CLASS_NAME = 
-    	"org/apache/harmony/jpda/tests/jdwp/DebuggerOnDemand/OnthowDebuggerLaunchDebuggee";
 
     // signature of the tested debuggee class
-    public static final String DEBUGGEE_CLASS_SIGNATURE = "L" + DEBUGGEE_CLASS_NAME + ";";
+    public static final String DEBUGGEE_CLASS_SIGNATURE =
+            getClassSignature(OnthowDebuggerLaunchDebuggee.class);
     
     /**
      * This method is invoked right before attaching to debuggee VM.
@@ -126,7 +124,7 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
         super.internalTearDown();
     }
 
-	protected String getDebuggeeClassName() {
+	protected Class<? extends Debuggee> getDebuggeeClass() {
         return null;
     }
     

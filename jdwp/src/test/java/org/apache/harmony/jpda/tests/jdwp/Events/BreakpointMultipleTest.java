@@ -22,6 +22,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent;
 import org.apache.harmony.jpda.tests.framework.jdwp.VmMirror;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 import java.util.HashSet;
@@ -31,8 +32,8 @@ import java.util.Set;
  * JDWP Unit test for multiple BREAKPOINT events.
  */
 public class BreakpointMultipleTest extends JDWPEventTestCase {
-    protected String getDebuggeeClassName() {
-        return BreakpointDebuggee.class.getName();
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return BreakpointDebuggee.class;
     }
 
     /**

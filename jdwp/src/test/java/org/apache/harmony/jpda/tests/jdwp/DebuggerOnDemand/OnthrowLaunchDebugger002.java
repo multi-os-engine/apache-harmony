@@ -26,6 +26,7 @@
 package org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand;
 
 import org.apache.harmony.jpda.tests.framework.TestErrorException;
+import org.apache.harmony.jpda.tests.share.Debuggee;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
@@ -40,8 +41,8 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class OnthrowLaunchDebugger002 extends LaunchedDebugger {
 
-    protected String getDebuggeeClassName() {
-        return "";
+    protected Class<? extends Debuggee> getDebuggeeClass() {
+        return null;
     }
 
     String breakpointMethodName = "testMethod";
