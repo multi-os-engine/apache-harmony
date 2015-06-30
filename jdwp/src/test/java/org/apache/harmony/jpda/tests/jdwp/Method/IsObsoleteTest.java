@@ -48,9 +48,7 @@ public class IsObsoleteTest extends JDWPMethodTestCase {
 
         //check capability, relevant for this test
         logWriter.println("=> Check, can VM redefine classes");
-        debuggeeWrapper.vmMirror.capabilities();
-        boolean isCapability = debuggeeWrapper.vmMirror.targetVMCapabilities.canRedefineClasses;
-        if (!isCapability) {
+        if (!debuggeeWrapper.vmMirror.canRedefineClasses()) {
             logWriter.println("##WARNING: this VM can't redefine classes");
             return;
         }

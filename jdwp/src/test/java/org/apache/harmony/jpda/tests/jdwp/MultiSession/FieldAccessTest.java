@@ -52,15 +52,6 @@ public class FieldAccessTest extends JDWPEventTestCase {
 
         logWriter.println("==> testFieldAccess001 started");
 
-        //check capability, relevant for this test
-        logWriter.println("=> Check capability: canWatchFieldAccess");
-        debuggeeWrapper.vmMirror.capabilities();
-        boolean isCapability = debuggeeWrapper.vmMirror.targetVMCapabilities.canWatchFieldAccess;
-        if (!isCapability) {
-            logWriter.println("##WARNING: this VM doesn't possess capability: canWatchFieldAccess");
-            return;
-        }
-
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
         String classSignature = "Lorg/apache/harmony/jpda/tests/jdwp/MultiSession/FieldDebuggee;";

@@ -55,7 +55,7 @@ import org.apache.harmony.jpda.tests.framework.jdwp.exceptions.TimeoutException;
 public class VmMirror {
 
     /** Target VM Capabilities. */
-    public Capabilities targetVMCapabilities;
+    private Capabilities targetVMCapabilities;
 
     /** Transport used to sent and receive packets. */
     private TransportWrapper connection;
@@ -445,19 +445,84 @@ public class VmMirror {
         return replyPacket;
     }
 
-    public boolean canWatchFieldModification() {
+    /**
+     * Indicates whether the capability <i>canRedefineClasses</i> is supported.
+     *
+     * @return true if supported, false otherwise.
+     */
+    public boolean canRedefineClasses() {
         capabilities();
-        return targetVMCapabilities.canWatchFieldModification;
+        return targetVMCapabilities.canRedefineClasses;
     }
 
-    public boolean canWatchFieldAccess() {
+    /**
+     * Indicates whether the capability <i>canPopFrames</i> is supported.
+     *
+     * @return true if supported, false otherwise.
+     */
+    public boolean canPopFrames() {
         capabilities();
-        return targetVMCapabilities.canWatchFieldAccess;
+        return targetVMCapabilities.canPopFrames;
     }
 
-    public boolean canUseInstanceFilters() {
+    /**
+     * Indicates whether the capability <i>canGetSourceDebugExtension</i> is supported.
+     *
+     * @return true if supported, false otherwise.
+     */
+    public boolean canGetSourceDebugExtension() {
         capabilities();
-        return targetVMCapabilities.canUseInstanceFilters;
+        return targetVMCapabilities.canGetSourceDebugExtension;
+    }
+
+    /**
+     * Indicates whether the capability <i>canRequestVMDeathEvent</i> is supported.
+     *
+     * @return true if supported, false otherwise.
+     */
+    public boolean canRequestVMDeathEvent() {
+        capabilities();
+        return targetVMCapabilities.canRequestVMDeathEvent;
+    }
+
+    /**
+     * Indicates whether the capability <i>canSetDefaultStratum</i> is supported.
+     *
+     * @return true if supported, false otherwise.
+     */
+    public boolean canSetDefaultStratum() {
+        capabilities();
+        return targetVMCapabilities.canSetDefaultStratum;
+    }
+
+    /**
+     * Indicates whether the capability <i>canUseSourceNameFilters</i> is supported.
+     *
+     * @return true if supported, false otherwise.
+     */
+    public boolean canUseSourceNameFilters() {
+        capabilities();
+        return targetVMCapabilities.canUseSourceNameFilters;
+    }
+
+    /**
+     * Indicates whether the capability <i>canGetConstantPool</i> is supported.
+     *
+     * @return true if supported, false otherwise.
+     */
+    public boolean canGetConstantPool() {
+        capabilities();
+        return targetVMCapabilities.canGetConstantPool;
+    }
+
+    /**
+     * Indicates whether the capability <i>canForceEarlyReturn</i> is supported.
+     *
+     * @return true if supported, false otherwise.
+     */
+    public boolean canForceEarlyReturn() {
+        capabilities();
+        return targetVMCapabilities.canForceEarlyReturn;
     }
 
     /**
