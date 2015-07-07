@@ -22,6 +22,9 @@ import org.apache.harmony.jpda.tests.framework.TestErrorException;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 import org.apache.harmony.jpda.tests.share.SyncDebuggee;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * Debuggee for GetValues002Test and SetValues002Test.
  */
@@ -33,6 +36,15 @@ public class StackTrace002Debuggee extends SyncDebuggee {
     static final String SHORT_SIGNAL = "runBreakpointShort";
     static final String INT_SIGNAL = "runBreakpointInt";
     static final String INT_METHOD2_SIGNAL = "runBreakpointInt2";
+    static final String INT_CONSTANT_METHOD_SIGNAL = "runBreakpointIntConstant";
+    static final String INT_CONSTANT_METHOD_WITH_EXCEPTION_SIGNAL =
+            "runBreakpointIntConstantWithException";
+    static final String INT_CONSTANT_METHOD_WITH_EXCEPTION_IN_CALLEE_SIGNAL =
+            "runBreakpointIntConstantWithExceptionInCallee";
+    static final String INT_CONSTANT_METHOD_WITH_EXCEPTION_IN_CALLER_SIGNAL =
+            "runBreakpointIntConstantWithExceptionInCaller";
+    static final String INT_CONSTANT_METHOD_WITH_EXCEPTION_FROM_NATIVE_SIGNAL =
+            "runBreakpointIntConstantWithExceptionAndNativeTransition";
     static final String LONG_METHOD_SIGNAL = "runBreakpointLong";
     static final String FLOAT_METHOD = "runBreakpointFloat";
     static final String DOUBLE_METHOD = "runBreakpointDouble";
@@ -89,6 +101,9 @@ public class StackTrace002Debuggee extends SyncDebuggee {
     // A reference to 'this' debuggee.
     static Object THIS_OBJECT;
 
+    private static class TestException extends Exception {
+    }
+
     public static void main(String[] args) {
         runDebuggee(StackTrace002Debuggee.class);
     }
@@ -121,6 +136,21 @@ public class StackTrace002Debuggee extends SyncDebuggee {
                 break;
             case INT_METHOD2_SIGNAL:
                 runBreakpointInt2(INT_PARAM_VALUE);
+                break;
+            case INT_CONSTANT_METHOD_SIGNAL:
+                runBreakpointIntConstant();
+                break;
+            case INT_CONSTANT_METHOD_WITH_EXCEPTION_SIGNAL:
+                runBreakpointIntConstantWithException();
+                break;
+            case INT_CONSTANT_METHOD_WITH_EXCEPTION_IN_CALLEE_SIGNAL:
+                runBreakpointIntConstantWithExceptionInCallee();
+                break;
+            case INT_CONSTANT_METHOD_WITH_EXCEPTION_IN_CALLER_SIGNAL:
+                runBreakpointIntConstantWithExceptionInCaller();
+                break;
+            case INT_CONSTANT_METHOD_WITH_EXCEPTION_FROM_NATIVE_SIGNAL:
+                runBreakpointIntConstantWithExceptionAndNativeTransition();
                 break;
             case LONG_METHOD_SIGNAL:
                 runBreakpointLong(LONG_PARAM_VALUE);
@@ -184,6 +214,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointBoolean(boolean param) {
         logWriter.println("breakpointBoolean(param=" + param + ")");
+        synchronizeWithTest();
     }
 
     // Test byte type.
@@ -194,6 +225,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointByte(byte param) {
         logWriter.println("breakpointByte(param=" + param + ")");
+        synchronizeWithTest();
     }
 
     // Test char type.
@@ -204,6 +236,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointChar(char param) {
         logWriter.println("breakpointChar(param=" + param + ")");
+        synchronizeWithTest();
     }
 
     // Test short type.
@@ -214,6 +247,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointShort(short param) {
         logWriter.println("breakpointShort(param=" + param + ")");
+        synchronizeWithTest();
     }
 
     // Test int type.
@@ -224,6 +258,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointInt(int param) {
         logWriter.println("breakpointInt(param=" + param + ")");
+        synchronizeWithTest();
     }
 
     public void runBreakpointInt2(int param) {
@@ -235,6 +270,103 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointInt2(int param) {
         logWriter.println("breakpointInt2(param=" + param + ")");
+        synchronizeWithTest();
+    }
+
+    // Test int type with a constant.
+    public void runBreakpointIntConstant() {
+        int local = INT_PARAM_VALUE;
+        breakpointIntConstant(local);
+        breakpointIntConstant(local);
+    }
+
+    public void breakpointIntConstant(int param) {
+        logWriter.println("breakpointIntConstant(param=" + param + ")");
+        synchronizeWithTest();
+    }
+
+    // Test setting a variable with a caught exception.
+    public void runBreakpointIntConstantWithException() {
+        int local = INT_PARAM_VALUE;
+        try {
+            breakpointIntConstantWithException(local);
+        } catch (TestException expected) {
+        }
+        try {
+            breakpointIntConstantWithException(local);
+        } catch (TestException expected) {
+        }
+    }
+
+    // Test setting a variable with a caught exception in the callee.
+    public void runBreakpointIntConstantWithExceptionInCallee() {
+        int local = INT_PARAM_VALUE;
+        breakpointIntConstantWithCaughtException(local);
+        breakpointIntConstantWithCaughtException(local);
+    }
+
+    // Test setting a variable with a caught exception in the caller. Because the frame will
+    // be unwound after throwing the exception, setting the variable has no effect.
+    public void runBreakpointIntConstantWithExceptionInCaller() {
+        // Call twice to remain compatible with the test expecting 2 suspensions.
+        try {
+            runBreakpointIntConstantWithExceptionInCallerImpl();
+        } catch (TestException expected) {
+        }
+        try {
+            runBreakpointIntConstantWithExceptionInCallerImpl();
+        } catch (TestException expected) {
+        }
+    }
+
+    public void runBreakpointIntConstantWithExceptionInCallerImpl() throws TestException {
+        int local = INT_PARAM_VALUE;
+        // We're going to throw in the callee and the exception is caught in our caller so we
+        // won't execute the current frame anymore.
+        breakpointIntConstantWithException(local);
+    }
+
+    private void breakpointIntConstantWithCaughtException(int param) {
+        try {
+            breakpointIntConstantWithException(param);
+        } catch (TestException expected) {
+        }
+    }
+
+    public void breakpointIntConstantWithException(int param) throws TestException {
+        logWriter.println("breakpointIntConstantWithException(param=" + param + ")");
+        synchronizeWithTest();
+        throw new TestException();
+    }
+
+    // Test setting a variable with a caught exception with a native transition (using reflect).
+    public void runBreakpointIntConstantWithExceptionAndNativeTransition() {
+        int local = INT_PARAM_VALUE;
+        try {
+            breakpointIntConstantWithExceptionAndNativeTransition(local);
+        } catch (TestException expected) {
+        }
+        try {
+            breakpointIntConstantWithExceptionAndNativeTransition(local);
+        } catch (TestException expected) {
+        }
+    }
+
+    private void breakpointIntConstantWithExceptionAndNativeTransition(int local) throws TestException {
+        try {
+            Method suspensionMethod =
+                    StackTrace002Debuggee.class.getDeclaredMethod("breakpointIntConstantWithException",
+                            new Class<?>[]{int.class});
+            suspensionMethod.invoke(this, local);
+        } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException e) {
+            throw new TestErrorException(e);
+        } catch (InvocationTargetException e) {
+            if (e.getTargetException() instanceof TestException) {
+                throw (TestException) e.getTargetException();
+            } else {
+                throw new TestErrorException(e);
+            }
+        }
     }
 
     // Test long type.
@@ -245,6 +377,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointLong(long param) {
         logWriter.println("breakpointLong(param=" + param + ")");
+        synchronizeWithTest();
     }
 
     // Test float type.
@@ -255,6 +388,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointFloat(float param) {
         logWriter.println("breakpointFloat(param=" + param + ")");
+        synchronizeWithTest();
     }
 
     // Test double type.
@@ -265,6 +399,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointDouble(double param) {
         logWriter.println("breakpointDouble(param=" + param + ")");
+        synchronizeWithTest();
     }
 
     // Test java.lang.Object type.
@@ -275,6 +410,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointObject(Object param) {
         logWriter.println("breakpointObject(param=\"" + param + "\")");
+        synchronizeWithTest();
     }
 
     // Test array type.
@@ -285,6 +421,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointArray(int[] param) {
         logWriter.println("breakpointArray(param=\"" + param + "\")");
+        synchronizeWithTest();
     }
 
     // Test java.lang.Class type.
@@ -295,6 +432,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointClass(Class<?> param) {
         logWriter.println("breakpointClass(param=\"" + param + "\")");
+        synchronizeWithTest();
     }
 
     // Test java.lang.ClassLoader type.
@@ -305,6 +443,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointClassLoader(ClassLoader param) {
         logWriter.println("breakpointClassLoader(param=\"" + param + "\")");
+        synchronizeWithTest();
     }
 
     // Test java.lang.String type.
@@ -315,6 +454,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointString(String param) {
         logWriter.println("breakpointString(param=\"" + param + "\")");
+        synchronizeWithTest();
     }
 
     // Test java.lang.Thread type.
@@ -325,6 +465,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointThread(Thread param) {
         logWriter.println("breakpointThread(param=\"" + param + "\")");
+        synchronizeWithTest();
     }
 
     // Test java.lang.ThreadGroup type.
@@ -335,5 +476,14 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointThreadGroup(ThreadGroup param) {
         logWriter.println("breakpointThreadGroup(param=\"" + param + "\")");
+        synchronizeWithTest();
+    }
+
+    private void synchronizeWithTest() {
+        // Sends thread's name so the test can find its thread id.
+        synchronizer.sendMessage(Thread.currentThread().getName());
+
+        // Wait for the test to signal us after its checks.
+        synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
     }
 }
