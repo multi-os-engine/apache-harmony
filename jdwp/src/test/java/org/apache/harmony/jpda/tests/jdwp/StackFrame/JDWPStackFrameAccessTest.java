@@ -18,6 +18,7 @@
 
 package org.apache.harmony.jpda.tests.jdwp.StackFrame;
 
+import org.apache.harmony.jpda.tests.framework.TestErrorException;
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
@@ -38,8 +39,19 @@ public class JDWPStackFrameAccessTest extends JDWPStackFrameTestCase {
     }
 
     static class VariableInfo {
+        /**
+         * The name of the local variable to test.
+         */
         private final String variableName;
+
+        /**
+         * The initial value of the tested local variable, before we change its value.
+         */
         private final Value initialValue;
+
+        /**
+         * The new value of the tested local variable that we set during the test.
+         */
         private final Value newValue;
 
         VariableInfo(String variableName, Value initialValue, Value newValue) {
@@ -87,18 +99,11 @@ public class JDWPStackFrameAccessTest extends JDWPStackFrameTestCase {
     }
 
     static class StackFrameTester {
-        // TODO remove when we no longer need breakpoint to suspend.
-        private final String breakpointMethodName;
         private final String signalValue;
         private final List<MethodInfo> testedMethods = new ArrayList<MethodInfo>();
 
-        public StackFrameTester(String breakpointMethodName, String signalValue) {
-            this.breakpointMethodName = breakpointMethodName;
+        public StackFrameTester(String signalValue) {
             this.signalValue = signalValue;
-        }
-
-        public String getBreakpointMethodName() {
-            return breakpointMethodName;
         }
 
         public String getSignalValue() {
@@ -136,34 +141,54 @@ public class JDWPStackFrameAccessTest extends JDWPStackFrameTestCase {
         super.internalTearDown();
     }
 
-    protected void runStackFrameTest(StackFrameTester tester) {
+    protected void runStackFrameTest(StackFrameTester tester, MethodInfo suspensionMethodInfo) {
         // Get variable information.
         long classID = getClassIDBySignature(getDebuggeeClassSignature());
-
-        // Install breakpoint.
-        int breakpointRequestID = debuggeeWrapper.vmMirror.setBreakpointAtMethodBegin(classID,
-                tester.getBreakpointMethodName());
 
         // Signal debuggee with a custom message to execute the right method.
         synchronizer.sendMessage(tester.getSignalValue());
 
-        // Wait for 1st breakpoint hit.
-        long eventThreadID = debuggeeWrapper.vmMirror.waitForBreakpoint(breakpointRequestID);
+        // Wait for 1st suspension.
+        long eventThreadID = suspendDebuggee();
 
         // Check every local variable of every method.
-        checkStackFrame(classID, eventThreadID, tester, true);
+        checkStackFrame(classID, eventThreadID, tester, suspensionMethodInfo, true);
 
         // Resume debuggee.
-        debuggeeWrapper.vmMirror.resume();
+        resumeTest(eventThreadID);
 
-        // Wait for 2nd breakpoint hit.
-        eventThreadID = debuggeeWrapper.vmMirror.waitForBreakpoint(breakpointRequestID);
-
-        // Remove the breakpoint.
-        debuggeeWrapper.vmMirror.clearBreakpoint(breakpointRequestID);
+        // Wait for 2nd suspension.
+        eventThreadID = suspendDebuggee();
 
         // Check every local variable of every method.
-        checkStackFrame(classID, eventThreadID, tester, false);
+        checkStackFrame(classID, eventThreadID, tester, suspensionMethodInfo, false);
+
+        resumeTest(eventThreadID);
+    }
+
+    private long suspendDebuggee() {
+        String threadName = synchronizer.receiveMessage();
+        long threadId = getThreadIdFromName(threadName);
+        // We need the thread to be suspended so we suspend it explicitly now.
+        debuggeeWrapper.vmMirror.suspendThread(threadId);
+        return threadId;
+    }
+
+    private void resumeTest(long threadId) {
+        // We suspended the thread so let's resume it before sending the signal.
+        debuggeeWrapper.vmMirror.resumeThread(threadId);
+        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
+    }
+
+    private long getThreadIdFromName(String threadName) {
+        long[] allThreadIds = jdwpGetAllThreads();
+        for (long threadId : allThreadIds) {
+            String currentThreadName = jdwpGetThreadName(threadId);
+            if (threadName.equals(currentThreadName)) {
+                return threadId;
+            }
+        }
+        throw new TestErrorException("Could not find thread id of thread \"" + threadName + "\"");
     }
 
     /**
@@ -175,14 +200,16 @@ public class JDWPStackFrameAccessTest extends JDWPStackFrameTestCase {
      *          the thread ID of the event thread
      * @param tester
      *          an instance holding test logic
+     * @param suspensionMethodInfo
      * @param firstSuspension
      *          true if the execution is suspended by the first breakpoint, false otherwise.
      */
     private void checkStackFrame(long classID, long eventThreadID, StackFrameTester tester,
-                                 boolean firstSuspension) {
+                                 MethodInfo suspensionMethodInfo, boolean firstSuspension) {
         for (MethodInfo methodInfo : tester.getTestedMethods()) {
             String testMethodName = methodInfo.getMethodName();
             long testMethodID = getMethodID(classID, testMethodName);
+            boolean isSuspensionMethod = (methodInfo == suspensionMethodInfo);
 
             VarInfo[] variables = jdwpGetVariableTable(classID, testMethodID);
             assertNotNull("No variable table for method " + testMethodName, variables);
@@ -207,33 +234,24 @@ public class JDWPStackFrameAccessTest extends JDWPStackFrameTestCase {
                 Value initialValue = variableInfo.getInitialValue();
                 Value newValue = variableInfo.getNewValue();
 
-                // TODO specialize between GetValues and SetValues tests.
-                if (firstSuspension) {
-                    if (newValue != null) {
-                        // Sets the new value in the tested variable.
-                        setVariableValue(eventThreadID, testMethodFrame.frameID,
-                                         testVarInfo.getSlot(), newValue);
-                    } else {
-                        // Check the value is the expected one.
-                        Value expected = initialValue;
-                        Value actual = getVariableValue(eventThreadID, testMethodFrame.frameID,
-                                testVarInfo.getSlot(), expected.getTag());
-                        assertNotNull("No value for variable \"" + variableName + "\"", actual);
-                        assertEquals("Incorrect value variable \"" + variableName + "\"",
-                                expected, actual);
-                    }
-                } else {
-                    if (newValue != null) {
-                        // Check the value is the expected one.
-                        Value expected = newValue;
-                        Value actual = getVariableValue(eventThreadID, testMethodFrame.frameID,
-                                testVarInfo.getSlot(), expected.getTag());
-                        assertNotNull("No value for variable \"" + variableName + "\"", actual);
-                        assertEquals("Incorrect value variable \"" + variableName + "\"",
-                                expected, actual);
-                    } else {
-                        // Nothing to do.
-                    }
+                // Check the current variable value is correct.
+                Value expectedValue = initialValue;
+                if (!firstSuspension && newValue != null) {
+                    // On the second suspension, we expect to see the value we set at the
+                    // first suspension.
+                    expectedValue = newValue;
+                }
+                logWriter.println("Check variable \"" + variableName + "\" contains value \"" + expectedValue + "\"");
+                Value actual = getVariableValue(eventThreadID, testMethodFrame.frameID,
+                        testVarInfo.getSlot(), expectedValue.getTag());
+                assertNotNull("No value for variable \"" + variableName + "\"", actual);
+                assertEquals("Incorrect value variable \"" + variableName + "\"",
+                        expectedValue, actual);
+
+                if (!isSuspensionMethod && firstSuspension && newValue != null) {
+                    // Sets the new value in the tested variable.
+                    setVariableValue(eventThreadID, testMethodFrame.frameID,
+                                     testVarInfo.getSlot(), newValue);
                 }
             }
         }
