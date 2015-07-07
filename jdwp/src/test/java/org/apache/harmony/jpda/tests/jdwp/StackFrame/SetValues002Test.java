@@ -100,6 +100,21 @@ public class SetValues002Test extends JDWPStackFrameAccessTest {
     }
 
     /**
+     * Tests we correctly write value of int variable into the stack.
+     *
+     * Refer to {@link JDWPStackFrameAccessTest#runStackFrameTest(StackFrameTester)}
+     * method for the sequence of the test.
+     */
+    public void testSetValues005_IntConstant() {
+        StackFrameTester tester = new StackFrameTester("breakpointIntConstant",
+                StackTrace002Debuggee.INT_CONSTANT_METHOD_SIGNAL);
+        MethodInfo methodInfo = tester.addTestMethod("runBreakpointIntConstant");
+        methodInfo.addVariable("local", new Value(StackTrace002Debuggee.INT_PARAM_VALUE),
+                new Value(StackTrace002Debuggee.INT_PARAM_VALUE_TO_SET));
+        runStackFrameTest(tester);
+    }
+
+    /**
      * Tests we correctly write value of long variable into the stack.
      *
      * Refer to {@link JDWPStackFrameAccessTest#runStackFrameTest(StackFrameTester)}

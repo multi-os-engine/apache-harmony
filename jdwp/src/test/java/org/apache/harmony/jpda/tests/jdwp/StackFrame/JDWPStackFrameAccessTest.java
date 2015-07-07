@@ -38,8 +38,19 @@ public class JDWPStackFrameAccessTest extends JDWPStackFrameTestCase {
     }
 
     static class VariableInfo {
+        /**
+         * The name of the local variable to test.
+         */
         private final String variableName;
+
+        /**
+         * The initial value of the tested local variable, before we change its value.
+         */
         private final Value initialValue;
+
+        /**
+         * The new value of the tested local variable that we set during the test.
+         */
         private final Value newValue;
 
         VariableInfo(String variableName, Value initialValue, Value newValue) {

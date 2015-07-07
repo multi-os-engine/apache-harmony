@@ -33,6 +33,7 @@ public class StackTrace002Debuggee extends SyncDebuggee {
     static final String SHORT_SIGNAL = "runBreakpointShort";
     static final String INT_SIGNAL = "runBreakpointInt";
     static final String INT_METHOD2_SIGNAL = "runBreakpointInt2";
+    static final String INT_CONSTANT_METHOD_SIGNAL = "runBreakpointIntConstant";
     static final String LONG_METHOD_SIGNAL = "runBreakpointLong";
     static final String FLOAT_METHOD = "runBreakpointFloat";
     static final String DOUBLE_METHOD = "runBreakpointDouble";
@@ -121,6 +122,9 @@ public class StackTrace002Debuggee extends SyncDebuggee {
                 break;
             case INT_METHOD2_SIGNAL:
                 runBreakpointInt2(INT_PARAM_VALUE);
+                break;
+            case INT_CONSTANT_METHOD_SIGNAL:
+                runBreakpointIntConstant();
                 break;
             case LONG_METHOD_SIGNAL:
                 runBreakpointLong(LONG_PARAM_VALUE);
@@ -235,6 +239,17 @@ public class StackTrace002Debuggee extends SyncDebuggee {
 
     public void breakpointInt2(int param) {
         logWriter.println("breakpointInt2(param=" + param + ")");
+    }
+
+    // Test int type with a constant.
+    public void runBreakpointIntConstant() {
+        int local = INT_PARAM_VALUE;
+        breakpointIntConstant(local);
+        breakpointIntConstant(local);
+    }
+
+    public void breakpointIntConstant(int param) {
+        logWriter.println("breakpointIntConstant(param=" + param + ")");
     }
 
     // Test long type.
