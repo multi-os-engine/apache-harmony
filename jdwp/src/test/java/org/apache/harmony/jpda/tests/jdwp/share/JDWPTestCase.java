@@ -773,6 +773,22 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
         printErrorAndFail("Not all data has been read");
     }
 
+    protected void assertEventKindEquals(String message, byte expected, byte actual) {
+        if (expected != actual) {
+            StringBuilder builder = new StringBuilder(message);
+            builder.append(": expected ");
+            builder.append(expected);
+            builder.append(" (");
+            builder.append(JDWPConstants.EventKind.getName(expected));
+            builder.append(") but was ");
+            builder.append(actual);
+            builder.append(" (");
+            builder.append(JDWPConstants.EventKind.getName(actual));
+            builder.append(")");
+            printErrorAndFail(builder.toString());
+        }
+    }
+
     /**
      * Prints error message in log writer and in junit fail.
      * 
