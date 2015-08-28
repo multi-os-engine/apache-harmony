@@ -62,6 +62,7 @@ public class AllTests {
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ArrayReference.GetValuesTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ArrayReference.LengthTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ArrayReference.SetValues002Test.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ArrayReference.SetValues003Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ArrayReference.SetValuesTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ArrayType.NewInstanceTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ClassLoaderReference.VisibleClassesTest.class);
