@@ -1800,26 +1800,22 @@ public class VmMirror {
     }
 
     /**
-     * Sets step event request for given thread name.
-     * 
-     * @param threadName
-     *            thread name
+     * Sets step event request for given thread ID.
+     *
+     * @param threadID
+     *          the ID of the thread
      * @param stepSize
+     *          the step size
      * @param stepDepth
+     *          the step depth
      * @return ReplyPacket for corresponding command
      */
-    public ReplyPacket setStep(String threadName, int stepSize, int stepDepth) {
-        long typeID = -1;
-
-        // Request referenceTypeID for class
-        typeID = getThreadID(threadName);
-
+    public ReplyPacket setStep(long threadID, int stepSize, int stepDepth) {
         // Prepare corresponding event
         byte eventKind = JDWPConstants.EventKind.SINGLE_STEP;
         byte suspendPolicy = JDWPConstants.SuspendPolicy.ALL;
-        // EventMod[] mods = new EventMod[1];
         EventMod[] mods = new EventMod[] { new EventMod() };
-        mods[0].thread = typeID;
+        mods[0].thread = threadID;
         mods[0].modKind = EventMod.ModKind.Step;
         mods[0].size = stepSize;
         mods[0].depth = stepDepth;

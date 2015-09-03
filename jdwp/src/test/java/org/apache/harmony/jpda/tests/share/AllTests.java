@@ -93,6 +93,7 @@ public class AllTests {
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.CombinedEvents003Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.CombinedEventsTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.CombinedExceptionEventsTest.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.EventWithExceptionTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.ExceptionCaughtTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.ExceptionUncaughtTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.ExceptionWithLocationTest.class);
