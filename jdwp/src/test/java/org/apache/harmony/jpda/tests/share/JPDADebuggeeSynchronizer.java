@@ -33,6 +33,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.ServerSocket;
+import java.net.UnknownHostException;
 
 import org.apache.harmony.jpda.tests.framework.DebuggeeSynchronizer;
 import org.apache.harmony.jpda.tests.framework.LogWriter;
@@ -166,7 +167,14 @@ public class JPDADebuggeeSynchronizer implements DebuggeeSynchronizer {
     public InetSocketAddress getSyncServerAddress() {
         // Use the LOOPBACK directly instead of doing a DNS lookup.
         int port = settings.getSyncPortNumber();
-        return new InetSocketAddress(InetAddress.getLoopbackAddress(), port);
+        try {
+            // Use IPv4 to ensure we do not depend on IPv6 to run these tests.
+            return new InetSocketAddress(
+                InetAddress.getByAddress(new byte[] { 127, 0, 0, 1 }), port);
+        } catch (UnknownHostException e) {
+            throw new TestErrorException(
+                    "[SYNC] Exception in binding for socket sync connection", e);
+        }
     }
 
     /**
