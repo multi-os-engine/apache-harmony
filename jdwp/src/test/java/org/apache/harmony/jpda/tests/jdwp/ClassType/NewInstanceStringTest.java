@@ -18,40 +18,15 @@
 
 package org.apache.harmony.jpda.tests.jdwp.ClassType;
 
-import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
-import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
-import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
-import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
-import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
-import org.apache.harmony.jpda.tests.jdwp.share.JDWPTestConstants;
-import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * JDWP unit test for ClassType.NewInstance command with java.lang.String class.
  */
-public class NewInstanceStringTest extends JDWPSyncTestCase {
-    private static final String CONSTRUCTOR_NAME = "<init>";
-
-    /**
-     * A provider is responsible for giving the arguments passed to the tested
-     * constructor.
-     */
-    private static interface ConstructorArgumentsProvider {
-        /**
-         * This method is called to provide the arguments to the constructor
-         * called to create the java.lang.String instance. This is called when
-         * the debuggee is suspended on a breakpoint.
-         *
-         * @param constructorArguments
-         *            the list of arguments passed to the constructor
-         */
-        public void provideConstructorArguments(List<Value> constructorArguments);
-    }
+public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
 
     @Override
     protected String getDebuggeeClassName() {
@@ -59,15 +34,11 @@ public class NewInstanceStringTest extends JDWPSyncTestCase {
     }
 
     /**
-     * Test ClassType.NewInstance using the constructor <code>java.lang.String()</code>.
+     * Test ClassType.NewInstance using the constructor
+     * <code>java.lang.String()</code>.
      */
     public void testNewInstanceString_NoArgConstructor() {
-        runTestNewInstanceString("()V", new ConstructorArgumentsProvider() {
-            @Override
-            public void provideConstructorArguments(List<Value> constructorArguments) {
-                // No argument.
-            }
-        });
+        runTestNewInstanceString("()V", new NoConstructorArgumentProvider());
     }
 
     /**
@@ -147,7 +118,8 @@ public class NewInstanceStringTest extends JDWPSyncTestCase {
 
     /**
      * Test ClassType.NewInstance using the constructor
-     * <code>java.lang.String(byte[], int, int, java.nio.charset.Charset)</code>.
+     * <code>java.lang.String(byte[], int, int, java.nio.charset.Charset)</code>
+     * .
      */
     public void testNewInstanceString_ByteArrayIntIntCharsetConstructor() {
         runTestNewInstanceString("([BIILjava/nio/charset/Charset;)V",
@@ -290,76 +262,12 @@ public class NewInstanceStringTest extends JDWPSyncTestCase {
     }
 
     /**
-     * This testcase exercises ClassType.NewInstance command for
-     * java.lang.String. At first, the test starts debuggee. Then request a
-     * breakpoint and wait for it. Once the debuggee is suspended on the
-     * breakpoint, send ClassType.NewInstance command for the java.lang.String
-     * class using the constructor whose signature is given as parameter. A
-     * provider is responsible to provide the arguments for the specified
-     * constructor as JDWP values. Finally, the test verifies that the returned
-     * object is not null and the exception object is null.
+     * Exercises ClassType.NewInstance command for java.lang.String.
      */
     private void runTestNewInstanceString(String constructorSignature,
             ConstructorArgumentsProvider provider) {
-        synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
-
-        long debuggeeClassId = getClassIDBySignature(getDebuggeeClassSignature());
-        logWriter.println("Debuggee class: " + getDebuggeeClassSignature());
-        logWriter.println("Debuggee class ID: " + debuggeeClassId);
-
-        // Request breakpoint.
-        int breakpointRequestId = debuggeeWrapper.vmMirror
-                .setBreakpointAtMethodBegin(debuggeeClassId, "breakpointMethod");
-
-        // Continue debuggee.
-        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
-
-        // Wait for breakpoint.
-        long threadId = debuggeeWrapper.vmMirror.waitForBreakpoint(breakpointRequestId);
-
-        long javaLangStringId = getClassIDBySignature("Ljava/lang/String;");
-        assertTrue("Failed to find java.lang.String class", javaLangStringId != -1);
-        logWriter.println("java.lang.String class ID: " + javaLangStringId);
-
-        final String methodName = CONSTRUCTOR_NAME;
-        final String methodSignature = constructorSignature;
-        final String fullMethodName = methodName + methodSignature;
-        long constructorId = getMethodID(javaLangStringId, methodName, methodSignature);
-        assertTrue("Failed to find constructor " + fullMethodName, constructorId != -1);
-        logWriter.println(fullMethodName + " method ID: " + constructorId);
-
-        // Request provider to fill the arguments list.
-        List<Value> argumentsList = new ArrayList<Value>();
-        provider.provideConstructorArguments(argumentsList);
-
-        logWriter
-                .println("Sending ClassType.NewInstance command for constructor " + fullMethodName);
-        CommandPacket packet = new CommandPacket(JDWPCommands.ClassTypeCommandSet.CommandSetID,
-                JDWPCommands.ClassTypeCommandSet.NewInstanceCommand);
-        packet.setNextValueAsReferenceTypeID(javaLangStringId);
-        packet.setNextValueAsThreadID(threadId);
-        packet.setNextValueAsMethodID(constructorId);
-        packet.setNextValueAsInt(argumentsList.size()); // argCount
-        for (Value value : argumentsList) {
-            packet.setNextValueAsValue(value);
-        }
-        packet.setNextValueAsInt(0); // invoke options
-        ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "ClassType.NewInstance command");
-
-        // Check result.
-        TaggedObject stringResult = reply.getNextValueAsTaggedObject();
-        TaggedObject exceptionResult = reply.getNextValueAsTaggedObject();
-        assertAllDataRead(reply);
-
-        assertNotNull("stringResult is null", stringResult);
-        assertNotNull("exceptionResult is null", exceptionResult);
-        assertTrue(stringResult.objectID != JDWPTestConstants.NULL_OBJECT_ID);
-        assertTrue(exceptionResult.tag == JDWPConstants.Tag.OBJECT_TAG);
-        assertEquals(exceptionResult.objectID, JDWPTestConstants.NULL_OBJECT_ID);
-
-        // Debuggee is suspended on the breakpoint: resume it now.
-        resumeDebuggee();
+        checkNewInstanceTag("Ljava/lang/String;", constructorSignature, provider,
+                JDWPConstants.Tag.STRING_TAG);
     }
 
     private Value getStaticFieldValue(long classId, String fieldName) {

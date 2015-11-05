@@ -804,6 +804,16 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
         printErrorAndFail("Not all data has been read");
     }
 
+    /**
+     * Asserts that two JDWP event kinds are equal.
+     *
+     * @param message
+     *          user message
+     * @param expected
+     *          expected event kind
+     * @param actual
+     *          actual event kind
+     */
     protected void assertEventKindEquals(String message, byte expected, byte actual) {
         if (expected != actual) {
             StringBuilder builder = new StringBuilder(message);
@@ -815,6 +825,32 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
             builder.append(actual);
             builder.append(" (");
             builder.append(JDWPConstants.EventKind.getName(actual));
+            builder.append(")");
+            printErrorAndFail(builder.toString());
+        }
+    }
+
+    /**
+     * Asserts that two JDWP tags are equal.
+     *
+     * @param message
+     *          user message
+     * @param expected
+     *          expected tag
+     * @param actual
+     *          actual tag
+     */
+    protected void assertTagEquals(String message, byte expected, byte actual) {
+        if (expected != actual) {
+            StringBuilder builder = new StringBuilder(message);
+            builder.append(": expected ");
+            builder.append(expected);
+            builder.append(" (");
+            builder.append(JDWPConstants.Tag.getName(expected));
+            builder.append(") but was ");
+            builder.append(actual);
+            builder.append(" (");
+            builder.append(JDWPConstants.Tag.getName(actual));
             builder.append(")");
             printErrorAndFail(builder.toString());
         }
