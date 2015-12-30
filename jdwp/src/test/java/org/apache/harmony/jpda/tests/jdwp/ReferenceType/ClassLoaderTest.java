@@ -51,16 +51,33 @@ public class ClassLoaderTest extends JDWPSyncTestCase {
      * <BR>The test starts HelloWorld debuggee, requests referenceTypeId
      * for it by VirtualMachine.ClassesBySignature command, then
      * performs ReferenceType.ClassLoader command and checks that command
-     * returns reply with some classLoaderID without any ERROR
+     * returns reply with some non-zero classLoaderID without any ERROR
      */
     public void testClassLoader001() {
-        String thisTestName = "testClassLoader001";
+        classLoaderTest("testClassLoader001", debuggeeSignature, false);
+    }
+
+    /**
+     * This testcase exercises ReferenceType.ClassLoader command.
+     * <BR>The test starts HelloWorld debuggee, requests referenceTypeId
+     * for java.lang.Object by VirtualMachine.ClassesBySignature command, then
+     * performs ReferenceType.ClassLoader command and checks that command
+     * returns reply with a zero classLoaderID without any ERROR
+     */
+    public void testClassLoader002() {
+        classLoaderTest("testClassLoader002", "Ljava/lang/Object;", true);
+    }
+
+    /**
+     * Implementation of the tests, using the given parameters.
+     */
+    private void classLoaderTest(String thisTestName, String signature, boolean expectZero) {
         logWriter.println("==> " + thisTestName + " for " + thisCommandName + ": START...");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-        long refTypeID = getClassIDBySignature(debuggeeSignature);
+        long refTypeID = getClassIDBySignature(signature);
 
-        logWriter.println("=> Debuggee class = " + getDebuggeeClassName());
+        logWriter.println("=> Debuggee class = " + signature);
         logWriter.println("=> referenceTypeID for Debuggee class = " + refTypeID);
         logWriter.println("=> CHECK1: send " + thisCommandName + " and check reply for ERROR...");
 
@@ -74,6 +91,11 @@ public class ClassLoaderTest extends JDWPSyncTestCase {
         checkReplyPacket(classLoaderReply, thisCommandName);
 
         long returnedClassLoaderID = classLoaderReply.getNextValueAsObjectID();
+        if (expectZero) {
+            assertTrue("Should be boot classpath classloader", returnedClassLoaderID == 0);
+        } else {
+            assertTrue("Should not be boot classpath classloader", returnedClassLoaderID != 0);
+        }
         logWriter.println("=> CHECK1: PASSED: Returned classLoaderID = " + returnedClassLoaderID);
 
         assertAllDataRead(classLoaderReply);
