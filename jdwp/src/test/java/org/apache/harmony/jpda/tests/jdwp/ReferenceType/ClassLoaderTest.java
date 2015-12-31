@@ -27,6 +27,7 @@ package org.apache.harmony.jpda.tests.jdwp.ReferenceType;
 
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
+import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
@@ -68,7 +69,44 @@ public class ClassLoaderTest extends JDWPSyncTestCase {
     }
 
     /**
-     * Implementation of the tests, using the given parameters.
+     * Test that supplying a general object that is not a class returns
+     * a class error.
+     */
+    public void testClassLoader003() {
+        String thisTestName = "testClassLoader003";
+        logWriter.println("==> " + thisTestName + " for " + thisCommandName + ": START...");
+        synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
+
+        // It's easer to just ask for an instance of String (as we know the runtime has
+        // created some during startup), rather than collecting all the constructor data
+        // for a class like the debuggee.
+        long stringClassRefTypeID = getClassIDBySignature("Ljava/lang/String;");
+
+        CommandPacket stringInstanceCommand = new CommandPacket(
+                JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
+                JDWPCommands.ReferenceTypeCommandSet.InstancesCommand);
+        stringInstanceCommand.setNextValueAsReferenceTypeID(stringClassRefTypeID);
+        stringInstanceCommand.setNextValueAsInt(1);  // One instance is enough.
+        ReplyPacket stringInstanceReply =
+                debuggeeWrapper.vmMirror.performCommand(stringInstanceCommand);
+        checkReplyPacket(stringInstanceReply, "ReferenceType.Instances");
+        int stringInstanceCount = stringInstanceReply.getNextValueAsInt();
+        assertTrue("Expected to get one string instance", stringInstanceCount == 1);
+        long stringInstanceID = stringInstanceReply.getNextValueAsTaggedObject().objectID;
+
+        CommandPacket classLoaderCommand = new CommandPacket(
+                JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
+                JDWPCommands.ReferenceTypeCommandSet.ClassLoaderCommand);
+        classLoaderCommand.setNextValueAsReferenceTypeID(stringInstanceID);
+        ReplyPacket classLoaderReply = debuggeeWrapper.vmMirror.performCommand(classLoaderCommand);
+        checkReplyPacket(classLoaderReply, thisCommandName, JDWPConstants.Error.INVALID_CLASS);
+
+        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
+        logWriter.println("==> " + thisTestName + " for " + thisCommandName + ": FINISH");
+    }
+
+    /**
+     * Implementation of tests 001 and 002, using the given parameters.
      */
     private void classLoaderTest(String thisTestName, String signature, boolean expectZero) {
         logWriter.println("==> " + thisTestName + " for " + thisCommandName + ": START...");
@@ -99,7 +137,51 @@ public class ClassLoaderTest extends JDWPSyncTestCase {
 
         assertAllDataRead(classLoaderReply);
 
+        assertTrue("Result should be a classloader",
+                isClassLoader(returnedClassLoaderID, thisCommandName));
+
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
         logWriter.println("==> " + thisTestName + " for " + thisCommandName + ": FINISH");
+    }
+
+    /**
+     * Helper to check whether an object is a classloader. Works by getting the class and
+     * the reference ID of java.lang.ClassLoader, then following the superclass chain and
+     * comparing.
+     */
+    private boolean isClassLoader(long classLoaderObjectID, String thisCommandName) {
+        if (classLoaderObjectID == 0) {
+            // 0 = null = bootstrap classloader.
+            return true;
+        }
+
+        CommandPacket refTypeCommand = new CommandPacket(
+                JDWPCommands.ObjectReferenceCommandSet.CommandSetID,
+                JDWPCommands.ObjectReferenceCommandSet.ReferenceTypeCommand);
+        refTypeCommand.setNextValueAsObjectID(classLoaderObjectID);
+        ReplyPacket refTypeReply = debuggeeWrapper.vmMirror.performCommand(refTypeCommand);
+        checkReplyPacket(refTypeReply, thisCommandName);
+        refTypeReply.getNextValueAsByte();  // kind.
+        long classLoaderClassRefTypeID = refTypeReply.getNextValueAsReferenceTypeID();
+
+        long baseClassLoaderRefTypeID = getClassIDBySignature("Ljava/lang/ClassLoader;");
+
+        while (classLoaderClassRefTypeID != 0) {
+            if (classLoaderClassRefTypeID == baseClassLoaderRefTypeID) {
+                // This is a classloader...
+                return true;
+            }
+            CommandPacket superclassCommand = new CommandPacket(
+                JDWPCommands.ClassTypeCommandSet.CommandSetID,
+                JDWPCommands.ClassTypeCommandSet.SuperclassCommand);
+            superclassCommand.setNextValueAsObjectID(classLoaderClassRefTypeID);
+            ReplyPacket superclassReply =
+                    debuggeeWrapper.vmMirror.performCommand(superclassCommand);
+            checkReplyPacket(superclassReply, thisCommandName);
+            classLoaderClassRefTypeID = superclassReply.getNextValueAsClassID();
+        }
+
+        // None of the superclasses was java.lang.ClassLoader, so it's not a classloader.
+        return false;
     }
 }
