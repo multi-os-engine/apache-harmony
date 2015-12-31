@@ -27,6 +27,7 @@ package org.apache.harmony.jpda.tests.jdwp.ReferenceType;
 
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
+import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
@@ -68,7 +69,46 @@ public class ClassLoaderTest extends JDWPSyncTestCase {
     }
 
     /**
-     * Implementation of the tests, using the given parameters.
+     * Test that supplying a general object that is not a class returns
+     * a class error.
+     */
+    public void testClassLoader003() {
+        // It's easiest to just ask for an instance of String (as one is sure to exist),
+        // rather than collecting all the constructor data for a class like the debuggee.
+        CommandPacket stringClassCommand = new CommandPacket(
+                JDWPCommands.VirtualMachineCommandSet.CommandSetID,
+                JDWPCommands.VirtualMachineCommandSet.ClassesBySignatureCommand);
+        stringClassCommand.setNextValueAsString("Ljava/lang/String;");
+        ReplyPacket stringClassReply = debuggeeWrapper.vmMirror.performCommand(stringClassCommand);
+        checkReplyPacket(stringClassReply, thisCommandName);
+        int stringClassCount = stringClassReply.getNextValueAsInt();
+        assertTrue("Expected string class to be found and unique", stringClassCount == 1);
+        stringClassReply.getNextValueAsByte();  // kind.
+        long stringClassRefTypeID = stringClassReply.getNextValueAsReferenceTypeID();
+
+        CommandPacket stringInstanceCommand = new CommandPacket(
+                JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
+                JDWPCommands.ReferenceTypeCommandSet.InstancesCommand);
+        stringInstanceCommand.setNextValueAsReferenceTypeID(stringClassRefTypeID);
+        stringInstanceCommand.setNextValueAsInt(1);  // One instance is enough.
+        ReplyPacket stringInstanceReply =
+                debuggeeWrapper.vmMirror.performCommand(stringInstanceCommand);
+        checkReplyPacket(stringInstanceReply, thisCommandName);
+        int stringInstanceCount = stringInstanceReply.getNextValueAsInt();
+        assertTrue("Expected to get one string instance", stringInstanceCount == 1);
+        long stringInstanceID = stringInstanceReply.getNextValueAsTaggedObject().objectID;
+
+        CommandPacket classLoaderCommand = new CommandPacket(
+                JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
+                JDWPCommands.ReferenceTypeCommandSet.ClassLoaderCommand);
+        classLoaderCommand.setNextValueAsReferenceTypeID(stringInstanceID);
+        ReplyPacket classLoaderReply = debuggeeWrapper.vmMirror.performCommand(classLoaderCommand);
+        assertTrue("Expected class error",
+                classLoaderReply.getErrorCode() == JDWPConstants.Error.INVALID_CLASS);
+    }
+
+    /**
+     * Implementation of tests 001 and 002, using the given parameters.
      */
     private void classLoaderTest(String thisTestName, String signature, boolean expectZero) {
         logWriter.println("==> " + thisTestName + " for " + thisCommandName + ": START...");
@@ -99,7 +139,40 @@ public class ClassLoaderTest extends JDWPSyncTestCase {
 
         assertAllDataRead(classLoaderReply);
 
+        assertTrue("Result should be a classloader",
+                isClassLoader(returnedClassLoaderID, thisCommandName));
+
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
         logWriter.println("==> " + thisTestName + " for " + thisCommandName + ": FINISH");
+    }
+
+    /**
+     * Helper to check whether an object is a classloader. Works by getting the class, then
+     * looking for ClassLoader in the signature.
+     */
+    private boolean isClassLoader(long classLoaderObjectID, String thisCommandName) {
+        if (classLoaderObjectID == 0) {
+            // 0 = null = bootstrap classloader.
+            return true;
+        }
+
+        CommandPacket refTypeCommand = new CommandPacket(
+                JDWPCommands.ObjectReferenceCommandSet.CommandSetID,
+                JDWPCommands.ObjectReferenceCommandSet.ReferenceTypeCommand);
+        refTypeCommand.setNextValueAsObjectID(classLoaderObjectID);
+        ReplyPacket refTypeReply = debuggeeWrapper.vmMirror.performCommand(refTypeCommand);
+        checkReplyPacket(refTypeReply, thisCommandName);
+        refTypeReply.getNextValueAsByte();  // kind.
+        long classLoaderClassRefTypeID = refTypeReply.getNextValueAsReferenceTypeID();
+
+        CommandPacket signatureCommand = new CommandPacket(
+                JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
+                JDWPCommands.ReferenceTypeCommandSet.SignatureCommand);
+        signatureCommand.setNextValueAsObjectID(classLoaderClassRefTypeID);
+        ReplyPacket signatureReply = debuggeeWrapper.vmMirror.performCommand(signatureCommand);
+        checkReplyPacket(signatureReply, thisCommandName);
+        String signature = signatureReply.getNextValueAsString();
+
+        return signature.contains("ClassLoader");
     }
 }
