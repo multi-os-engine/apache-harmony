@@ -104,7 +104,7 @@ public class TestOptions {
     private long timeout = -1;
 
     // internally set property values
-    private HashMap internalProperties = new HashMap();
+    private HashMap<String, String> internalProperties = new HashMap<String, String>();
 
     /**
      * Constructs an instance of this class.
