@@ -52,6 +52,7 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(harmony_jdwp_test_src_files)
 LOCAL_JAVA_LIBRARIES := junit
 LOCAL_MODULE := apache-harmony-jdwp-tests-host
+LOCAL_JAVA_LANGUAGE_VERSION := 1.8
 include $(BUILD_HOST_JAVA_LIBRARY)
 
 ifeq ($(HOST_OS),linux)
@@ -59,6 +60,7 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(harmony_jdwp_test_src_files)
 LOCAL_JAVA_LIBRARIES := junit-hostdex
 LOCAL_MODULE := apache-harmony-jdwp-tests-hostdex
+LOCAL_JAVA_LANGUAGE_VERSION := 1.8
 include $(BUILD_HOST_DALVIK_JAVA_LIBRARY)
 endif  # HOST_OS == linux
 
