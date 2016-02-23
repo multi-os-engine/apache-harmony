@@ -71,9 +71,7 @@ public class InvokeMethodDebuggee extends SyncDebuggee {
         return "qwerty";
     }
 
-    void execMethod() {
-        logWriter.println("InvokeMethodDebuggee.execMethod()");
-    }
+    void execMethod() { logWriter.println("InvokeMethodDebuggee.execMethod()"); }
 
     public void run() {
         Class c = null;

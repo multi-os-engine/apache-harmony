@@ -114,6 +114,7 @@ public class AllTests {
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.ThreadStartTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.VMDeath002Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.VMDeathTest.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.InterfaceType.InvokeMethodTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Method.BytecodesTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Method.IsObsoleteTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Method.LineTableTest.class);
