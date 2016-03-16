@@ -44,8 +44,6 @@ LOCAL_JAVACFLAGS := $(harmony_test_javac_flags)
 LOCAL_MODULE := apache-harmony-tests
 LOCAL_JARJAR_RULES := $(LOCAL_PATH)/jarjar-rules.txt
 LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
-# Pinned to 1.7 to keep the library working with JarJar / CTSv1. http://b/27637680
-LOCAL_JAVA_LANGUAGE_VERSION := 1.7
 include $(BUILD_STATIC_JAVA_LIBRARY)
 
 ifeq ($(HOST_OS),linux)
@@ -57,8 +55,6 @@ LOCAL_JAVA_LIBRARIES := core-oj-hostdex core-libart-hostdex core-junit-hostdex
 LOCAL_JAVACFLAGS := $(harmony_test_javac_flags)
 LOCAL_MODULE := apache-harmony-tests-hostdex
 LOCAL_JARJAR_RULES := $(LOCAL_PATH)/jarjar-rules.txt
-# Pinned to 1.7 to keep the library working with JarJar / CTSv1. http://b/27637680
-LOCAL_JAVA_LANGUAGE_VERSION := 1.7
 include $(BUILD_HOST_DALVIK_JAVA_LIBRARY)
 endif  # HOST_OS == linux
 
