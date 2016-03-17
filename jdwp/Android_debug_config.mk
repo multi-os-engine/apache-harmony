@@ -54,7 +54,8 @@ ifdef TARGET_2ND_ARCH
   ifeq ($(TARGET_IS_64_BIT),true)
     jdwp_tests_target_abis := 64 32
   else
-    $(error Unsupported multi-target configuration!)
+    jdwp_tests_target_abis := 32
+    $(warning Unsupported multi-target configuration!)
   endif
 else
   ifeq ($(TARGET_IS_64_BIT),true)
@@ -170,4 +171,3 @@ run-jdwp-tests-ri: $(HOST_OUT_JAVA_LIBRARIES)/apache-harmony-jdwp-tests-host.jar
           -Djpda.settings.syncPort=34016 \
           -Djpda.settings.debuggeeJavaPath=java \
           $(jdwp_test_suite_class_name)
-
