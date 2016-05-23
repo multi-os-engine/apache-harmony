@@ -13,7 +13,6 @@ harmony_jdwp_test_src_files := \
 jdwp_test_timeout_ms := 10000 # 10s.
 jdwp_test_target_runtime_common_args :=  \
 	-Djpda.settings.verbose=true \
-	-Djpda.settings.syncPort=34016 \
 	-Djpda.settings.timeout=$(jdwp_test_timeout_ms) \
 	-Djpda.settings.waitingTime=$(jdwp_test_timeout_ms)
 
