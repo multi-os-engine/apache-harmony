@@ -162,6 +162,10 @@ public class JPDADebuggeeSynchronizer implements DebuggeeSynchronizer {
     /**
      * Returns socket address for connecting to the server.
      * 
+     * If <code>serverAddress.getPort()</code> returns 0 (i.e.,
+     * <code>org.apache.harmony.jpda.tests.framework.TestOptions.DEFAULT_SYNC_PORT</code>),
+     * a port will automatically be chosen by the OS when the server is bound to a socket.
+     * 
      * @return socket address
      */
     public InetSocketAddress getSyncServerAddress() {

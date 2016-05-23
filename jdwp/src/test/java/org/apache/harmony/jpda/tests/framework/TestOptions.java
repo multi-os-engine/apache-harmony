@@ -60,7 +60,7 @@ import java.util.HashMap;
  * <li><code>jpda.settings.connectorKind</code>
  *   - type of JDWP connection (attach or listen)
  * <li><code>jpda.settings.syncPort</code>
- *   - port number for sync connection
+ *   - port number for sync connection (chosen by the OS if not set or set to 0)
  * <li><code>jpda.settings.timeout</code>
  *   - timeout used in JPDA tests
  * <li><code>jpda.settings.waitingTime</code>
