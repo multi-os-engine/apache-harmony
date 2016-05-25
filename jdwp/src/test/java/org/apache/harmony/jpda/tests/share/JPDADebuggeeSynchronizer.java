@@ -183,6 +183,44 @@ public class JPDADebuggeeSynchronizer implements DebuggeeSynchronizer {
     }
 
     /**
+     * Returns whether a given sync server port conflicts with the transport address.
+     * 
+     * @param syncServerPort
+     *            the sync server port
+     * @return <code>true</code> if there is a conflict, <code>false</code> otherwise
+     * 
+     */
+    public boolean isSyncPortConflictingWithTransportAddress(int syncServerPort) {
+        String address = settings.getTransportAddress();
+        String hostName = TestOptions.extractHostnameFromAddress(address);
+        InetAddress hostAddr = null;
+        int port = 0;
+        try {
+            port = TestOptions.extractPortNumberFromAddress(address);
+        } catch (NumberFormatException e) {
+            throw new TestErrorException(
+                    "[SYNC] Illegal port number in socket address: " + address);
+        }
+
+        if (hostName != null) {
+            try {
+                hostAddr = InetAddress.getByName(hostName);
+            } catch (UnknownHostException e) {
+                throw new TestErrorException(
+                        "[SYNC] Exception in binding for socket sync connection", e);
+            }
+        }
+
+        // Is the transport address the local host?
+        boolean isLocalHost = (hostAddr == null) || (hostAddr.getHostAddress().equals("127.0.0.1"));
+        // Is the port of the transport not automatically assigned (non
+        // null) and the same as the sync port?
+        boolean isSyncPort = (port != 0) && (port == syncServerPort);
+
+        return isLocalHost && isSyncPort;
+    }
+
+    /**
      * Binds server to listen socket port.
      * 
      * If <code>serverAddress.getPort()</code> returns 0 (i.e.,
@@ -195,7 +233,35 @@ public class JPDADebuggeeSynchronizer implements DebuggeeSynchronizer {
         InetSocketAddress serverAddress = getSyncServerAddress();
         try {
             logWriter.println("[SYNC] Binding socket on: " + serverAddress);
-            serverSocket = new ServerSocket(serverAddress.getPort(), 0, serverAddress.getAddress());
+            int syncServerPort = serverAddress.getPort();
+            InetAddress syncServerInetAddress = serverAddress.getAddress();
+            serverSocket = new ServerSocket(syncServerPort, /* backlog */ 0, syncServerInetAddress);
+
+            if (syncServerPort == 0) {
+                // The sync port is to be chosen by the OS.  Make sure
+                // we do not use the same port as the one used in the transport
+                // address.
+                int localSyncPort = serverSocket.getLocalPort();
+                if (isSyncPortConflictingWithTransportAddress(localSyncPort)) {
+                    logWriter.println(
+                            "[SYNC] Retrying, as sync port is already used in transport address: "
+                            + localSyncPort);
+                    // Open a new socket, to obtain a new, different port; then
+                    // close the original socket to free the port and replace it
+                    // with the new one.
+                    //
+                    // This strategy relies on the assumption that the OS will
+                    // make the port used in the original socket available as
+                    // soon as it is closed (or just after), so that it can be
+                    // used in the transport socket -- see
+                    // org.apache.harmony.jpda.tests.framework.jdwp.SocketTransportWrapper.startListening().
+                    ServerSocket newServerSocket =
+                            new ServerSocket(/* port */ 0, /* backlog */ 0, syncServerInetAddress);
+                    serverSocket.close();
+                    serverSocket = newServerSocket;
+                }
+            }
+
             int localPort = serverSocket.getLocalPort();
             logWriter.println("[SYNC] Bound socket on: " + serverAddress
                     + " (local port: " + localPort + ")" );

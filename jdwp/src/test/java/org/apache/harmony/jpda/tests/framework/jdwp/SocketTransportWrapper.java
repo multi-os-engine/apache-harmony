@@ -35,6 +35,7 @@ import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.IOException;
 
+import org.apache.harmony.jpda.tests.framework.TestOptions;
 import org.apache.harmony.jpda.tests.framework.jdwp.Packet;
 
 /**
@@ -57,23 +58,13 @@ public class SocketTransportWrapper implements TransportWrapper {
      * @return string representation of listening address 
      */
     public String startListening(String address) throws IOException {
-        String hostName = null;
+        String hostName = TestOptions.extractHostnameFromAddress(address);
         InetAddress hostAddr = null;
         int port = 0;
-        if (address != null) {
-            String portName = null;
-            int i = address.indexOf(':');
-            if (i < 0) {
-                portName = address;
-            } else {
-                hostName = address.substring(0, i);
-                portName = address.substring(i+1);
-            }
-            try {
-                port = Integer.parseInt(portName);
-            } catch (NumberFormatException e) {
-                throw new IOException("Illegal port number in socket address: " + address);
-            }
+        try {
+            port = TestOptions.extractPortNumberFromAddress(address);
+        } catch (NumberFormatException e) {
+            throw new IOException("Illegal port number in socket address: " + address);
         }
 
         if (hostName != null) {

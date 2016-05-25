@@ -371,9 +371,62 @@ public class TestOptions {
     }
 
     /**
+     * Extract hostname from a TCP/IP address.
+     * 
+     * The address is parsed as "hostname:port".  If that string does
+     * not contain a semi-colon, the hostname is considered not
+     * defined and null is returned.
+     * 
+     * This method is intended to be used to extract the hostname from
+     * the string returned by getTransportAddress().
+     * 
+     * @param address
+     *            the address
+     * @return the hostname of the address if defined, or null otherwise.
+     */
+    public static String extractHostnameFromAddress(String address) {
+        String hostName = null;
+        if (address != null) {
+            int i = address.indexOf(':');
+            if (i >= 0) {
+                hostName = address.substring(0, i);
+            }
+        }
+        return hostName;
+    }
+
+    /**
+     * Extract port number from a TCP/IP address.
+     * 
+     * The address is parsed as "hostname:port" or "port", if it contains
+     * no semi-colon.
+     * 
+     * This method is intended to be used to extract the port number from
+     * the string returned by getTransportAddress().
+     * 
+     * @param address
+     *            the address
+     * @return the port number of the address if defined, or 0 otherwise.
+     */
+    public static int extractPortNumberFromAddress(String address) throws NumberFormatException {
+        int port = 0;
+        if (address != null) {
+            String portName = null;
+            int i = address.indexOf(':');
+            if (i < 0) {
+                portName = address;
+            } else {
+                portName = address.substring(i + 1);
+            }
+            port = Integer.parseInt(portName);
+        }
+        return port;
+    }
+
+    /**
      * Returns TCP/IP port for synchronization channel.
      * 
-     * @return string with port number or null
+     * @return port number if it is set, or DEFAULT_SYNC_PORT otherwise.
      */
     public int getSyncPortNumber() {
         String buf = getSyncPortString();
