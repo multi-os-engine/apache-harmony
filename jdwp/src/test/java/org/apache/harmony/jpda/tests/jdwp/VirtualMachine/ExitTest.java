@@ -45,10 +45,10 @@ public class ExitTest extends JDWPTestCase {
     }
 
     @Override
-    protected void beforeDebuggeeStart(JDWPUnitDebuggeeWrapper debuggeeWrapper) {
+    protected void beforeDebuggeeStart() {
         // Indicate that we expect the debuggee to exit with a particular code.
         debuggeeWrapper.setExpectedExitCode(EXIT_CODE);
-        super.beforeDebuggeeStart(debuggeeWrapper);
+        super.beforeDebuggeeStart();
     }
 
     /**
