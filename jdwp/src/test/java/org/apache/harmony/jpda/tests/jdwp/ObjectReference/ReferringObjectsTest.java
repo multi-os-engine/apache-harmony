@@ -96,7 +96,7 @@ public class ReferringObjectsTest extends JDWPSyncTestCase {
         logWriter.println("==> " + thisTestName + " for " + thisCommandName + ": START...");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
-        // Get the number of referrer objects in ReferringObjectsDebugee
+        // Get the number of referrer objects in ReferringObjectsDebuggee
         long debuggeeRefTypeID = getClassIDBySignature(debuggeeSignature);
         long referringObjNumID = debuggeeWrapper.vmMirror.getFieldID(
                 debuggeeRefTypeID, "referringObjNum");

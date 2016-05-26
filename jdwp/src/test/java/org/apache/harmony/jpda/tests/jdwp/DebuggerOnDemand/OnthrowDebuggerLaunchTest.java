@@ -33,19 +33,20 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 import org.apache.harmony.jpda.tests.share.JPDATestOptions;
 
 /**
- * This test case exercises possibility of debugge to invoke debugger on demand with "onthrow" option.
+ * This test case exercises possibility of debuggee to invoke debugger
+ * on demand with "onthrow" option.
  *
- * @see org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthowDebuggerLaunchDebuggee
+ * @see org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthrowDebuggerLaunchDebuggee
  * @see org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthrowLaunchDebugger001
  * @see org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthrowLaunchDebugger002
  */
 public class OnthrowDebuggerLaunchTest extends JDWPRawTestCase {
 
     public static final String EXCEPTION_CLASS_FOR_DEBUGGER =
-                   "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.ExceptionForDebugger";
+        "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.ExceptionForDebugger";
 
     public static final String DEBUGGEE_CLASS =
-                   "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthowDebuggerLaunchDebuggee";
+        "org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthrowDebuggerLaunchDebuggee";
 
     /**
      * Test launches debuggee (without establishing synchronization connection)

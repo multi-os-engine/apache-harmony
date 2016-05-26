@@ -35,7 +35,7 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  * waits for breakpoint, gets frames, and prints them. Then it releases debuggee.
  * After every relevant step, debugger send message (OK or FAIL) to Test.
  *
- * @see org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthowDebuggerLaunchDebuggee
+ * @see org.apache.harmony.jpda.tests.jdwp.DebuggerOnDemand.OnthrowDebuggerLaunchDebuggee
  */
 
 public class OnthrowLaunchDebugger002 extends LaunchedDebugger {
@@ -89,7 +89,7 @@ public class OnthrowLaunchDebugger002 extends LaunchedDebugger {
         testSynchronizer.sendMessage("OK");
         logWriter.println("**> breakpointThreadID = " + breakpointThreadID);
 
-        //print stack frames
+        // print stack frames
         logWriter.println("");
         logWriter.println("**> Get frames, thread = " + breakpointThreadID);
         FrameInfo[] frameInfos = null;
