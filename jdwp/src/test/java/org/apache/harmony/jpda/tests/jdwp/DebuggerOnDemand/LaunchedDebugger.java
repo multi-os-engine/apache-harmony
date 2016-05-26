@@ -33,20 +33,20 @@ import org.apache.harmony.jpda.tests.share.JPDATestOptions;
  * Base class for debuggers that are used in tests for DebuggerOnDemand functionality.
  */
 public abstract class LaunchedDebugger extends JDWPTestCase {
-    
+
     // synchronization channel between debugger and debuggee
     protected JPDADebuggeeSynchronizer synchronizer;
 
     // synchronization channel between debugger and test
     protected JPDADebuggeeSynchronizer testSynchronizer;
-    
+
     // name of tested debuggee class
-    public static final String DEBUGGEE_CLASS_NAME = 
-    	"org/apache/harmony/jpda/tests/jdwp/DebuggerOnDemand/OnthowDebuggerLaunchDebuggee";
+    public static final String DEBUGGEE_CLASS_NAME =
+        "org/apache/harmony/jpda/tests/jdwp/DebuggerOnDemand/OnthrowDebuggerLaunchDebuggee";
 
     // signature of the tested debuggee class
     public static final String DEBUGGEE_CLASS_SIGNATURE = "L" + DEBUGGEE_CLASS_NAME + ";";
-    
+
     /**
      * This method is invoked right before attaching to debuggee VM.
      * It forces to use attaching connector and fixed transport address.
