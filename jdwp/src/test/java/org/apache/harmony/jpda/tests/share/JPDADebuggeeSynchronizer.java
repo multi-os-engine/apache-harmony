@@ -184,18 +184,20 @@ public class JPDADebuggeeSynchronizer implements DebuggeeSynchronizer {
 
     /**
      * Binds server to listen socket port.
-     * 
+     *
      * If <code>serverAddress.getPort()</code> returns 0 (i.e.,
      * <code>org.apache.harmony.jpda.tests.framework.TestOptions.DEFAULT_SYNC_PORT</code>),
      * the OS will choose a port automatically for this server socket.
-     * 
+     *
      * @return port number
      */
     public synchronized int bindServer() {
         InetSocketAddress serverAddress = getSyncServerAddress();
         try {
             logWriter.println("[SYNC] Binding socket on: " + serverAddress);
-            serverSocket = new ServerSocket(serverAddress.getPort(), 0, serverAddress.getAddress());
+            int syncServerPort = serverAddress.getPort();
+            InetAddress syncServerInetAddress = serverAddress.getAddress();
+            serverSocket = new ServerSocket(syncServerPort, /* backlog */ 0, syncServerInetAddress);
             int localPort = serverSocket.getLocalPort();
             logWriter.println("[SYNC] Bound socket on: " + serverAddress
                     + " (local port: " + localPort + ")" );

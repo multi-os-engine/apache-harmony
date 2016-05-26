@@ -57,6 +57,7 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
 
         // launch debuggee process
         debuggeeWrapper = createDebuggeeWrapper();
+        setUpDebuggeeWrapperConnection();
         beforeDebuggeeStart(debuggeeWrapper);
         startDebuggeeWrapper();
 
@@ -80,19 +81,27 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
     }
 
     /**
+     * Set up server side JDWP connection.
+     */
+    protected void setUpDebuggeeWrapperConnection() {
+        debuggeeWrapper.setUpConnection();
+        logWriter.println("Set up server side JDWP connection.");
+    }
+
+    /**
      * Starts wrapper for debuggee process.
      */
     protected void startDebuggeeWrapper() {
-    	debuggeeWrapper.start();
+        debuggeeWrapper.start();
         logWriter.println("Established JDWP connection with debuggee VM");
     }
-    	
+
     /**
      * Receives initial VM_INIT event if debuggee is suspended on event.
      */
     protected void receiveInitialEvent() {
         if (settings.isDebuggeeSuspend()) {
-            initialEvent = 
+            initialEvent =
                 debuggeeWrapper.vmMirror.receiveCertainEvent(JDWPConstants.EventKind.VM_INIT);
             logWriter.println("Received inital VM_INIT event");
         }
@@ -114,7 +123,7 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
      * This method is invoked right before starting debuggee VM.
      */
     protected void beforeDebuggeeStart(JDWPUnitDebuggeeWrapper debuggeeWrapper) {
-
+      // Empty.
     }
 
     /**
