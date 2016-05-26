@@ -30,17 +30,17 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 /**
  * This class provides simple debuggee class with deferred synch establishing.
- * 
- * When debuggee throws exception, agent launches debugger, that connects to debuggee. 
+ *
+ * When debuggee throws exception, agent launches debugger, that connects to debuggee.
  * Then debuggee establishes synch connection with debugger and invokes tested method.
  */
-public class OnthowDebuggerLaunchDebuggee extends Debuggee {
+public class OnthrowDebuggerLaunchDebuggee extends Debuggee {
 
     public void onStart() {
         super.onStart();
 
         logWriter.println("DEBUGGEE: started");
-        
+
         // prepare for connection with debugger
         logWriter.println("DEBUGGEE: bind for synch connection with debugger");
         synchronizer = createSynchronizer();
@@ -84,7 +84,7 @@ public class OnthowDebuggerLaunchDebuggee extends Debuggee {
     }
 
     public static void main(String[] args) {
-        runDebuggee(OnthowDebuggerLaunchDebuggee.class);
+        runDebuggee(OnthrowDebuggerLaunchDebuggee.class);
     }
 
     protected JPDADebuggeeSynchronizer synchronizer;
