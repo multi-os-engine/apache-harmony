@@ -372,8 +372,8 @@ public class TestOptions {
 
     /**
      * Returns TCP/IP port for synchronization channel.
-     * 
-     * @return string with port number or null
+     *
+     * @return port number if it is set, or DEFAULT_SYNC_PORT otherwise.
      */
     public int getSyncPortNumber() {
         String buf = getSyncPortString();
