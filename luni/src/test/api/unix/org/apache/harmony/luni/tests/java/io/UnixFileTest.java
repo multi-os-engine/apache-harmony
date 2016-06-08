@@ -105,11 +105,11 @@ public class UnixFileTest extends TestCase {
                 // exit the subprocess safely
                 proc.waitFor();
 
-                // filter unnecessary information
-                String[] txtResult = outputResult.resStr
-                        .split("\\D|\\p{javaLowerCase}|\\p{javaUpperCase}");
+                // Split the results and look for the matching numerical values
+                String[] txtResult = outputResult.resStr.split(" ");
                 for (int i = 0, j = 0; i < txtResult.length; i++) {
-                    if (txtResult[i].length() > 3) {
+                    String text = txtResult[i];
+                    if (text.matches("[0-9]+") && text.length() > 3) {
                         result[j++] = Long.parseLong(txtResult[i]) * 1024L;
                     }
                 }
