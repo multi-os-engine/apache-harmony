@@ -399,9 +399,8 @@ public class BatchUpdateExceptionTest extends TestCase {
                 assertEquals(i + " Final state mismatch: ",
                         aBatchUpdateException.getErrorCode(),
                         theFinalStates1[i]);
-                assertEquals(i + " Final state mismatch: ",
-                        aBatchUpdateException.getUpdateCounts(),
-                        theFinalStates2[i]);
+                assertTrue(i + " Final state mismatch: ",
+                        Arrays.equals(aBatchUpdateException.getUpdateCounts(), theFinalStates2[i]));
                 assertEquals(i + " Final state mismatch: ",
                         aBatchUpdateException.getSQLState(), theFinalStates3[i]);
                 assertEquals(i + " Final state mismatch: ",
