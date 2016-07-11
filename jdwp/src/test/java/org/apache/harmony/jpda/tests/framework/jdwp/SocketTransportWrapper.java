@@ -159,7 +159,7 @@ public class SocketTransportWrapper implements TransportWrapper {
         }
 
         long finishTime = System.currentTimeMillis() + attachTimeout;
-        long sleepTime = 4 * 1000; // millesecinds
+        long sleepTime = 4 * 1000; // milliseconds
         IOException exception = null;
         try {
             do {
