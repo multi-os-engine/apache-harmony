@@ -124,16 +124,19 @@ public class JDWPUnitDebuggeeWrapper extends JDWPUnitDebuggeeProcessWrapper {
     public void stop() {
         disposeConnection();
 
-        finishProcessAndRedirectors();
-
-        closeConnection();
-        if (settings.isListenConnectorKind()) {
-            try {
-                transport.stopListening();
-            } catch (IOException e) {
-                logWriter.println("IOException in stopping transport listening: " + e);
-            }
+        try {
+            finishProcessAndRedirectors();
+        } catch (TestErrorException e) {
+           logWriter.println("TestErrorException in: finishing process and redirectors: " + e);
+           // The test has failed; make sure that the transport server
+           // socket (if any) is closed before leaving, as we may
+           // otherwise block the transport port for subsequent JDWP
+           // tests.
+           tearDownConnection();
+           throw e;
         }
+
+        tearDownConnection();
     }
 
     /**
@@ -178,6 +181,20 @@ public class JDWPUnitDebuggeeWrapper extends JDWPUnitDebuggeeProcessWrapper {
                 vmMirror.closeConnection();
             } catch (IOException e) {
                 logWriter.println("Ignoring exception in closing connection: " + e);
+            }
+        }
+    }
+
+    /**
+     * Closes JDWP connection and for listen connectors, stops listening to transport.
+     */
+    private void tearDownConnection() {
+        closeConnection();
+        if (settings.isListenConnectorKind()) {
+            try {
+                transport.stopListening();
+            } catch (IOException e) {
+                logWriter.println("IOException in transport listening stopping: " + e);
             }
         }
     }
