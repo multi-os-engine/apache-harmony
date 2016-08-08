@@ -36,7 +36,7 @@ import org.apache.harmony.security.tests.support.TestCertUtils;
 public class TimestampTest extends SerializationTest {
 
     /**
-     * @see com.intel.drl.test.SerializationTest#getData()
+     * @see org.moe.drl.test.SerializationTest#getData()
      */
     protected Object[] getData() {
         CertPath cpath = TestCertUtils.getCertPath();

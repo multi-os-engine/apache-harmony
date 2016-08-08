@@ -35,7 +35,7 @@ public class GuardedObjectTest extends SerializationTest implements
         SerializationTest.SerializableAssert {
 
     /**
-     * @see com.intel.drl.test.SerializationTest#getData()
+     * @see org.moe.drl.test.SerializationTest#getData()
      */
     protected Object[] getData() {
         return new Object[] { new GuardedObject(null, null),
