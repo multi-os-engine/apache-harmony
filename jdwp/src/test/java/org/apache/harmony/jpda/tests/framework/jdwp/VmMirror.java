@@ -265,6 +265,53 @@ public class VmMirror {
     }
 
     /**
+     * Sets breakpoint at the last line of method with name <i>methodName</i>.
+     * 
+     * @param classID
+     *            id of class with required method
+     * @param methodName
+     *            name of required method
+     * @return requestID id of request
+     */
+    public int setBreakpointAtMethodEnd(long classID, String methodName) {
+		long methodID = getMethodID(classID, methodName);
+
+        ReplyPacket lineTableReply = getLineTable(classID, methodID);
+        if (lineTableReply.getErrorCode() != JDWPConstants.Error.NONE) {
+            throw new TestErrorException(
+                    "Command getLineTable returned error code: "
+                            + lineTableReply.getErrorCode()
+                            + " - "
+                            + JDWPConstants.Error.getName(lineTableReply
+                                    .getErrorCode()));
+        }
+
+        lineTableReply.getNextValueAsLong();
+        // Lowest valid code index for the method
+
+        lineTableReply.getNextValueAsLong();
+        // Highest valid code index for the method
+
+        int numberOfLines = lineTableReply.getNextValueAsInt();
+
+        long lineCodeIndex = 0;
+        for (int i = 0; i < numberOfLines; i++) {
+        	lineCodeIndex = lineTableReply.getNextValueAsLong();
+        	lineTableReply.getNextValueAsInt();
+        	// line number
+        }
+
+        // set breakpoint inside checked method
+        Location breakpointLocation = new Location(JDWPConstants.TypeTag.CLASS,
+                classID, methodID, lineCodeIndex);
+
+        ReplyPacket reply = setBreakpoint(breakpointLocation);
+        checkReply(reply);
+
+        return reply.getNextValueAsInt();
+	}
+
+    /**
      * Waits for stop on breakpoint and gets id of thread where it stopped.
      * 
      * @param requestID

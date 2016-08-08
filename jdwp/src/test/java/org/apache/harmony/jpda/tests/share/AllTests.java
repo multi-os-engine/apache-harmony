@@ -34,6 +34,9 @@ public class AllTests {
     // "TODO".
     //
 
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.StaticInitializerTest.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.NativeMethodTest.class);
+
     // I haven't yet found an IDE that will use these, but we might want to implement them anyway.
     //suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.MonitorContendedEnteredTest.class);
     //suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.Events.MonitorContendedEnterTest.class);
