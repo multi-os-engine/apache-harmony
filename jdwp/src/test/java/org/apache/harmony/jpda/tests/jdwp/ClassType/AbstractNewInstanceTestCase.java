@@ -78,9 +78,8 @@ public abstract class AbstractNewInstanceTestCase extends JDWPSyncTestCase {
      * @param constructorSignature the constructor signature
      * @param provider the arguments provider
      * @param expectedTag the expected JDWP tag
-     * @return the tagged object returned by the constructor
      */
-    protected TaggedObject checkNewInstanceTag(String typeSignature, String constructorSignature,
+    protected void checkNewInstanceTag(String typeSignature, String constructorSignature,
             ConstructorArgumentsProvider provider, byte expectedTag) {
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
@@ -145,7 +144,5 @@ public abstract class AbstractNewInstanceTestCase extends JDWPSyncTestCase {
 
         // Debuggee is suspended on the breakpoint: resume it now.
         resumeDebuggee();
-
-        return objectResult;
     }
 }
