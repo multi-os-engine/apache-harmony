@@ -25,8 +25,6 @@
  */
 package org.apache.harmony.jpda.tests.jdwp.share;
 
-import java.io.IOException;
-
 import org.apache.harmony.jpda.tests.framework.TestErrorException;
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.EventPacket;
@@ -423,15 +421,7 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
                 JDWPCommands.StringReferenceCommandSet.CommandSetID,
                 JDWPCommands.StringReferenceCommandSet.ValueCommand);
         packet.setNextValueAsObjectID(stringID);
-        long timeout = 5 * 60 * 1000;  // Use a timeout of 5 minutes.
-        ReplyPacket reply = null;
-        try {
-          reply = debuggeeWrapper.vmMirror.performCommand(packet, timeout);
-        } catch (IOException e) {
-          throw new TestErrorException(e);
-        } catch (InterruptedException e) {
-          throw new TestErrorException(e);
-        }
+        ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(packet);
         checkReplyPacket(reply, "StringReference::Value command");
         String returnedTestString = reply.getNextValueAsString();
         return returnedTestString;
