@@ -19,7 +19,6 @@
 package org.apache.harmony.jpda.tests.jdwp.ClassType;
 
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
-import org.apache.harmony.jpda.tests.framework.jdwp.TaggedObject;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 
 import java.util.List;
@@ -39,7 +38,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String()</code>.
      */
     public void testNewInstanceString_NoArgConstructor() {
-        runTestNewInstanceString("()V", "", new NoConstructorArgumentProvider());
+        runTestNewInstanceString("()V", new NoConstructorArgumentProvider());
     }
 
     /**
@@ -47,7 +46,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String(byte[])</code>.
      */
     public void testNewInstanceString_ByteArrayArgConstructor() {
-        runTestNewInstanceString("([B)V", "my test string", new ConstructorArgumentsProvider() {
+        runTestNewInstanceString("([B)V", new ConstructorArgumentsProvider() {
 
             @Override
             public void provideConstructorArguments(List<Value> constructorArguments) {
@@ -64,7 +63,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String(byte[], int, int)</code>.
      */
     public void testNewInstanceString_ByteArrayIntIntConstructor() {
-        runTestNewInstanceString("([BII)V", "m", new ConstructorArgumentsProvider() {
+        runTestNewInstanceString("([BII)V", new ConstructorArgumentsProvider() {
             @Override
             public void provideConstructorArguments(List<Value> constructorArguments) {
                 // Pass a reference to BYTE_ARRAY static field.
@@ -82,8 +81,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String(byte[], int, int, java.lang.String)</code>.
      */
     public void testNewInstanceString_ByteArrayIntIntStringConstructor() {
-        runTestNewInstanceString("([BIILjava/lang/String;)V", "m",
-                new ConstructorArgumentsProvider() {
+        runTestNewInstanceString("([BIILjava/lang/String;)V", new ConstructorArgumentsProvider() {
             @Override
             public void provideConstructorArguments(List<Value> constructorArguments) {
                 // Pass a reference to BYTE_ARRAY and STRING_CHARSET static
@@ -104,8 +102,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String(byte[], java.lang.String)</code>.
      */
     public void testNewInstanceString_ByteArrayStringConstructor() {
-        runTestNewInstanceString("([BLjava/lang/String;)V", "my test string",
-                new ConstructorArgumentsProvider() {
+        runTestNewInstanceString("([BLjava/lang/String;)V", new ConstructorArgumentsProvider() {
             @Override
             public void provideConstructorArguments(List<Value> constructorArguments) {
                 // Pass a reference to BYTE_ARRAY and STRING_CHARSET static
@@ -125,7 +122,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * .
      */
     public void testNewInstanceString_ByteArrayIntIntCharsetConstructor() {
-        runTestNewInstanceString("([BIILjava/nio/charset/Charset;)V", "m",
+        runTestNewInstanceString("([BIILjava/nio/charset/Charset;)V",
                 new ConstructorArgumentsProvider() {
                     @Override
                     public void provideConstructorArguments(List<Value> constructorArguments) {
@@ -147,7 +144,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String(byte[], java.nio.charset.Charset)</code>.
      */
     public void testNewInstanceString_ByteArrayCharsetConstructor() {
-        runTestNewInstanceString("([BLjava/nio/charset/Charset;)V", "my test string",
+        runTestNewInstanceString("([BLjava/nio/charset/Charset;)V",
                 new ConstructorArgumentsProvider() {
                     @Override
                     public void provideConstructorArguments(List<Value> constructorArguments) {
@@ -167,7 +164,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String(char[])</code>.
      */
     public void testNewInstanceString_CharArrayConstructor() {
-        runTestNewInstanceString("([C)V", "my test string", new ConstructorArgumentsProvider() {
+        runTestNewInstanceString("([C)V", new ConstructorArgumentsProvider() {
             @Override
             public void provideConstructorArguments(List<Value> constructorArguments) {
                 // Pass a reference to CHAR_ARRAY static field.
@@ -183,7 +180,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String(char[], int, int)</code>.
      */
     public void testNewInstanceString_CharArrayIntIntConstructor() {
-        runTestNewInstanceString("([CII)V", "m", new ConstructorArgumentsProvider() {
+        runTestNewInstanceString("([CII)V", new ConstructorArgumentsProvider() {
             @Override
             public void provideConstructorArguments(List<Value> constructorArguments) {
                 // Pass a reference to CHAR_ARRAY static field.
@@ -201,8 +198,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String(java.lang.String)</code>.
      */
     public void testNewInstanceString_StringConstructor() {
-        runTestNewInstanceString("(Ljava/lang/String;)V", "my test string",
-                new ConstructorArgumentsProvider() {
+        runTestNewInstanceString("(Ljava/lang/String;)V", new ConstructorArgumentsProvider() {
             @Override
             public void provideConstructorArguments(List<Value> constructorArguments) {
                 // Pass a reference to TEST_STRING static field.
@@ -218,8 +214,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String(java.lang.StringBuffer)</code>.
      */
     public void testNewInstanceString_StringBufferConstructor() {
-        runTestNewInstanceString("(Ljava/lang/StringBuffer;)V", "my test string",
-                new ConstructorArgumentsProvider() {
+        runTestNewInstanceString("(Ljava/lang/StringBuffer;)V", new ConstructorArgumentsProvider() {
             @Override
             public void provideConstructorArguments(List<Value> constructorArguments) {
                 // Pass a reference to STRING_BUFFER static field.
@@ -235,7 +230,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String(int[], * int, int)</code>.
      */
     public void testNewInstanceString_IntArrayIntIntConstructor() {
-        runTestNewInstanceString("([III)V", "m", new ConstructorArgumentsProvider() {
+        runTestNewInstanceString("([III)V", new ConstructorArgumentsProvider() {
             @Override
             public void provideConstructorArguments(List<Value> constructorArguments) {
                 // Pass a reference to INT_ARRAY static field.
@@ -253,7 +248,7 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      * <code>java.lang.String(java.lang.StringBuilder)</code>.
      */
     public void testNewInstanceString_StringBuilderConstructor() {
-        runTestNewInstanceString("(Ljava/lang/StringBuilder;)V", "my test string",
+        runTestNewInstanceString("(Ljava/lang/StringBuilder;)V",
                 new ConstructorArgumentsProvider() {
                     @Override
                     public void provideConstructorArguments(List<Value> constructorArguments) {
@@ -269,15 +264,10 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
     /**
      * Exercises ClassType.NewInstance command for java.lang.String.
      */
-    private void runTestNewInstanceString(String constructorSignature, String expectedString,
+    private void runTestNewInstanceString(String constructorSignature,
             ConstructorArgumentsProvider provider) {
-        TaggedObject result = checkNewInstanceTag("Ljava/lang/String;", constructorSignature,
-                provider, JDWPConstants.Tag.STRING_TAG);
-
-        // Get the character data out of the new String and check that it's expected.
-        String resultString = getStringValue(result.objectID);
-        assertString("ClassType::NewInstance command returned invalid string,",
-                expectedString, resultString);
+        checkNewInstanceTag("Ljava/lang/String;", constructorSignature, provider,
+                JDWPConstants.Tag.STRING_TAG);
     }
 
     private Value getStaticFieldValue(long classId, String fieldName) {
