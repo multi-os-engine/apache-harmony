@@ -271,13 +271,31 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
      */
     private void runTestNewInstanceString(String constructorSignature, String expectedString,
             ConstructorArgumentsProvider provider) {
-        TaggedObject result = checkNewInstanceTag("Ljava/lang/String;", constructorSignature,
-                provider, JDWPConstants.Tag.STRING_TAG);
+        checkNewInstanceTag("Ljava/lang/String;", constructorSignature, provider,
+                new StringChecker(expectedString));
+    }
 
-        // Get the character data out of the new String and check that it's expected.
-        String resultString = getStringValue(result.objectID);
-        assertString("ClassType::NewInstance command returned invalid string,",
-                expectedString, resultString);
+    /**
+     * A specialization for String that also checks the string's value.
+     */
+    private final class StringChecker extends Checker {
+        private final String expectedString;
+
+        private StringChecker(String expectedString) {
+            super(JDWPConstants.Tag.STRING_TAG);
+            this.expectedString = expectedString;
+        }
+
+        @Override
+        public void check(TaggedObject objectResult, TaggedObject exceptionResult) {
+            // Check tag first.
+            super.check(objectResult, exceptionResult);
+
+            // Get the character data out of the new String and check that it's expected.
+            String resultString = getStringValue(objectResult.objectID);
+            assertString("ClassType::NewInstance command returned invalid string,",
+                    expectedString, resultString);
+        }
     }
 
     private Value getStaticFieldValue(long classId, String fieldName) {
