@@ -49,7 +49,7 @@ include $(BUILD_JAVA_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(harmony_jdwp_test_src_files)
-LOCAL_JAVA_LIBRARIES := junit
+LOCAL_JAVA_LIBRARIES := junit-host
 LOCAL_MODULE := apache-harmony-jdwp-tests-host
 include $(BUILD_HOST_JAVA_LIBRARY)
 
