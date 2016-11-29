@@ -177,6 +177,8 @@ public class AllTests {
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ReferenceType.SourceDebugExtensionTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ReferenceType.SourceFileTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ReferenceType.StatusTest.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ReferenceType.SyntheticFieldsTest.class);
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.ReferenceType.SyntheticMethodsTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.StackFrame.GetValues002Test.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.StackFrame.GetValuesTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.StackFrame.PopFrames002Test.class);
