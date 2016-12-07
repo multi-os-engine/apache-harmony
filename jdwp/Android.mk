@@ -28,7 +28,7 @@ cts_jdwp_test_target_runtime_args += -Djpda.settings.debuggeeJavaPath='$(cts_jdw
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(harmony_jdwp_test_src_files)
-LOCAL_JAVA_LIBRARIES := junit-targetdex
+LOCAL_JAVA_LIBRARIES := junit
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := CtsJdwp
 LOCAL_NO_EMMA_INSTRUMENT := true
@@ -39,7 +39,7 @@ include $(BUILD_CTS_TARGET_JAVA_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(harmony_jdwp_test_src_files)
-LOCAL_JAVA_LIBRARIES := junit-targetdex
+LOCAL_JAVA_LIBRARIES := junit
 LOCAL_MODULE_TAGS := tests
 LOCAL_MODULE := apache-harmony-jdwp-tests
 LOCAL_NO_EMMA_INSTRUMENT := true
