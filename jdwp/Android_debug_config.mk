@@ -20,7 +20,7 @@
 # to investigate failures during testing.
 
 # Target settings
-jdwp_test_classpath_target := /data/jdwp/apache-harmony-jdwp-tests.jar:/data/junit/junit-targetdex.jar
+jdwp_test_classpath_target := /data/jdwp/apache-harmony-jdwp-tests.jar:/data/junit/junit.jar
 jdwp_test_runtime_bin_target := dalvikvm
 
 # Host settings
@@ -72,7 +72,7 @@ jdwp_tests_host_dependencies := \
 
 jdwp_tests_target_dependencies := \
   $(TARGET_OUT_DATA)/jdwp/apache-harmony-jdwp-tests.jar \
-  $(TARGET_OUT_DATA)/junit/junit-targetdex.jar
+  $(TARGET_OUT_DATA)/junit/junit.jar
 
 # Define a JDWP host rule
 #
