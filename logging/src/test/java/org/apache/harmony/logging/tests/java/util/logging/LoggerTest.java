@@ -3179,9 +3179,9 @@ public class LoggerTest extends TestCase {
         assertSame(r.getLoggerName(), this.sharedLogger.getName());
         assertEquals(r.getMessage(),
                 "logrb(Level, String, String, ResourceBundle, String, Object...) msg");
-        assertSame(r.getResourceBundleName(), VALID_RESOURCE_BUNDLE2);
-        assertSame(r.getSourceClassName(), "sourceClass");
-        assertSame(r.getSourceMethodName(), "sourceMethod");
+        assertEquals(r.getResourceBundleName(), VALID_RESOURCE_BUNDLE2);
+        assertEquals(r.getSourceClassName(), "sourceClass");
+        assertEquals(r.getSourceMethodName(), "sourceMethod");
         assertSame(r.getLevel(), Level.INFO);
         assertEquals(2, r.getParameters().length);
         assertSame(params[0], r.getParameters()[0]);
@@ -3359,9 +3359,9 @@ public class LoggerTest extends TestCase {
         assertSame(r.getLoggerName(), this.sharedLogger.getName());
         assertEquals(r.getMessage(),
                 "logrb(Level, String, String, ResourceBundle, String, Throwable) msg");
-        assertSame(r.getResourceBundleName(), VALID_RESOURCE_BUNDLE2);
-        assertSame(r.getSourceClassName(), "sourceClass");
-        assertSame(r.getSourceMethodName(), "sourceMethod");
+        assertEquals(r.getResourceBundleName(), VALID_RESOURCE_BUNDLE2);
+        assertEquals(r.getSourceClassName(), "sourceClass");
+        assertEquals(r.getSourceMethodName(), "sourceMethod");
         assertSame(r.getLevel(), Level.parse("1611"));
         assertNull(r.getParameters());
         assertSame(r.getThrown(), t);
