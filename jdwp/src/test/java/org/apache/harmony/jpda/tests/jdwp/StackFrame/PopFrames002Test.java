@@ -364,7 +364,7 @@ public class PopFrames002Test extends JDWPStackFrameTestCase {
         invokeCommand.setNextValueAsThreadID(breakpointThreadID);
         invokeCommand.setNextValueAsMethodID(toInvokeMethodID);
         invokeCommand.setNextValueAsInt(1); // args number
-        invokeCommand.setNextValueAsValue(new Value(timeOfMethodInvocation));
+        invokeCommand.setNextValueAsValue(Value.createLong(timeOfMethodInvocation));
         invokeCommand
                 .setNextValueAsInt(JDWPConstants.InvokeOptions.INVOKE_SINGLE_THREADED);
 
