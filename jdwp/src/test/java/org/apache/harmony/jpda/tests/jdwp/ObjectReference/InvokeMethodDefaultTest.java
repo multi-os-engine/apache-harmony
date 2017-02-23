@@ -27,6 +27,7 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  * JDWP unit test for ObjectReference.InvokeMethod command.
  */
 public class InvokeMethodDefaultTest extends JDWPSyncTestCase {
+    @Override
     protected String getDebuggeeClassName() {
         return InvokeMethodDefaultDebuggee.class.getName();
     }

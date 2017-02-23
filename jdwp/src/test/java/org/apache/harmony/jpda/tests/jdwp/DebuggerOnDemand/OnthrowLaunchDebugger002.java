@@ -40,6 +40,7 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 
 public class OnthrowLaunchDebugger002 extends LaunchedDebugger {
 
+    @Override
     protected String getDebuggeeClassName() {
         return "";
     }

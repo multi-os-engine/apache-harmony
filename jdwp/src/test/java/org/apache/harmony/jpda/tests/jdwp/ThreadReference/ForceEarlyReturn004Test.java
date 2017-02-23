@@ -31,6 +31,7 @@ public class ForceEarlyReturn004Test extends JDWPSyncTestCase {
 
     static final double EXPECTED_DOUBLE = 2.4;
 
+    @Override
     protected String getDebuggeeClassName() {
         return "org.apache.harmony.jpda.tests.jdwp.ThreadReference.ForceEarlyReturnDebuggee";
     }

@@ -50,6 +50,7 @@ public class PopFrames002Test extends JDWPStackFrameTestCase {
 
     private static final byte NUMBER_OF_FRAMES_TO_POP = 3;
 
+    @Override
     protected String getDebuggeeClassName() {
         return PopFramesDebuggee.class.getName();
     }
