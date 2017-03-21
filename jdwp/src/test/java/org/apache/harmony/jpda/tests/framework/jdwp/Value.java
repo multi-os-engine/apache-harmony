@@ -204,6 +204,7 @@ public class Value {
     /**
      * Compares with other value.
      */
+    @Override
     public boolean equals(Object arg0) {
         if (!(arg0 instanceof Value))
             return false;
@@ -251,6 +252,7 @@ public class Value {
     /**
      * Converts this value to string representation for printing.
      */
+    @Override
     public String toString() {
 
         switch (tag) {

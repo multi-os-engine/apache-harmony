@@ -36,6 +36,7 @@ public class Breakpoint003Debuggee extends SyncDebuggee {
         return Long.toString(val);
     }
 
+    @Override
     public void run() {
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 

@@ -72,6 +72,7 @@ public class CapabilitiesNewTest extends JDWPSyncTestCase {
             {"reserved32", null}
     };
 
+    @Override
     protected String getDebuggeeClassName() {
         return "org.apache.harmony.jpda.tests.jdwp.share.debuggee.HelloWorld";
     }

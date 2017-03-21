@@ -36,6 +36,7 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class OnthrowDebuggerLaunchDebuggee extends Debuggee {
 
+    @Override
     public void onStart() {
         super.onStart();
 
@@ -59,6 +60,7 @@ public class OnthrowDebuggerLaunchDebuggee extends Debuggee {
         logWriter.println("DEBUGGEE: established synch connection with debugger");
     }
 
+    @Override
     public void run() {
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
@@ -73,6 +75,7 @@ public class OnthrowDebuggerLaunchDebuggee extends Debuggee {
         return new JPDADebuggeeSynchronizer(logWriter, settings);
     }
 
+    @Override
     public void onFinish() {
         logWriter.println("DEBUGGEE: finished");
 

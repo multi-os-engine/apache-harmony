@@ -33,6 +33,7 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  */
 public class NewInstance002Test extends JDWPSyncTestCase {
 
+    @Override
     protected String getDebuggeeClassName() {
         return "org.apache.harmony.jpda.tests.jdwp.ClassType.NewInstance002Debuggee";
     }

@@ -18,7 +18,6 @@
 
 package org.apache.harmony.jpda.tests.jdwp.ThreadReference;
 
-import org.apache.harmony.jpda.tests.framework.TestErrorException;
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
@@ -53,6 +52,7 @@ public class ForceEarlyReturnTest extends JDWPSyncTestCase {
 
     static final String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ThreadReference/ForceEarlyReturnDebuggee;";
 
+    @Override
     protected String getDebuggeeClassName() {
         return "org.apache.harmony.jpda.tests.jdwp.ThreadReference.ForceEarlyReturnDebuggee";
     }

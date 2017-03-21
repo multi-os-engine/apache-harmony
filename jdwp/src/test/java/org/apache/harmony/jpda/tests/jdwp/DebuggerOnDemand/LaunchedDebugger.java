@@ -67,6 +67,7 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
      * Overrides inherited method to resume debuggee VM and then to establish
      * sync connection with debuggee and server.
      */
+    @Override
     protected void internalSetUp() throws Exception {
 
         // estabslish synch connection with test
@@ -81,7 +82,7 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
 
     	// establish synch connection with debuggee
         logWriter.println("Establish synch connection between debugger and debuggee");
-    	synchronizer = new JPDADebuggeeSynchronizer(logWriter, settings);;
+        synchronizer = new JPDADebuggeeSynchronizer(logWriter, settings);
         synchronizer.startClient();
         logWriter.println("Established synch connection between debugger and debuggee");
     }
@@ -89,6 +90,7 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
     /**
      * Creates wrapper for debuggee process.
      */
+    @Override
     protected JDWPUnitDebuggeeWrapper createDebuggeeWrapper() {
         return new JPDADebuggerOnDemandDebuggeeWrapper(settings, logWriter);
     }
@@ -96,6 +98,7 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
     /**
      * Receives initial EXCEPTION event if debuggee is suspended on event.
      */
+    @Override
     protected void receiveInitialEvent() {
         if (settings.isDebuggeeSuspend()) {
             initialEvent = 
@@ -109,6 +112,7 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
     /**
      * Overrides inherited method to close sync connection upon exit.
      */
+    @Override
     protected void internalTearDown() {
         // close synch connection with debuggee
         if (synchronizer != null) {
@@ -126,7 +130,8 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
         super.internalTearDown();
     }
 
-	protected String getDebuggeeClassName() {
+	@Override
+    protected String getDebuggeeClassName() {
         return null;
     }
     
@@ -181,7 +186,8 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
         }
         return frameInfos;
     }
-    
+
+    @Override
     protected long getClassIDBySignature(String signature) {
         logWriter.println("=> Getting reference type ID for class: " + signature);
         CommandPacket packet = new CommandPacket(
@@ -223,7 +229,8 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
         }
         logWriter.println(" ");
     }
-    
+
+    @Override
     protected String getMethodName(long classID, long methodID) {
         CommandPacket packet = new CommandPacket(
                 JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
@@ -276,6 +283,7 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
          * Attaches to already launched debuggee process and
          * establishes JDWP connection.
          */
+        @Override
         public void start() {
             try {
                 transport = createTransportWrapper();
@@ -289,6 +297,7 @@ public abstract class LaunchedDebugger extends JDWPTestCase {
         /**
          * Closes all connections but does not wait for debuggee process to exit.
          */
+        @Override
         public void stop() {
             disposeConnection();
             closeConnection();

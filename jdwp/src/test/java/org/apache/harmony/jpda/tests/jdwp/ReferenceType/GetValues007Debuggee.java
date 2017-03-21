@@ -27,6 +27,7 @@ public class GetValues007Debuggee extends SyncDebuggee {
     public void run() {
         logWriter.println("--> Debuggee: GetValues007Debuggee: START");
 
+        @SuppressWarnings("unused")
         GetValues007Interface instance = new GetValues007Implementer();
 
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);

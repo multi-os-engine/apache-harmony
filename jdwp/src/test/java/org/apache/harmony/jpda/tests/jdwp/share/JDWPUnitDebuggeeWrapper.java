@@ -96,6 +96,7 @@ public class JDWPUnitDebuggeeWrapper extends JDWPUnitDebuggeeProcessWrapper {
      * Launches new debuggee process according to test run options and
      * establishes JDWP connection.
      */
+    @Override
     public void start() {
         String cmdLine = settings.getDebuggeeJavaPath() + " -cp \""
                 + settings.getDebuggeeClassPath() + "\" -agentlib:"
@@ -121,6 +122,7 @@ public class JDWPUnitDebuggeeWrapper extends JDWPUnitDebuggeeProcessWrapper {
      * Closes all connections, stops redirectors, and waits for debuggee process
      * exit for default timeout.
      */
+    @Override
     public void stop() {
         disposeConnection();
 
