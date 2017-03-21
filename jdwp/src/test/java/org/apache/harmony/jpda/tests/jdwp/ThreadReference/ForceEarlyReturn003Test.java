@@ -31,6 +31,7 @@ public class ForceEarlyReturn003Test extends JDWPSyncTestCase {
 
     static final float EXPECTED_FLOAT = 0.5f;
 
+    @Override
     protected String getDebuggeeClassName() {
         return "org.apache.harmony.jpda.tests.jdwp.ThreadReference.ForceEarlyReturnDebuggee";
     }

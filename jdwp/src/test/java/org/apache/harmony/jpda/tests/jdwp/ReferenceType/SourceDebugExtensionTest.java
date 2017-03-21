@@ -43,6 +43,7 @@ public class SourceDebugExtensionTest extends JDWPSyncTestCase {
     static final String thisCommandName = "ReferenceType.SourceDebugExtension command";
     static final String debuggeeSignature = "Lorg/apache/harmony/jpda/tests/jdwp/ReferenceType/SourceDebugExtensionDebuggee;";
 
+    @Override
     protected String getDebuggeeClassName() {
         return "org.apache.harmony.jpda.tests.jdwp.ReferenceType.SourceDebugExtensionDebuggee";
     }

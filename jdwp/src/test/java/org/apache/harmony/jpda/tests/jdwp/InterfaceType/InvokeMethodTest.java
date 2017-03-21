@@ -18,12 +18,9 @@
 
 package org.apache.harmony.jpda.tests.jdwp.InterfaceType;
 
-import org.apache.harmony.jpda.tests.framework.LogWriter;
 import org.apache.harmony.jpda.tests.framework.jdwp.*;
 import org.apache.harmony.jpda.tests.jdwp.share.JDWPSyncTestCase;
-import org.apache.harmony.jpda.tests.jdwp.share.debuggee.*;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
-import org.apache.harmony.jpda.tests.share.JPDATestOptions;
 
 /**
  * JDWP unit test to exercise InterfaceType.InvokeMethod command.

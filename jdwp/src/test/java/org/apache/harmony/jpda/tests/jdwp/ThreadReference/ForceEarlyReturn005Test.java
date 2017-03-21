@@ -30,6 +30,7 @@ public class ForceEarlyReturn005Test extends JDWPSyncTestCase {
 
     static final String thisCommandName = "ThreadReference.ForceEarlyReturn command ";
 
+    @Override
     protected String getDebuggeeClassName() {
         return "org.apache.harmony.jpda.tests.jdwp.ThreadReference.ForceEarlyReturnDebuggee";
     }
