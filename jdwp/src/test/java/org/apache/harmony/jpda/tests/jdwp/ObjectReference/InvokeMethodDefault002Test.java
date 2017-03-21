@@ -28,6 +28,7 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  * overridden default method.
  */
 public class InvokeMethodDefault002Test extends JDWPSyncTestCase {
+    @Override
     protected String getDebuggeeClassName() {
         return InvokeMethodDefault002Debuggee.class.getName();
     }

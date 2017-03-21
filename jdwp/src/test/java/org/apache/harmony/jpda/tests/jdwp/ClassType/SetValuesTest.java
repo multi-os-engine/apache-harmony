@@ -25,8 +25,6 @@
  */
 package org.apache.harmony.jpda.tests.jdwp.ClassType;
 
-import java.io.UnsupportedEncodingException;
-
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
@@ -47,7 +45,7 @@ public class SetValuesTest extends JDWPClassTypeTestCase {
      * Then sets values for these fields with ClassType.SetValues command
      * and checks set values using ReferenceType.GetValues command.
      */
-    public void testSetValues001() throws UnsupportedEncodingException {
+    public void testSetValues001() {
         logWriter.println("testSetValues001 started");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_READY);
 
@@ -62,7 +60,7 @@ public class SetValuesTest extends JDWPClassTypeTestCase {
         }
     }
 
-    private void testField(long classID, FieldInfo fieldInfo) throws UnsupportedEncodingException {
+    private void testField(long classID, FieldInfo fieldInfo) {
 
         //System.err.println("testField: "+fieldInfo.toString());
         // if field has primitive type
@@ -116,7 +114,7 @@ public class SetValuesTest extends JDWPClassTypeTestCase {
         }
     }
 
-    private void testField(long classID, FieldInfo fieldInfo, Value value) throws UnsupportedEncodingException {
+    private void testField(long classID, FieldInfo fieldInfo, Value value) {
 
         logWriter.println("\n==> testField: ");
         logWriter.println("    classID = " + classID);

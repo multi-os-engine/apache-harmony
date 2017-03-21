@@ -22,7 +22,6 @@ import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.Location;
-import org.apache.harmony.jpda.tests.framework.jdwp.ParsedEvent.EventThread;
 import org.apache.harmony.jpda.tests.framework.jdwp.ReplyPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.Value;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
@@ -31,6 +30,7 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  * JDWP Unit test for BREAKPOINT event in framework code.
  */
 public class Breakpoint003Test extends JDWPEventTestCase {
+    @Override
     protected String getDebuggeeClassName() {
         return Breakpoint003Debuggee.class.getName();
     }
@@ -44,7 +44,6 @@ public class Breakpoint003Test extends JDWPEventTestCase {
         test("testBreakPointInIntegerParseInt",
              "parseInt",
              breakpoint1,
-             0,
              JDWPConstants.Tag.STRING_TAG,
              Breakpoint003Debuggee.VALUE_STRING);
 
@@ -53,9 +52,8 @@ public class Breakpoint003Test extends JDWPEventTestCase {
         test("testBreakPointInLongToString",
              "toString",
              breakpoint2,
-             0,
              JDWPConstants.Tag.LONG_TAG,
-             Breakpoint003Debuggee.VALUE_LONG);
+             Long.valueOf(Breakpoint003Debuggee.VALUE_LONG));
     }
 
     private int setBreakPoint(String className, String methodName) {
@@ -71,7 +69,6 @@ public class Breakpoint003Test extends JDWPEventTestCase {
     private void test(String testName,
                       String methodName,
                       int breakpointReqID,
-                      int slot,
                       byte tag,
                       Object expectedValue) {
         logWriter.println(testName + " started");
@@ -118,7 +115,7 @@ public class Breakpoint003Test extends JDWPEventTestCase {
             String strLocalVariable = getStringValue(longVal);
             assertEquals("Invalid String value", strLocalVariable, expectedValue);
         } else if (tag == JDWPConstants.Tag.LONG_TAG) {
-            assertEquals("Invalid long value", longVal, expectedValue);
+            assertEquals("Invalid long value", longVal, ((Long)expectedValue).longValue());
         }
 
         logWriter.println(testName + " done");
