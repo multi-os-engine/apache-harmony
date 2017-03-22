@@ -22,8 +22,9 @@
 package org.apache.harmony.security.tests.support.provider.cert;
 
 import java.io.UnsupportedEncodingException;
-
-import org.apache.harmony.luni.util.Base64;
+// Android-changed: Don't use Harmony's Base64 class
+// import org.apache.harmony.luni.util.Base64;
+import java.util.Base64;
 
 /**
  * Class contains the base 64 encodings of X.509 certificates,
@@ -295,15 +296,21 @@ public class CertFactoryTestData {
 
 
     public static byte[] getCertPathPKCS7Encoding() throws UnsupportedEncodingException {
-        return Base64.decode(certPathPKCS7Base64.getBytes("UTF-8"));
+        // Android-changed: Don't use Harmony's Base64 class
+        // return Base64.decode(certPathPKCS7Base64.getBytes("UTF-8"));
+        return Base64.getDecoder().decode(certPathPKCS7Base64.getBytes("UTF-8"));
     }
 
     public static byte[] getCertPathPkiPathEncoding() throws UnsupportedEncodingException {
-        return Base64.decode(certPathPkiPathBase64.getBytes("UTF-8"));
+        // Android-changed: Don't use Harmony's Base64 class
+        // return Base64.decode(certPathPkiPathBase64.getBytes("UTF-8"));
+        return Base64.getDecoder().decode(certPathPkiPathBase64.getBytes("UTF-8"));
     }
 
     public static byte[] getCertEncoding() throws UnsupportedEncodingException {
-        return Base64.decode(certEncodingBase64.getBytes("UTF-8"));
+        // Android-changed: Don't use Harmony's Base64 class
+        // return Base64.decode(certEncodingBase64.getBytes("UTF-8"));
+        return Base64.getDecoder().decode(certEncodingBase64.getBytes("UTF-8"));
     }
 
     public static byte[] getBase64CertEncoding() throws UnsupportedEncodingException {
@@ -315,7 +322,9 @@ public class CertFactoryTestData {
     }
 
     public static byte[] getCRLEncoding() throws UnsupportedEncodingException {
-        return Base64.decode(crlEncodingBase64.getBytes("UTF-8"));
+        // Android-changed: Don't use Harmony's Base64 class
+        // return Base64.decode(crlEncodingBase64.getBytes("UTF-8"));
+        return Base64.getDecoder().decode(crlEncodingBase64.getBytes("UTF-8"));
     }
 }
 
