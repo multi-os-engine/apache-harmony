@@ -121,6 +121,11 @@ public class SecretKeySpecTest extends TestCase {
         } catch (ArrayIndexOutOfBoundsException e) {
         }
 
+        // BEGIN Android-removed: Unnecessarily specific test
+        // This is illegal for three reasons (key too short, invalid offset, invalid length),
+        // and the spec doesn't specify which exception should be thrown if multiple are
+        // valid.  We happen to throw IllegalArgumentException, which is allowed behavior.
+        /*
         // Regression test for HARMONY-6347
         try {
             new SecretKeySpec(key, -1, key.length + 2, algorithm);
@@ -130,6 +135,9 @@ public class SecretKeySpecTest extends TestCase {
             fail("Not expected IllegalArgumentException was thrown.");
         } catch (ArrayIndexOutOfBoundsException e) {
         }
+        */
+        // END Android-removed: Unnecessarily specific test
+
 
         try {
             new SecretKeySpec(key, offset, len, null);
