@@ -8,26 +8,18 @@ endef
 
 harmony_test_dirs := \
     beans \
-    crypto \
     logging \
     luni \
     sql \
     support \
 
-# TODO: get these working too!
-#    security \
-#    x-net
-
 harmony_test_src_files := \
     $(call all-harmony-test-java-files-under,$(harmony_test_dirs),src/test/java) \
-    $(call all-harmony-test-java-files-under,$(harmony_test_dirs),src/test/api/java) \
     $(call all-harmony-test-java-files-under,$(harmony_test_dirs),src/test/support/java) \
-    $(call all-harmony-test-java-files-under,$(harmony_test_dirs),src/test/support/common/java) \
     $(call all-harmony-test-java-files-under,luni,src/test/api/common) \
     $(call all-harmony-test-java-files-under,luni,src/test/api/unix) \
     $(call all-harmony-test-java-files-under,luni,src/test/impl/common) \
-    $(call all-harmony-test-java-files-under,luni,src/test/impl/unix) \
-    $(call all-harmony-test-java-files-under,security,src/test/support/common/java)
+    $(call all-harmony-test-java-files-under,luni,src/test/impl/unix)
 
 # We need to use -maxdepth 4 because there's a non-resource directory called "resources" deeper in the tree.
 define harmony-test-resource-dirs
