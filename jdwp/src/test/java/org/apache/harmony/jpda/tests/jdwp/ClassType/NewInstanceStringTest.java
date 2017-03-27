@@ -71,8 +71,8 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
                 long debuggeeClassId = getClassIDBySignature(getDebuggeeClassSignature());
                 Value byteArrayValue = getStaticFieldValue(debuggeeClassId, "BYTE_ARRAY");
                 constructorArguments.add(byteArrayValue);
-                constructorArguments.add(new Value(0));
-                constructorArguments.add(new Value(1));
+                constructorArguments.add(Value.createInt(0));
+                constructorArguments.add(Value.createInt(1));
             }
         });
     }
@@ -92,8 +92,8 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
                 Value byteArrayValue = getStaticFieldValue(debuggeeClassId, "BYTE_ARRAY");
                 Value stringCharsetValue = getStaticFieldValue(debuggeeClassId, "STRING_CHARSET");
                 constructorArguments.add(byteArrayValue);
-                constructorArguments.add(new Value(0));
-                constructorArguments.add(new Value(1));
+                constructorArguments.add(Value.createInt(0));
+                constructorArguments.add(Value.createInt(1));
                 constructorArguments.add(stringCharsetValue);
             }
         });
@@ -135,8 +135,8 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
                         Value byteArrayValue = getStaticFieldValue(debuggeeClassId, "BYTE_ARRAY");
                         Value charsetValue = getStaticFieldValue(debuggeeClassId, "CHARSET");
                         constructorArguments.add(byteArrayValue);
-                        constructorArguments.add(new Value(0));
-                        constructorArguments.add(new Value(1));
+                        constructorArguments.add(Value.createInt(0));
+                        constructorArguments.add(Value.createInt(1));
                         constructorArguments.add(charsetValue);
                     }
                 });
@@ -190,8 +190,8 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
                 long debuggeeClassId = getClassIDBySignature(getDebuggeeClassSignature());
                 Value charArrayValue = getStaticFieldValue(debuggeeClassId, "CHAR_ARRAY");
                 constructorArguments.add(charArrayValue);
-                constructorArguments.add(new Value(0));
-                constructorArguments.add(new Value(1));
+                constructorArguments.add(Value.createInt(0));
+                constructorArguments.add(Value.createInt(1));
             }
         });
     }
@@ -242,8 +242,8 @@ public class NewInstanceStringTest extends AbstractNewInstanceTestCase {
                 long debuggeeClassId = getClassIDBySignature(getDebuggeeClassSignature());
                 Value intArrayValue = getStaticFieldValue(debuggeeClassId, "INT_ARRAY");
                 constructorArguments.add(intArrayValue);
-                constructorArguments.add(new Value(0));
-                constructorArguments.add(new Value(1));
+                constructorArguments.add(Value.createInt(0));
+                constructorArguments.add(Value.createInt(1));
             }
         });
     }
