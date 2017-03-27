@@ -110,7 +110,7 @@ public class NewInstanceTagTest extends AbstractNewInstanceTestCase {
                         assertTrue("Invalid string id", stringId != -1);
                         assertTrue("Null string id", stringId != 0);
                         // Pass created string to constructor.
-                        constructorArguments.add(new Value(JDWPConstants.Tag.STRING_TAG, stringId));
+                        constructorArguments.add(Value.createObjectValue(JDWPConstants.Tag.STRING_TAG, stringId));
                     }
                 }, new Checker(JDWPConstants.Tag.THREAD_GROUP_TAG));
     }
