@@ -169,7 +169,7 @@ public class InvokeMethodTest extends JDWPSyncTestCase {
         packet.setNextValueAsThreadID(targetThreadID);
         packet.setNextValueAsMethodID(targetMethodID);
         packet.setNextValueAsInt(1);
-            packet.setNextValueAsValue(new Value(false));
+            packet.setNextValueAsValue(Value.createBoolean(false));
         packet.setNextValueAsInt(0);
         logWriter.println(" Send ClassType.InvokeMethod without Exception");
         reply = debuggeeWrapper.vmMirror.performCommand(packet);
@@ -199,7 +199,7 @@ public class InvokeMethodTest extends JDWPSyncTestCase {
         packet.setNextValueAsThreadID(targetThreadID);
         packet.setNextValueAsMethodID(targetMethodID);
         packet.setNextValueAsInt(1);
-            packet.setNextValueAsValue(new Value(true));
+            packet.setNextValueAsValue(Value.createBoolean(true));
         packet.setNextValueAsInt(0);
         logWriter.println(" Send ClassType.InvokeMethod with Exception");
         reply = debuggeeWrapper.vmMirror.performCommand(packet);
@@ -334,7 +334,7 @@ public class InvokeMethodTest extends JDWPSyncTestCase {
         packet.setNextValueAsThreadID(targetThreadID);
         packet.setNextValueAsMethodID(testMethodID);
         packet.setNextValueAsInt(1);
-            packet.setNextValueAsValue(new Value(false));
+            packet.setNextValueAsValue(Value.createBoolean(false));
         packet.setNextValueAsInt(0);
         reply = debuggeeWrapper.vmMirror.performCommand(packet);
         short errorCode = reply.getErrorCode();
@@ -461,7 +461,7 @@ public class InvokeMethodTest extends JDWPSyncTestCase {
         packet.setNextValueAsThreadID(targetThreadID);
         packet.setNextValueAsMethodID(nonStaticMethodID);
         packet.setNextValueAsInt(1);
-        packet.setNextValueAsValue(new Value(false));
+        packet.setNextValueAsValue(Value.createBoolean(false));
         packet.setNextValueAsInt(0);
         reply = debuggeeWrapper.vmMirror.performCommand(packet);
         short errorCode = reply.getErrorCode();

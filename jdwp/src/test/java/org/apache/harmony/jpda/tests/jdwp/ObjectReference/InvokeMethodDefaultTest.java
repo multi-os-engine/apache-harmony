@@ -125,7 +125,7 @@ public class InvokeMethodDefaultTest extends JDWPSyncTestCase {
         logWriter.println(" Method ID=" + targetMethodID);
 
         // The method argument.
-        Value throwValue = new Value(shouldThrow);
+        Value throwValue = Value.createBoolean(shouldThrow);
         // Invoke method.
         packet = new CommandPacket(
                 JDWPCommands.ObjectReferenceCommandSet.CommandSetID,
