@@ -108,7 +108,7 @@ public class InvokeMethod003Test extends JDWPSyncTestCase {
         assertTrue("Failed to find method", targetMethodID != 0);
 
         // Invoke test method with null argument.
-        Value nullObjectValue = new Value(JDWPConstants.Tag.OBJECT_TAG, 0);
+        Value nullObjectValue = Value.createObjectValue(JDWPConstants.Tag.OBJECT_TAG, 0);
         packet = new CommandPacket(
                 JDWPCommands.ClassTypeCommandSet.CommandSetID,
                 JDWPCommands.ClassTypeCommandSet.InvokeMethodCommand);

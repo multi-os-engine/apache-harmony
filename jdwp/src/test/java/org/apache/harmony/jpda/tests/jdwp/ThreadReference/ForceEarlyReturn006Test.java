@@ -109,8 +109,8 @@ public class ForceEarlyReturn006Test extends JDWPSyncTestCase {
                 JDWPCommands.ThreadReferenceCommandSet.CommandSetID,
                 JDWPCommands.ThreadReferenceCommandSet.ForceEarlyReturnCommand);
         forceEarlyReturnPacket.setNextValueAsThreadID(testedThreadID);
-        forceEarlyReturnPacket.setNextValueAsValue(new Value(Tag.OBJECT_TAG,
-                testObjID));
+        forceEarlyReturnPacket
+                .setNextValueAsValue(Value.createObjectValue(Tag.OBJECT_TAG, testObjID));
 
         // Perform the command
         logWriter.println("==> Perform " + thisCommandName);

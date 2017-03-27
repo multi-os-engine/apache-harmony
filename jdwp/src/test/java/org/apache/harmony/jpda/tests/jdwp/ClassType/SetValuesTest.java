@@ -67,48 +67,48 @@ public class SetValuesTest extends JDWPClassTypeTestCase {
         if (fieldInfo.getSignature().length()>=1) {
             switch (fieldInfo.getSignature().charAt(0)) {
             case 'B': // byte
-                testField(classID, fieldInfo, new Value(Byte.MIN_VALUE));
-                testField(classID, fieldInfo, new Value(Byte.MAX_VALUE));
-                testField(classID, fieldInfo, new Value((byte)0));
+                testField(classID, fieldInfo, Value.createByte(Byte.MIN_VALUE));
+                testField(classID, fieldInfo, Value.createByte(Byte.MAX_VALUE));
+                testField(classID, fieldInfo, Value.createByte((byte)0));
                 break;
             case 'C': // char
-                testField(classID, fieldInfo, new Value((char)Character.MAX_VALUE));
-                testField(classID, fieldInfo, new Value((char)Character.MIN_VALUE));
+                testField(classID, fieldInfo, Value.createChar(Character.MAX_VALUE));
+                testField(classID, fieldInfo, Value.createChar(Character.MIN_VALUE));
                 break;
             case 'F': // float
-                testField(classID, fieldInfo, new Value((float)Float.MIN_VALUE));
-                testField(classID, fieldInfo, new Value((float)Float.MAX_VALUE));
-                testField(classID, fieldInfo, new Value((float)Float.NaN));
-                testField(classID, fieldInfo, new Value((float)Float.NEGATIVE_INFINITY));
-                testField(classID, fieldInfo, new Value((float)Float.POSITIVE_INFINITY));
-                testField(classID, fieldInfo, new Value((float)0));
+                testField(classID, fieldInfo, Value.createFloat(Float.MIN_VALUE));
+                testField(classID, fieldInfo, Value.createFloat(Float.MAX_VALUE));
+                testField(classID, fieldInfo, Value.createFloat(Float.NaN));
+                testField(classID, fieldInfo, Value.createFloat(Float.NEGATIVE_INFINITY));
+                testField(classID, fieldInfo, Value.createFloat(Float.POSITIVE_INFINITY));
+                testField(classID, fieldInfo, Value.createFloat(0));
                 break;
             case 'D': // double
-                testField(classID, fieldInfo, new Value((double)Double.MIN_VALUE));
-                testField(classID, fieldInfo, new Value((double)Double.MAX_VALUE));
-                testField(classID, fieldInfo, new Value((double)Double.NaN));
-                testField(classID, fieldInfo, new Value((double)Double.NEGATIVE_INFINITY));
-                testField(classID, fieldInfo, new Value((double)Double.POSITIVE_INFINITY));
-                testField(classID, fieldInfo, new Value((double)0));
+                testField(classID, fieldInfo, Value.createDouble(Double.MIN_VALUE));
+                testField(classID, fieldInfo, Value.createDouble(Double.MAX_VALUE));
+                testField(classID, fieldInfo, Value.createDouble(Double.NaN));
+                testField(classID, fieldInfo, Value.createDouble(Double.NEGATIVE_INFINITY));
+                testField(classID, fieldInfo, Value.createDouble(Double.POSITIVE_INFINITY));
+                testField(classID, fieldInfo, Value.createDouble(0));
                 break;
             case 'I': // int
-                testField(classID, fieldInfo, new Value((int)Integer.MIN_VALUE));
-                testField(classID, fieldInfo, new Value((int)Integer.MAX_VALUE));
-                testField(classID, fieldInfo, new Value((int)0));
+                testField(classID, fieldInfo, Value.createInt(Integer.MIN_VALUE));
+                testField(classID, fieldInfo, Value.createInt(Integer.MAX_VALUE));
+                testField(classID, fieldInfo, Value.createInt(0));
                 break;
             case 'J': // long
-                testField(classID, fieldInfo, new Value((long)Long.MIN_VALUE));
-                testField(classID, fieldInfo, new Value((long)Long.MAX_VALUE));
-                testField(classID, fieldInfo, new Value((long)0));
+                testField(classID, fieldInfo, Value.createLong(Long.MIN_VALUE));
+                testField(classID, fieldInfo, Value.createLong(Long.MAX_VALUE));
+                testField(classID, fieldInfo, Value.createLong(0));
                 break;
             case 'S': // short
-                testField(classID, fieldInfo, new Value((short)Short.MIN_VALUE));
-                testField(classID, fieldInfo, new Value((short)Short.MAX_VALUE));
-                testField(classID, fieldInfo, new Value((short)0));
+                testField(classID, fieldInfo, Value.createShort(Short.MIN_VALUE));
+                testField(classID, fieldInfo, Value.createShort(Short.MAX_VALUE));
+                testField(classID, fieldInfo, Value.createShort((short)0));
                 break;
             case 'Z': // boolean
-                testField(classID, fieldInfo, new Value((boolean)Boolean.FALSE.booleanValue()));
-                testField(classID, fieldInfo, new Value((boolean)Boolean.TRUE.booleanValue()));
+                testField(classID, fieldInfo, Value.createBoolean(Boolean.FALSE.booleanValue()));
+                testField(classID, fieldInfo, Value.createBoolean(Boolean.TRUE.booleanValue()));
                 break;
             }
         }
