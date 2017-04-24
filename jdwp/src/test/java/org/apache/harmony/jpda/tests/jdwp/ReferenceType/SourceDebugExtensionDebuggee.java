@@ -30,17 +30,8 @@ import org.apache.harmony.jpda.tests.share.SyncDebuggee;
 
 public class SourceDebugExtensionDebuggee extends SyncDebuggee {
 
-    private final static String classWithSourceDebugExtension =
-        "org.apache.harmony.jpda.tests.jdwp.Events.SourceDebugExtensionMockClass";
-
     @Override
     public void run() {
-        Class<?> klass = null;
-        try {
-          klass = Class.forName(classWithSourceDebugExtension);
-        } catch (ClassNotFoundException e) {
-          logWriter.println("--> Debuggee: Could not find class " + classWithSourceDebugExtension);
-        }
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
         logWriter.println("--> Debuggee: SourceDebugExtensionDebuggee...");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
