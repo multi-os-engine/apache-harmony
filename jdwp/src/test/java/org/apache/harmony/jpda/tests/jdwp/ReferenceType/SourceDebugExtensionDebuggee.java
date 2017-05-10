@@ -26,6 +26,7 @@
 package org.apache.harmony.jpda.tests.jdwp.ReferenceType;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Proxy;
 import java.net.URLClassLoader;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -173,10 +174,16 @@ public class SourceDebugExtensionDebuggee extends SyncDebuggee {
             }
         }
 
+        // Instantiate a proxy whose name should contain "$Proxy".
+        Class proxy = Proxy.getProxyClass(SomeInterface.class.getClassLoader(),
+                                          new Class[] { SomeInterface.class });
+
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
         logWriter.println("--> Debuggee: SourceDebugExtensionDebuggee...");
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
     }
+
+    interface SomeInterface {}
 
     public static void main(String [] args) {
         runDebuggee(SourceDebugExtensionDebuggee.class);
