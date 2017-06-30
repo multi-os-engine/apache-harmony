@@ -166,7 +166,7 @@ jdwp_tests_target_dependencies :=
 
 .PHONY: run-jdwp-tests-ri
 run-jdwp-tests-ri: $(HOST_OUT_JAVA_LIBRARIES)/apache-harmony-jdwp-tests-host.jar $(HOST_OUT_JAVA_LIBRARIES)/junit.jar
-	$(hide) java -cp $(HOST_OUT_JAVA_LIBRARIES)/apache-harmony-jdwp-tests-host.jar:$(HOST_OUT_JAVA_LIBRARIES)/junit.jar \
+	$(hide) $(JAVA) -cp $(HOST_OUT_JAVA_LIBRARIES)/apache-harmony-jdwp-tests-host.jar:$(HOST_OUT_JAVA_LIBRARIES)/junit.jar \
           -Djpda.settings.verbose=true \
           -Djpda.settings.debuggeeJavaPath=java \
           $(jdwp_test_suite_class_name)
