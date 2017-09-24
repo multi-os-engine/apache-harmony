@@ -205,23 +205,7 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
      * @return method ID
      */
     protected long getMethodID(long classID, String methodName) {
-        CommandPacket command = new CommandPacket(
-                JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
-                JDWPCommands.ReferenceTypeCommandSet.MethodsCommand);
-        command.setNextValueAsClassID(classID);
-        ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(command);
-        checkReplyPacket(reply, "ReferenceType::Methods command");
-        int methods = reply.getNextValueAsInt();
-        for (int i = 0; i < methods; i++) {
-            long methodID = reply.getNextValueAsMethodID();
-            String name = reply.getNextValueAsString(); // method name
-            reply.getNextValueAsString(); // method signature
-            reply.getNextValueAsInt(); // method modifiers
-            if (name.equals(methodName)) {
-                return methodID;
-            }
-        }
-        return -1;
+        return debuggeeWrapper.vmMirror.getMethodID(classID, methodName);
     }
 
     /**
@@ -236,23 +220,7 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
      * @return method ID
      */
     protected long getMethodID(long classID, String methodName, String methodSignature) {
-        CommandPacket command = new CommandPacket(
-                JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
-                JDWPCommands.ReferenceTypeCommandSet.MethodsCommand);
-        command.setNextValueAsClassID(classID);
-        ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(command);
-        checkReplyPacket(reply, "ReferenceType::Methods command");
-        int methods = reply.getNextValueAsInt();
-        for (int i = 0; i < methods; i++) {
-            long methodID = reply.getNextValueAsMethodID();
-            String name = reply.getNextValueAsString(); // method name
-            String signature = reply.getNextValueAsString();
-            reply.getNextValueAsInt(); // method modifiers
-            if (name.equals(methodName) && signature.equals(methodSignature)) {
-                return methodID;
-            }
-        }
-        return -1;
+        return debuggeeWrapper.vmMirror.getMethodID(classID, methodName, methodSignature);
     }
 
     /**
@@ -284,23 +252,7 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
      * @return String
      */
     protected String getMethodName(long classID, long methodID) {
-        CommandPacket packet = new CommandPacket(
-                JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
-                JDWPCommands.ReferenceTypeCommandSet.MethodsCommand);
-        packet.setNextValueAsClassID(classID);
-        ReplyPacket reply = debuggeeWrapper.vmMirror.performCommand(packet);
-        checkReplyPacket(reply, "ReferenceType::Methods command");
-        int methods = reply.getNextValueAsInt();
-        for (int i = 0; i < methods; i++) {
-            long mid = reply.getNextValueAsMethodID();
-            String name = reply.getNextValueAsString();
-            reply.getNextValueAsString();
-            reply.getNextValueAsInt();
-            if (mid == methodID) {
-                return name;
-            }
-        }
-        return "unknown";
+        return debuggeeWrapper.vmMirror.getMethodName(classID, methodID);
     }
 
     /**
