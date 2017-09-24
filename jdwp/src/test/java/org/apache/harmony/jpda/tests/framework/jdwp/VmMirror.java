@@ -1884,14 +1884,18 @@ public class VmMirror {
      *         within the method.
      */
     public final List<Variable> getVariableTable(long classID, long methodID) {
+        boolean withGeneric = true;
         CommandPacket command = new CommandPacket(
                 JDWPCommands.MethodCommandSet.CommandSetID,
-                JDWPCommands.MethodCommandSet.VariableTableCommand);
+                JDWPCommands.MethodCommandSet.VariableTableWithGenericCommand);
         command.setNextValueAsReferenceTypeID(classID);
         command.setNextValueAsMethodID(methodID);
-        // ReplyPacket reply =
-        // debuggeeWrapper.vmMirror.checkReply(debuggeeWrapper.vmMirror.performCommand(command));
         ReplyPacket reply = performCommand(command);
+        if (reply.getErrorCode() == JDWPConstants.Error.NOT_IMPLEMENTED) {
+            withGeneric = false;
+            command.setCommand(JDWPCommands.MethodCommandSet.VariableTableCommand);
+            reply = performCommand(command);
+        }
         if (reply.getErrorCode() == JDWPConstants.Error.ABSENT_INFORMATION
                 || reply.getErrorCode() == JDWPConstants.Error.NATIVE_METHOD) {
             return null;
@@ -1901,16 +1905,15 @@ public class VmMirror {
 
         reply.getNextValueAsInt(); // argCnt, is not used
         int slots = reply.getNextValueAsInt();
-        if (slots == 0) {
-            return null;
-        }
-
         ArrayList<Variable> vars = new ArrayList<Variable>(slots);
         for (int i = 0; i < slots; i++) {
-            Variable var = new Frame().new Variable();
+            Variable var = new Variable();
             var.setCodeIndex(reply.getNextValueAsLong());
             var.setName(reply.getNextValueAsString());
             var.setSignature(reply.getNextValueAsString());
+            if (withGeneric) {
+                var.setGenericSignature(reply.getNextValueAsString());
+            }
             var.setLength(reply.getNextValueAsInt());
             var.setSlot(reply.getNextValueAsInt());
             vars.add(var);
