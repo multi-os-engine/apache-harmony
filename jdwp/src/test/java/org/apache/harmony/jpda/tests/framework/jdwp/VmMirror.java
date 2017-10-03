@@ -829,39 +829,13 @@ public class VmMirror {
      * @return received FieldID
      */
     public long getFieldID(long classID, String fieldName) {
-        ReplyPacket reply = getFieldsInClass(classID);
-        return getFieldID(reply, fieldName);
-    }
-
-    /**
-     * Gets FieldID from ReplyPacket.
-     * 
-     * @param request
-     *            ReplyPacket for request
-     * @param field
-     *            field name to get ID for
-     * @return received FieldID
-     */
-    public long getFieldID(ReplyPacket request, String field) {
-        long fieldID = -1;
-        String fieldName;
-        // Get fieldID from received packet
-        int count = request.getNextValueAsInt();
-        for (int i = 0; i < count; i++) {
-            fieldID = request.getNextValueAsFieldID();
-            fieldName = request.getNextValueAsString();
-            if (field.equals(fieldName)) {
-                request.getNextValueAsString();
-                request.getNextValueAsInt();
-                break;
-            } else {
-                request.getNextValueAsString();
-                request.getNextValueAsInt();
-                fieldID = 0;
-                fieldName = null;
+        Field[] fields = getFieldsInfo(classID);
+        for (Field field : fields) {
+            if (field.getName().equals(fieldName)) {
+                return field.getFieldID();
             }
         }
-        return fieldID;
+        return -1;
     }
 
     /**
@@ -1296,18 +1270,40 @@ public class VmMirror {
     }
 
     /**
-     * Gets class fields by class referenceTypeID.
-     * 
-     * @param referenceTypeID
-     *            class referenceTypeID.
-     * @return ReplyPacket for corresponding command
+     * Returns for specified class array with information about fields of this class.
+     * <BR>Each element of array contains:
+     * <BR>Field ID, Field name, Field signature, Field modifier bit flags;
+     * @param refType - ReferenceTypeID, defining class.
+     * @return array with information about fields.
      */
-    public ReplyPacket getFieldsInClass(long referenceTypeID) {
-        CommandPacket commandPacket = new CommandPacket(
-                JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
-                JDWPCommands.ReferenceTypeCommandSet.FieldsCommand);
-        commandPacket.setNextValueAsReferenceTypeID(referenceTypeID);
-        return checkReply(performCommand(commandPacket));
+    public Field[] getFieldsInfo(long refType) {
+        boolean withGeneric = true;
+        CommandPacket packet = new CommandPacket(JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
+                JDWPCommands.ReferenceTypeCommandSet.FieldsWithGenericCommand);
+        packet.setNextValueAsReferenceTypeID(refType);
+        ReplyPacket reply = performCommand(packet);
+        if (reply.getErrorCode() == JDWPConstants.Error.NOT_IMPLEMENTED) {
+            withGeneric = false;
+            packet.setCommand(JDWPCommands.ReferenceTypeCommandSet.FieldsCommand);
+            reply = performCommand(packet);
+        }
+        checkReply(reply);
+
+        int declared = reply.getNextValueAsInt();
+        Field[] fields = new Field[declared];
+        for (int i = 0; i < declared; i++) {
+            long fieldID = reply.getNextValueAsFieldID();
+            String fieldName = reply.getNextValueAsString();
+            String fieldSignature = reply.getNextValueAsString();
+            String fieldGenericSignature = "";
+            if (withGeneric) {
+                fieldGenericSignature = reply.getNextValueAsString();
+            }
+            int fieldModifiers = reply.getNextValueAsInt();
+            fields[i] = new Field(fieldID, refType, fieldName, fieldSignature,
+                    fieldGenericSignature, fieldModifiers);
+        }
+        return fields;
     }
 
     /**
@@ -2133,37 +2129,6 @@ public class VmMirror {
         ReplyPacket reply = checkReply(performCommand(command));
         TaggedObject taggedObject = reply.getNextValueAsTaggedObject();
         return taggedObject.objectID;
-    }
-
-    /**
-     * Returns information for each field in a reference type including
-     * inherited fields
-     * 
-     * @param classID
-     *            The reference type ID
-     * @return A list of Field objects representing each field of the class
-     */
-    public final List<Field> getAllFields(long classID) {
-        ArrayList<Field> fields = new ArrayList<Field>(0);
-
-        long superID = getSuperclassId(classID);
-        if (superID != 0) {
-            List<Field> superClassFields = getAllFields(superID);
-            for (int i = 0; i < superClassFields.size(); i++) {
-                fields.add((Field) superClassFields.toArray()[i]);
-            }
-        }
-
-        ReplyPacket reply = getFieldsInClass(classID);
-        int fieldsCount = reply.getNextValueAsInt();
-        for (int i = 0; i < fieldsCount; i++) {
-            Field field = new Field(reply.getNextValueAsFieldID(), classID,
-                    reply.getNextValueAsString(), reply.getNextValueAsString(),
-                    reply.getNextValueAsInt());
-            fields.add(field);
-        }
-
-        return fields;
     }
 
     /**

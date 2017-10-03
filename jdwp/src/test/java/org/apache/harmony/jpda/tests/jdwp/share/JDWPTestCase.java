@@ -28,6 +28,7 @@ package org.apache.harmony.jpda.tests.jdwp.share;
 import org.apache.harmony.jpda.tests.framework.TestErrorException;
 import org.apache.harmony.jpda.tests.framework.jdwp.CommandPacket;
 import org.apache.harmony.jpda.tests.framework.jdwp.EventPacket;
+import org.apache.harmony.jpda.tests.framework.jdwp.Field;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPCommands;
 import org.apache.harmony.jpda.tests.framework.jdwp.JDWPConstants;
 import org.apache.harmony.jpda.tests.framework.jdwp.Packet;
@@ -426,19 +427,8 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
         boolean checkedFieldFound[] = new boolean[checkedFieldNames.length];
         long checkedFieldIDs[] = new long[checkedFieldNames.length];
 
-        logWriter
-                .println("=> Send ReferenceType::Fields command and get field ID(s)");
-
-        CommandPacket fieldsCommand = new CommandPacket(
-                JDWPCommands.ReferenceTypeCommandSet.CommandSetID,
-                JDWPCommands.ReferenceTypeCommandSet.FieldsCommand);
-        fieldsCommand.setNextValueAsReferenceTypeID(refTypeID);
-        ReplyPacket fieldsReply = debuggeeWrapper.vmMirror
-                .performCommand(fieldsCommand);
-        fieldsCommand = null;
-        checkReplyPacket(fieldsReply, "ReferenceType::Fields command");
-
-        int returnedFieldsNumber = fieldsReply.getNextValueAsInt();
+        Field[] fields = debuggeeWrapper.vmMirror.getFieldsInfo(refTypeID);
+        int returnedFieldsNumber = fields.length;
         logWriter
                 .println("=> Returned fields number = " + returnedFieldsNumber);
 
@@ -450,11 +440,11 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
         int nameMissing = 0;
         String fieldNameMissing = null; // <= collects all missed fields
 
-        for (int i = 0; i < returnedFieldsNumber; i++) {
-            long returnedFieldID = fieldsReply.getNextValueAsFieldID();
-            String returnedFieldName = fieldsReply.getNextValueAsString();
-            String returnedFieldSignature = fieldsReply.getNextValueAsString();
-            int returnedFieldModifiers = fieldsReply.getNextValueAsInt();
+        for (Field fieldInfo : fields) {
+            long returnedFieldID = fieldInfo.getFieldID();
+            String returnedFieldName = fieldInfo.getName();
+            String returnedFieldSignature = fieldInfo.getSignature();
+            int returnedFieldModifiers = fieldInfo.getModBits();
             logWriter.println("");
             logWriter.println("=> Field ID: " + returnedFieldID);
             logWriter.println("=> Field name: " + returnedFieldName);
@@ -544,7 +534,6 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
                     .println("=> Expected fields were found and field IDs were got");
         }
 
-        assertAllDataRead(fieldsReply);
         return checkedFieldIDs;
     }
 
