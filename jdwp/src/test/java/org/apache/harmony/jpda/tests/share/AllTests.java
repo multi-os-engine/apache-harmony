@@ -244,6 +244,7 @@ public class AllTests {
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.VirtualMachine.TopLevelThreadGroupsTest.class);
     suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.VirtualMachine.VersionTest.class);
     addOptionalTestSuite(suite, "org.apache.harmony.jpda.tests.jdwp.DDM.DDMTest");
+    suite.addTestSuite(org.apache.harmony.jpda.tests.jdwp.VMDebug.VMDebugTest.class);
     return suite;
   }
 }
