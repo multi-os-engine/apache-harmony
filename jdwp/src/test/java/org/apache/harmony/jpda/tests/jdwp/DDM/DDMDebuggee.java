@@ -52,11 +52,14 @@ public class DDMDebuggee extends SyncDebuggee {
     }
 
     public class TestChunkHandler extends ChunkHandler {
-        @Override
-        public void connected() {}
+        public int connectCount = 0;
+        public int disconnectCount = 0;
 
         @Override
-        public void disconnected() {}
+        public void connected() { connectCount++; }
+
+        @Override
+        public void disconnected() { disconnectCount++; }
 
         @Override
         public Chunk handleChunk(Chunk request) {
@@ -67,21 +70,38 @@ public class DDMDebuggee extends SyncDebuggee {
             byte[] res = calculateExpectedResult(request.data, request.offset, request.length);
             return new Chunk(DDM_RESULT_TYPE, res, 0, res.length);
         }
+
+        public String toString() {
+          return "TestChunkHandler { connectCount = " + connectCount +
+                                  ", disconnectCount = " + disconnectCount + " }";
+        }
     }
 
     @Override
     public void run() {
-        ChunkHandler h = new TestChunkHandler();
+        TestChunkHandler h = new TestChunkHandler();
         DdmServer.registerHandler(DDM_TEST_TYPE, h);
         DdmServer.registrationComplete();
         logWriter.println("-> Added chunk handler type: " + DDM_TEST_TYPE + " handler: " + h);
+
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
         logWriter.println("Removing handler type: " + DDM_TEST_TYPE);
         DdmServer.unregisterHandler(DDM_TEST_TYPE);
+
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
         synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
-        logWriter.println("Test complete");
+        // Re-register the chunk handler so we can get the disconnect count.
+        DdmServer.registerHandler(DDM_TEST_TYPE, h);
+
+        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
+        // test disposes here.
+        synchronizer.receiveMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
+
+        // Tell the tester if we saw the connected message.
+        synchronizer.sendMessage(Integer.toString(h.connectCount));
+        synchronizer.sendMessage(Integer.toString(h.disconnectCount));
+        logWriter.println("Test complete with handler: " + h);
     }
 
     /**
