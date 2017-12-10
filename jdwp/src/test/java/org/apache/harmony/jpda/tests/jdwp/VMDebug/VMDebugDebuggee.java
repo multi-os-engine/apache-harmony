@@ -28,7 +28,7 @@ import org.apache.harmony.jpda.tests.share.SyncDebuggee;
  * This class provides a test for VMDebug functions.
  */
 public class VMDebugDebuggee extends SyncDebuggee {
-    public static final long SLEEP_TIME = 20;
+    public static final long SLEEP_TIME = 40;
 
     public static final class DebugResult implements Serializable {
         public boolean error_occured  = false;
@@ -83,8 +83,8 @@ public class VMDebugDebuggee extends SyncDebuggee {
         boolean is_debugging_enabled = false;
         long last_debugger_activity = -1;
         try {
-            // Wait 20 milliseconds so that last_debugger_activity will be non-zero and definitely
-            // more than 10.
+            // Wait 40 milliseconds so that last_debugger_activity will be non-zero and definitely
+            // more than 20.
             Thread.sleep(SLEEP_TIME);
 
             Class<?> vmdebug = Class.forName("dalvik.system.VMDebug");
