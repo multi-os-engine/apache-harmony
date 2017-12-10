@@ -30,9 +30,9 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
  * JDWP Unit test for VMDebug functions command
  */
 public class VMDebugTest extends JDWPSyncTestCase {
-    // We slept for 20ms so we should have at least 10ms delta. We don't want to be too exact
+    // We slept for 40ms so we should have at least 20ms delta. We don't want to be too exact
     // because timers are annoying.
-    public static final long EXPECTED_WAIT_TIME = 10;
+    public static final long EXPECTED_WAIT_TIME = 20;
 
     @Override
     protected String getDebuggeeClassName() {
