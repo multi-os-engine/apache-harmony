@@ -142,10 +142,14 @@ public abstract class JDWPTestCase extends JDWPRawTestCase {
      * establish synchronize connection).
      */
     public void openConnection() {
-        debuggeeWrapper.openConnection();
-        logWriter.println("Opened transport connection");
+        openConnectionWithoutTypeLength();
         debuggeeWrapper.vmMirror.adjustTypeLength();
         logWriter.println("Adjusted VM-dependent type lengths");
+    }
+
+    protected void openConnectionWithoutTypeLength() {
+        debuggeeWrapper.openConnection();
+        logWriter.println("Opened transport connection");
     }
 
     /**
