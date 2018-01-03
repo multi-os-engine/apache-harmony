@@ -353,21 +353,16 @@ abstract class JDWPMethodVariableTableTestCase extends JDWPMethodTestCase {
                             variableInfo.signature, signature);
 
                         if (variableInfo.isParameter) {
-                            // Check parameter's slot
-                            assertTrue("Invalid slot " + variableInfo.expectedParameterSlot +
-                                    " for parameter \"" + name + "\"",
-                                    variableInfo.expectedParameterSlot < argCnt);
-                            assertEquals("Invalid slot for parameter \"" + name + "\"",
-                                    variableInfo.expectedParameterSlot, slot);
-
+                            // It would be nice to check the slot but that isn't specified by the
+                            // JLS. So different runtimes might have different values.
+                            //
                             // A parameter's scope start is == 0.
                             assertEquals("Invalid codeIndex " + codeIndex + " for parameter \"" +
                                     name + "\"", 0, codeIndex);
                         } else {
-                            // A local variable's slot must be >= argCount.
-                            assertTrue("Invalid slot " + slot + " for local var \"" + name + "\"",
-                                    slot >= argCnt);
-
+                            // It would be nice to check the slot but that isn't specified by the
+                            // JLS. So different runtimes might have different values.
+                            //
                             // A local variable's scope start is >= 0.
                             assertTrue("Invalid codeIndex " + codeIndex + " for local var \"" +
                                     name + "\"", codeIndex >= 0);
