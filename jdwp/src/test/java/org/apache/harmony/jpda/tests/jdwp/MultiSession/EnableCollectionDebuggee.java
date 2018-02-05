@@ -25,6 +25,7 @@
 */
 package org.apache.harmony.jpda.tests.jdwp.MultiSession;
 
+import org.apache.harmony.jpda.tests.share.GcMarker;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 import org.apache.harmony.jpda.tests.share.SyncDebuggee;
 
@@ -35,12 +36,15 @@ public class EnableCollectionDebuggee extends SyncDebuggee {
    static EnableCollectionObject001_02 patternObject;
    static boolean patternObject_Finalized = false; 
 
+   static GcMarker marker;
+
    @Override
 public void run() {
        logWriter.println("--> Debuggee: EnableCollectionDebuggee: START");
        
        checkedObject = new EnableCollectionObject001_01();
        patternObject = new EnableCollectionObject001_02();
+       marker = new GcMarker();
 
        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
        String messageFromTest = synchronizer.receiveMessage();
@@ -75,7 +79,9 @@ public void run() {
            logWriter.println("--> Debuggee: OutOfMemoryError!!!");
        }
        longArray = null;
-       System.gc();
+
+       marker.waitForGc();
+
        logWriter.println("--> Debuggee: AFTER System.gc():");
        logWriter.println("--> Debuggee: checkedObject = " + 
                checkedObject);
