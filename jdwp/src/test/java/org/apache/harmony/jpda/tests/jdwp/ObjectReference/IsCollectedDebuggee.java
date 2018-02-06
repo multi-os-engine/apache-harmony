@@ -25,6 +25,7 @@
  */
 package org.apache.harmony.jpda.tests.jdwp.ObjectReference;
 
+import org.apache.harmony.jpda.tests.share.GcMarker;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 import org.apache.harmony.jpda.tests.share.SyncDebuggee;
 
@@ -37,6 +38,8 @@ public class IsCollectedDebuggee extends SyncDebuggee {
     static IsCollectedObject001_03 checkedObject_03;
     static volatile boolean checkedObject_03_Finalized = false;
 
+    static GcMarker marker;
+
     @Override
     public void run() {
         logWriter.println("--> Debuggee: IsCollectedDebuggee: START");
@@ -44,6 +47,7 @@ public class IsCollectedDebuggee extends SyncDebuggee {
         checkedObject_01 = new IsCollectedObject001_01();
         checkedObject_02 = new IsCollectedObject001_02();
         checkedObject_03 = new IsCollectedObject001_03();
+        marker = new GcMarker();
 
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
         String messageFromTest = synchronizer.receiveMessage();
@@ -70,10 +74,9 @@ public class IsCollectedDebuggee extends SyncDebuggee {
             // logWriter.println("--> Debuggee: i = " + i);
         }
         longArray = null;
-        Runtime.getRuntime().gc();
-        System.runFinalization();  // Make sure that the finalizers are finished running.
-        // Make sure the JNI weak globals are cleared, need to do this after runFinalization.
-        Runtime.getRuntime().gc();
+
+        marker.waitForGc();
+
         logWriter.println("--> Debuggee: AFTER System.gc():");
         logWriter.println("--> Debuggee: checkedObject_01 = " + 
                 checkedObject_01);

@@ -25,6 +25,7 @@
  */
 package org.apache.harmony.jpda.tests.jdwp.ObjectReference;
 
+import org.apache.harmony.jpda.tests.share.GcMarker;
 import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 import org.apache.harmony.jpda.tests.share.SyncDebuggee;
 
@@ -35,6 +36,8 @@ public class EnableCollectionDebuggee extends SyncDebuggee {
     static EnableCollectionObject001_02 patternObject;
     static boolean patternObject_Finalized = false;
 
+    static GcMarker marker;
+
     @Override
     public void run() {
         logWriter.println("--> Debuggee: EnableCollectionDebuggee: START");
@@ -42,6 +45,7 @@ public class EnableCollectionDebuggee extends SyncDebuggee {
         // Allocates test objects to be sure there is no local reference
         // to them.
         allocateTestObjects();
+        marker = new GcMarker();
 
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
         String messageFromTest = synchronizer.receiveMessage();
@@ -57,10 +61,7 @@ public class EnableCollectionDebuggee extends SyncDebuggee {
         // Allocates many objects to increase the heap.
         causeMemoryDepletion();
 
-        // Requests GC and finalization of objects.
-        System.gc();
-        System.runFinalization();
-        System.gc();
+        marker.waitForGc();
 
         logWriter.println("--> Debuggee: AFTER System.gc():");
         logWriter.println("--> Debuggee: checkedObject = " + checkedObject);
