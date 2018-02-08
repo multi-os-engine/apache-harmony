@@ -70,6 +70,9 @@ import java.util.HashMap;
  * <li><code>jpda.settings.waitingTime</code>
  *   - timeout for waiting events
  * </ul>
+ * <li><code>jpda.settings.dumpProcess</code>
+ *   - Command to dump a process' data
+ * </ul>
  * <li><code>jpda.settings.verbose</code>
  *   - flag that disables (default) or enables writing messages to the log
  * </ul>
@@ -115,6 +118,13 @@ public class TestOptions {
      */
     public TestOptions() {
         super();
+    }
+
+    /**
+     * Gets the command line needed to get backtraces/status of a given pid
+     */
+    public String getDumpProcessCommand() {
+      return getProperty("jpda.settings.dumpProcess", "true");
     }
 
     /**
