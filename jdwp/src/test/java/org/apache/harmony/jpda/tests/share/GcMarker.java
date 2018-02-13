@@ -20,75 +20,46 @@ package org.apache.harmony.jpda.tests.share;
 
 import java.lang.ref.PhantomReference;
 import java.lang.ref.ReferenceQueue;
+import java.util.ArrayList;
 
 /**
  * A class that allows one to observe GCs and finalization.
  */
 public class GcMarker {
 
-  private static int mCount = 0;
-
-  /**
-   * Sentinel object with explicit finalizer
-   * to avoid optimizations around empty finalizer.
-   */
-  private static class Sentinel {
-    Sentinel() { mCount++; }
-    protected void finalize() { mCount--; }
-  }
-
   private final ReferenceQueue mQueue;
-
-  private Sentinel marker;
-  private PhantomReference<Sentinel> markerRef;
+  private final ArrayList<PhantomReference> mList;
 
   public GcMarker() {
     mQueue = new ReferenceQueue();
-    reset();
+    mList = new ArrayList<PhantomReference>(3);
   }
 
-  private boolean isLive() {
-    // Pedantically check mCount as well once the phantom reference
-    // link is enqueued to make sure we have really finalized (since
-    // there is only a single finalizer thread, this means all other
-    // finalizers are finished too).
-    return !markerRef.isEnqueued() || mCount > 0;
+  public void add(Object referent) {
+    mList.add(new PhantomReference(referent, mQueue));
   }
 
-  private void allowCollection() {
-    marker = null;
-  }
-
-  private void reset() {
-    marker = new Sentinel();
-    markerRef = new PhantomReference<Sentinel>(marker, mQueue);
-  }
-
-  public void waitForGc() {
-    // Start with a full collection to discourage minor collections in the middle of this.
-    // Minor collections could cause us to collect the Sentinel but not older objects.
-    Runtime.getRuntime().gc();
-
-    // Release the sentinel.
-    allowCollection();
-
-    // Another collection.
-    Runtime.getRuntime().gc();
+  public void waitForGc(int numberOfExpectedFinalizations) {
+    if (numberOfExpectedFinalizations > mList.size()) {
+      throw new IllegalArgumentException("wait condition will never be met");
+    }
 
     // Request finalization of objects, and subsequent reference enqueueing.
+    // Repeat until reference queue reaches expected size.
     do {
         System.runFinalization();
         Runtime.getRuntime().gc();
         try { Thread.sleep(10); } catch (Exception e) {}
-    } while (isLive());
+    } while (isLive(numberOfExpectedFinalizations));
+  }
 
-    // Remove the phantom reference from the queue and reset the only
-    // remaining reference to the phantom reference to break the
-    // sentinel's "phantom reachability".
-    try { mQueue.remove(); } catch (Exception e) {}
-    markerRef = null;
-
-    // Prepare for the next waitForGc().
-    reset();
+  private boolean isLive(int numberOfExpectedFinalizations) {
+    int numberFinalized = 0;
+    for (int i = 0, n = mList.size(); i < n; i++) {
+      if (mList.get(i).isEnqueued()) {
+        numberFinalized++;
+      }
+    }
+    return numberFinalized < numberOfExpectedFinalizations;
   }
 }
