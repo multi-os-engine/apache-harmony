@@ -30,7 +30,7 @@ import org.apache.harmony.jpda.tests.share.JPDADebuggeeSynchronizer;
 import org.apache.harmony.jpda.tests.share.SyncDebuggee;
 
 public class IsCollectedDebuggee extends SyncDebuggee {
-    
+
     static IsCollectedObject001_01 checkedObject_01;
     static volatile boolean checkedObject_01_Finalized = false;
     static IsCollectedObject001_02 checkedObject_02;
@@ -43,11 +43,15 @@ public class IsCollectedDebuggee extends SyncDebuggee {
     @Override
     public void run() {
         logWriter.println("--> Debuggee: IsCollectedDebuggee: START");
-        
+
         checkedObject_01 = new IsCollectedObject001_01();
         checkedObject_02 = new IsCollectedObject001_02();
         checkedObject_03 = new IsCollectedObject001_03();
+
         marker = new GcMarker();
+        marker.add(checkedObject_01);
+        marker.add(checkedObject_02);
+        marker.add(checkedObject_03);
 
         synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_READY);
         String messageFromTest = synchronizer.receiveMessage();
@@ -55,17 +59,26 @@ public class IsCollectedDebuggee extends SyncDebuggee {
             logWriter.println("--> Debuggee: IsCollectedDebuggee: FINISH");
             return;
         }
-        
+
+        int numberOfExpectedFinalizations = 3;
+        if (messageFromTest.equals(JPDADebuggeeSynchronizer.SGNL_CONTINUE + "2")) {
+          numberOfExpectedFinalizations = 2;
+        } else if (!messageFromTest.equals(JPDADebuggeeSynchronizer.SGNL_CONTINUE)) {
+          logWriter.println("--> Unexpected message: \"" + messageFromTest + "\"");
+          return;
+        }
+
         checkedObject_01 = null;
         checkedObject_02 = null;
         checkedObject_03 = null;
+
         long[][] longArray;
         int i = 0;
         try {
             longArray = new long[1000000][];
             int arraysNumberLimit = 7; // max - longArray.length
             logWriter.println
-            ("--> Debuggee: memory depletion - creating 'long[1000000]' arrays (" + arraysNumberLimit + ")..."); 
+            ("--> Debuggee: memory depletion - creating 'long[1000000]' arrays (" + arraysNumberLimit + ")...");
             for (; i < arraysNumberLimit; i++) {
                 longArray[i] = new long[1000000];
             }
@@ -75,20 +88,20 @@ public class IsCollectedDebuggee extends SyncDebuggee {
         }
         longArray = null;
 
-        marker.waitForGc();
+        marker.waitForGc(numberOfExpectedFinalizations);
 
         logWriter.println("--> Debuggee: AFTER System.gc():");
-        logWriter.println("--> Debuggee: checkedObject_01 = " + 
+        logWriter.println("--> Debuggee: checkedObject_01 = " +
                 checkedObject_01);
-        logWriter.println("--> Debuggee: checkedObject_01_UNLOADed = " + 
+        logWriter.println("--> Debuggee: checkedObject_01_UNLOADed = " +
                 checkedObject_01_Finalized);
-        logWriter.println("--> Debuggee: checkedObject_02 = " + 
+        logWriter.println("--> Debuggee: checkedObject_02 = " +
                 checkedObject_02);
-        logWriter.println("--> Debuggee: checkedObject_02_UNLOADed = " + 
+        logWriter.println("--> Debuggee: checkedObject_02_UNLOADed = " +
                 checkedObject_02_Finalized);
-        logWriter.println("--> Debuggee: checkedObject_03 = " + 
+        logWriter.println("--> Debuggee: checkedObject_03 = " +
                 checkedObject_03);
-        logWriter.println("--> Debuggee: checkedObject_03_UNLOADed = " + 
+        logWriter.println("--> Debuggee: checkedObject_03_UNLOADed = " +
                 checkedObject_03_Finalized);
 
         String messageForTest = null;
@@ -125,7 +138,7 @@ class IsCollectedObject001_01 {
         IsCollectedDebuggee.checkedObject_01_Finalized = true;
         super.finalize();
     }
-}   
+}
 
 class IsCollectedObject001_02 {
     @Override
@@ -133,7 +146,7 @@ class IsCollectedObject001_02 {
         IsCollectedDebuggee.checkedObject_02_Finalized = true;
         super.finalize();
     }
-}   
+}
 
 class IsCollectedObject001_03 {
     @Override
@@ -141,4 +154,4 @@ class IsCollectedObject001_03 {
         IsCollectedDebuggee.checkedObject_03_Finalized = true;
         super.finalize();
     }
-}   
+}
