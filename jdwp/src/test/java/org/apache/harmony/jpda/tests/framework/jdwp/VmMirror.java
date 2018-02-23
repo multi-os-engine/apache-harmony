@@ -468,6 +468,18 @@ public class VmMirror {
     }
 
     /**
+     * Indicates whether the non-standard capability <i>canRedefineDexClasses</i> is supported.
+     *
+     * @return true if supported, false otherwise.
+     */
+    public boolean canRedefineDexClasses() {
+        capabilities();
+        // This unused capability is used by android libjdwp agents to say if they can redefine
+        // classes using (single class) DEX files.
+        return targetVMCapabilities.reserved32;
+    }
+
+    /**
      * Resumes debuggee VM.
      * 
      * @return ReplyPacket for corresponding command
