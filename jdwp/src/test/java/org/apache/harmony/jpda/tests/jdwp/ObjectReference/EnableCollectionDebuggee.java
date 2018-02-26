@@ -58,9 +58,7 @@ public class EnableCollectionDebuggee extends SyncDebuggee {
         }
 
         int numberOfExpectedFinalizations = 2;
-        if (messageFromTest.equals(JPDADebuggeeSynchronizer.SGNL_CONTINUE + "1")) {
-          numberOfExpectedFinalizations = 1;
-        } else if (!messageFromTest.equals(JPDADebuggeeSynchronizer.SGNL_CONTINUE)) {
+        if (!messageFromTest.equals(JPDADebuggeeSynchronizer.SGNL_CONTINUE)) {
           logWriter.println("--> Unexpected message: \"" + messageFromTest + "\"");
           return;
         }
