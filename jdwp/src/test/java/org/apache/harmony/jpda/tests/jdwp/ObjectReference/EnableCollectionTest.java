@@ -132,7 +132,7 @@ public class EnableCollectionTest extends JDWPSyncTestCase {
 
         logWriter.println("=> Send to Debuggee signal to continue and try to unload checked ObjectID...");
         finalSyncMessage = null;
-        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE + "1");  // flag value
+        synchronizer.sendMessage(JPDADebuggeeSynchronizer.SGNL_CONTINUE);
         String messageFromDebuggee = synchronizer.receiveMessage();
         logWriter.println
         ("\n=> Received message from Debuggee = \"" + messageFromDebuggee + "\"" );
